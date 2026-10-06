@@ -130,7 +130,7 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
   // mode === 'error'
   return (
     <Box>
-      <Text color={'error' as keyof Theme}>Error: {props.message}</Text>
+      <Text color={'error' as keyof Theme}>错误：{props.message}</Text>
     </Box>
   );
 }

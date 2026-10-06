@@ -32,7 +32,7 @@ function SkillRow({ skill }: { skill: Skill }): React.ReactNode {
         Owner: {skill.owner}
         {skill.owner_symbol ? ` (${skill.owner_symbol})` : ''}
       </Text>
-      <Text dimColor>Created: {createdAt}</Text>
+      <Text dimColor>创建时间：{createdAt}</Text>
     </Box>
   );
 }
@@ -64,9 +64,9 @@ export function SkillStoreView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Skill: {skill.skill_id}</Text>
+          <Text bold>技能：{skill.skill_id}</Text>
         </Box>
-        <Text>Name: {skill.name}</Text>
+        <Text>名称：{skill.name}</Text>
         <Text>
           Owner: {skill.owner}
           {skill.owner_symbol ? ` (${skill.owner_symbol})` : ''}
@@ -78,9 +78,9 @@ export function SkillStoreView(props: Props): React.ReactNode {
           </Text>
         </Text>
         {skill.allowed_tools && skill.allowed_tools.length > 0 ? (
-          <Text>Allowed tools: {skill.allowed_tools.join(', ')}</Text>
+          <Text>允许的工具：{skill.allowed_tools.join(', ')}</Text>
         ) : null}
-        <Text dimColor>Created: {createdAt}</Text>
+        <Text dimColor>创建时间：{createdAt}</Text>
       </Box>
     );
   }
@@ -106,7 +106,7 @@ export function SkillStoreView(props: Props): React.ReactNode {
           return (
             <Box key={ver.version} flexDirection="column" marginBottom={1}>
               <Text bold>{ver.version}</Text>
-              <Text dimColor>Created: {createdAt}</Text>
+              <Text dimColor>创建时间：{createdAt}</Text>
               <Text dimColor>{ver.body.length > 80 ? `${ver.body.slice(0, 80)}…` : ver.body}</Text>
             </Box>
           );
@@ -125,7 +125,7 @@ export function SkillStoreView(props: Props): React.ReactNode {
             Version: {version.version} (skill: {version.skill_id})
           </Text>
         </Box>
-        <Text dimColor>Created: {createdAt}</Text>
+        <Text dimColor>创建时间：{createdAt}</Text>
         <Box marginTop={1}>
           <Text>{version.body}</Text>
         </Box>
@@ -142,8 +142,8 @@ export function SkillStoreView(props: Props): React.ReactNode {
             技能已创建
           </Text>
         </Box>
-        <Text>ID: {skill.skill_id}</Text>
-        <Text>Name: {skill.name}</Text>
+        <Text>ID：{skill.skill_id}</Text>
+        <Text>名称：{skill.name}</Text>
       </Box>
     );
   }
@@ -164,9 +164,9 @@ export function SkillStoreView(props: Props): React.ReactNode {
             技能已安装
           </Text>
         </Box>
-        <Text>Name: {props.skillName}</Text>
-        <Text dimColor>Path: {props.path}</Text>
-        <Text dimColor>Load with: /skills (bundled skills are not auto-loaded; place in {props.path})</Text>
+        <Text>名称：{props.skillName}</Text>
+        <Text dimColor>路径：{props.path}</Text>
+        <Text dimColor>加载方式：/skills（内置技能不会自动加载；请放到 {props.path})</Text>
       </Box>
     );
   }

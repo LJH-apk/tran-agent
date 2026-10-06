@@ -25,7 +25,7 @@ function StoreRow({ store }: { store: MemoryStore }): React.ReactNode {
       <Box>
         <Text bold>{store.memory_store_id}</Text>
         <Text dimColor> · </Text>
-        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '已启用'}</Text>
+        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? '已归档' : '已启用'}</Text>
         {store.namespace ? (
           <>
             <Text dimColor> · ns: </Text>
@@ -33,8 +33,8 @@ function StoreRow({ store }: { store: MemoryStore }): React.ReactNode {
           </>
         ) : null}
       </Box>
-      <Text>Name: {store.name}</Text>
-      <Text dimColor>Created: {createdAt}</Text>
+      <Text>名称：{store.name}</Text>
+      <Text dimColor>创建时间：{createdAt}</Text>
     </Box>
   );
 }
@@ -68,16 +68,16 @@ export function MemoryStoresView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Memory Store: {store.memory_store_id}</Text>
+          <Text bold>记忆库：{store.memory_store_id}</Text>
         </Box>
-        <Text>Name: {store.name}</Text>
-        {store.namespace ? <Text>Namespace: {store.namespace}</Text> : null}
+        <Text>名称：{store.name}</Text>
+        {store.namespace ? <Text>命名空间：{store.namespace}</Text> : null}
         <Text>
-          Status:{' '}
-          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : 'active'}</Text>
+          状态：{' '}
+          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? '已归档' : '使用中'}</Text>
         </Text>
-        <Text dimColor>Created: {createdAt}</Text>
-        {archivedAt ? <Text dimColor>Archived: {archivedAt}</Text> : null}
+        <Text dimColor>创建时间：{createdAt}</Text>
+        {archivedAt ? <Text dimColor>已归档：{archivedAt}</Text> : null}
       </Box>
     );
   }
@@ -91,9 +91,9 @@ export function MemoryStoresView(props: Props): React.ReactNode {
             记忆库已创建
           </Text>
         </Box>
-        <Text>ID: {store.memory_store_id}</Text>
-        <Text>Name: {store.name}</Text>
-        {store.namespace ? <Text>Namespace: {store.namespace}</Text> : null}
+        <Text>ID：{store.memory_store_id}</Text>
+        <Text>名称：{store.name}</Text>
+        {store.namespace ? <Text>命名空间：{store.namespace}</Text> : null}
       </Box>
     );
   }
@@ -108,8 +108,8 @@ export function MemoryStoresView(props: Props): React.ReactNode {
             记忆库已归档
           </Text>
         </Box>
-        <Text>ID: {store.memory_store_id}</Text>
-        <Text dimColor>Archived at: {archivedAt}</Text>
+        <Text>ID：{store.memory_store_id}</Text>
+        <Text dimColor>归档时间：{archivedAt}</Text>
       </Box>
     );
   }
@@ -149,12 +149,12 @@ export function MemoryStoresView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Memory: {memory.memory_id}</Text>
+          <Text bold>记忆：{memory.memory_id}</Text>
         </Box>
-        <Text>Store: {memory.memory_store_id}</Text>
-        <Text>Content: {memory.content}</Text>
-        <Text dimColor>Created: {createdAt}</Text>
-        <Text dimColor>Updated: {updatedAt}</Text>
+        <Text>所属记忆库：{memory.memory_store_id}</Text>
+        <Text>内容：{memory.content}</Text>
+        <Text dimColor>创建时间：{createdAt}</Text>
+        <Text dimColor>更新时间：{updatedAt}</Text>
       </Box>
     );
   }
@@ -168,9 +168,9 @@ export function MemoryStoresView(props: Props): React.ReactNode {
             记忆已创建
           </Text>
         </Box>
-        <Text>ID: {memory.memory_id}</Text>
-        <Text>Store: {memory.memory_store_id}</Text>
-        <Text dimColor>Content: {memory.content}</Text>
+        <Text>ID：{memory.memory_id}</Text>
+        <Text>所属记忆库：{memory.memory_store_id}</Text>
+        <Text dimColor>内容：{memory.content}</Text>
       </Box>
     );
   }
@@ -184,8 +184,8 @@ export function MemoryStoresView(props: Props): React.ReactNode {
             记忆已更新
           </Text>
         </Box>
-        <Text>ID: {memory.memory_id}</Text>
-        <Text dimColor>Content: {memory.content}</Text>
+        <Text>ID：{memory.memory_id}</Text>
+        <Text dimColor>内容：{memory.content}</Text>
       </Box>
     );
   }
@@ -230,7 +230,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
                   </>
                 ) : null}
               </Box>
-              <Text dimColor>Created: {createdAt}</Text>
+              <Text dimColor>创建时间：{createdAt}</Text>
             </Box>
           );
         })}
@@ -248,8 +248,8 @@ export function MemoryStoresView(props: Props): React.ReactNode {
             版本已脱敏
           </Text>
         </Box>
-        <Text>ID: {version.version_id}</Text>
-        <Text dimColor>Redacted at: {redactedAt}</Text>
+        <Text>ID：{version.version_id}</Text>
+        <Text dimColor>脱敏时间：{redactedAt}</Text>
       </Box>
     );
   }

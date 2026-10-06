@@ -21,10 +21,10 @@ function VaultRow({ vault }: { vault: Vault }): React.ReactNode {
       <Box>
         <Text bold>{vault.vault_id}</Text>
         <Text dimColor> · </Text>
-        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '启用中'}</Text>
+        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? '已归档' : '启用中'}</Text>
       </Box>
-      <Text>Name: {vault.name}</Text>
-      <Text dimColor>Created: {createdAt}</Text>
+      <Text>名称：{vault.name}</Text>
+      <Text dimColor>创建时间：{createdAt}</Text>
     </Box>
   );
 }
@@ -58,15 +58,15 @@ export function VaultView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Vault: {vault.vault_id}</Text>
+          <Text bold>保险库：{vault.vault_id}</Text>
         </Box>
-        <Text>Name: {vault.name}</Text>
+        <Text>名称：{vault.name}</Text>
         <Text>
           状态： {' '}
-          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '启用中'}</Text>
+          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? '已归档' : '启用中'}</Text>
         </Text>
-        <Text dimColor>Created: {createdAt}</Text>
-        {archivedAt ? <Text dimColor>Archived: {archivedAt}</Text> : null}
+        <Text dimColor>创建时间：{createdAt}</Text>
+        {archivedAt ? <Text dimColor>已归档：{archivedAt}</Text> : null}
       </Box>
     );
   }
@@ -80,8 +80,8 @@ export function VaultView(props: Props): React.ReactNode {
             保险库已创建
           </Text>
         </Box>
-        <Text>ID: {vault.vault_id}</Text>
-        <Text>Name: {vault.name}</Text>
+        <Text>ID：{vault.vault_id}</Text>
+        <Text>名称：{vault.name}</Text>
       </Box>
     );
   }
@@ -96,8 +96,8 @@ export function VaultView(props: Props): React.ReactNode {
             保险库已归档
           </Text>
         </Box>
-        <Text>ID: {vault.vault_id}</Text>
-        <Text dimColor>Archived at: {archivedAt}</Text>
+        <Text>ID：{vault.vault_id}</Text>
+        <Text dimColor>归档时间：{archivedAt}</Text>
       </Box>
     );
   }
@@ -153,8 +153,8 @@ export function VaultView(props: Props): React.ReactNode {
             凭据已添加
           </Text>
         </Box>
-        <Text>ID: {credentialId}</Text>
-        <Text>Vault: {vaultId}</Text>
+        <Text>ID：{credentialId}</Text>
+        <Text>保险库：{vaultId}</Text>
         {/* SECURITY: credential value is never echoed back */}
         <Text dimColor>值：***已遮蔽***</Text>
       </Box>
@@ -170,8 +170,8 @@ export function VaultView(props: Props): React.ReactNode {
             凭据已归档
           </Text>
         </Box>
-        <Text>ID: {credentialId}</Text>
-        <Text>Vault: {vaultId}</Text>
+        <Text>ID：{credentialId}</Text>
+        <Text>保险库：{vaultId}</Text>
       </Box>
     );
   }

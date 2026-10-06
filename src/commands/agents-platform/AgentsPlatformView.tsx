@@ -21,9 +21,9 @@ function AgentRow({ agent }: { agent: AgentTrigger }): React.ReactNode {
         <Text dimColor> · </Text>
         <Text color={'suggestion' as keyof Theme}>{agent.status}</Text>
       </Box>
-      <Text>Schedule: {schedule}</Text>
-      <Text dimColor>Prompt: {agent.prompt}</Text>
-      <Text dimColor>Next run: {nextRun}</Text>
+      <Text>调度：{schedule}</Text>
+      <Text dimColor>提示词：{agent.prompt}</Text>
+      <Text dimColor>下次运行：{nextRun}</Text>
     </Box>
   );
 }
@@ -60,10 +60,10 @@ export function AgentsPlatformView(props: Props): React.ReactNode {
             智能体已创建
           </Text>
         </Box>
-        <Text>ID: {props.agent.id}</Text>
-        <Text>Schedule: {schedule}</Text>
-        <Text>Prompt: {props.agent.prompt}</Text>
-        <Text dimColor>Status: {props.agent.status}</Text>
+        <Text>ID：{props.agent.id}</Text>
+        <Text>调度：{schedule}</Text>
+        <Text>提示词：{props.agent.prompt}</Text>
+        <Text dimColor>状态：{props.agent.status}</Text>
       </Box>
     );
   }
@@ -82,7 +82,7 @@ export function AgentsPlatformView(props: Props): React.ReactNode {
         <Box>
           <Text color={'success' as keyof Theme}>Agent {props.id} triggered.</Text>
         </Box>
-        <Text dimColor>Run ID: {props.runId}</Text>
+        <Text dimColor>运行 ID：{props.runId}</Text>
       </Box>
     );
   }

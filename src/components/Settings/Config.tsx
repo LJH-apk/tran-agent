@@ -1217,12 +1217,24 @@ export function Config({
     }
     // Log any changes that were made
     // TODO: Make these proper messages
+    // 这些 key 既是显示文案也是 tengu_config_changed 埋点的字段名，埋点那侧
+    // 保持英文，只在渲染时映射成中文标签。
+    const changeLabels: Record<string, string> = {
+      model: '模型',
+      verbose: '详细输出',
+      defaultPermissionMode: '默认权限模式',
+      teammateDefaultModel: '默认同伴模型',
+      'Fast mode': '快速模式',
+      'Use auto mode during plan': '计划模式下使用自动模式',
+      'Default view': '默认视图',
+    };
     const formattedChanges: string[] = Object.entries(changes).map(([key, value]) => {
       logEvent('tengu_config_changed', {
         key: key as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
         value: value as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      return `将 ${key} 设为 ${chalk.bold(value)}`;
+      const display = typeof value === 'boolean' ? (value ? '开启' : '关闭') : String(value);
+      return `将 ${changeLabels[key] ?? key} 设为 ${chalk.bold(display)}`;
     });
     // Check for API key changes
     // On homespace, ANTHROPIC_API_KEY is preserved in process.env for child
@@ -1237,7 +1249,7 @@ export function Config({
         globalConfig.customApiKeyResponses?.approved?.includes(normalizeApiKeyForConfig(effectiveApiKey)),
     );
     if (initialUsingCustomKey !== currentUsingCustomKey) {
-      formattedChanges.push(`${currentUsingCustomKey ? 'Enabled' : 'Disabled'} custom API key`);
+      formattedChanges.push(`自定义 API 密钥：${currentUsingCustomKey ? '开启' : '关闭'}`);
       logEvent('tengu_config_changed', {
         key: 'env.ANTHROPIC_API_KEY' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
         value: currentUsingCustomKey as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
@@ -1262,43 +1274,43 @@ export function Config({
       formattedChanges.push(`将差异对比工具设为 ${chalk.bold(globalConfig.diffTool)}`);
     }
     if (globalConfig.autoConnectIde !== initialConfig.current.autoConnectIde) {
-      formattedChanges.push(`${globalConfig.autoConnectIde ? 'Enabled' : 'Disabled'} auto-connect to IDE`);
+      formattedChanges.push(`IDE 自动连接：${globalConfig.autoConnectIde ? '开启' : '关闭'}`);
     }
     if (globalConfig.autoInstallIdeExtension !== initialConfig.current.autoInstallIdeExtension) {
       formattedChanges.push(
-        `${globalConfig.autoInstallIdeExtension ? 'Enabled' : 'Disabled'} auto-install IDE extension`,
+        `IDE 扩展自动安装：${globalConfig.autoInstallIdeExtension ? '开启' : '关闭'}`,
       );
     }
     if (globalConfig.autoCompactEnabled !== initialConfig.current.autoCompactEnabled) {
-      formattedChanges.push(`${globalConfig.autoCompactEnabled ? 'Enabled' : 'Disabled'} auto-compact`);
+      formattedChanges.push(`自动压缩：${globalConfig.autoCompactEnabled ? '开启' : '关闭'}`);
     }
     if (globalConfig.respectGitignore !== initialConfig.current.respectGitignore) {
       formattedChanges.push(
-        `${globalConfig.respectGitignore ? 'Enabled' : 'Disabled'} respect .gitignore in file picker`,
+        `文件选择器遵循 .gitignore：${globalConfig.respectGitignore ? '开启' : '关闭'}`,
       );
     }
     if (globalConfig.copyFullResponse !== initialConfig.current.copyFullResponse) {
-      formattedChanges.push(`${globalConfig.copyFullResponse ? 'Enabled' : 'Disabled'} always copy full response`);
+      formattedChanges.push(`始终复制完整回复：${globalConfig.copyFullResponse ? '开启' : '关闭'}`);
     }
     if (globalConfig.copyOnSelect !== initialConfig.current.copyOnSelect) {
-      formattedChanges.push(`${globalConfig.copyOnSelect ? 'Enabled' : 'Disabled'} copy on select`);
+      formattedChanges.push(`选中即复制：${globalConfig.copyOnSelect ? '开启' : '关闭'}`);
     }
     if (globalConfig.terminalProgressBarEnabled !== initialConfig.current.terminalProgressBarEnabled) {
       formattedChanges.push(
-        `${globalConfig.terminalProgressBarEnabled ? 'Enabled' : 'Disabled'} terminal progress bar`,
+        `终端进度条：${globalConfig.terminalProgressBarEnabled ? '开启' : '关闭'}`,
       );
     }
     if (globalConfig.showStatusInTerminalTab !== initialConfig.current.showStatusInTerminalTab) {
-      formattedChanges.push(`${globalConfig.showStatusInTerminalTab ? 'Enabled' : 'Disabled'} terminal tab status`);
+      formattedChanges.push(`终端标签页状态：${globalConfig.showStatusInTerminalTab ? '开启' : '关闭'}`);
     }
     if (globalConfig.showTurnDuration !== initialConfig.current.showTurnDuration) {
-      formattedChanges.push(`${globalConfig.showTurnDuration ? 'Enabled' : 'Disabled'} turn duration`);
+      formattedChanges.push(`回合耗时：${globalConfig.showTurnDuration ? '开启' : '关闭'}`);
     }
     if (globalConfig.remoteControlAtStartup !== initialConfig.current.remoteControlAtStartup) {
       const remoteLabel =
         globalConfig.remoteControlAtStartup === undefined
           ? '将远程控制重置为默认'
-          : `${globalConfig.remoteControlAtStartup ? 'Enabled' : 'Disabled'} Remote Control for all sessions`;
+          : `所有会话的远程控制：${globalConfig.remoteControlAtStartup ? '开启' : '关闭'}`;
       formattedChanges.push(remoteLabel);
     }
     if (settingsData?.autoUpdatesChannel !== initialSettingsData.current?.autoUpdatesChannel) {
