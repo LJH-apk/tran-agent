@@ -55,7 +55,7 @@ export function WebFetchPermissionRequest({
       result.push({
         label: (
           <Text>
-            Yes, and don&apos;t ask again for <Text bold>{hostname}</Text>
+            是，且不再询问 <Text bold>{hostname}</Text>
           </Text>
         ),
         value: 'yes-dont-ask-again-domain',
@@ -65,7 +65,7 @@ export function WebFetchPermissionRequest({
     result.push({
       label: (
         <Text>
-          No, and tell Claude what to do differently <Text bold>(esc)</Text>
+          不，并告诉 Claude 该怎么做 <Text bold>(esc)</Text>
         </Text>
       ),
       value: 'no',

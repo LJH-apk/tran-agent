@@ -600,7 +600,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
 
           setChanges(prev => [
             ...prev,
-            `Added directory ${chalk.bold(path)} to workspace${remember ? ' and saved to local settings' : ' for this session'}`,
+            `已将目录 ${chalk.bold(path)} 加入工作区${remember ? '，并保存到本地设置' : '（仅本次会话）'}`,
           ]);
           setIsAddingWorkspaceDirectory(false);
         }}

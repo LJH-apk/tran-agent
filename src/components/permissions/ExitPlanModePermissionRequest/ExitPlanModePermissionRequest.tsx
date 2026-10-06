@@ -341,7 +341,7 @@ export function ExitPlanModePermissionRequest({
       });
       onDone();
       onReject();
-      toolUseConfirm.onReject('Plan being refined via Ultraplan — please wait for the result.');
+      toolUseConfirm.onReject('方案正由 Ultraplan 细化中，请稍候。');
       void launchUltraplan({
         blurb: '',
         seedPlan: currentPlan,

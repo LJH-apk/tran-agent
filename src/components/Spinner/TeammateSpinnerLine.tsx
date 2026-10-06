@@ -197,7 +197,7 @@ export function TeammateSpinnerLine({
       if (allIdle) {
         return (
           <Text dimColor>
-            {pastTenseVerb} for {displayTime}
+            {pastTenseVerb}，用时 {displayTime}
           </Text>
         );
       }

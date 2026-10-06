@@ -333,13 +333,13 @@ export function SelectInputOption<T>({
                   {imageAttachments.length > 1 && (
                     <>
                       <ConfigurableShortcutHint
-                        action="attachments:下一个"
+                        action="attachments:next"
                         context="Attachments"
                         fallback="→"
                         description="next"
                       />
                       <ConfigurableShortcutHint
-                        action="attachments:上一个ious"
+                        action="attachments:previous"
                         context="Attachments"
                         fallback="←"
                         description="prev"
@@ -347,7 +347,7 @@ export function SelectInputOption<T>({
                     </>
                   )}
                   <ConfigurableShortcutHint
-                    action="attachments:移除"
+                    action="attachments:remove"
                     context="Attachments"
                     fallback="backspace"
                     description="remove"

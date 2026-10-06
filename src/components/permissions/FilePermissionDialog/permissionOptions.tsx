@@ -81,7 +81,7 @@ export function getFilePermissionOptions({
   if (yesInputMode && onAcceptFeedbackChange) {
     options.push({
       type: 'input',
-      label: 'Yes',
+      label: '是',
       value: 'yes',
       placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
@@ -126,7 +126,7 @@ export function getFilePermissionOptions({
       } else {
         sessionLabel = (
           <Text>
-            Yes, allow all edits during this session <Text bold>({modeCycleShortcut})</Text>
+            是，本次会话内允许所有修改 <Text bold>({modeCycleShortcut})</Text>
           </Text>
         );
       }
@@ -138,13 +138,13 @@ export function getFilePermissionOptions({
       if (operationType === 'read') {
         sessionLabel = (
           <Text>
-            Yes, allow reading from <Text bold>{dirName}/</Text> during this session
+            是，本次会话内允许读取 <Text bold>{dirName}/</Text>
           </Text>
         );
       } else {
         sessionLabel = (
           <Text>
-            Yes, allow all edits in <Text bold>{dirName}/</Text> during this session{' '}
+            是，本次会话内允许修改 <Text bold>{dirName}/</Text>{' '}
             <Text bold>({modeCycleShortcut})</Text>
           </Text>
         );
@@ -162,7 +162,7 @@ export function getFilePermissionOptions({
   if (noInputMode && onRejectFeedbackChange) {
     options.push({
       type: 'input',
-      label: 'No',
+      label: '否',
       value: 'no',
       placeholder: '并告诉 Claude 换一种做法',
       onChange: onRejectFeedbackChange,

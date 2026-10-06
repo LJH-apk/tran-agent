@@ -2007,8 +2007,8 @@ export function Config({
           {headerFocused ? (
             <Text dimColor>
               <Byline>
-                <KeyboardShortcutHint shortcut="←/→ tab" action="switch" />
-                <KeyboardShortcutHint shortcut="↓" action="return" />
+                <KeyboardShortcutHint shortcut="←/→ tab" action="切换" />
+                <KeyboardShortcutHint shortcut="↓" action="返回" />
                 <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="关闭" />
               </Byline>
             </Text>
@@ -2017,7 +2017,7 @@ export function Config({
               <Byline>
                 <Text>输入以筛选</Text>
                 <KeyboardShortcutHint shortcut="Enter/↓" action="选择" />
-                <KeyboardShortcutHint shortcut="↑" action="tabs" />
+                <KeyboardShortcutHint shortcut="↑" action="标签页" />
                 <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="清除" />
               </Byline>
             </Text>
@@ -2037,7 +2037,7 @@ export function Config({
                   description="保存"
                 />
                 <ConfigurableShortcutHint
-                  action="settings:搜索"
+                  action="settings:search"
                   context="Settings"
                   fallback="/"
                   description="search"

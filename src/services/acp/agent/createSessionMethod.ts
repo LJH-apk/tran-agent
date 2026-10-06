@@ -198,38 +198,38 @@ async function createSession(
     const availableModes = [
       {
         id: 'default',
-        name: 'Default',
-        description: 'Standard behavior, prompts for dangerous operations',
+        name: '默认',
+        description: '标准行为，危险操作会请求确认',
       },
       {
         id: 'acceptEdits',
-        name: 'Accept Edits',
-        description: 'Auto-accept file edit operations',
+        name: '接受编辑',
+        description: '自动接受文件编辑操作',
       },
       {
         id: 'plan',
-        name: 'Plan Mode',
-        description: 'Planning mode, no actual tool execution',
+        name: '计划模式',
+        description: '规划模式，不实际执行工具',
       },
       {
         id: 'auto',
-        name: 'Auto',
+        name: '自动',
         description:
-          'Use a model classifier to approve/deny permission prompts.',
+          '由模型分类器批准或拒绝权限请求。',
       },
       ...(isBypassAvailable
         ? [
             {
               id: 'bypassPermissions' as const,
-              name: 'Bypass Permissions',
-              description: 'Skip all permission checks',
+              name: '绕过权限',
+              description: '跳过所有权限检查',
             },
           ]
         : []),
       {
         id: 'dontAsk',
-        name: "Don't Ask",
-        description: "Don't prompt for permissions, deny if not pre-approved",
+        name: '不询问',
+        description: '不弹出权限请求，未预先批准的即拒绝',
       },
     ]
 

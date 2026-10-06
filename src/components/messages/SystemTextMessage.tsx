@@ -315,7 +315,7 @@ function TurnDurationMessage({
         : `${formatNumber(tokens)} / ${formatNumber(limit)} (${Math.round((tokens / limit) * 100)}%)`;
     const nudges =
       (message.budgetNudges as number) > 0
-        ? ` \u00B7 ${message.budgetNudges as number} ${(message.budgetNudges as number) === 1 ? 'nudge' : 'nudges'}`
+        ? ` \u00B7 ${message.budgetNudges as number} '次提醒'`
         : '';
     return `${showTurnDuration ? ' \u00B7 ' : ''}${usage}${nudges}`;
   })();
@@ -332,7 +332,7 @@ function TurnDurationMessage({
       <Text dimColor>
         {showTurnDuration && `${verb}，用时 ${duration}`}
         {budgetSuffix}
-        {backgroundTaskSummary && ` \u00B7 ${backgroundTaskSummary} still running`}
+        {backgroundTaskSummary && ` \u00B7 ${backgroundTaskSummary} 仍在运行`}
       </Text>
     </Box>
   );

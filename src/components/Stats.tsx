@@ -214,7 +214,7 @@ function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.Rea
     <Pane color="claude">
       <Box flexDirection="row" gap={1} marginBottom={1}>
         <Tabs title="" color="claude" defaultTab="概览">
-          <Tab title="Overview">
+          <Tab title="概览">
             <OverviewTab
               stats={displayStats}
               allTimeStats={allTimeStats}

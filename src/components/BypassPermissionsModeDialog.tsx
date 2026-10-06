@@ -54,17 +54,15 @@ export function BypassPermissionsModeDialog({ onAccept }: Props): React.ReactNod
   }
 
   return (
-    <Dialog title="警告：Claude Code 正在以 Bypass Permissions 模式运行" color="error" onCancel={handleEscape}>
+    <Dialog title="警告：Claude Code 正在以「绕过权限」模式运行" color="error" onCancel={handleEscape}>
       <Box flexDirection="column" gap={1}>
         <Text>
-          In Bypass Permissions mode, Claude Code will not ask for your approval before running potentially dangerous
-          commands.
+          在绕过权限模式下，Claude Code 执行有潜在危险的命令前不会再征求你的同意。
           <Newline />
-          This mode should only be used in a sandboxed container/VM that has restricted internet access and can easily
-          be restored if damaged.
+          该模式只应在沙箱容器或虚拟机中使用，且需限制外网访问、损坏后能快速恢复。
         </Text>
         <Text>
-          继续即表示你接受在 Bypass Permissions 模式下运行时所有操作的责任。
+          继续即表示你接受在绕过权限模式下运行的所有操作责任。
         </Text>
 
         <Link url="https://code.claude.com/docs/en/security" />

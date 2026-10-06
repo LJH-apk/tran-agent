@@ -44,7 +44,7 @@ export function WorkflowPermissionRequest({
       opts.push({
         label: (
           <Text>
-            Yes, and don{'\u2019'}t ask again for <Text bold>{toolUseConfirm.tool.name}</Text> commands
+            是，且不再询问 <Text bold>{toolUseConfirm.tool.name}</Text> 命令
           </Text>
         ),
         value: 'yes-dont-ask-again',

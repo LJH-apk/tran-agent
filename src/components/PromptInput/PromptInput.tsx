@@ -955,7 +955,7 @@ function PromptInput({
           key: 'stash-hint',
           jsx: (
             <Text dimColor>
-              提示： <ConfigurableShortcutHint action="chat:stash" context="Chat" fallback="ctrl+s" description="stash" />
+              提示： <ConfigurableShortcutHint action="chat:stash" context="Chat" fallback="ctrl+s" description="暂存" />
             </Text>
           ),
           priority: 'immediate',

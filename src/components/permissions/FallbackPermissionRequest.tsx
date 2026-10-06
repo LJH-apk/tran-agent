@@ -129,7 +129,7 @@ export function FallbackPermissionRequest({
       result.push({
         label: (
           <Text>
-            Yes, and don&apos;t ask again for <Text bold>{userFacingName}</Text> commands in{' '}
+            是，且不再询问 <Text bold>{userFacingName}</Text> 命令，位于{' '}
             <Text bold>{originalCwd}</Text>
           </Text>
         ),

@@ -498,7 +498,7 @@ function ErrorsTabContent({
         </Box>
         <Box marginTop={1}>
           <Text dimColor italic>
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
           </Text>
         </Box>
       </Box>
@@ -539,7 +539,7 @@ function ErrorsTabContent({
       <Box marginTop={1}>
         <Text dimColor italic>
           <Byline>
-            <ConfigurableShortcutHint action="select:previous" context="Select" fallback="↑" description="navigate" />
+            <ConfigurableShortcutHint action="select:previous" context="Select" fallback="↑" description="导航" />
             {hasAction && (
               <ConfigurableShortcutHint
                 action="select:accept"
@@ -548,7 +548,7 @@ function ErrorsTabContent({
                 description="resolve"
               />
             )}
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
           </Byline>
         </Text>
       </Box>

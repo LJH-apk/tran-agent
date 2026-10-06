@@ -67,7 +67,7 @@ export function bashToolUseOptions({
   if (yesInputMode) {
     options.push({
       type: 'input',
-      label: 'Yes',
+      label: '是',
       value: 'yes',
       placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
@@ -75,7 +75,7 @@ export function bashToolUseOptions({
     });
   } else {
     options.push({
-      label: 'Yes',
+      label: '是',
       value: 'yes',
     });
   }
@@ -147,7 +147,7 @@ export function bashToolUseOptions({
   if (noInputMode) {
     options.push({
       type: 'input',
-      label: 'No',
+      label: '否',
       value: 'no',
       placeholder: '并告诉 Claude 换一种做法',
       onChange: onRejectFeedbackChange,

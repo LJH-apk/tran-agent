@@ -129,7 +129,7 @@ export function Usage(): React.ReactNode {
         <Text color="error">错误： {error}</Text>
         <Text dimColor>
           <Byline>
-            <ConfigurableShortcutHint action="settings:重试" context="Settings" fallback="r" description="retry" />
+            <ConfigurableShortcutHint action="settings:retry" context="Settings" fallback="r" description="重试" />
             <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="取消" />
           </Byline>
         </Text>

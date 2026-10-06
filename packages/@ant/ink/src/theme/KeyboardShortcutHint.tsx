@@ -41,13 +41,13 @@ export function KeyboardShortcutHint({ shortcut, action, parens = false, bold = 
   if (parens) {
     return (
       <Text>
-        ({shortcutText} to {action})
+        ({shortcutText} {action})
       </Text>
     );
   }
   return (
     <Text>
-      {shortcutText} to {action}
+      {shortcutText} {action}
     </Text>
   );
 }

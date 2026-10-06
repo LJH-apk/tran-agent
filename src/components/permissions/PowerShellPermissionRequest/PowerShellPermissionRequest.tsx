@@ -256,7 +256,7 @@ export function PowerShellPermissionRequest(props: PermissionRequestProps): Reac
               按 Esc 取消
               {((focusedOption === 'yes' && !yesInputMode) || (focusedOption === 'no' && !noInputMode)) &&
                 ' · 按 Tab 补充说明'}
-              {explainerState.enabled && ` · ctrl+e to ${explainerState.visible ? 'hide' : 'explain'}`}
+              {explainerState.enabled && ` · ctrl+e ${explainerState.visible ? '收起说明' : '解释'}`}
             </Text>
             {toolUseContext.options.debug && <Text dimColor>按 Ctrl+d 显示调试信息</Text>}
           </Box>

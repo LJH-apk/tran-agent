@@ -470,7 +470,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
               onCancel={goBackToList}
               inputGuide={() => (
                 <Byline>
-                  <KeyboardShortcutHint shortcut="←" action="go back" />
+                  <KeyboardShortcutHint shortcut="←" action="返回" />
                   <KeyboardShortcutHint shortcut="Esc" action="关闭" />
                   {onKill && <KeyboardShortcutHint shortcut="x" action="停止" />}
                 </Byline>
@@ -553,7 +553,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
     <KeyboardShortcutHint key="upDown" shortcut="↑/↓" action="选择" />,
     <KeyboardShortcutHint key="enter" shortcut="Enter" action="查看" />,
     ...(currentSelection?.type === 'in_process_teammate' && currentSelection.status === 'running'
-      ? [<KeyboardShortcutHint key="切换到前台" shortcut="f" action="foreground" />]
+      ? [<KeyboardShortcutHint key="切换到前台" shortcut="f" action="切到前台" />]
       : []),
     ...((currentSelection?.type === 'local_bash' ||
       currentSelection?.type === 'local_agent' ||

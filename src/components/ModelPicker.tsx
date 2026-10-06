@@ -320,7 +320,7 @@ export function ModelPicker({
           ) : (
             <Byline>
               <KeyboardShortcutHint shortcut="Enter" action="确认" />
-              <ConfigurableShortcutHint action="select:cancel" context="Select" fallback="Esc" description="exit" />
+              <ConfigurableShortcutHint action="select:cancel" context="Select" fallback="Esc" description="退出" />
             </Byline>
           )}
         </Text>

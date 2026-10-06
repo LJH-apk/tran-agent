@@ -96,7 +96,7 @@ const externalTips: Tip[] = [
   {
     id: 'new-user-warmup',
     content: async () =>
-      `Start with small features or bug fixes, tell Claude to propose a plan, and verify its suggested edits`,
+      `从小功能或 bug 修复入手，让 Claude 先给方案，再核对它建议的改动`,
     cooldownSessions: 3,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -106,7 +106,7 @@ const externalTips: Tip[] = [
   {
     id: 'plan-mode-for-complex-tasks',
     content: async () =>
-      `Use Plan Mode to prepare for a complex request before making changes. Press ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} twice to enable.`,
+      `改动之前，先用计划模式把复杂需求理清。连按两次 ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} 即可开启。`,
     cooldownSessions: 5,
     isRelevant: async () => {
       const config = getGlobalConfig()
@@ -120,7 +120,7 @@ const externalTips: Tip[] = [
   {
     id: 'default-permission-mode-config',
     content: async () =>
-      `Use /config to change your default permission mode (including Plan Mode)`,
+      `用 /config 修改默认权限模式（含计划模式）`,
     cooldownSessions: 10,
     isRelevant: async () => {
       try {
@@ -142,7 +142,7 @@ const externalTips: Tip[] = [
   {
     id: 'git-worktrees',
     content: async () =>
-      'Use git worktrees to run multiple Claude sessions in parallel.',
+      '用 git worktree 并行跑多个 Claude 会话。',
     cooldownSessions: 10,
     isRelevant: async () => {
       try {
@@ -157,7 +157,7 @@ const externalTips: Tip[] = [
   {
     id: 'color-when-multi-clauding',
     content: async () =>
-      'Running multiple Claude sessions? Use /color and /rename to tell them apart at a glance.',
+      '同时开了多个 Claude 会话？用 /color 和 /rename 一眼区分。',
     cooldownSessions: 10,
     isRelevant: async () => {
       if (getCurrentSessionAgentColor()) return false
@@ -169,8 +169,8 @@ const externalTips: Tip[] = [
     id: 'terminal-setup',
     content: async () =>
       env.terminal === 'Apple_Terminal'
-        ? 'Run /terminal-setup to enable convenient terminal integration like Option + Enter for new line and more'
-        : 'Run /terminal-setup to enable convenient terminal integration like Shift + Enter for new line and more',
+        ? '运行 /terminal-setup 启用终端集成，例如用 Option + Enter 换行等'
+        : '运行 /terminal-setup 启用终端集成，例如用 Shift + Enter 换行等',
     cooldownSessions: 10,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -184,8 +184,8 @@ const externalTips: Tip[] = [
     id: 'shift-enter',
     content: async () =>
       env.terminal === 'Apple_Terminal'
-        ? 'Press Option+Enter to send a multi-line message'
-        : 'Press Shift+Enter to send a multi-line message',
+        ? '按 Option+Enter 发送多行消息'
+        : '按 Shift+Enter 发送多行消息',
     cooldownSessions: 10,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -200,8 +200,8 @@ const externalTips: Tip[] = [
     id: 'shift-enter-setup',
     content: async () =>
       env.terminal === 'Apple_Terminal'
-        ? 'Run /terminal-setup to enable Option+Enter for new lines'
-        : 'Run /terminal-setup to enable Shift+Enter for new lines',
+        ? '运行 /terminal-setup 以启用 Option+Enter 换行'
+        : '运行 /terminal-setup 以启用 Shift+Enter 换行',
     cooldownSessions: 10,
     async isRelevant() {
       if (!shouldOfferTerminalSetup()) {
@@ -215,7 +215,7 @@ const externalTips: Tip[] = [
   },
   {
     id: 'memory-command',
-    content: async () => 'Use /memory to view and manage Claude memory',
+    content: async () => '用 /memory 查看和管理 Claude 的记忆',
     cooldownSessions: 15,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -224,21 +224,21 @@ const externalTips: Tip[] = [
   },
   {
     id: 'theme-command',
-    content: async () => 'Use /theme to change the color theme',
+    content: async () => '用 /theme 更换配色主题',
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
   {
     id: 'colorterm-truecolor',
     content: async () =>
-      'Try setting environment variable COLORTERM=truecolor for richer colors',
+      '设置环境变量 COLORTERM=truecolor 可获得更丰富的色彩',
     cooldownSessions: 30,
     isRelevant: async () => !process.env.COLORTERM && chalk.level < 3,
   },
   {
     id: 'powershell-tool-env',
     content: async () =>
-      'PowerShell is the default shell on Windows. Set CLAUDE_CODE_USE_POWERSHELL_TOOL=0 or defaultShell=bash to prefer Bash/Git Bash instead.',
+      'Windows 上默认使用 PowerShell。设为 CLAUDE_CODE_USE_POWERSHELL_TOOL=0 或 defaultShell=bash 可改用 Bash/Git Bash。',
     cooldownSessions: 20,
     isRelevant: async () =>
       getPlatform() === 'windows' &&
@@ -248,14 +248,14 @@ const externalTips: Tip[] = [
   {
     id: 'status-line',
     content: async () =>
-      'Use /statusline to set up a custom status line that will display beneath the input box',
+      '用 /statusline 设置自定义状态栏，显示在输入框下方',
     cooldownSessions: 25,
     isRelevant: async () => getSettings_DEPRECATED().statusLine === undefined,
   },
   {
     id: 'prompt-queue',
     content: async () =>
-      'Hit Enter to queue up additional messages while Claude is working.',
+      'Claude 工作时按 Enter 可以把后续消息排进队列。',
     cooldownSessions: 5,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -265,21 +265,21 @@ const externalTips: Tip[] = [
   {
     id: 'enter-to-steer-in-relatime',
     content: async () =>
-      'Send messages to Claude while it works to steer Claude in real-time',
+      'Claude 工作时也能发消息，实时调整它的方向',
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
   {
     id: 'todo-list',
     content: async () =>
-      'Ask Claude to create a todo list when working on complex tasks to track progress and remain on track',
+      '处理复杂任务时可以让 Claude 建个待办清单，便于跟踪进度、不跑偏',
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
   {
     id: 'vscode-command-install',
     content: async () =>
-      `Open the Command Palette (Cmd+Shift+P) and run "Shell Command: Install '${env.terminal === 'vscode' ? 'code' : env.terminal}' command in PATH" to enable IDE integration`,
+      `打开命令面板（Cmd+Shift+P），运行 "Shell Command: Install '${env.terminal === 'vscode' ? 'code' : env.terminal}' command in PATH" 以启用 IDE 集成`,
     cooldownSessions: 0,
     async isRelevant() {
       // Only show this tip if we're in a VS Code-style terminal
@@ -305,7 +305,7 @@ const externalTips: Tip[] = [
   },
   {
     id: 'ide-upsell-external-terminal',
-    content: async () => 'Connect Claude to your IDE · /ide',
+    content: async () => '把 Claude 接入你的 IDE · /ide',
     cooldownSessions: 4,
     async isRelevant() {
       if (isSupportedTerminal()) {
@@ -325,20 +325,20 @@ const externalTips: Tip[] = [
   {
     id: 'install-github-app',
     content: async () =>
-      'Run /install-github-app to tag @claude right from your Github issues and PRs',
+      '运行 /install-github-app，直接在 GitHub issue 和 PR 里 @claude',
     cooldownSessions: 10,
     isRelevant: async () => !getGlobalConfig().githubActionSetupCount,
   },
   {
     id: 'install-slack-app',
-    content: async () => 'Run /install-slack-app to use Claude in Slack',
+    content: async () => '运行 /install-slack-app 在 Slack 里使用 Claude',
     cooldownSessions: 10,
     isRelevant: async () => !getGlobalConfig().slackAppInstallCount,
   },
   {
     id: 'permissions',
     content: async () =>
-      'Use /permissions to pre-approve and pre-deny bash, edit, and MCP tools',
+      '用 /permissions 预先放行或拒绝 bash、edit 和 MCP 工具',
     cooldownSessions: 10,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -348,42 +348,42 @@ const externalTips: Tip[] = [
   {
     id: 'drag-and-drop-images',
     content: async () =>
-      'Did you know you can drag and drop image files into your terminal?',
+      '你知道吗，图片文件可以直接拖进终端。',
     cooldownSessions: 10,
     isRelevant: async () => !env.isSSH(),
   },
   {
     id: 'paste-images-mac',
     content: async () =>
-      'Paste images into Claude Code using control+v (not cmd+v!)',
+      '往 Claude Code 里粘贴图片请用 control+v（不是 cmd+v！）',
     cooldownSessions: 10,
     isRelevant: async () => getPlatform() === 'macos',
   },
   {
     id: 'double-esc',
     content: async () =>
-      'Double-tap esc to rewind the conversation to a previous point in time',
+      '连按两次 esc 可把对话回退到之前的某个时间点',
     cooldownSessions: 10,
     isRelevant: async () => !fileHistoryEnabled(),
   },
   {
     id: 'double-esc-code-restore',
     content: async () =>
-      'Double-tap esc to rewind the code and/or conversation to a previous point in time',
+      '连按两次 esc 可把代码和/或对话回退到之前的某个时间点',
     cooldownSessions: 10,
     isRelevant: async () => fileHistoryEnabled(),
   },
   {
     id: 'continue',
     content: async () =>
-      'Run ccb --continue or ccb --resume to resume a conversation',
+      '运行 ccb --continue 或 ccb --resume 继续之前的对话',
     cooldownSessions: 10,
     isRelevant: async () => true,
   },
   {
     id: 'rename-conversation',
     content: async () =>
-      'Name your conversations with /rename to find them easily in /resume later',
+      '用 /rename 给对话起个名字，以后在 /resume 里好找',
     cooldownSessions: 15,
     isRelevant: async () =>
       isCustomTitleEnabled() && getGlobalConfig().numStartups > 10,
@@ -391,7 +391,7 @@ const externalTips: Tip[] = [
   {
     id: 'custom-commands',
     content: async () =>
-      'Create skills by adding .md files to .claude/skills/ in your project or ~/.claude/skills/ for skills that work in any project',
+      '把 .md 文件放进项目的 .claude/skills/ 或全局的 ~/.claude/skills/ 即可创建技能，后者在所有项目中可用',
     cooldownSessions: 15,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -401,21 +401,21 @@ const externalTips: Tip[] = [
   {
     id: 'shift-tab',
     content: async () =>
-      `Hit ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} to cycle between default, accept edits, plan, auto, and bypass modes`,
+      `按 ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} 在默认、接受编辑、计划、自动、绕过权限各模式间循环切换`,
     cooldownSessions: 10,
     isRelevant: async () => true,
   },
   {
     id: 'image-paste',
     content: async () =>
-      `Use ${getShortcutDisplay('chat:imagePaste', 'Chat', 'ctrl+v')} to paste images from your clipboard`,
+      `用 ${getShortcutDisplay('chat:imagePaste', 'Chat', 'ctrl+v')} 从剪贴板粘贴图片`,
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
   {
     id: 'custom-agents',
     content: async () =>
-      'Use /agents to optimize specific tasks. Eg. Software Architect, Code Writer, Code Reviewer',
+      '用 /agents 针对特定任务做优化，例如软件架构师、代码编写者、代码审查者',
     cooldownSessions: 15,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -425,7 +425,7 @@ const externalTips: Tip[] = [
   {
     id: 'agent-flag',
     content: async () =>
-      'Use --agent <agent_name> to directly start a conversation with a subagent',
+      '用 --agent <agent_name> 直接和某个子代理开始对话',
     cooldownSessions: 15,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -435,7 +435,7 @@ const externalTips: Tip[] = [
   {
     id: 'desktop-app',
     content: async () =>
-      'Run Claude Code locally or remotely using the Claude desktop app: clau.de/desktop',
+      '用 Claude 桌面版在本地或远程运行 Claude Code：clau.de/desktop',
     cooldownSessions: 15,
     isRelevant: async () => getPlatform() !== 'linux',
   },
@@ -443,7 +443,7 @@ const externalTips: Tip[] = [
     id: 'desktop-shortcut',
     content: async (ctx?) => {
       const blue = color('suggestion', ctx?.theme ?? 'dark')
-      return `Continue your session in Claude Code Desktop with ${blue('/desktop')}`
+      return `在 Claude Code 桌面版里继续这个会话：${blue('/desktop')}`
     },
     cooldownSessions: 15,
     isRelevant: async () => {
@@ -457,21 +457,21 @@ const externalTips: Tip[] = [
   {
     id: 'web-app',
     content: async () =>
-      'Run tasks in the cloud while you keep coding locally · clau.de/web',
+      '任务在云端跑，本地照常写代码 · clau.de/web',
     cooldownSessions: 15,
     isRelevant: async () => true,
   },
   {
     id: 'mobile-app',
     content: async () =>
-      '/mobile to use Claude Code from the Claude app on your phone',
+      '用 /mobile 在手机上的 Claude App 里使用 Claude Code',
     cooldownSessions: 15,
     isRelevant: async () => true,
   },
   {
     id: 'opusplan-mode-reminder',
     content: async () =>
-      `Your default model setting is Opus Plan Mode. Press ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} twice to activate Plan Mode and plan with Claude Opus.`,
+      `你的默认模型设置是 Opus 计划模式。连按两次 ${getShortcutDisplay('chat:cycleMode', 'Chat', 'shift+tab')} 开启计划模式，即可用 Claude Opus 做规划。`,
     cooldownSessions: 2,
     async isRelevant() {
       if (process.env.USER_TYPE === 'ant') return false
@@ -489,7 +489,7 @@ const externalTips: Tip[] = [
     id: 'frontend-design-plugin',
     content: async (ctx?) => {
       const blue = color('suggestion', ctx?.theme ?? 'dark')
-      return `Working with HTML/CSS? Install the frontend-design plugin:\n${blue(`/plugin install frontend-design@${OFFICIAL_MARKETPLACE_NAME}`)}`
+      return `在写 HTML/CSS？安装 frontend-design 插件：\n${blue(`/plugin install frontend-design@${OFFICIAL_MARKETPLACE_NAME}`)}`
     },
     cooldownSessions: 3,
     isRelevant: async (context?) =>
@@ -501,7 +501,7 @@ const externalTips: Tip[] = [
     id: 'vercel-plugin',
     content: async (ctx?) => {
       const blue = color('suggestion', ctx?.theme ?? 'dark')
-      return `Working with Vercel? Install the vercel plugin:\n${blue(`/plugin install vercel@${OFFICIAL_MARKETPLACE_NAME}`)}`
+      return `在用 Vercel？安装 vercel 插件：\n${blue(`/plugin install vercel@${OFFICIAL_MARKETPLACE_NAME}`)}`
     },
     cooldownSessions: 3,
     isRelevant: async (context?) =>
@@ -519,8 +519,8 @@ const externalTips: Tip[] = [
         'off' | 'copy_a' | 'copy_b'
       >('tengu_tide_elm', 'off')
       return variant === 'copy_b'
-        ? `Use ${cmd} for better one-shot answers. Claude thinks it through first.`
-        : `Working on something tricky? ${cmd} gives better first answers`
+        ? `用 ${cmd} 让一次成型的回答更靠谱，Claude 会先想清楚。`
+        : `遇到棘手的问题？${cmd} 能让首次回答更好`
     },
     cooldownSessions: 3,
     isRelevant: async () => {
@@ -548,8 +548,8 @@ const externalTips: Tip[] = [
         'off' | 'copy_a' | 'copy_b'
       >('tengu_tern_alloy', 'off')
       return variant === 'copy_b'
-        ? `For big tasks, tell Claude to ${blue('use subagents')}. They work in parallel and keep your main thread clean.`
-        : `Say ${blue('"fan out subagents"')} and Claude sends a team. Each one digs deep so nothing gets missed.`
+        ? `任务大时，可以让 Claude ${blue('使用子代理')}。它们并行干活，主线程不被塞满。`
+        : `说一句 ${blue('"fan out subagents"')}，Claude 就会派出一支队伍，各挖各的，不漏东西。`
     },
     cooldownSessions: 3,
     isRelevant: async () => {
@@ -570,8 +570,8 @@ const externalTips: Tip[] = [
         'off' | 'copy_a' | 'copy_b'
       >('tengu_timber_lark', 'off')
       return variant === 'copy_b'
-        ? `Use ${blue('/loop 5m check the deploy')} to run any prompt on a schedule. Set it and forget it.`
-        : `${blue('/loop')} runs any prompt on a recurring schedule. Great for monitoring deploys, babysitting PRs, or polling status.`
+        ? `用 ${blue('/loop 5m check the deploy')} 让任意提示词定时执行，设好就不管了。`
+        : `${blue('/loop')} 让任意提示词按周期反复执行，适合盯部署、守 PR、轮询状态。`
     },
     cooldownSessions: 3,
     isRelevant: async () => {
@@ -591,8 +591,8 @@ const externalTips: Tip[] = [
       const claude = color('claude', ctx?.theme ?? 'dark')
       const reward = getCachedReferrerReward()
       return reward
-        ? `Share Claude Code and earn ${claude(formatCreditAmount(reward))} of extra usage · ${claude('/passes')}`
-        : `You have free guest passes to share · ${claude('/passes')}`
+        ? `分享 Claude Code，可获 ${claude(formatCreditAmount(reward))} 额外用量 · ${claude('/passes')}`
+        : `你有免费的体验名额可以分享 · ${claude('/passes')}`
     },
     cooldownSessions: 3,
     isRelevant: async () => {
@@ -612,14 +612,14 @@ const externalTips: Tip[] = [
       const amount = info ? formatGrantAmount(info) : null
       if (!amount) return ''
       // Copy from "OC & Bulk Overages copy" doc (#5 — CLI Rotating tip)
-      return `${claude(`${amount} in extra usage, on us`)} · third-party apps · ${claude('/extra-usage')}`
+      return `${claude(`${amount} 额外用量，我们请客`)} · 第三方应用 · ${claude('/extra-usage')}`
     },
     cooldownSessions: 3,
     isRelevant: async () => shouldShowOverageCreditUpsell(),
   },
   {
     id: 'feedback-command',
-    content: async () => 'Use /feedback to help us improve!',
+    content: async () => '用 /feedback 帮我们改进！',
     cooldownSessions: 15,
     async isRelevant() {
       if (process.env.USER_TYPE === 'ant') {

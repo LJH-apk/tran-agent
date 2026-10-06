@@ -1054,7 +1054,7 @@ function ElicitationFormDialog({
           <Byline>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
             <KeyboardShortcutHint shortcut="↑↓" action="导航" />
-            {currentField && <KeyboardShortcutHint shortcut="Backspace" action="unset" />}
+            {currentField && <KeyboardShortcutHint shortcut="Backspace" action="清除" />}
             {currentField && currentField.schema.type === 'boolean' && (
               <KeyboardShortcutHint shortcut="Space" action="切换" />
             )}
@@ -1229,7 +1229,7 @@ function ElicitationURLDialog({
                 fallback="Esc"
                 description="取消"
               />
-              <KeyboardShortcutHint shortcut="\u2190\u2192" action="switch" />
+              <KeyboardShortcutHint shortcut="\u2190\u2192" action="切换" />
             </Byline>
           )
         }
@@ -1296,7 +1296,7 @@ function ElicitationURLDialog({
         ) : (
           <Byline>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
-            <KeyboardShortcutHint shortcut="\u2190\u2192" action="switch" />
+            <KeyboardShortcutHint shortcut="\u2190\u2192" action="切换" />
           </Byline>
         )
       }

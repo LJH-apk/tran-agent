@@ -65,7 +65,7 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
       alwaysAllowOptions.push({
         label: (
           <Text>
-            Yes, and don&apos;t ask again for <Text bold>{skill}</Text> in <Text bold>{originalCwd}</Text>
+            是，且不再询问 <Text bold>{skill}</Text>（位于 <Text bold>{originalCwd}</Text> 内）
           </Text>
         ),
         value: 'yes-exact',
@@ -78,7 +78,7 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
         alwaysAllowOptions.push({
           label: (
             <Text>
-              Yes, and don&apos;t ask again for <Text bold>{commandPrefix + ':*'}</Text> commands in{' '}
+              是，且不再询问 <Text bold>{commandPrefix + ':*'}</Text> 命令，位于{' '}
               <Text bold>{originalCwd}</Text>
             </Text>
           ),

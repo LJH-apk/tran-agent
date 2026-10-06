@@ -494,7 +494,7 @@ function BashPermissionRequestInner({
               </Box>
             )}
             <Text dimColor={feature('BASH_CLASSIFIER') ? toolUseConfirm.classifierAutoApproved : false}>
-              Do you want to proceed?
+              要继续吗？
             </Text>
             <Select
               options={
@@ -517,7 +517,7 @@ function BashPermissionRequestInner({
               按 Esc 拒绝
               {((focusedOption === 'yes' && !yesInputMode) || (focusedOption === 'no' && !noInputMode)) &&
                 ' · 按 Tab 补充说明'}
-              {explainerState.enabled && ` · ctrl+e to ${explainerState.visible ? 'hide' : 'explain'}`}
+              {explainerState.enabled && ` · ctrl+e ${explainerState.visible ? '收起说明' : '解释'}`}
             </Text>
             {toolUseContext.options.debug && <Text dimColor>按 Ctrl+d 显示调试信息</Text>}
           </Box>

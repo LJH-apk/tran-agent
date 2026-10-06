@@ -124,7 +124,7 @@ export function generateShellSuggestionsLabel(
     }
 
     // Multiple read paths
-    return <Text>Yes, allow reading from {formatPathList(readPaths)} from this project</Text>;
+    return <Text>是，允许本项目内读取 {formatPathList(readPaths)}</Text>;
   }
 
   if (hasDirectories && !hasReadPaths && !hasCommands) {
@@ -141,7 +141,7 @@ export function generateShellSuggestionsLabel(
     }
 
     // Multiple directories
-    return <Text>Yes, and always allow access to {formatPathList(directories)} from this project</Text>;
+    return <Text>是，并始终允许本项目内访问 {formatPathList(directories)}</Text>;
   }
 
   if (hasCommands && !hasDirectories && !hasReadPaths) {
@@ -160,7 +160,7 @@ export function generateShellSuggestionsLabel(
     const allPaths = [...directories, ...readPaths];
     if (hasDirectories && hasReadPaths) {
       // Mixed - use generic "access to"
-      return <Text>Yes, and always allow access to {formatPathList(allPaths)} from this project</Text>;
+      return <Text>是，并始终允许本项目内访问 {formatPathList(allPaths)}</Text>;
     }
   }
 
@@ -172,14 +172,14 @@ export function generateShellSuggestionsLabel(
     if (allPaths.length === 1 && shellCommands.length === 1) {
       return (
         <Text>
-          Yes, and allow access to {formatPathList(allPaths)} and {commandListDisplayTruncated(shellCommands)} commands
+          是，并允许访问 {formatPathList(allPaths)}，以及执行 {commandListDisplayTruncated(shellCommands)} 命令
         </Text>
       );
     }
 
     return (
       <Text>
-        Yes, and allow {formatPathList(allPaths)} access and {commandListDisplayTruncated(shellCommands)} commands
+        是，并允许访问 {formatPathList(allPaths)}，以及执行 {commandListDisplayTruncated(shellCommands)} 命令
       </Text>
     );
   }

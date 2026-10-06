@@ -650,7 +650,7 @@ describe('toolUpdateFromToolResult', () => {
       { content: 'ok', is_error: false, tool_use_id: 't1' },
       { name: 'ExitPlanMode', id: 't1' },
     )
-    expect(result.title).toBe('Exited Plan Mode')
+    expect(result.title).toBe('已退出计划模式')
   })
 
   test('renders resource_link content as ACP ResourceLink (audit §7.3)', () => {

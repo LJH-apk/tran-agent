@@ -50,7 +50,7 @@ export function SandboxPermissionRequest({
           {
             label: (
               <Text>
-                Yes, and don&apos;t ask again for <Text bold>{host}</Text>
+                是，且不再询问 <Text bold>{host}</Text>
               </Text>
             ),
             value: 'yes-dont-ask-again',
@@ -60,7 +60,7 @@ export function SandboxPermissionRequest({
     {
       label: (
         <Text>
-          No, and tell Claude what to do differently <Text bold>(esc)</Text>
+          不，并告诉 Claude 该怎么做 <Text bold>(esc)</Text>
         </Text>
       ),
       value: 'no',

@@ -382,7 +382,7 @@ function ModeIndicator({
   const modePart =
     currentMode && hasActiveMode && !getIsRemoteMode() ? (
       <Text color={getModeColor(currentMode)} key="mode">
-        {permissionModeSymbol(currentMode)} {permissionModeTitle(currentMode).toLowerCase()} on
+        {permissionModeSymbol(currentMode)} {permissionModeTitle(currentMode)} 已开启
         {shouldShowModeHint && (
           <Text dimColor>
             {' '}
@@ -544,7 +544,7 @@ function ModeIndicator({
     parts.push(
       <Text dimColor key="selection-复制">
         <Byline>
-          {!copyOnSelect && <KeyboardShortcutHint shortcut="ctrl+c" action="copy" />}
+          {!copyOnSelect && <KeyboardShortcutHint shortcut="ctrl+c" action="复制" />}
           {isXtermJs() &&
             (altClickFailed ? (
               <Text>在 VS Code 设置中开启 macOptionClickForcesSelection</Text>
@@ -576,7 +576,7 @@ function ModeIndicator({
         {tasksSelected ? (
           <KeyboardShortcutHint shortcut="Enter" action="查看任务" />
         ) : (
-          <KeyboardShortcutHint shortcut="↓" action="manage" />
+          <KeyboardShortcutHint shortcut="↓" action="管理" />
         )}
       </Text>,
     );

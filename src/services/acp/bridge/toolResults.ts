@@ -116,7 +116,7 @@ export function toolUpdateFromToolResult(
     }
 
     case 'ExitPlanMode': {
-      return { title: 'Exited Plan Mode' }
+      return { title: '已退出计划模式' }
     }
 
     default: {

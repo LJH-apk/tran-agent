@@ -753,7 +753,7 @@ function DiscoverPluginsKeyHint({
         <Byline>
           {hasSelection && (
             <ConfigurableShortcutHint
-              action="plugin:安装"
+              action="plugin:install"
               context="Plugin"
               fallback="i"
               description="install"
@@ -762,7 +762,7 @@ function DiscoverPluginsKeyHint({
           )}
           <Text>输入以搜索</Text>
           {canToggle && (
-            <ConfigurableShortcutHint action="plugin:切换" context="Plugin" fallback="Space" description="toggle" />
+            <ConfigurableShortcutHint action="plugin:toggle" context="Plugin" fallback="Space" description="切换" />
           )}
           <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="详情" />
           <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />

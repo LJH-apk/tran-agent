@@ -46,13 +46,13 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
   const customCommands = commands.filter(cmd => !builtinNames.has(cmd.name) && !cmd.isHidden);
 
   const tabs = [
-    <Tab key="常规" title="general">
+    <Tab key="general" title="常规">
       <General />
     </Tab>,
   ];
 
   tabs.push(
-    <Tab key="命令" title="commands">
+    <Tab key="commands" title="命令">
       <Commands
         commands={builtinCommands}
         maxHeight={maxHeight}
@@ -83,7 +83,7 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
           commands={antOnlyCommands}
           maxHeight={maxHeight}
           columns={columns}
-          title="Browse ant-only commands:"
+          title="浏览仅内部命令："
           onCancel={close}
         />
       </Tab>,
@@ -96,7 +96,7 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
         <Tabs
           title={process.env.USER_TYPE === 'ant' ? '/help' : `Claude Code v${MACRO.VERSION}`}
           color="professionalBlue"
-          defaultTab="general"
+          defaultTab="常规"
         >
           {tabs}
         </Tabs>
