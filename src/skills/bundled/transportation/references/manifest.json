@@ -1,0 +1,416 @@
+{
+  "title": "Fundamentals of Transportation",
+  "source": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation",
+  "authors": "David Levinson, Henry Liu, William Garrison, Mark Hickman, Adam Danczyk, Michael Corbett, Brendan Nee, Karen Dixon and her students; Wikibooks contributors; adapted/curated by LibreTexts.",
+  "license": "CC BY-SA 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "retrievedAt": "2026-10-06T15:37:45.173Z",
+  "omittedPages": [
+    {
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/00%3A_Front_Matter/03%3A_Table_of_Contents",
+      "reason": "Platform-generated contents page without a license tag; replaced by local INDEX.md."
+    },
+    {
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/zz%3A_Back_Matter/10%3A_Index",
+      "reason": "No static article text after removing platform scripts."
+    }
+  ],
+  "pages": [
+    {
+      "title": "Fundamentals of Transportation",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation",
+      "file": "references/00-book-overview.md",
+      "sourceSha256": "44621ecca86e9fdbe0690e1bdec4c8d76a5eae73b475120166abcaf9b373fca1",
+      "sha256": "2b23ceae1100c7f033b175e7a82914b041af728c8a204a1ddcdeab6fa709f11d",
+      "characters": 3874,
+      "sourceModified": "2022-04-03T15:06:20Z"
+    },
+    {
+      "title": "TitlePage",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/00%3A_Front_Matter/01%3A_TitlePage",
+      "file": "references/00-front-matter--01-titlepage.md",
+      "sourceSha256": "ad3b6f0eaf9a629d03daf25c93408226daa18a1f56c0de97657c4bf7acf5a851",
+      "sha256": "5b51d22c4288fd7d7815c3b72d0fdce8b47fe4ef6952584e0617f2ebf6220f52",
+      "characters": 30,
+      "sourceModified": "2021-03-24T09:15:25Z"
+    },
+    {
+      "title": "InfoPage",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/00%3A_Front_Matter/02%3A_InfoPage",
+      "file": "references/00-front-matter--02-infopage.md",
+      "sourceSha256": "b5ea85d63c0d73907bb9a52200ab8928265978bd5ea6f7a071648b4220b22e5b",
+      "sha256": "33934da4837dbeedc427bbd90008b48d2837376dde1f8d71abe79392d233b6b2",
+      "characters": 3055,
+      "sourceModified": "2021-03-24T09:00:17Z"
+    },
+    {
+      "title": "About the Authors",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/00%3A_Front_Matter/About_the_Authors",
+      "file": "references/00-front-matter--about-the-authors.md",
+      "sourceSha256": "2a2206707cc5380f2cfc39a0091706e93c46b6052a4e9ee1bcd3828a4b869b1a",
+      "sha256": "5e84358e0ff3132b545aeba3462c78c1d9ed18e34363cc9547a86bb712716529",
+      "characters": 384,
+      "sourceModified": "2021-04-30T22:31:10Z"
+    },
+    {
+      "title": "Front Matter",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/00%3A_Front_Matter",
+      "file": "references/00-front-matter.md",
+      "sourceSha256": "c6ed4c115220e2b040519d0f3fc2c9150d07227682635746839fea7abca91ec3",
+      "sha256": "8b912238c0609941c9d67b0abea56d38ab04e82540a99210da88fb58d7218f43",
+      "characters": 661,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "1.1: Fundamentals of Transportation/Introduction",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/01%3A_Introduction_and_Planning/1.01%3A_Fundamentals_of_Transportation_Introduction",
+      "file": "references/01-introduction-and-planning--1-01-fundamentals-of-transportation-introduction.md",
+      "sourceSha256": "3e44b41ce58ab855b61b7207943cd394b649360c554b6265843d963850ae9fde",
+      "sha256": "5ee2221d5131b91c85199a3468b6e7d12b77d88f74ec42ee8f6d7116ff971753",
+      "characters": 8201,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "1.2: Fundamentals of Transportation and Decision Making",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/01%3A_Introduction_and_Planning/1.02%3A_Fundamentals_of_Transportation_and_Decision_Making",
+      "file": "references/01-introduction-and-planning--1-02-fundamentals-of-transportation-and-decision-making.md",
+      "sourceSha256": "fe3427f6d945fd204f62346d1f4ff23b9cce77dbcad7aeccf16c9d7999cc283b",
+      "sha256": "8ecd60a63793c474a0ed4b4d6dd31aeeba119f190dd7925e301083f3dda0e83e",
+      "characters": 17629,
+      "sourceModified": "2021-04-30T22:26:33Z"
+    },
+    {
+      "title": "1.3: Evaluation",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/01%3A_Introduction_and_Planning/1.03%3A_Evaluation",
+      "file": "references/01-introduction-and-planning--1-03-evaluation.md",
+      "sourceSha256": "5b47cd248ec2002a1d9f2fdb2ab85e2a70f62af38bf35ef13a75eaaefe3c0cb6",
+      "sha256": "89c4c3c88f74f1f9f8634da8aa40c3d670c5c5c755c0ff6625107cbacc7ed7c9",
+      "characters": 48723,
+      "sourceModified": "2021-04-30T22:26:32Z"
+    },
+    {
+      "title": "1: Introduction and Planning",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/01%3A_Introduction_and_Planning",
+      "file": "references/01-introduction-and-planning.md",
+      "sourceSha256": "bd034820ffd9fc5259728a2bc6bc7d86c3a3059d10f1575bea0af7c83123dcda",
+      "sha256": "32f6df53592feeeae93a2f11104789a7bc30ed3eb49a4760be0e71f80cef2611",
+      "characters": 768,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "2.1: Modeling",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/02%3A_Planning_Models/2.01%3A_Modeling",
+      "file": "references/02-planning-models--2-01-modeling.md",
+      "sourceSha256": "501eb7a48cc23028ab85da3e1ad99b2ab17bd087b616df49e8d0ad6c3ba4e57a",
+      "sha256": "af16bf86601e5f1e0ee738ecf0b425061968875d183524acdfa37d4d00de3022",
+      "characters": 12119,
+      "sourceModified": "2021-04-30T22:26:33Z"
+    },
+    {
+      "title": "2.2: Data",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/02%3A_Planning_Models/2.02%3A_Data",
+      "file": "references/02-planning-models--2-02-data.md",
+      "sourceSha256": "b160622e8792e358dc46fb277054575f5688ee5072c2a023c9bdcf437d547a1b",
+      "sha256": "7a1b022bad264f1670b0bde765171c98b836516865cdfaf1dcd9d3c366f1e151",
+      "characters": 12074,
+      "sourceModified": "2021-04-30T22:26:34Z"
+    },
+    {
+      "title": "2.3: Networks",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/02%3A_Planning_Models/2.03%3A_Networks",
+      "file": "references/02-planning-models--2-03-networks.md",
+      "sourceSha256": "03893cca767b5ce49b8e8639a37526675b2e651caf149020d93ee5a599cfcf21",
+      "sha256": "a850c190f79a00c6c506e5a02fbe2c3e9fd3b598d21aa388e098b15f82fe7fea",
+      "characters": 23368,
+      "sourceModified": "2021-04-30T22:26:34Z"
+    },
+    {
+      "title": "2.4: Modes",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/02%3A_Planning_Models/2.04%3A_Modes",
+      "file": "references/02-planning-models--2-04-modes.md",
+      "sourceSha256": "af97bde8801f097446eed8b853b13533593c6daf6b339077704904960a390ef7",
+      "sha256": "c9daed60a0fca05748d9f34d6f50927496a526dd2cf2b2b991ca11bf933858ba",
+      "characters": 2273,
+      "sourceModified": "2021-03-24T09:15:25Z"
+    },
+    {
+      "title": "2: Planning Models",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/02%3A_Planning_Models",
+      "file": "references/02-planning-models.md",
+      "sourceSha256": "a9e1a34c458abc3e7caa7316570736394e5a226f9acb7c26a8c3b4a6439d2ca1",
+      "sha256": "7c5fd8fe9f025fb9e3cea1923757dbab9b9463960ec430ce378b331f57e49cc7",
+      "characters": 649,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "3.1: Agent-based Modeling",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.01%3A_Agent-based_Modeling",
+      "file": "references/03-modeling-methods--3-01-agent-based-modeling.md",
+      "sourceSha256": "58394efd4f2d7ae7abe2b19425439d60606dbd9909426b25719d14a6dbae780a",
+      "sha256": "75dad2bcd6b34dd6d894677a148d22c6ec598cfdf53085b5c9cd25a88e506c76",
+      "characters": 22287,
+      "sourceModified": "2021-04-30T22:26:36Z"
+    },
+    {
+      "title": "3.2: Choice Modeling",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.02%3A_Choice_Modeling",
+      "file": "references/03-modeling-methods--3-02-choice-modeling.md",
+      "sourceSha256": "8ef9e668412f99b5f92409e86d6dce29e8f54739e3ed2b6c3495b2e3a5e93440",
+      "sha256": "4ec246e6bd87cc238ea4b2f51787d209e1b3b7bebd083a220e98f027dcf7f36e",
+      "characters": 27659,
+      "sourceModified": "2021-04-30T22:26:36Z"
+    },
+    {
+      "title": "3.3: Land Use Forecasting",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.03%3A_Land_Use_Forecasting",
+      "file": "references/03-modeling-methods--3-03-land-use-forecasting.md",
+      "sourceSha256": "1a44e2c191071d6874c83902e48acbf9e5fc086da24c7386c7939f4c7c2bde50",
+      "sha256": "d07c2b81231a8da81a2405daa986d80e13c22b62e9db4d8d2001e8e7cd21c67f",
+      "characters": 36783,
+      "sourceModified": "2021-04-30T22:26:36Z"
+    },
+    {
+      "title": "3.4: Trip Generation",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.04%3A_Trip_Generation",
+      "file": "references/03-modeling-methods--3-04-trip-generation.md",
+      "sourceSha256": "abf46db507d632ee05c9cf237c5bdf103343e05a1bec08a26ded0917d07739b1",
+      "sha256": "fdab95cea18ce298a8e568a967fa3cf1039d2288efd318f95d3596a202f94404",
+      "characters": 17315,
+      "sourceModified": "2021-04-30T22:26:37Z"
+    },
+    {
+      "title": "3.5: Destination Choice",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.05%3A_Destination_Choice",
+      "file": "references/03-modeling-methods--3-05-destination-choice.md",
+      "sourceSha256": "2b372ec4c4ec3c7c75cffa099bf2d426e0f0c74356e233d7a390fe4a1265be7b",
+      "sha256": "d46dd8df6ad2356920dbe3aaacf04bd65f891b7837b8cf2bbc6e8f4da49996ba",
+      "characters": 20175,
+      "sourceModified": "2021-04-30T22:26:37Z"
+    },
+    {
+      "title": "3.6: 3-6 Route Choice",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods/3.06%3A_3-6_Route_Choice",
+      "file": "references/03-modeling-methods--3-06-3-6-route-choice.md",
+      "sourceSha256": "1cd475608eadcf3977107638093d68ebcdebf0187f33a598f976401c5110c147",
+      "sha256": "163bea940477cf026554a5b916731c9ceb319a9a86aacac82b037bb29f5f9166",
+      "characters": 22443,
+      "sourceModified": "2021-04-30T22:26:37Z"
+    },
+    {
+      "title": "3: Modeling Methods",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/03%3A_Modeling_Methods",
+      "file": "references/03-modeling-methods.md",
+      "sourceSha256": "6a669ee41133838b46081fee4c6a9e33cfb3602eb828e6ed035cf543b510d0e1",
+      "sha256": "4d5612542db074f3926b8f74c20f8ce33fe235e9b9f20bbca01bc2502fa427b4",
+      "characters": 1182,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "4.1: Transit Demand",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit/4.01%3A_Transit_Demand",
+      "file": "references/04-transit--4-01-transit-demand.md",
+      "sourceSha256": "0c98671f91db74aaaac8e85ddc8d046f87e2d29b464d2b288286954291944d6d",
+      "sha256": "e8ab177db6bb5c453ea62f90cefa087ea2a98f2ef04f5182e02aab95e47ce22d",
+      "characters": 12739,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "4.2: Transit Operations and Capacity",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit/4.02%3A_Transit_Operations_and_Capacity",
+      "file": "references/04-transit--4-02-transit-operations-and-capacity.md",
+      "sourceSha256": "68256f37ef48afac88c37b20f616005040cac01afbe5c7b59c35850df47f7811",
+      "sha256": "7af8884677c161e2f79d2e2ddf53ae2a255d0aa417eebbb4a61d4c2ec9ac1e45",
+      "characters": 15140,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "4.3: Network Design and Frequency",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit/4.03%3A_Network_Design_and_Frequency",
+      "file": "references/04-transit--4-03-network-design-and-frequency.md",
+      "sourceSha256": "52c8c88fc237771225ae16a241c21ce9973419845eea2d5ec19407768c314c81",
+      "sha256": "4022c98abb27f219e522cf9a7ab2988bf67c8ba11aab3b12d4a9b32306994556",
+      "characters": 17607,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "4.4: Timetabling and Scheduling",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit/4.04%3A_Timetabling_and_Scheduling",
+      "file": "references/04-transit--4-04-timetabling-and-scheduling.md",
+      "sourceSha256": "9d64eccefc02897a8228ae2dc86e3831b9fee64acebe9c9f77874cc2a809dd93",
+      "sha256": "bfcd9f53147e7ef774907112b4ae85e303da28376282819ae3546065d753be4f",
+      "characters": 15046,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "4.5: Traveler Information for Transit",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit/4.05%3A_Traveler_Information_for_Transit",
+      "file": "references/04-transit--4-05-traveler-information-for-transit.md",
+      "sourceSha256": "f324727a7e95bb6427e3a1dab7ec490f76a90cfb38c14b138ce17c57a8716c13",
+      "sha256": "6db364d7098f6b7072f20d4c6412d0ffbf7e571eee9ef12797776a591beded8d",
+      "characters": 26776,
+      "sourceModified": "2021-04-30T22:26:31Z"
+    },
+    {
+      "title": "4: Transit",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/04%3A_Transit",
+      "file": "references/04-transit.md",
+      "sourceSha256": "ac2e4fe23efaef8d9c54aa17995996fd285203df8c4e742e0f295005a907ef98",
+      "sha256": "f2a6990a67ba92c40522c6a99fa6f5894d3ca0791b0ba5571ed6616b3203d57b",
+      "characters": 1072,
+      "sourceModified": "2021-03-24T09:15:24Z"
+    },
+    {
+      "title": "5.1: Queueing",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/05%3A_Traffic/5.01%3A_Queueing",
+      "file": "references/05-traffic--5-01-queueing.md",
+      "sourceSha256": "f08952e6ab170c72d326e02c117f86c3f289ce20415c41112c5567cdd3109fc7",
+      "sha256": "3c0136834c94737aa97011b441ec691bd5d7769f854635c307044bd53a0c5d5c",
+      "characters": 24782,
+      "sourceModified": "2021-04-30T22:26:32Z"
+    },
+    {
+      "title": "5.2: Traffic Flow",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/05%3A_Traffic/5.02%3A_Traffic_Flow",
+      "file": "references/05-traffic--5-02-traffic-flow.md",
+      "sourceSha256": "8087d8b2761c4a2312a52fcead2aac9e04ffb56e6f68ca94031789c841adfc6c",
+      "sha256": "36a0c069bf8a6c6bdd771491eb6fcf0d694479cea2a3a2ff0c89089b565c0540",
+      "characters": 12890,
+      "sourceModified": "2021-04-30T22:26:33Z"
+    },
+    {
+      "title": "5.3: Queueing and Traffic Flow",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/05%3A_Traffic/5.03%3A_Queueing_and_Traffic_Flow",
+      "file": "references/05-traffic--5-03-queueing-and-traffic-flow.md",
+      "sourceSha256": "46d0a7e996e57e20156be4db9f6446a0ac0149f6d19ccd1079d613298cfd2009",
+      "sha256": "d9d3172813e617f3ca44475622be98d967ecc3d9a82ab1f555ee3484ed59536d",
+      "characters": 16613,
+      "sourceModified": "2021-04-30T22:26:32Z"
+    },
+    {
+      "title": "5: Traffic",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/05%3A_Traffic",
+      "file": "references/05-traffic.md",
+      "sourceSha256": "85e49c9ba2b5cd7b37ec55b7c2856119a8d8ae7f5a8991590f9bb6cff8cc9f0f",
+      "sha256": "8b356d1363de094b2e91e03508026aacdbbb2b1d009595b24b33ddf375c98fb1",
+      "characters": 540,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "6.1: Shockwaves",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/06%3A_Traffice_Control/6.01%3A_Shockwaves",
+      "file": "references/06-traffice-control--6-01-shockwaves.md",
+      "sourceSha256": "94c9d7b054a8f9affdfffe8cf52142334bf49f6f5c029410727b222f54beaf59",
+      "sha256": "c4fbfd22ac27b833a844e9f8d21fd8073d39667aee8de76bc41f5718cfa183b1",
+      "characters": 11731,
+      "sourceModified": "2021-04-30T22:26:48Z"
+    },
+    {
+      "title": "6.2: Traffic Signals",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/06%3A_Traffice_Control/6.02%3A_Traffic_Signals",
+      "file": "references/06-traffice-control--6-02-traffic-signals.md",
+      "sourceSha256": "52ffa9000b6923992a0c769d6953951ac410191b6675ad7219e64761d8d4139c",
+      "sha256": "ebc5c2c609bdf060a9878539dacec24ec0e4cf29da0399d8c3ebd4e56bbe4c8f",
+      "characters": 23920,
+      "sourceModified": "2021-04-30T22:26:34Z"
+    },
+    {
+      "title": "6.3: Traffic Control Devices",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/06%3A_Traffice_Control/6.03%3A_Traffic_Control_Devices",
+      "file": "references/06-traffice-control--6-03-traffic-control-devices.md",
+      "sourceSha256": "2c4b160a345152d8121f0fcd5d0f60096ead821f928cacaf71fc7363ac277bd8",
+      "sha256": "244c02ceec9ce79c6e7189bdd56e4105ca3be039990876ad342b007fb799cbb3",
+      "characters": 14219,
+      "sourceModified": "2021-04-30T22:26:34Z"
+    },
+    {
+      "title": "6.4: Metering and Analogs",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/06%3A_Traffice_Control/6.04%3A_Metering_and_Analogs",
+      "file": "references/06-traffice-control--6-04-metering-and-analogs.md",
+      "sourceSha256": "c196328a9b0706b1764a9e8438afe15a969b243625f91be1ddfea7229c3343cc",
+      "sha256": "3c30cf259e2fca479316086ec3d8c532fdb9e299e9a5e73a56329d8272d8f645",
+      "characters": 6878,
+      "sourceModified": "2021-04-30T22:26:34Z"
+    },
+    {
+      "title": "6: Traffice Control",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/06%3A_Traffice_Control",
+      "file": "references/06-traffice-control.md",
+      "sourceSha256": "1e57da2ce93f03fd7fe5d2025e1ba6e42ee4bdf11f22e760d2b44cb029460ad0",
+      "sha256": "c84abe7c2018adcf82f984a1bdee35f24ad9bdfe69491163489754610ebf50c3",
+      "characters": 782,
+      "sourceModified": "2021-03-24T09:15:23Z"
+    },
+    {
+      "title": "7.1: Sight Distance",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design/7.01%3A_Sight_Distance",
+      "file": "references/07-geometric-design--7-01-sight-distance.md",
+      "sourceSha256": "cf2e4ffa0dbf926b30de613cb3842bccee022defc545fb5f2eb8fa7c49ce6b56",
+      "sha256": "21d046ac4e4ebad70eddea892d836316961db19126d998c720287fe71b61467a",
+      "characters": 12699,
+      "sourceModified": "2021-04-30T22:26:35Z"
+    },
+    {
+      "title": "7.2: Grade",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design/7.02%3A_Grade",
+      "file": "references/07-geometric-design--7-02-grade.md",
+      "sourceSha256": "2f47046e8c4b89281a81e5c3909e9910418b3be169e0941d2529cd5ca9cbbec0",
+      "sha256": "6d86fe8de7cc8a5140e84b2ed8046afd0dba80de0982c73793d1ca61a5fc691f",
+      "characters": 15760,
+      "sourceModified": "2021-04-30T22:26:35Z"
+    },
+    {
+      "title": "7.3: Earthwork",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design/7.03%3A_Earthwork",
+      "file": "references/07-geometric-design--7-03-earthwork.md",
+      "sourceSha256": "e998dfa30901af7a657a9a1f5cf92212874dc1d0d8ee43aaf6b613687fae84e9",
+      "sha256": "193df69af1ed254f7283108530af3a24a2f35b149f739f5029d430bfc2069b9a",
+      "characters": 10625,
+      "sourceModified": "2021-04-30T22:26:35Z"
+    },
+    {
+      "title": "7.4: Horizontal Curves",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design/7.04%3A_Horizontal_Curves",
+      "file": "references/07-geometric-design--7-04-horizontal-curves.md",
+      "sourceSha256": "52d54d3a8ccb1d7e34bb82bc6e6f83884a6cdcdb36b635e339eaf6b959ee9299",
+      "sha256": "9e792b840be9701eb0caaee43a64639d4fd5a85a108e6ca6ac1ce3664c1317cc",
+      "characters": 17832,
+      "sourceModified": "2021-04-30T22:26:35Z"
+    },
+    {
+      "title": "7.5: Vertical Curves",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design/7.05%3A_Vertical_Curves",
+      "file": "references/07-geometric-design--7-05-vertical-curves.md",
+      "sourceSha256": "0c3b5d25991adadc6128ac0a1cede809d53f47c47ecd3c9661e80d4a682a4708",
+      "sha256": "9709aea0b3aeb94a5298a9827c0e7a79bf22fecb6b25285cdb7cc7e94185e5c9",
+      "characters": 24777,
+      "sourceModified": "2021-04-30T22:26:35Z"
+    },
+    {
+      "title": "7: Geometric Design",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/07%3A_Geometric_Design",
+      "file": "references/07-geometric-design.md",
+      "sourceSha256": "53ec81d3bb4f88002c449ac0c68581a089ace85419b68a863651926483f2add0",
+      "sha256": "3fc20da612c21304d79911bd4f616951274eba78c5a232ba3a6f9d61d02c0b53",
+      "characters": 904,
+      "sourceModified": "2021-03-24T09:15:24Z"
+    },
+    {
+      "title": "Glossary",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/zz%3A_Back_Matter/20%3A_Glossary",
+      "file": "references/zz-back-matter--20-glossary.md",
+      "sourceSha256": "dc76ca8fb2cb61ee0246b0792e2954ac8f3e4e1c0f6e48f377f711e04968f504",
+      "sha256": "2a0095b9d93c9e1dbc06f41d33195e2921f5f12ae359f9a8180b981b081c5ed8",
+      "characters": 767,
+      "sourceModified": "2022-04-02T22:00:39Z"
+    },
+    {
+      "title": "Back Matter",
+      "url": "https://eng.libretexts.org/Bookshelves/Civil_Engineering/Fundamentals_of_Transportation/zz%3A_Back_Matter",
+      "file": "references/zz-back-matter.md",
+      "sourceSha256": "d754c85a284b1058f9a78fdc54d014d2dbf1ff4859b023adc2156f2dd835ff3b",
+      "sha256": "c047dc09219114396cf5d5e384a3ef95b2ff8f09bc42f84a1c63356b93818b7a",
+      "characters": 291,
+      "sourceModified": "2021-03-24T09:15:24Z"
+    }
+  ]
+}
