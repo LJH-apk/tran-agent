@@ -123,36 +123,36 @@ describe('formatRelativeTime', () => {
 
   test('formats seconds ago', () => {
     const date = new Date('2026-01-15T11:59:30Z')
-    expect(formatRelativeTime(date, { now })).toBe('30s ago')
+    expect(formatRelativeTime(date, { now })).toBe('30秒前')
   })
 
   test('formats minutes ago', () => {
     const date = new Date('2026-01-15T11:55:00Z')
-    expect(formatRelativeTime(date, { now })).toBe('5m ago')
+    expect(formatRelativeTime(date, { now })).toBe('5分钟前')
   })
 
   test('formats future time', () => {
     const date = new Date('2026-01-15T13:00:00Z')
-    expect(formatRelativeTime(date, { now })).toBe('in 1h')
+    expect(formatRelativeTime(date, { now })).toBe('1小时后')
   })
 
   test('handles zero difference', () => {
-    expect(formatRelativeTime(now, { now })).toBe('0s ago')
+    expect(formatRelativeTime(now, { now })).toBe('0秒前')
   })
 
   test('formats hours ago', () => {
     const date = new Date('2026-01-15T09:00:00Z')
-    expect(formatRelativeTime(date, { now })).toBe('3h ago')
+    expect(formatRelativeTime(date, { now })).toBe('3小时前')
   })
 
   test('formats days ago', () => {
     const date = new Date('2026-01-13T12:00:00Z')
-    expect(formatRelativeTime(date, { now })).toBe('2d ago')
+    expect(formatRelativeTime(date, { now })).toBe('2天前')
   })
 
   test('formats weeks ago', () => {
     const date = new Date('2026-01-01T12:00:00Z')
-    expect(formatRelativeTime(date, { now })).toBe('2w ago')
+    expect(formatRelativeTime(date, { now })).toBe('2周前')
   })
 })
 
@@ -162,50 +162,50 @@ describe('formatRelativeTimeAgo', () => {
   test("formats past date with 'ago' suffix", () => {
     const date = new Date('2026-01-15T11:59:30Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toBe('30s ago')
+    expect(result).toBe('30秒前')
   })
 
   test("formats future date without 'ago' suffix", () => {
     const date = new Date('2026-01-15T13:00:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toBe('in 1h')
+    expect(result).toBe('1小时后')
   })
 
   test('formats minutes ago', () => {
     const date = new Date('2026-01-15T11:55:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toBe('5m ago')
+    expect(result).toBe('5分钟前')
   })
 
   test('formats hours ago', () => {
     const date = new Date('2026-01-15T09:00:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toBe('3h ago')
+    expect(result).toBe('3小时前')
   })
 
   test('formats days ago', () => {
     const date = new Date('2026-01-13T12:00:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toBe('2d ago')
+    expect(result).toBe('2天前')
   })
 
   test('handles date equal to now as past', () => {
     // date === now, treated as past (not future)
     const result = formatRelativeTimeAgo(now, { now })
-    expect(result).toBe('0s ago')
+    expect(result).toBe('0秒前')
   })
 
   test('uses numeric always for past dates', () => {
     // Should always use numeric format for past dates
     const date = new Date('2026-01-15T11:59:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).toContain('ago')
+    expect(result).toContain('前')
   })
 
   test("future date does not contain 'ago'", () => {
     const date = new Date('2026-01-15T14:00:00Z')
     const result = formatRelativeTimeAgo(date, { now })
-    expect(result).not.toContain('ago')
+    expect(result).not.toContain('前')
   })
 })
 
@@ -218,8 +218,8 @@ describe('formatLogMetadata', () => {
       modified,
       messageCount: 10,
     })
-    expect(result).toContain('ago')
-    expect(result).toContain('10 messages')
+    expect(result).toContain('前')
+    expect(result).toContain('10 条消息')
   })
 
   test('uses fileSize instead of messageCount when provided', () => {
@@ -229,7 +229,7 @@ describe('formatLogMetadata', () => {
       fileSize: 1536,
     })
     expect(result).toContain('1.5KB')
-    expect(result).not.toContain('messages')
+    expect(result).not.toContain('条消息')
   })
 
   test('includes gitBranch when provided', () => {
