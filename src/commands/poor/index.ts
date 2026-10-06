@@ -4,7 +4,7 @@ const poor = {
   type: 'local',
   name: 'poor',
   description:
-    'Toggle poor mode — disable extract_memories and prompt_suggestion to save tokens',
+    '切换省流模式——关闭 extract_memories 与 prompt_suggestion 以节省 token',
   supportsNonInteractive: false,
   load: () => import('./poor.js'),
 } satisfies Command

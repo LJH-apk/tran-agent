@@ -4,6 +4,6 @@ export default {
   type: 'local-jsx',
   name: 'usage',
   aliases: ['cost', 'stats'],
-  description: 'Show session cost, plan usage, and activity stats',
+  description: '显示会话花费、套餐用量与活动统计',
   load: () => import('./usage.js'),
 } satisfies Command

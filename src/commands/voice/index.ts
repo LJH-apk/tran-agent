@@ -4,7 +4,7 @@ import { isVoiceAvailable } from '../../voice/voiceModeEnabled.js'
 const voice = {
   type: 'local',
   name: 'voice',
-  description: 'Toggle voice mode. Use /voice doubao for Doubao ASR backend',
+  description: '切换语音模式。用 /voice doubao 使用豆包 ASR 后端',
   isEnabled: () => isVoiceAvailable(),
   get isHidden() {
     return !isVoiceAvailable()

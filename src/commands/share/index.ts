@@ -257,7 +257,7 @@ const share: Command = {
   type: 'local',
   name: 'share',
   description:
-    'Upload the current session log to GitHub Gist. Flags: --public, --private (default), --mask-secrets, --summary-only, --allow-public-fallback',
+    '把当前会话日志上传到 GitHub Gist。参数：--public、--private（默认）、--mask-secrets、--summary-only、--allow-public-fallback',
   isHidden: false,
   isEnabled: () => true,
   supportsNonInteractive: true,

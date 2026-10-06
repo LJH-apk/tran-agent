@@ -333,7 +333,7 @@ export function Doctor({ onDone }: Props): React.ReactNode {
           <Text bold color="error">
             智能体解析错误
           </Text>
-          <Text color="error">└ Failed to parse {agentInfo.failedFiles.length} agent file(s):</Text>
+          <Text color="error">└ 解析 {agentInfo.failedFiles.length} 个智能体文件失败：</Text>
           {agentInfo.failedFiles.map((file, i) => (
             <Text key={i} dimColor>
               {'  '}└ {file.path}: {file.error}

@@ -69,7 +69,7 @@ const call: LocalCommandCall = async (_args, context) => {
 const summary = {
   type: 'local',
   name: 'summary',
-  description: 'Generate and display a session summary',
+  description: '生成并显示会话摘要',
   supportsNonInteractive: true,
   isHidden: false,
   load: () => Promise.resolve({ call }),

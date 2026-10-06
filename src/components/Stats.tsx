@@ -188,7 +188,7 @@ function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.Rea
   if (allTimeResult.type === 'error') {
     return (
       <Box marginTop={1}>
-        <Text color="error">Failed to load stats: {allTimeResult.message}</Text>
+        <Text color="error">加载统计数据失败：{allTimeResult.message}</Text>
       </Box>
     );
   }

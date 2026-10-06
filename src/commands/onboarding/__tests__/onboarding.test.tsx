@@ -102,7 +102,7 @@ afterEach(() => {
 describe('onboarding command metadata', () => {
   test('has correct name and description', () => {
     expect(onboardingCommand.name).toBe('onboarding');
-    expect(onboardingCommand.description).toContain('first-run setup');
+    expect(onboardingCommand.description).toContain('首次配置');
   });
 
   test('is local-jsx, enabled, visible, not bridge-safe', () => {

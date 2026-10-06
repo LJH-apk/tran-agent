@@ -478,7 +478,7 @@ const perfIssue: Command = {
   type: 'local',
   name: 'perf-issue',
   description:
-    'Capture a performance + token-usage snapshot. Flags: --format=json|csv|md (default md)',
+    '抓取一份性能与 token 用量快照。参数：--format=json|csv|md（默认 md）',
   isHidden: false,
   isEnabled: () => true,
   supportsNonInteractive: true,

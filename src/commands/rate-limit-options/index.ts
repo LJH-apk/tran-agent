@@ -4,7 +4,7 @@ import { isClaudeAISubscriber } from '../../utils/auth.js'
 const rateLimitOptions = {
   type: 'local-jsx',
   name: 'rate-limit-options',
-  description: 'Show options when rate limit is reached',
+  description: '触发速率限制时显示可选方案',
   isEnabled: () => {
     if (!isClaudeAISubscriber()) {
       return false

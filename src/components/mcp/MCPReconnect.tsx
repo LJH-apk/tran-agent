@@ -84,7 +84,7 @@ export function MCPReconnect({ serverName, onComplete }: Props): React.ReactNode
       <Box flexDirection="column" gap={1} padding={1}>
         <Box>
           <Text>{color('error', theme)(figures.cross)} </Text>
-          <Text color="error">Failed to reconnect to {serverName}</Text>
+          <Text color="error">重新连接 {serverName} 失败</Text>
         </Box>
         <Text dimColor>错误： {error}</Text>
       </Box>

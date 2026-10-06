@@ -4,7 +4,7 @@ const artifacts = {
   type: 'local-jsx',
   name: 'artifacts',
   description:
-    'List HTML artifacts uploaded to cloud-artifacts in this session',
+    '列出本次会话上传到 cloud-artifacts 的 HTML 制品',
   isEnabled: () => true,
   load: () => import('./artifacts.js'),
 } satisfies Command

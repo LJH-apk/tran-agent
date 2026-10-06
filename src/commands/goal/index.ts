@@ -4,7 +4,7 @@ const goal = {
   type: 'local-jsx',
   name: 'goal',
   description:
-    'Set or view a persistent goal that drives auto-continuation across turns',
+    '设置或查看一个持久目标，用于驱动跨轮次的自动续跑',
   argumentHint: '[<objective> | status | clear | pause | resume | complete]',
   bridgeSafe: false,
   load: () => import('./goal.js'),

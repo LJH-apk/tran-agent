@@ -11,7 +11,7 @@ const plan = {
   },
   type: 'local-jsx',
   name: 'plan',
-  description: 'Enable plan mode or view the current session plan',
+  description: '开启计划模式，或查看当前会话的方案',
   argumentHint: '[open|<description>]',
   load: () => import('./plan.js'),
 } satisfies Command

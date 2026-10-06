@@ -122,7 +122,7 @@ const debugToolCall: Command = {
   type: 'local',
   name: 'debug-tool-call',
   description:
-    'Show the last N tool call pairs (use/result) from the session log',
+    '从会话日志中显示最近 N 组工具调用（调用/结果）',
   isHidden: false,
   isEnabled: () => true,
   supportsNonInteractive: true,

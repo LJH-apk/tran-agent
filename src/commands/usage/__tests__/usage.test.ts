@@ -74,12 +74,12 @@ describe('usage command — metadata', () => {
 
   test('description mentions cost', async () => {
     const cmd = await loadUsageCommand()
-    expect(cmd.description.toLowerCase()).toContain('cost')
+    expect(cmd.description).toContain('花费')
   })
 
   test('description mentions stat', async () => {
     const cmd = await loadUsageCommand()
-    expect(cmd.description.toLowerCase()).toContain('stat')
+    expect(cmd.description).toContain('统计')
   })
 
   test('is NOT restricted exclusively to claude-ai subscribers', async () => {
@@ -92,8 +92,8 @@ describe('usage command — metadata', () => {
 
   test('description mentions usage or plan', async () => {
     const cmd = await loadUsageCommand()
-    const desc = cmd.description.toLowerCase()
-    expect(desc.includes('usage') || desc.includes('plan')).toBe(true)
+    const desc = cmd.description
+    expect(desc.includes('用量') || desc.includes('套餐')).toBe(true)
   })
 })
 

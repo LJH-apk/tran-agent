@@ -283,7 +283,7 @@ const issue: Command = {
   type: 'local',
   name: 'issue',
   description:
-    'Create a GitHub issue via gh CLI. Flags: --label <label>, --assignee <user>',
+    '通过 gh CLI 创建 GitHub issue。参数：--label <label>、--assignee <user>',
   isHidden: false,
   isEnabled: () => true,
   supportsNonInteractive: true,

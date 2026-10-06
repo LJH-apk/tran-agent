@@ -79,7 +79,7 @@ function formatRuntime(): string {
 const env: Command = {
   type: 'local',
   name: 'env',
-  description: 'Show current environment, runtime, and feature flags',
+  description: '显示当前环境、运行时与功能开关',
   isHidden: false,
   isEnabled: () => true,
   supportsNonInteractive: true,

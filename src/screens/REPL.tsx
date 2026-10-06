@@ -4465,7 +4465,7 @@ export function REPL({
             logForDebugging(`resumeAgentBackground failed: ${errorMessage(err)}`);
             addNotification({
               key: `resume-agent-failed-${task.id}`,
-              jsx: <Text color="error">Failed to resume agent: {errorMessage(err)}</Text>,
+              jsx: <Text color="error">恢复智能体失败：{errorMessage(err)}</Text>,
               priority: 'low',
             });
           });

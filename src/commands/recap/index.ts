@@ -64,7 +64,7 @@ const call: LocalCommandCall = async (_args, context) => {
 const recap = {
   type: 'local',
   name: 'recap',
-  description: 'Generate a one-line session recap now',
+  description: '立即生成一行会话回顾',
   aliases: ['away', 'catchup'],
   /**
    * Enabled when:

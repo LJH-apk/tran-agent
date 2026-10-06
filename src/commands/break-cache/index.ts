@@ -246,7 +246,7 @@ const breakCache: Command = {
   type: 'local-jsx',
   name: 'break-cache',
   description:
-    'Manage prompt-cache breaking. Open actions or run: once, status, always, off',
+    '管理提示词缓存击穿。打开操作面板，或直接执行：once、status、always、off',
   isHidden: false,
   isEnabled: () => !getIsNonInteractiveSession(),
   argumentHint: '[once|status|always|off|--clear]',
@@ -262,7 +262,7 @@ export const breakCacheNonInteractive: Command = {
   type: 'local',
   name: 'break-cache',
   description:
-    'Force the next (or all) API call(s) to miss prompt cache. Scopes: once, status, always, off',
+    '强制下一次（或全部）API 调用不命中提示词缓存。范围：once、status、always、off',
   isHidden: false,
   isEnabled: () => getIsNonInteractiveSession(),
   supportsNonInteractive: true,
