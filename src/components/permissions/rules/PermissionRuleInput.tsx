@@ -45,7 +45,7 @@ export function PermissionRuleInput({ onCancel, onSubmit, ruleBehavior }: Permis
     <>
       <Box flexDirection="column" gap={1} borderStyle="round" paddingLeft={1} paddingRight={1} borderColor="permission">
         <Text bold color="permission">
-          Add {ruleBehavior} permission rule
+          添加“{ruleBehavior === 'allow' ? '允许' : ruleBehavior === 'deny' ? '拒绝' : '询问'}”权限规则
         </Text>
         <Box flexDirection="column">
           <Text>
@@ -66,7 +66,7 @@ export function PermissionRuleInput({ onCancel, onSubmit, ruleBehavior }: Permis
               value={inputValue}
               onChange={setInputValue}
               onSubmit={handleSubmit}
-              placeholder={`Enter permission rule${figures.ellipsis}`}
+              placeholder={`输入权限规则${figures.ellipsis}`}
               columns={textInputColumns}
               cursorOffset={cursorOffset}
               onChangeCursorOffset={setCursorOffset}

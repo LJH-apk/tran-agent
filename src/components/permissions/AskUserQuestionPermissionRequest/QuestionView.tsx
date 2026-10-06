@@ -174,7 +174,7 @@ export function QuestionView({
   const otherOption: OptionWithDescription<string> = {
     type: 'input' as const,
     value: '__other__',
-    label: 'Other',
+    label: '其他选项',
     placeholder: question.multiSelect ? '输入内容' : '输入内容。',
     initialValue: questionState?.textInputValue ?? '',
     onChange: (value: string) => {
@@ -318,7 +318,7 @@ export function QuestionView({
               ) : (
                 'Tab/方向键导航'
               )}
-              {isOtherFocused && editorName && <> · ctrl+g to edit in {editorName}</>} · 按 Esc 取消
+              {isOtherFocused && editorName && <> · ctrl+g 编辑，使用 {editorName}</>} · 按 Esc 取消
             </Text>
           </Box>
         </Box>

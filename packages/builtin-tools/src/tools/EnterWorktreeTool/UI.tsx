@@ -6,7 +6,7 @@ import type { ThemeName } from 'src/utils/theme.js';
 import type { Output } from './EnterWorktreeTool.js';
 
 export function renderToolUseMessage(): React.ReactNode {
-  return 'Creating worktree…';
+  return '正在创建工作树…';
 }
 
 export function renderToolResultMessage(
@@ -18,11 +18,11 @@ export function renderToolResultMessage(
   return (
     <Box flexDirection="column">
       <Text>
-        Switched to worktree
+        已切换至工作树
         {output.worktreeBranch ? (
           <>
             {' '}
-            on branch <Text bold>{output.worktreeBranch}</Text>
+            分支： <Text bold>{output.worktreeBranch}</Text>
           </>
         ) : null}
       </Text>

@@ -64,7 +64,7 @@ export function renderToolUseProgressMessage(
   if (!lastProgress?.data) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>Running…</Text>
+        <Text dimColor>运行中…</Text>
       </MessageResponse>
     );
   }
@@ -74,7 +74,7 @@ export function renderToolUseProgressMessage(
   if (progress === undefined) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>Running…</Text>
+        <Text dimColor>运行中…</Text>
       </MessageResponse>
     );
   }
@@ -115,7 +115,7 @@ export function renderToolResultMessage(
       return (
         <MessageResponse height={1}>
           <Text>
-            Sent a message to <Ansi>{createHyperlink(slackSend.url, slackSend.channel)}</Ansi>
+            已发送消息至 <Ansi>{createHyperlink(slackSend.url, slackSend.channel)}</Ansi>
           </Text>
         </MessageResponse>
       );
@@ -125,7 +125,7 @@ export function renderToolResultMessage(
   const estimatedTokens = getContentSizeEstimate(mcpOutput);
   const showWarning = estimatedTokens > MCP_OUTPUT_WARNING_THRESHOLD_TOKENS;
   const warningMessage = showWarning
-    ? `${figures.warning} Large MCP response (~${formatNumber(estimatedTokens)} tokens), this can fill up context quickly`
+    ? `${figures.warning} MCP 响应较大（约 ${formatNumber(estimatedTokens)} tokens），可能很快占满上下文`
     : null;
 
   let contentElement: React.ReactNode;
@@ -135,7 +135,7 @@ export function renderToolResultMessage(
         return (
           <Box key={i} justifyContent="space-between" overflowX="hidden" width="100%">
             <MessageResponse height={1}>
-              <Text>[Image]</Text>
+              <Text>[图片]</Text>
             </MessageResponse>
           </Box>
         );
@@ -162,7 +162,7 @@ export function renderToolResultMessage(
     contentElement = (
       <Box justifyContent="space-between" overflowX="hidden" width="100%">
         <MessageResponse height={1}>
-          <Text dimColor>(No content)</Text>
+          <Text dimColor>（无内容）</Text>
         </MessageResponse>
       </Box>
     );

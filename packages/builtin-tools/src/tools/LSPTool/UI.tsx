@@ -11,15 +11,15 @@ import { getSymbolAtPosition } from './symbolContext.js';
 
 // Lookup map for operation-specific labels
 const OPERATION_LABELS: Record<Input['operation'], { singular: string; plural: string; special?: string }> = {
-  goToDefinition: { singular: 'definition', plural: 'definitions' },
-  findReferences: { singular: 'reference', plural: 'references' },
-  documentSymbol: { singular: 'symbol', plural: 'symbols' },
-  workspaceSymbol: { singular: 'symbol', plural: 'symbols' },
-  hover: { singular: 'hover info', plural: 'hover info', special: 'available' },
-  goToImplementation: { singular: 'implementation', plural: 'implementations' },
-  prepareCallHierarchy: { singular: 'call item', plural: 'call items' },
-  incomingCalls: { singular: 'caller', plural: 'callers' },
-  outgoingCalls: { singular: 'callee', plural: 'callees' },
+  goToDefinition: { singular: '处定义', plural: '处定义' },
+  findReferences: { singular: '处引用', plural: '处引用' },
+  documentSymbol: { singular: '个符号', plural: '个符号' },
+  workspaceSymbol: { singular: '个符号', plural: '个符号' },
+  hover: { singular: '悬停信息', plural: '悬停信息', special: '已获取' },
+  goToImplementation: { singular: '处实现', plural: '处实现' },
+  prepareCallHierarchy: { singular: '调用项', plural: '调用项' },
+  incomingCalls: { singular: '个调用者', plural: '个调用者' },
+  outgoingCalls: { singular: '个被调用者', plural: '个被调用者' },
 };
 
 /**
@@ -40,17 +40,17 @@ function LSPResultSummary({
 }): React.ReactNode {
   // Get label configuration for this operation
   const labelConfig = OPERATION_LABELS[operation] || {
-    singular: 'result',
-    plural: 'results',
+    singular: '项结果',
+    plural: '项结果',
   };
   const countLabel = resultCount === 1 ? labelConfig.singular : labelConfig.plural;
 
   const primaryText =
     operation === 'hover' && resultCount > 0 && labelConfig.special ? (
-      <Text>Hover info {labelConfig.special}</Text>
+      <Text>悬停信息 {labelConfig.special}</Text>
     ) : (
       <Text>
-        Found <Text bold>{resultCount} </Text>
+        找到 <Text bold>{resultCount} </Text>
         {countLabel}
       </Text>
     );
@@ -59,8 +59,8 @@ function LSPResultSummary({
     fileCount > 1 ? (
       <Text>
         {' '}
-        across <Text bold>{fileCount} </Text>
-        files
+        ，涉及 <Text bold>{fileCount} </Text>
+        个文件
       </Text>
     ) : null;
 
@@ -149,7 +149,7 @@ export function renderToolUseErrorMessage(
   if (!verbose && typeof result === 'string' && extractTag(result, 'tool_use_error')) {
     return (
       <MessageResponse>
-        <Text color="error">LSP operation failed</Text>
+        <Text color="error">LSP 操作失败</Text>
       </MessageResponse>
     );
   }

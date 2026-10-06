@@ -207,22 +207,22 @@ describe('convertEffortValueToLevel', () => {
 describe('getEffortLevelDescription', () => {
   test("returns description for 'low'", () => {
     const desc = getEffortLevelDescription('low')
-    expect(desc).toContain('Quick')
+    expect(desc).toContain('快速')
   })
 
   test("returns description for 'medium'", () => {
     const desc = getEffortLevelDescription('medium')
-    expect(desc).toContain('Balanced')
+    expect(desc).toContain('平衡')
   })
 
   test("returns description for 'high'", () => {
     const desc = getEffortLevelDescription('high')
-    expect(desc).toContain('Comprehensive')
+    expect(desc).toContain('深入')
   })
 
   test("returns description for 'max'", () => {
     const desc = getEffortLevelDescription('max')
-    expect(desc).toContain('Maximum')
+    expect(desc).toContain('最多思考')
   })
 
   test('max description does not contain model names', () => {
@@ -233,7 +233,7 @@ describe('getEffortLevelDescription', () => {
 
   test("returns description for 'xhigh'", () => {
     const desc = getEffortLevelDescription('xhigh')
-    expect(desc).toContain('Extended reasoning')
+    expect(desc).toContain('更多思考')
   })
 
   test('xhigh description does not contain model names', () => {

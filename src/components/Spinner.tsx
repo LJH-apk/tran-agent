@@ -26,7 +26,7 @@ import { isInProcessTeammateTask } from '../tasks/InProcessTeammateTask/types.js
 import { isLocalAgentTask } from '../tasks/LocalAgentTask/LocalAgentTask.js';
 import { isBackgroundTask } from '../tasks/types.js';
 import { getAllInProcessTeammateTasks } from '../tasks/InProcessTeammateTask/InProcessTeammateTask.js';
-import { getEffortSuffix } from '../utils/effort.js';
+import { getThinkingLabel } from '../utils/effort.js';
 import { getMainLoopModel } from '../utils/model/model.js';
 import { getViewedTeammateTask } from '../state/selectors.js';
 import { TEARDROP_ASTERISK } from '../constants/figures.js';
@@ -206,7 +206,7 @@ function SpinnerWithVerbInner({
   }, [mode]);
 
   const effortValue = useAppState(s => s.effortValue);
-  const effortSuffix = getEffortSuffix(getMainLoopModel(), effortValue);
+  const thinkingLabel = getThinkingLabel(getMainLoopModel(), effortValue);
 
   // Check if any running in-process teammates exist (needed for both modes)
   const runningTeammates = getAllInProcessTeammateTasks(tasks).filter(t => t.status === 'running');
@@ -361,7 +361,7 @@ function SpinnerWithVerbInner({
         foregroundedTeammate={foregroundedTeammate}
         leaderIsIdle={leaderIsIdle}
         thinkingStatus={thinkingStatus}
-        effortSuffix={effortSuffix}
+        thinkingLabel={thinkingLabel}
       />
       {showSpinnerTree && hasRunningTeammates ? (
         <TeammateSpinnerTree

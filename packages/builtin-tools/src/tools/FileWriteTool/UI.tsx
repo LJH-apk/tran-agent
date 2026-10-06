@@ -48,7 +48,7 @@ function FileWriteToolCreatedMessage({
   verbose: boolean;
 }): React.ReactNode {
   const { columns } = useTerminalSize();
-  const contentWithFallback = content || '(No content)';
+  const contentWithFallback = content || '（无内容）';
   const numLines = countLines(content);
   const plusLines = numLines - MAX_LINES_TO_RENDER;
 
@@ -56,7 +56,7 @@ function FileWriteToolCreatedMessage({
     <MessageResponse>
       <Box flexDirection="column">
         <Text>
-          Wrote <Text bold>{numLines}</Text> lines to{' '}
+          已写入 <Text bold>{numLines}</Text> 行至{' '}
           <Text bold>{verbose ? filePath : relative(getCwd(), filePath)}</Text>
         </Text>
         <Box flexDirection="column">
@@ -70,7 +70,7 @@ function FileWriteToolCreatedMessage({
         </Box>
         {!verbose && plusLines > 0 && (
           <Text dimColor>
-            … +{plusLines} {plusLines === 1 ? 'line' : 'lines'} {numLines > 0 && <CtrlOToExpand />}
+            … 另有 {plusLines} 行 {numLines > 0 && <CtrlOToExpand />}
           </Text>
         )}
       </Box>
@@ -80,7 +80,7 @@ function FileWriteToolCreatedMessage({
 
 export function userFacingName(input: Partial<{ file_path: string; content: string }> | undefined): string {
   if (input?.file_path?.startsWith(getPlansDirectory())) {
-    return 'Updated plan';
+    return '已更新计划';
   }
   return 'Write';
 }
@@ -194,7 +194,7 @@ function WriteRejectionBody({
   if (data.type === 'error') {
     return (
       <MessageResponse>
-        <Text>(No changes)</Text>
+        <Text>（无改动）</Text>
       </MessageResponse>
     );
   }
@@ -245,7 +245,7 @@ export function renderToolUseErrorMessage(
   if (!verbose && typeof result === 'string' && extractTag(result, 'tool_use_error')) {
     return (
       <MessageResponse>
-        <Text color="error">Error writing file</Text>
+        <Text color="error">写入文件失败</Text>
       </MessageResponse>
     );
   }
@@ -268,7 +268,7 @@ export function renderToolResultMessage(
         if (style !== 'condensed') {
           return (
             <MessageResponse>
-              <Text dimColor>/plan to preview</Text>
+              <Text dimColor>输入 /plan 预览</Text>
             </MessageResponse>
           );
         }
@@ -276,7 +276,7 @@ export function renderToolResultMessage(
         const numLines = countLines(content);
         return (
           <Text>
-            Wrote <Text bold>{numLines}</Text> lines to <Text bold>{relative(getCwd(), filePath)}</Text>
+            已写入 <Text bold>{numLines}</Text> 行至 <Text bold>{relative(getCwd(), filePath)}</Text>
           </Text>
         );
       }
@@ -293,7 +293,7 @@ export function renderToolResultMessage(
           fileContent={originalFile ?? undefined}
           style={style}
           verbose={verbose}
-          previewHint={isPlanFile ? '/plan to preview' : undefined}
+          previewHint={isPlanFile ? '输入 /plan 预览' : undefined}
         />
       );
     }

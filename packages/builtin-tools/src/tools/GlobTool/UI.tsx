@@ -35,13 +35,13 @@ export function renderToolUseErrorMessage(
     if (errorMessage?.includes(FILE_NOT_FOUND_CWD_NOTE)) {
       return (
         <MessageResponse>
-          <Text color="error">File not found</Text>
+          <Text color="error">找不到文件</Text>
         </MessageResponse>
       );
     }
     return (
       <MessageResponse>
-        <Text color="error">Error searching files</Text>
+        <Text color="error">搜索文件失败</Text>
       </MessageResponse>
     );
   }

@@ -3,7 +3,7 @@ import { jsonParse } from 'src/utils/slowOperations.js';
 import type { Output } from './TeamDeleteTool.js';
 
 export function renderToolUseMessage(_input: Record<string, unknown>): React.ReactNode {
-  return 'cleanup team: current';
+  return '清理当前团队';
 }
 
 export function renderToolResultMessage(

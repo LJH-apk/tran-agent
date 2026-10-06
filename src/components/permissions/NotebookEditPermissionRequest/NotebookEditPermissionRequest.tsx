@@ -30,12 +30,7 @@ export function NotebookEditPermissionRequest(props: PermissionRequestProps): Re
 
   const language = cell_type === 'markdown' ? 'markdown' : 'python';
 
-  const editTypeText =
-    edit_mode === 'insert'
-      ? '在以下位置插入此单元格：'
-      : edit_mode === 'delete'
-        ? '从以下位置删除此单元格：'
-        : '对以下内容进行此修改：';
+  const editTypeText = edit_mode === 'insert' ? '插入单元格' : edit_mode === 'delete' ? '删除单元格' : '修改单元格';
 
   return (
     <FilePermissionDialog
@@ -47,7 +42,7 @@ export function NotebookEditPermissionRequest(props: PermissionRequestProps): Re
       title="编辑 Notebook"
       question={
         <Text>
-          Do you want to {editTypeText} <Text bold>{basename(notebook_path)}</Text>?
+          是否在 <Text bold>{basename(notebook_path)}</Text> 中{editTypeText}？
         </Text>
       }
       content={

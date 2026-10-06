@@ -1,6 +1,5 @@
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs';
 import * as React from 'react';
-import { KeyboardShortcutHint } from '@anthropic/ink';
 import { FallbackToolUseErrorMessage } from 'src/components/FallbackToolUseErrorMessage.js';
 import { MessageResponse } from 'src/components/MessageResponse.js';
 import { ShellProgressMessage } from 'src/components/shell/ShellProgressMessage.js';
@@ -46,7 +45,7 @@ export function BackgroundHint({ onBackground }: { onBackground?: () => void } =
   // Get the configured shortcut for task:background
   const baseShortcut = useShortcutDisplay('task:background', 'Task', 'ctrl+b');
   // In tmux, ctrl+b is the prefix key, so users need to press it twice to send ctrl+b
-  const shortcut = env.terminal === 'tmux' && baseShortcut === 'ctrl+b' ? 'ctrl+b ctrl+b (twice)' : baseShortcut;
+  const shortcut = env.terminal === 'tmux' && baseShortcut === 'ctrl+b' ? 'ctrl+b ctrl+b（连按两次）' : baseShortcut;
 
   // Don't show background hint if background tasks are disabled
   if (isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_BACKGROUND_TASKS)) {
@@ -56,7 +55,7 @@ export function BackgroundHint({ onBackground }: { onBackground?: () => void } =
   return (
     <Box paddingLeft={5}>
       <Text dimColor>
-        <KeyboardShortcutHint shortcut={shortcut} action="run in background" parens />
+        ({shortcut} 转入后台运行)
       </Text>
     </Box>
   );
@@ -129,7 +128,7 @@ export function renderToolUseProgressMessage(
   if (!lastProgress || !lastProgress.data) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>Running…</Text>
+        <Text dimColor>运行中…</Text>
       </MessageResponse>
     );
   }
@@ -153,7 +152,7 @@ export function renderToolUseProgressMessage(
 export function renderToolUseQueuedMessage(): React.ReactNode {
   return (
     <MessageResponse height={1}>
-      <Text dimColor>Waiting…</Text>
+      <Text dimColor>等待中…</Text>
     </MessageResponse>
   );
 }

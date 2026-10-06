@@ -42,7 +42,7 @@ import { useShellPermissionFeedback } from '../useShellPermissionFeedback.js';
 import { logUnaryPermissionEvent } from '../utils.js';
 import { bashToolUseOptions } from './bashToolUseOptions.js';
 
-const CHECKING_TEXT = 'Attempting to auto-approve\u2026';
+const CHECKING_TEXT = '正在尝试自动批准\u2026';
 
 // Isolates the 20fps shimmer clock from BashPermissionRequestInner. Before this
 // extraction, useShimmerAnimation lived inside the 535-line Inner body, so every

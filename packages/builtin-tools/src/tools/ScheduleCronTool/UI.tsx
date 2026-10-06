@@ -16,7 +16,7 @@ export function renderCreateResultMessage(output: CreateOutput): React.ReactNode
   return (
     <MessageResponse>
       <Text>
-        Scheduled <Text bold>{output.id}</Text> <Text dimColor>({output.humanSchedule})</Text>
+        已安排 <Text bold>{output.id}</Text> <Text dimColor>({output.humanSchedule})</Text>
       </Text>
     </MessageResponse>
   );
@@ -32,7 +32,7 @@ export function renderDeleteResultMessage(output: DeleteOutput): React.ReactNode
   return (
     <MessageResponse>
       <Text>
-        Cancelled <Text bold>{output.id}</Text>
+        已取消 <Text bold>{output.id}</Text>
       </Text>
     </MessageResponse>
   );
@@ -48,7 +48,7 @@ export function renderListResultMessage(output: ListOutput): React.ReactNode {
   if (output.jobs.length === 0) {
     return (
       <MessageResponse>
-        <Text dimColor>No scheduled jobs</Text>
+        <Text dimColor>没有定时任务</Text>
       </MessageResponse>
     );
   }

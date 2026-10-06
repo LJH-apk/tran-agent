@@ -386,9 +386,9 @@ export function PreviewQuestionView({
           </Box>
           <Box marginTop={1}>
             <Text color="inactive" dimColor>
-              Enter to select · {figures.arrowUp}/{figures.arrowDown} to navigate · n to add notes
+              Enter 选择 · {figures.arrowUp}/{figures.arrowDown} 切换 · n 添加备注
               {questions.length > 1 && <> · 按 Tab 切换问题</>}
-              {isInNotesInput && editorName && <> · ctrl+g to edit in {editorName}</>} · 按 Esc 取消
+              {isInNotesInput && editorName && <> · ctrl+g 编辑，使用 {editorName}</>} · 按 Esc 取消
             </Text>
           </Box>
         </Box>

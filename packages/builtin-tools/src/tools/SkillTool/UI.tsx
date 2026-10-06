@@ -12,7 +12,6 @@ import { Box, Text } from '@anthropic/ink';
 import type { Tools } from 'src/Tool.js';
 import type { ProgressMessage } from 'src/types/message.js';
 import { buildSubagentLookups, EMPTY_LOOKUPS } from 'src/utils/messages.js';
-import { plural } from 'src/utils/stringUtils.js';
 import type { inputSchema, Output, Progress } from './SkillTool.js';
 
 type Input = z.infer<ReturnType<typeof inputSchema>>;
@@ -26,18 +25,18 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
     return (
       <MessageResponse height={1}>
         <Text>
-          <Byline>{['Done']}</Byline>
+          <Byline>{['完成']}</Byline>
         </Text>
       </MessageResponse>
     );
   }
 
-  const parts: string[] = ['Successfully loaded skill'];
+  const parts: string[] = ['已加载技能'];
 
   // Show tools count (only for inline skills)
   if ('allowedTools' in output && output.allowedTools && output.allowedTools.length > 0) {
     const count = output.allowedTools.length;
-    parts.push(`${count} ${plural(count, 'tool')} allowed`);
+    parts.push(`已允许 ${count} 个工具`);
   }
 
   // Show model if non-default (only for inline skills)
@@ -117,7 +116,7 @@ export function renderToolUseProgressMessage(
         </SubAgentProvider>
         {hiddenCount > 0 && (
           <Text dimColor>
-            +{hiddenCount} more tool {plural(hiddenCount, 'use')}
+            另有 {hiddenCount} 次工具调用
           </Text>
         )}
       </Box>

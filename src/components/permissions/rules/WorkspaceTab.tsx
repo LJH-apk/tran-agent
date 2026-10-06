@@ -66,7 +66,7 @@ export function WorkspaceTab({
     }));
 
     opts.push({
-      label: `Add directory${figures.ellipsis}`,
+      label: `添加目录${figures.ellipsis}`,
       value: 'add-directory',
     });
 

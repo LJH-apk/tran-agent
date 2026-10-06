@@ -1,6 +1,5 @@
 import React from 'react';
 import { removeSandboxViolationTags } from 'src/utils/sandbox/sandbox-ui-utils.js';
-import { KeyboardShortcutHint } from '@anthropic/ink';
 import { MessageResponse } from 'src/components/MessageResponse.js';
 import { OutputLine } from 'src/components/shell/OutputLine.js';
 import { ShellTimeDisplay } from 'src/components/shell/ShellTimeDisplay.js';
@@ -83,7 +82,7 @@ export default function BashToolResultMessage({
   if (isImage) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>[Image data detected and sent to Tran Agent]</Text>
+        <Text dimColor>[已检测到图片数据并发送给 Tran Agent]</Text>
       </MessageResponse>
     );
   }
@@ -102,10 +101,10 @@ export default function BashToolResultMessage({
           <Text dimColor>
             {backgroundTaskId ? (
               <>
-                Running in the background <KeyboardShortcutHint shortcut="↓" action="manage" parens />
+                正在后台运行 (↓ 管理)
               </>
             ) : (
-              returnCodeInterpretation || (noOutputExpected ? 'Done' : '(No output)')
+              returnCodeInterpretation || (noOutputExpected ? '完成' : '（无输出）')
             )}
           </Text>
         </MessageResponse>

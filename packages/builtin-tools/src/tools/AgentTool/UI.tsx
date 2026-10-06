@@ -221,7 +221,7 @@ export function AgentResponseDisplay({
   return (
     <Box flexDirection="column">
       <Text color="success" bold>
-        Response:
+        回复：
       </Text>
       {content.map((block: { type: string; text: string }, index: number) => (
         <Box key={index} paddingLeft={2} marginTop={index === 0 ? 0 : 1}>
@@ -373,7 +373,7 @@ export function renderToolResultMessage(
     <Box flexDirection="column">
       {process.env.USER_TYPE === 'ant' && (
         <MessageResponse>
-          <Text color="warning">[ANT-ONLY] API calls: {getDisplayPath(getDumpPromptsPath(agentId))}</Text>
+          <Text color="warning">[仅内部] API 调用： {getDisplayPath(getDumpPromptsPath(agentId))}</Text>
         </MessageResponse>
       )}
       {isTranscriptMode && prompt && (
@@ -670,7 +670,7 @@ export function renderToolUseRejectedMessage(
     <>
       {process.env.USER_TYPE === 'ant' && agentId && (
         <MessageResponse>
-          <Text color="warning">[ANT-ONLY] API calls: {getDisplayPath(getDumpPromptsPath(agentId))}</Text>
+          <Text color="warning">[仅内部] API 调用： {getDisplayPath(getDumpPromptsPath(agentId))}</Text>
         </MessageResponse>
       )}
       {renderToolUseProgressMessage(progressMessagesForMessage, {

@@ -1,6 +1,5 @@
 import type { ToolResultBlockParam } from '@anthropic-ai/sdk/resources/index.mjs';
 import * as React from 'react';
-import { KeyboardShortcutHint } from '@anthropic/ink';
 import { FallbackToolUseErrorMessage } from 'src/components/FallbackToolUseErrorMessage.js';
 import { MessageResponse } from 'src/components/MessageResponse.js';
 import { OutputLine } from 'src/components/shell/OutputLine.js';
@@ -70,7 +69,7 @@ export function renderToolUseProgressMessage(
   if (!lastProgress || !lastProgress.data) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>Running…</Text>
+        <Text dimColor>运行中…</Text>
       </MessageResponse>
     );
   }
@@ -94,7 +93,7 @@ export function renderToolUseProgressMessage(
 export function renderToolUseQueuedMessage(): React.ReactNode {
   return (
     <MessageResponse height={1}>
-      <Text dimColor>Waiting…</Text>
+      <Text dimColor>等待中…</Text>
     </MessageResponse>
   );
 }
@@ -121,7 +120,7 @@ export function renderToolResultMessage(
   if (isImage) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>[Image data detected and sent to Tran Agent]</Text>
+        <Text dimColor>[已检测到图片数据并发送给 Tran Agent]</Text>
       </MessageResponse>
     );
   }
@@ -135,12 +134,12 @@ export function renderToolResultMessage(
           <Text dimColor>
             {backgroundTaskId ? (
               <>
-                Running in the background <KeyboardShortcutHint shortcut="↓" action="manage" parens />
+                正在后台运行 (↓ 管理)
               </>
             ) : interrupted ? (
-              'Interrupted'
+              '已中断'
             ) : (
-              returnCodeInterpretation || '(No output)'
+              returnCodeInterpretation || '（无输出）'
             )}
           </Text>
         </MessageResponse>

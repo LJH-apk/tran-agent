@@ -15,7 +15,7 @@ import { useStalledAnimation } from './useStalledAnimation.js';
 import { interpolateColor, toRGBColor } from './utils.js';
 
 const SEP_WIDTH = stringWidth(' · ');
-const THINKING_BARE_WIDTH = stringWidth('thinking');
+const THINKING_BARE_WIDTH = stringWidth('思考中');
 const SHOW_TOKENS_AFTER_MS = 30_000;
 
 // Thinking shimmer constants. Previously lived in a separate ThinkingShimmerText
@@ -60,7 +60,7 @@ export type SpinnerAnimationRowProps = {
 
   // Thinking (state owned by parent, mode-dependent)
   thinkingStatus: 'thinking' | number | null;
-  effortSuffix: string;
+  thinkingLabel: string;
 };
 
 /**
@@ -94,7 +94,7 @@ export function SpinnerAnimationRow({
   foregroundedTeammate,
   leaderIsIdle = false,
   thinkingStatus,
-  effortSuffix,
+  thinkingLabel,
 }: SpinnerAnimationRowProps): React.ReactNode {
   const [viewportRef, time] = useAnimationFrame(reducedMotion ? null : 50);
 
@@ -185,7 +185,7 @@ export function SpinnerAnimationRow({
   // === Thinking text (may shrink to fit) ===
   let thinkingText =
     thinkingStatus === 'thinking'
-      ? `思考中${effortSuffix}`
+      ? thinkingLabel
       : typeof thinkingStatus === 'number'
         ? `思考了 ${Math.max(1, Math.round(thinkingStatus / 1000))} 秒`
         : null;
@@ -201,9 +201,9 @@ export function SpinnerAnimationRow({
   const availableSpace = columns - messageWidth - 5;
 
   let showThinking = wantsThinking && availableSpace > thinkingWidthValue;
-  if (!showThinking && wantsThinking && thinkingStatus === 'thinking' && effortSuffix) {
+  if (!showThinking && wantsThinking && thinkingStatus === 'thinking') {
     if (availableSpace > THINKING_BARE_WIDTH) {
-      thinkingText = 'thinking';
+      thinkingText = '思考中';
       thinkingWidthValue = THINKING_BARE_WIDTH;
       showThinking = true;
     }

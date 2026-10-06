@@ -6,7 +6,6 @@ import * as React from 'react';
 import { useMemo, useState } from 'react';
 import { Box, Text } from '@anthropic/ink';
 import { execFileNoThrow } from '../../../utils/execFileNoThrow.js';
-import { plural } from '../../../utils/stringUtils.js';
 import type { OptionWithDescription } from '../../CustomSelect/select.js';
 import { Select } from '../../CustomSelect/select.js';
 import { Dialog } from '@anthropic/ink';
@@ -90,7 +89,7 @@ function ComputerUseTccPanel({
   }
 
   return (
-    <Dialog title="Computer Use 需要 macOS 权限" onCancel={onDone}>
+    <Dialog title="电脑控制需要 macOS 权限" onCancel={onDone}>
       <Box flexDirection="column" paddingX={1} paddingY={1} gap={1}>
         <Box flexDirection="column">
           <Text>
@@ -101,8 +100,7 @@ function ComputerUseTccPanel({
           </Text>
         </Box>
         <Text dimColor>
-          Grant the missing permissions in System Settings, then select &quot;Try again&quot;. macOS may require you to
-          restart Tran Agent after granting Screen Recording.
+          请在系统设置中授予缺少的权限，然后选择“重试”。授予屏幕录制权限后，macOS 可能要求你重启 Tran Agent。
         </Text>
         <Select options={options} onChange={onChange} onCancel={onDone} />
       </Box>
@@ -130,6 +128,11 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
   );
 
   type FlagKey = keyof typeof DEFAULT_GRANT_FLAGS;
+  const flagLabels: Record<FlagKey, string> = {
+    clipboardRead: '读取剪贴板',
+    clipboardWrite: '写入剪贴板',
+    systemKeyCombos: '使用系统快捷键',
+  };
   const ALL_FLAG_KEYS: FlagKey[] = ['clipboardRead', 'clipboardWrite', 'systemKeyCombos'];
   const requestedFlagKeys = useMemo(
     (): FlagKey[] => ALL_FLAG_KEYS.filter(k => request.requestedFlags[k]),
@@ -145,7 +148,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
       {
         label: (
           <Text>
-            Deny, and tell Tran Agent what to do differently <Text bold>(esc)</Text>
+            拒绝，并告诉 Tran Agent 应该怎么做 <Text bold>(esc)</Text>
           </Text>
         ),
         value: 'deny',
@@ -186,7 +189,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
   }
 
   return (
-    <Dialog title="Computer Use 想要控制以下应用" onCancel={() => respond(false)}>
+    <Dialog title="电脑控制想要操作以下应用" onCancel={() => respond(false)}>
       <Box flexDirection="column" paddingX={1} paddingY={1} gap={1}>
         {request.reason ? <Text dimColor>{request.reason}</Text> : null}
 
@@ -233,7 +236,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
             <Text dimColor>同时请求：</Text>
             {requestedFlagKeys.map(flag => (
               <Text key={flag} dimColor>
-                {'  '}· {flag}
+                {'  '}· {flagLabels[flag]}
               </Text>
             ))}
           </Box>
@@ -241,7 +244,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
 
         {request.willHide && request.willHide.length > 0 ? (
           <Text dimColor>
-            {request.willHide.length} other {plural(request.willHide.length, 'app')} will be hidden while Tran Agent works.
+            Tran Agent 工作时将隐藏另外 {request.willHide.length} 个应用。
           </Text>
         ) : null}
 

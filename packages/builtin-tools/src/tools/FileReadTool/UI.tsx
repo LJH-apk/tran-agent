@@ -48,13 +48,13 @@ export function renderToolUseMessage(
     return (
       <>
         <FilePathLink filePath={file_path}>{displayPath}</FilePathLink>
-        {` · pages ${pages}`}
+        {` · 页码 ${pages}`}
       </>
     );
   }
   if (verbose && (offset || limit)) {
     const startLine = offset ?? 1;
-    const lineRange = limit ? `lines ${startLine}-${startLine + limit - 1}` : `from line ${startLine}`;
+    const lineRange = limit ? `第 ${startLine}-${startLine + limit - 1} 行` : `从第 ${startLine} 行开始`;
     return (
       <>
         <FilePathLink filePath={file_path}>{displayPath}</FilePathLink>
@@ -84,19 +84,19 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
 
       return (
         <MessageResponse height={1}>
-          <Text>Read image ({formattedSize})</Text>
+          <Text>已读取图片（{formattedSize}）</Text>
         </MessageResponse>
       );
     }
     case 'notebook': {
       const { cells } = output.file;
       if (!cells || cells.length < 1) {
-        return <Text color="error">No cells found in notebook</Text>;
+        return <Text color="error">Notebook 中没有单元格</Text>;
       }
       return (
         <MessageResponse height={1}>
           <Text>
-            Read <Text bold>{cells.length}</Text> cells
+            已读取 <Text bold>{cells.length}</Text> 个单元格
           </Text>
         </MessageResponse>
       );
@@ -107,7 +107,7 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
 
       return (
         <MessageResponse height={1}>
-          <Text>Read PDF ({formattedSize})</Text>
+          <Text>已读取 PDF（{formattedSize}）</Text>
         </MessageResponse>
       );
     }
@@ -115,8 +115,7 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
       return (
         <MessageResponse height={1}>
           <Text>
-            Read <Text bold>{output.file.count}</Text> {output.file.count === 1 ? 'page' : 'pages'} (
-            {formatFileSize(output.file.originalSize)})
+            已读取 <Text bold>{output.file.count}</Text> 页（{formatFileSize(output.file.originalSize)}）
           </Text>
         </MessageResponse>
       );
@@ -127,7 +126,7 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
       return (
         <MessageResponse height={1}>
           <Text>
-            Read <Text bold>{numLines}</Text> {numLines === 1 ? 'line' : 'lines'}
+            已读取 <Text bold>{numLines}</Text> 行
           </Text>
         </MessageResponse>
       );
@@ -135,7 +134,7 @@ export function renderToolResultMessage(output: Output): React.ReactNode {
     case 'file_unchanged': {
       return (
         <MessageResponse height={1}>
-          <Text dimColor>Unchanged since last read</Text>
+          <Text dimColor>自上次读取后未发生变化</Text>
         </MessageResponse>
       );
     }
@@ -152,14 +151,14 @@ export function renderToolUseErrorMessage(
     if (result.includes(FILE_NOT_FOUND_CWD_NOTE)) {
       return (
         <MessageResponse>
-          <Text color="error">File not found</Text>
+          <Text color="error">找不到文件</Text>
         </MessageResponse>
       );
     }
     if (extractTag(result, 'tool_use_error')) {
       return (
         <MessageResponse>
-          <Text color="error">Error reading file</Text>
+          <Text color="error">读取文件失败</Text>
         </MessageResponse>
       );
     }
@@ -169,10 +168,10 @@ export function renderToolUseErrorMessage(
 
 export function userFacingName(input: Partial<Input> | undefined): string {
   if (input?.file_path?.startsWith(getPlansDirectory())) {
-    return 'Reading Plan';
+    return '读取计划';
   }
   if (input?.file_path && getAgentOutputTaskId(input.file_path)) {
-    return 'Read agent output';
+    return '读取智能体输出';
   }
   return 'Read';
 }

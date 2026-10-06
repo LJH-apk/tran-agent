@@ -28,7 +28,7 @@ export function renderToolUseMessage(
   const action = input.action ?? 'list_stores';
   const store = input.store ? ` ${input.store}` : '';
   const key = input.key ? `/${input.key}` : '';
-  const preview = action === 'fetch' && input.preview_only === false ? ' (full)' : '';
+  const preview = action === 'fetch' && input.preview_only === false ? '（完整内容）' : '';
   return `${action}${store}${key}${preview}`;
 }
 
@@ -40,7 +40,7 @@ export function renderToolResultMessage(
   if (output.error) {
     return (
       <MessageResponse height={1}>
-        <Text color="error">Error: {output.error}</Text>
+        <Text color="error">错误： {output.error}</Text>
       </MessageResponse>
     );
   }
@@ -49,13 +49,13 @@ export function renderToolResultMessage(
     if (!output.stores || output.stores.length === 0) {
       return (
         <MessageResponse height={1}>
-          <Text dimColor>(No stores)</Text>
+          <Text dimColor>（没有记忆库）</Text>
         </MessageResponse>
       );
     }
     return (
       <MessageResponse height={Math.min(output.stores.length, 10)}>
-        <Text>Stores: {output.stores.join(', ')}</Text>
+        <Text>记忆库： {output.stores.join(', ')}</Text>
       </MessageResponse>
     );
   }
@@ -64,7 +64,7 @@ export function renderToolResultMessage(
     if (!output.entries || output.entries.length === 0) {
       return (
         <MessageResponse height={1}>
-          <Text dimColor>(No entries in {output.store ?? '?'})</Text>
+          <Text dimColor>（记忆库 {output.store ?? '?'} 中没有条目）</Text>
         </MessageResponse>
       );
     }

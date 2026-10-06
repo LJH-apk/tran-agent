@@ -112,7 +112,7 @@ function SedEditPermissionRequestInner({
       subtitle={relative(getCwd(), filePath)}
       question={
         <Text>
-          Do you want to make this edit to <Text bold>{basename(filePath)}</Text>?
+          是否修改文件 <Text bold>{basename(filePath)}</Text>？
         </Text>
       }
       content={

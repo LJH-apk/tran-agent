@@ -29,8 +29,8 @@ function SearchResultSummary({
 }): React.ReactNode {
   const primaryText = (
     <Text>
-      Found <Text bold>{count} </Text>
-      {count === 0 || count > 1 ? countLabel : countLabel.slice(0, -1)}
+      找到 <Text bold>{count} </Text>
+      {countLabel}
     </Text>
   );
 
@@ -38,8 +38,8 @@ function SearchResultSummary({
     secondaryCount !== undefined && secondaryLabel ? (
       <Text>
         {' '}
-        across <Text bold>{secondaryCount} </Text>
-        {secondaryCount === 0 || secondaryCount > 1 ? secondaryLabel : secondaryLabel.slice(0, -1)}
+        ，涉及 <Text bold>{secondaryCount} </Text>
+        {secondaryLabel}
       </Text>
     ) : null;
 
@@ -104,13 +104,13 @@ export function renderToolUseErrorMessage(
     if (errorMessage?.includes(FILE_NOT_FOUND_CWD_NOTE)) {
       return (
         <MessageResponse>
-          <Text color="error">File not found</Text>
+          <Text color="error">找不到文件</Text>
         </MessageResponse>
       );
     }
     return (
       <MessageResponse>
-        <Text color="error">Error searching files</Text>
+        <Text color="error">搜索文件失败</Text>
       </MessageResponse>
     );
   }
@@ -123,16 +123,16 @@ export function renderToolResultMessage(
   { verbose }: { verbose: boolean },
 ): React.ReactNode {
   if (mode === 'content') {
-    return <SearchResultSummary count={numLines ?? 0} countLabel="lines" content={content} verbose={verbose} />;
+    return <SearchResultSummary count={numLines ?? 0} countLabel="行" content={content} verbose={verbose} />;
   }
 
   if (mode === 'count') {
     return (
       <SearchResultSummary
         count={numMatches ?? 0}
-        countLabel="matches"
+        countLabel="处匹配"
         secondaryCount={numFiles}
-        secondaryLabel="files"
+        secondaryLabel="个文件"
         content={content}
         verbose={verbose}
       />
@@ -141,7 +141,7 @@ export function renderToolResultMessage(
 
   // files_with_matches mode
   const fileListContent = filenames.map(filename => filename).join('\n');
-  return <SearchResultSummary count={numFiles} countLabel="files" content={fileListContent} verbose={verbose} />;
+  return <SearchResultSummary count={numFiles} countLabel="个文件" content={fileListContent} verbose={verbose} />;
 }
 
 export function getToolUseSummary(

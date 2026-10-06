@@ -47,9 +47,9 @@ export function WorkerPendingPermission({ toolName, description }: Props): React
       {teamName && (
         <Box marginTop={1}>
           <Text dimColor>
-            Permission request sent to team {'"'}
+            权限请求已发送给团队“
             {teamName}
-            {'"'} leader
+            ”的负责人
           </Text>
         </Box>
       )}

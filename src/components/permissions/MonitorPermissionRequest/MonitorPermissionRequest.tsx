@@ -130,7 +130,7 @@ export function MonitorPermissionRequest({
   }, [toolUseConfirm, onDone, onReject]);
 
   return (
-    <PermissionDialog title="Monitor" workerBadge={workerBadge}>
+    <PermissionDialog title="监控" workerBadge={workerBadge}>
       <Box flexDirection="column" gap={1}>
         <Box flexDirection="column">
           <Text bold color={theme.permission as any}>

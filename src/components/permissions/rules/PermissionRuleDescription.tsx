@@ -14,13 +14,13 @@ export function PermissionRuleDescription({ ruleValue }: RuleSubtitleProps): Rea
         if (ruleValue.ruleContent.endsWith(':*')) {
           return (
             <Text dimColor>
-              Any Bash command starting with <Text bold>{ruleValue.ruleContent.slice(0, -2)}</Text>
+              任何以此内容开头的 Bash 命令： <Text bold>{ruleValue.ruleContent.slice(0, -2)}</Text>
             </Text>
           );
         } else {
           return (
             <Text dimColor>
-              The Bash command <Text bold>{ruleValue.ruleContent}</Text>
+              Bash 命令： <Text bold>{ruleValue.ruleContent}</Text>
             </Text>
           );
         }
@@ -32,7 +32,7 @@ export function PermissionRuleDescription({ ruleValue }: RuleSubtitleProps): Rea
       if (!ruleValue.ruleContent) {
         return (
           <Text dimColor>
-            Any use of the <Text bold>{ruleValue.toolName}</Text> tool
+            使用工具： <Text bold>{ruleValue.toolName}</Text>
           </Text>
         );
       } else {

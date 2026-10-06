@@ -33,7 +33,7 @@ describe('ArtifactTool UI.renderToolResultMessage', () => {
     const text = extractText(node);
     expect(text).toContain(content.url);
     expect(text).toContain(content.expiresAt);
-    expect(text).toContain('Artifact uploaded');
+    expect(text).toContain('产物已上传');
   });
 
   test('renders the error message on failure', () => {
@@ -46,7 +46,7 @@ describe('ArtifactTool UI.renderToolResultMessage', () => {
     const node = renderToolResultMessage(content, NO_PROGRESS, OPTIONS);
     expect(React.isValidElement(node)).toBe(true);
     const text = extractText(node);
-    expect(text).toContain('Artifact upload failed');
+    expect(text).toContain('产物上传失败');
     expect(text).toContain('/tmp/missing.html');
   });
 

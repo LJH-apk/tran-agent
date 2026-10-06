@@ -12,7 +12,7 @@ export function renderToolResultMessage(
   if (content.error) {
     return (
       <Box>
-        <Text color="error">⚠ Artifact upload failed: {content.error}</Text>
+        <Text color="error">⚠ 产物上传失败： {content.error}</Text>
       </Box>
     );
   }
@@ -21,7 +21,7 @@ export function renderToolResultMessage(
     <Box flexDirection="column">
       <Box>
         <Text>
-          <Text color="success">↑</Text> Artifact uploaded:{' '}
+          <Text color="success">↑</Text> 产物已上传：{' '}
           <Link url={content.url}>
             <Text color="warning">{content.url}</Text>
           </Link>
@@ -29,7 +29,7 @@ export function renderToolResultMessage(
       </Box>
       {content.expiresAt ? (
         <Box>
-          <Text dimColor>expires: {content.expiresAt}</Text>
+          <Text dimColor>过期时间： {content.expiresAt}</Text>
         </Box>
       ) : null}
     </Box>

@@ -8,7 +8,7 @@ import { jsonStringify } from 'src/utils/slowOperations.js';
 import type { Output } from './ListMcpResourcesTool.js';
 
 export function renderToolUseMessage(input: Partial<{ server?: string }>): React.ReactNode {
-  return input.server ? `List MCP resources from server "${input.server}"` : `List all MCP resources`;
+  return input.server ? `列出服务器的 MCP 资源："${input.server}"` : `列出所有 MCP 资源`;
 }
 
 export function renderToolResultMessage(
@@ -19,7 +19,7 @@ export function renderToolResultMessage(
   if (!output || output.length === 0) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>(No resources found)</Text>
+        <Text dimColor>（未找到资源）</Text>
       </MessageResponse>
     );
   }

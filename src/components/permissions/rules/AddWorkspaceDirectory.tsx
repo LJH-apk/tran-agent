@@ -78,7 +78,7 @@ function DirectoryInput({
       <Box borderDimColor borderStyle="round" marginY={1} paddingLeft={1}>
         <TextInput
           showCursor
-          placeholder={`Directory path${figures.ellipsis}`}
+          placeholder={`目录路径${figures.ellipsis}`}
           value={value}
           onChange={onChange}
           onSubmit={onSubmit}

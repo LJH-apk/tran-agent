@@ -12,7 +12,7 @@ export function renderToolUseMessage(input: Partial<z.infer<ReturnType<typeof in
   if (!input.uri || !input.server) {
     return null;
   }
-  return `Read resource "${input.uri}" from server "${input.server}"`;
+  return `读取资源 "${input.uri}"，服务器 "${input.server}"`;
 }
 
 export function userFacingName(): string {
@@ -28,7 +28,7 @@ export function renderToolResultMessage(
     return (
       <Box justifyContent="space-between" overflowX="hidden" width="100%">
         <MessageResponse height={1}>
-          <Text dimColor>(No content)</Text>
+          <Text dimColor>（无内容）</Text>
         </MessageResponse>
       </Box>
     );

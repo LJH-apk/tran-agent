@@ -204,7 +204,7 @@ export function getDisplayedEffortLevel(
 }
 
 /**
- * Build the ` with {level} effort` suffix shown in Logo/Spinner.
+ * Build the localized effort suffix shown in Logo.
  * Returns empty string if the user hasn't explicitly set an effort value.
  * Delegates to resolveAppliedEffort() so the displayed level matches what
  * the API actually receives (including max→high clamp for non-Opus models).
@@ -216,7 +216,30 @@ export function getEffortSuffix(
   if (effortValue === undefined) return ''
   const resolved = resolveAppliedEffort(model, effortValue)
   if (resolved === undefined) return ''
-  return ` with ${convertEffortValueToLevel(resolved)} effort`
+  const labels: Record<EffortLevel, string> = {
+    low: '轻量',
+    medium: '标准',
+    high: '深入',
+    xhigh: '更深入',
+    max: '全力',
+  }
+  return `（${labels[convertEffortValueToLevel(resolved)]}）`
+}
+
+export function getThinkingLabel(
+  model: string,
+  effortValue: EffortValue | undefined,
+): string {
+  const resolved = resolveAppliedEffort(model, effortValue)
+  if (resolved === undefined) return '正在思考'
+  const labels: Record<EffortLevel, string> = {
+    low: '正在快速思考',
+    medium: '正在思考',
+    high: '正在深入思考',
+    xhigh: '正在仔细推敲',
+    max: '正在全力思考',
+  }
+  return labels[convertEffortValueToLevel(resolved)]
 }
 
 export function isValidNumericEffort(value: number): boolean {
@@ -248,15 +271,15 @@ export function convertEffortValueToLevel(value: EffortValue): EffortLevel {
 export function getEffortLevelDescription(level: EffortLevel): string {
   switch (level) {
     case 'low':
-      return 'Quick, straightforward implementation with minimal overhead'
+      return '快速处理简单任务，减少推理开销'
     case 'medium':
-      return 'Balanced approach with standard implementation and testing'
+      return '平衡思考深度与响应速度'
     case 'high':
-      return 'Comprehensive implementation with extensive testing and documentation'
+      return '深入思考，适合较复杂的任务'
     case 'xhigh':
-      return 'Extended reasoning beyond high, short of max'
+      return '比深入模式投入更多思考，低于全力模式'
     case 'max':
-      return 'Maximum capability with deepest reasoning'
+      return '投入最多思考，适合最复杂的任务'
   }
 }
 
@@ -274,7 +297,7 @@ export function getEffortValueDescription(value: EffortValue): string {
   if (typeof value === 'string') {
     return getEffortLevelDescription(value)
   }
-  return 'Balanced approach with standard implementation and testing'
+  return '平衡思考深度与响应速度'
 }
 
 export type OpusDefaultEffortConfig = {

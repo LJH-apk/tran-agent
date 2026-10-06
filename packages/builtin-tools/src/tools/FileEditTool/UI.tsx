@@ -37,7 +37,7 @@ export function userFacingName(
     return 'Update';
   }
   if (input.file_path?.startsWith(getPlansDirectory())) {
-    return 'Updated plan';
+    return '已更新计划';
   }
   // Hashline edits always modify an existing file (line-ref based)
   if (input.edits != null) {
@@ -95,7 +95,7 @@ export function renderToolResultMessage(
       fileContent={originalFile}
       style={style}
       verbose={verbose}
-      previewHint={isPlanFile ? '/plan to preview' : undefined}
+      previewHint={isPlanFile ? '输入 /plan 预览' : undefined}
     />
   );
 }
@@ -172,13 +172,13 @@ export function renderToolUseErrorMessage(
     if (errorMessage?.includes(FILE_NOT_FOUND_CWD_NOTE)) {
       return (
         <MessageResponse>
-          <Text color="error">File not found</Text>
+          <Text color="error">找不到文件</Text>
         </MessageResponse>
       );
     }
     return (
       <MessageResponse>
-        <Text color="error">Error editing file</Text>
+        <Text color="error">编辑文件失败</Text>
       </MessageResponse>
     );
   }

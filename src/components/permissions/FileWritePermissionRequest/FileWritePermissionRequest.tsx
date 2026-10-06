@@ -79,7 +79,7 @@ export function FileWritePermissionRequest(props: PermissionRequestProps): React
       subtitle={relative(getCwd(), file_path)}
       question={
         <Text>
-          Do you want to {actionText} <Text bold>{basename(file_path)}</Text>?
+          是否{actionText} <Text bold>{basename(file_path)}</Text>？
         </Text>
       }
       content={

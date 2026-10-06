@@ -294,7 +294,7 @@ export function PermissionDecisionDebugInfo({ permissionResult, toolName }: Prop
       {unreachableRules.length > 0 && (
         <Box flexDirection="column" marginTop={1}>
           <Text color="warning">
-            {figures.warning} Unreachable Rules ({unreachableRules.length})
+            {figures.warning} 无法生效的规则（{unreachableRules.length}）
           </Text>
           {unreachableRules.map((u, i) => (
             <Box key={i} flexDirection="column" marginLeft={2}>

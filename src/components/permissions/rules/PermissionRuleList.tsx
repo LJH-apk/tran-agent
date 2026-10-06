@@ -108,9 +108,9 @@ function RuleDetails({
           </Text>
           {ruleDescription}
           <Text italic>
-            This rule is configured by managed settings and cannot be modified.
+            此规则由受管设置配置，无法修改。
             {'\n'}
-            Contact your system administrator for more information.
+            请联系系统管理员了解详情。
           </Text>
         </Box>
         {footer}
@@ -122,7 +122,7 @@ function RuleDetails({
     <>
       <Box flexDirection="column" gap={1} borderStyle="round" paddingLeft={1} paddingRight={1} borderColor="error">
         <Text bold color="error">
-          Delete {getRuleBehaviorLabel(rule.ruleBehavior)} tool?
+          删除“{getRuleBehaviorLabel(rule.ruleBehavior)}”权限规则？
         </Text>
         {ruleDescription}
         <Text>确定要删除此权限规则吗？</Text>
@@ -322,7 +322,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
       // Only show "Add a new rule" for allow and deny tabs (and not when searching)
       if (tab !== 'workspace' && tab !== 'recent' && !query) {
         options.push({
-          label: `Add a new rule${figures.ellipsis}`,
+          label: `添加新规则${figures.ellipsis}`,
           value: 'add-new-rule',
         });
       }

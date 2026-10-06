@@ -42,11 +42,11 @@ export function ReviewArtifactPermissionRequest({
   return (
     <PermissionDialog color="permission" title="审查产物？" workerBadge={workerBadge}>
       <Box flexDirection="column" marginTop={1} paddingX={1}>
-        <Text>Tran Agent wants to review{title ? `: ${title}` : ' an artifact'}.</Text>
+        <Text>Tran Agent 想要审查{title ? `：${title}` : '一个产物'}。</Text>
 
         <Box marginTop={1} flexDirection="column">
           <Text dimColor>
-            {annotationCount} annotation{annotationCount !== 1 ? 's' : ''} will be presented.
+            将显示 {annotationCount} 条批注。
           </Text>
           {summary ? <Text dimColor>摘要： {summary}</Text> : null}
         </Box>
