@@ -85,6 +85,18 @@ describe('Tool chain: presets', () => {
 // ─── getTools (with permission context) ────────────────────────────────
 
 describe('Tool chain: getTools with context', () => {
+  test('JEVEvaluate is discoverable in the default model tool list', async () => {
+    const tools = getTools(getEmptyToolPermissionContext())
+    const tool = findToolByName(tools, 'JEVEvaluate')
+    expect(tool).toBeDefined()
+    expect(tool!.isEnabled()).toBe(true)
+    expect(await tool!.prompt()).toContain('JEV')
+    expect(tool!.inputSchema.safeParse({
+      decision_type: 'cause_identification',
+      context: { road_id: 'R001' },
+    }).success).toBe(true)
+  })
+
   test('getTools returns tools (subset of base tools)', () => {
     const allTools = getAllBaseTools()
     const ctx = getEmptyToolPermissionContext()
