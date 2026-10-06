@@ -179,7 +179,7 @@ export function SpinnerAnimationRow({
       ? (foregroundedTeammate.progress?.tokenCount ?? 0)
       : leaderTokens + teammateTokens;
   const tokenCount = formatNumber(totalTokens);
-  const tokensText = hasRunningTeammates ? `${tokenCount} tokens` : `${figures.arrowDown} ${tokenCount} tokens`;
+  const tokensText = hasRunningTeammates ? `${tokenCount} 个 token` : `${figures.arrowDown} ${tokenCount} 个 token`;
   const tokensWidth = stringWidth(tokensText);
 
   // === Thinking text (may shrink to fit) ===
@@ -248,7 +248,7 @@ export function SpinnerAnimationRow({
       ? [
           <Box flexDirection="row" key=" tokens">
             {!hasRunningTeammates && <SpinnerModeGlyph mode={mode} />}
-            <Text dimColor>{tokenCount} tokens</Text>
+            <Text dimColor>{tokenCount} 个 token</Text>
           </Box>,
         ]
       : []),
