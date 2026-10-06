@@ -52,7 +52,7 @@ describe('traffic congestion governance knowledge base', () => {
     const directory = await mkdtemp(join(tmpdir(), 'tran-congestion-test-'))
     try {
       const registration = fileURLToPath(
-        new URL('../trafficCongestionGovernance.ts', import.meta.url),
+        new URL('../transportation.ts', import.meta.url),
       )
       const registry = fileURLToPath(
         new URL('../../bundledSkills.ts', import.meta.url),
@@ -61,21 +61,26 @@ describe('traffic congestion governance knowledge base', () => {
       await writeFile(
         entry,
         `
-import { registerTrafficCongestionGovernanceSkill } from ${JSON.stringify(registration)}
+import { registerTransportationSkill } from ${JSON.stringify(registration)}
 import { getBundledSkills } from ${JSON.stringify(registry)}
 import { readFile, rm } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
-registerTrafficCongestionGovernanceSkill()
-const command = getBundledSkills().find(c => c.name === 'traffic-congestion-governance')
+registerTransportationSkill()
+const command = getBundledSkills().find(c => c.name === 'transportation')
 if (!command || command.type !== 'prompt' || command.disableModelInvocation) throw new Error('Skill unavailable')
+if (!command.aliases?.includes('traffic-congestion-governance') || getBundledSkills().length !== 1) throw new Error('Duplicate skill or missing alias')
+if (!command.whenToUse?.includes('交通工程') || !command.whenToUse?.includes('congestion')) throw new Error('Missing intent discovery description')
 const blocks = await command.getPromptForCommand('诊断排队回溢', {} as never)
 const text = blocks[0]?.type === 'text' ? blocks[0].text : ''
 const base = /^Base directory for this skill: (.+)/m.exec(text)?.[1]
-if (!base || !text.includes('诊断排队回溢') || !text.includes('# Traffic Congestion Governance')) throw new Error('Invalid prompt or extraction')
+if (!base || !text.includes('诊断排队回溢') || !text.includes('governance/SKILL.md')) throw new Error('Invalid prompt or extraction')
 try {
+  const textbook = await readFile(base + '/INDEX.md', 'utf8')
+  const governance = await readFile(base + '/governance/SKILL.md', 'utf8')
+  if (!textbook.includes('Fundamentals of Transportation') || !governance.includes('# Traffic Congestion Governance')) throw new Error('Missing merged collection')
   const manifest = ${JSON.stringify(manifest.files.filter(item => item.bundled))}
   for (const file of manifest) {
-    const content = await readFile(base + '/' + file.path, 'utf8')
+    const content = await readFile(base + '/governance/' + file.path, 'utf8')
     if (createHash('sha256').update(content).digest('hex') !== file.sha256) throw new Error('Extracted content differs: ' + file.path)
   }
   console.log('extracted 47 references')
