@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { KeybindingAction, KeybindingContextName } from '../keybindings/types.js';
 import { useShortcutDisplay } from '../keybindings/useShortcutDisplay.js';
-import { KeyboardShortcutHint } from '@anthropic/ink';
+import { Text } from '@anthropic/ink';
 
 type Props = {
   /** The keybinding action (e.g., 'app:toggleTranscript') */
@@ -39,5 +39,11 @@ export function ConfigurableShortcutHint({
   bold,
 }: Props): React.ReactNode {
   const shortcut = useShortcutDisplay(action, context, fallback);
-  return <KeyboardShortcutHint shortcut={shortcut} action={description} parens={parens} bold={bold} />;
+  return (
+    <Text>
+      {parens && '('}
+      {bold ? <Text bold>{shortcut}</Text> : shortcut} {description}
+      {parens && ')'}
+    </Text>
+  );
 }

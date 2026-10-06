@@ -40,7 +40,7 @@ type Props = {
 export function formatToolUseSummary(name: string, input: unknown): string {
   // plan_ready phase is only reached via ExitPlanMode tool
   if (name === EXIT_PLAN_MODE_V2_TOOL_NAME) {
-    return '在网页版 Claude Code 中查看计划';
+    return '在网页版 Tran Agent 中查看计划';
   }
   if (!input || typeof input !== 'object') return name;
   // AskUserQuestion: show the question text as a CTA, not the tool name.
@@ -122,7 +122,7 @@ function UltraplanSessionDetail({ session, onDone, onBack, onKill }: Omit<Props,
     return (
       <Dialog title="停止 ultraplan？" onCancel={() => setConfirmingStop(false)} color="background">
         <Box flexDirection="column" gap={1}>
-          <Text dimColor>这将终止网页版 Claude Code 会话。</Text>
+          <Text dimColor>这将终止网页版 Tran Agent 会话。</Text>
           <Select
             options={[
               { label: '终止会话', value: 'stop' as const },
@@ -171,7 +171,7 @@ function UltraplanSessionDetail({ session, onDone, onBack, onKill }: Omit<Props,
         <Select
           options={[
             {
-              label: '在网页版 Claude Code 中查看',
+              label: '在网页版 Tran Agent 中查看',
               value: 'open' as const,
             },
             ...(onKill && running ? [{ label: '停止 ultraplan', value: 'stop' as const }] : []),
@@ -306,11 +306,11 @@ function ReviewSessionDetail({ session, onDone, onBack, onKill }: Omit<Props, 't
 
   const options: { label: string; value: MenuAction }[] = completed
     ? [
-        { label: '在网页版 Claude Code 中打开', value: 'open' },
+        { label: '在网页版 Tran Agent 中打开', value: 'open' },
         { label: '关闭', value: 'dismiss' },
       ]
     : [
-        { label: '在网页版 Claude Code 中打开', value: 'open' },
+        { label: '在网页版 Tran Agent 中打开', value: 'open' },
         ...(onKill && running ? [{ label: '停止 ultrareview', value: 'stop' as const }] : []),
         { label: '返回', value: 'back' },
       ];

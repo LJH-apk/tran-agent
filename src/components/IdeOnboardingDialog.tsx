@@ -43,7 +43,7 @@ export function IdeOnboardingDialog({ onDone, installationStatus }: Props): Reac
         title={
           <>
             <Text color="claude">✻ </Text>
-            <Text>欢迎使用 {ideName} 版 Claude Code</Text>
+            <Text>欢迎使用 {ideName} 版 Tran Agent</Text>
           </>
         }
         subtitle={installedVersion ? `已安装 ${pluginOrExtension} v${installedVersion}` : undefined}
@@ -53,11 +53,11 @@ export function IdeOnboardingDialog({ onDone, installationStatus }: Props): Reac
       >
         <Box flexDirection="column" gap={1}>
           <Text>
-            • Claude 能感知 <Text color="suggestion">⧉ 打开的文件</Text> 和{' '}
+            • Tran Agent 能感知 <Text color="suggestion">⧉ 打开的文件</Text> 和{' '}
             <Text color="suggestion">⧉ 选中的代码行</Text>
           </Text>
           <Text>
-            • 在 IDE 中直接查看 Claude Code 的改动 <Text color="diffAddedWord">+11</Text>{' '}
+            • 在 IDE 中直接查看 Tran Agent 的改动 <Text color="diffAddedWord">+11</Text>{' '}
             <Text color="diffRemovedWord">-22</Text>
           </Text>
           <Text>

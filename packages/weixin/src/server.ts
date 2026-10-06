@@ -38,7 +38,7 @@ function formatPermissionRequestMessage(
   request: ChannelPermissionRequestParams,
 ): string {
   return [
-    'Claude Code needs your approval.',
+    'Tran Agent needs your approval.',
     '',
     `Tool: ${request.tool_name}`,
     `Reason: ${request.description}`,

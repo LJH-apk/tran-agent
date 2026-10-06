@@ -317,7 +317,7 @@ function SpinnerWithVerbInner({
     : showClearTip && !nextTask
       ? '切换话题时用 /clear 重新开始并释放上下文'
       : showBtwTip && !nextTask
-        ? "用 /btw 快速提一个旁支问题，不打断 Claude 当前工作"
+        ? "用 /btw 快速提一个旁支问题，不打断 Tran Agent 当前工作"
         : spinnerTip;
 
   // Budget text (ant-only) — shown above the tip line

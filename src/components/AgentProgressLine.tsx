@@ -65,7 +65,7 @@ export function AgentProgressLine({
           ) : (
             <>
               <Text bold backgroundColor={color} color={color ? 'inverseText' : undefined}>
-                {agentType}
+                {agentType === 'Agent' ? '智能体' : agentType}
               </Text>
               {description && (
                 <>
@@ -81,7 +81,7 @@ export function AgentProgressLine({
           {!isBackgrounded && (
             <>
               {' · '}
-              {toolUseCount} tool {toolUseCount === 1 ? 'use' : 'uses'}
+              调用工具 {toolUseCount} 次
               {tokens !== null && <> · {formatNumber(tokens)} tokens</>}
             </>
           )}

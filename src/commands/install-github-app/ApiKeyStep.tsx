@@ -91,7 +91,7 @@ export function ApiKeyStep({
           <Box marginBottom={1}>
             <Text>
               {selectedOption === 'existing' ? color('success', theme)('> ') : '  '}
-              使用现有的 Claude Code API 密钥
+              使用现有的 Tran Agent API 密钥
             </Text>
           </Box>
         )}
@@ -99,7 +99,7 @@ export function ApiKeyStep({
           <Box marginBottom={1}>
             <Text>
               {selectedOption === 'oauth' ? color('success', theme)('> ') : '  '}
-              使用你的 Claude 订阅创建长期有效的令牌
+              使用你的 Tran Agent 订阅创建长期有效的令牌
             </Text>
           </Box>
         )}

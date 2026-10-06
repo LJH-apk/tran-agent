@@ -864,7 +864,7 @@ export async function checkInstall(
       const absoluteTarget = resolve(dirname(dirs.executable), target)
       if (!(await isPossibleClaudeBinary(absoluteTarget))) {
         messages.push({
-          message: `Claude symlink points to missing or invalid binary: ${target}`,
+          message: `Tran Agent symlink points to missing or invalid binary: ${target}`,
           userActionRequired: true,
           type: 'error',
         })
@@ -880,7 +880,7 @@ export async function checkInstall(
         // EINVAL (not a symlink) or other — check as regular binary
         if (!(await isPossibleClaudeBinary(dirs.executable))) {
           messages.push({
-            message: `${dirs.executable} exists but is not a valid Claude binary`,
+            message: `${dirs.executable} exists but is not a valid Tran Agent binary`,
             userActionRequired: true,
             type: 'error',
           })

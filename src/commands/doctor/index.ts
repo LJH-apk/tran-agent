@@ -3,7 +3,7 @@ import { isEnvTruthy } from '../../utils/envUtils.js'
 
 const doctor: Command = {
   name: 'doctor',
-  description: '诊断并检查 Claude Code 的安装与配置',
+  description: '诊断并检查 Tran Agent 的安装与配置',
   isEnabled: () => !isEnvTruthy(process.env.DISABLE_DOCTOR_COMMAND),
   type: 'local-jsx',
   load: () => import('./doctor.js'),

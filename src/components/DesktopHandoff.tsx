@@ -57,13 +57,13 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       const installStatus = await getDesktopInstallStatus();
 
       if (installStatus.status === 'not-installed') {
-        setDownloadMessage('未安装 Claude Desktop。');
+        setDownloadMessage('未安装 Tran Agent Desktop。');
         setState('prompt-download');
         return;
       }
 
       if (installStatus.status === 'version-too-old') {
-        setDownloadMessage(`Claude Desktop 需要更新（当前 v${installStatus.version}，需要 v1.1.2396+）。`);
+        setDownloadMessage(`Tran Agent Desktop 需要更新（当前 v${installStatus.version}，需要 v1.1.2396+）。`);
         setState('prompt-download');
         return;
       }
@@ -77,7 +77,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       const result = await openCurrentSessionInDesktop();
 
       if (!result.success) {
-        setError(result.error ?? '无法打开 Claude Desktop');
+        setError(result.error ?? '无法打开 Tran Agent Desktop');
         setState('error');
         return;
       }
@@ -88,7 +88,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       // Give the user a moment to see the success message
       setTimeout(
         async (onDone: Props['onDone']) => {
-          onDone('会话已转移到 Claude Desktop', { display: 'system' });
+          onDone('会话已转移到 Tran Agent Desktop', { display: 'system' });
           await gracefulShutdown(0, 'other');
         },
         500,
@@ -121,10 +121,10 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
   }
 
   const messages: Record<Exclude<DesktopHandoffState, 'error' | 'prompt-download'>, string> = {
-    checking: '正在检查 Claude Desktop…',
+    checking: '正在检查 Tran Agent Desktop…',
     flushing: '正在保存会话…',
-    opening: '正在打开 Claude Desktop…',
-    success: '正在 Claude Desktop 中打开…',
+    opening: '正在打开 Tran Agent Desktop…',
+    success: '正在 Tran Agent Desktop 中打开…',
   };
 
   return <LoadingState message={messages[state]} />;

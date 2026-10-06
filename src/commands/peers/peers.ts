@@ -16,7 +16,7 @@ export const call: LocalCommandCall = async (_args, _context) => {
   lines.push('')
 
   if (peers.length === 0) {
-    lines.push('未发现其他 Claude Code 对等实例。')
+    lines.push('未发现其他 Tran Agent 对等实例。')
   } else {
     lines.push(`对等实例（${peers.length}）：`)
     lines.push('')

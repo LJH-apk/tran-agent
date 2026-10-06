@@ -65,7 +65,7 @@ export function WebFetchPermissionRequest({
     result.push({
       label: (
         <Text>
-          不，并告诉 Claude 该怎么做 <Text bold>(esc)</Text>
+          不，并告诉 Tran Agent 该怎么做 <Text bold>(esc)</Text>
         </Text>
       ),
       value: 'no',
@@ -124,7 +124,7 @@ export function WebFetchPermissionRequest({
 
       <Box flexDirection="column">
         <PermissionRuleExplanation permissionResult={toolUseConfirm.permissionResult} toolType="tool" />
-        <Text>是否允许 Claude 抓取此内容？</Text>
+        <Text>是否允许 Tran Agent 抓取此内容？</Text>
         <Select options={options} onChange={onChange} onCancel={() => onChange('no')} />
       </Box>
     </PermissionDialog>

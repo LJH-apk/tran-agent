@@ -56,7 +56,7 @@ export function ManagedSettingsSecurityDialog({ settings, onAccept, onReject }: 
         <Select
           options={[
             { label: '是，我信任这些设置', value: 'accept' },
-            { label: '否，退出 Claude Code', value: 'exit' },
+            { label: '否，退出 Tran Agent', value: 'exit' },
           ]}
           onChange={value => onChange(value as 'accept' | 'exit')}
           onCancel={() => onChange('exit')}

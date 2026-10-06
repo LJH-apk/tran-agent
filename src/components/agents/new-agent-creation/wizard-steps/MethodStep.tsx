@@ -11,7 +11,7 @@ export function MethodStep(): ReactNode {
 
   const methodOptions = [
     {
-      label: '由 Claude 生成（推荐）',
+      label: '由 Tran Agent 生成（推荐）',
       value: 'generate',
     },
     {

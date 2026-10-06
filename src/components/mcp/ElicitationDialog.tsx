@@ -228,7 +228,7 @@ function ElicitationFormDialog({
   const isEditingTextField = currentFieldIsText && !focusedButton;
 
   useRegisterOverlay('elicitation');
-  useNotifyAfterTimeout('Claude Code 需要你的输入', 'elicitation_dialog');
+  useNotifyAfterTimeout('Tran Agent 需要你的输入', 'elicitation_dialog');
 
   // Sync textInputValue when the focused field changes
   const syncTextInput = useCallback(
@@ -1118,7 +1118,7 @@ function ElicitationURLDialog({
   const [focusedButton, setFocusedButton] = useState<'accept' | 'decline' | 'open' | 'action' | 'cancel'>('accept');
   const showCancel = waitingState?.showCancel ?? false;
 
-  useNotifyAfterTimeout('Claude Code 需要你的输入', 'elicitation_url_dialog');
+  useNotifyAfterTimeout('Tran Agent 需要你的输入', 'elicitation_url_dialog');
   useRegisterOverlay('elicitation-url');
 
   // Keep refs in sync for use in abort handler (avoids re-registering listener)

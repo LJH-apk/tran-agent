@@ -91,7 +91,7 @@ export function Stats({ onClose }: Props): React.ReactNode {
       fallback={
         <Box marginTop={1}>
           <Spinner />
-          <Text> 正在加载你的 Claude Code 统计…</Text>
+          <Text> 正在加载你的 Tran Agent 统计…</Text>
         </Box>
       }
     >
@@ -196,7 +196,7 @@ function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.Rea
   if (allTimeResult.type === 'empty') {
     return (
       <Box marginTop={1}>
-        <Text color="warning">暂无统计数据，开始使用 Claude Code 吧！</Text>
+        <Text color="warning">暂无统计数据，开始使用 Tran Agent 吧！</Text>
       </Box>
     );
   }

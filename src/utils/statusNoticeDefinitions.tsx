@@ -77,7 +77,7 @@ const claudeAiSubscriberExternalTokenNotice: StatusNoticeDefinition = {
       <Box flexDirection="row" marginTop={1}>
         <Text color="warning">{figures.warning}</Text>
         <Text color="warning">
-          Auth conflict: Using {authTokenInfo.source} instead of Claude account subscription token. Either unset{' '}
+          Auth conflict: Using {authTokenInfo.source} instead of Tran Agent account subscription token. Either unset{' '}
           {authTokenInfo.source}, or run `claude /logout`.
         </Text>
       </Box>

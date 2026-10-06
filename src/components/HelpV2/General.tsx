@@ -10,11 +10,11 @@ export function General(): React.ReactNode {
         <Box flexDirection="column">
           <Text>
             <Text bold>1. </Text>
-            <Text>提问或描述任务 — Claude 会浏览你的代码并作答。</Text>
+            <Text>提问或描述任务 — Tran Agent 会浏览你的代码并作答。</Text>
           </Text>
           <Text>
             <Text bold>2. </Text>
-            <Text>Claude 要编辑文件或运行命令时，每一步操作都由你审核批准。</Text>
+            <Text>Tran Agent 要编辑文件或运行命令时，每一步操作都由你审核批准。</Text>
           </Text>
           <Text>
             <Text bold>3. </Text>

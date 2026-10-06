@@ -198,7 +198,7 @@ export function HooksConfigMenu({ toolNames, onExit }: Props): React.ReactNode {
           </Box>
           {!disabledByPolicy && (
             <Text dimColor>
-              To re-enable hooks, remove &quot;disableAllHooks&quot; from settings.json or ask Claude.
+              To re-enable hooks, remove &quot;disableAllHooks&quot; from settings.json or ask Tran Agent.
             </Text>
           )}
         </Box>

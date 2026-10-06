@@ -113,11 +113,11 @@ export function MCPRemoteServerMenu({
         onComplete?.(`身份验证成功。已连接到 ${server.name}。`);
       } else if (result.client.type === 'needs-auth') {
         onComplete?.(
-          'Authentication successful, but server still requires authentication. You may need to manually restart Claude Code.',
+          'Authentication successful, but server still requires authentication. You may need to manually restart Tran Agent.',
         );
       } else {
         onComplete?.(
-          '身份验证成功，但服务器重新连接失败。你可能需要手动重启 Claude Code 才能使更改生效。',
+          '身份验证成功，但服务器重新连接失败。你可能需要手动重启 Tran Agent 才能使更改生效。',
         );
       }
     } catch (err) {
@@ -330,13 +330,13 @@ export function MCPRemoteServerMenu({
           onComplete?.(message);
         } else if (result.client.type === 'needs-auth') {
           onComplete?.(
-            '身份验证成功，但服务器仍要求身份验证。你可能需要手动重启 Claude Code。',
+            '身份验证成功，但服务器仍要求身份验证。你可能需要手动重启 Tran Agent。',
           );
         } else {
           // result.client.type === 'failed'
           logMCPDebug(server.name, `Reconnection failed after authentication`);
           onComplete?.(
-            '身份验证成功，但服务器重新连接失败。你可能需要手动重启 Claude Code 才能使更改生效。',
+            '身份验证成功，但服务器重新连接失败。你可能需要手动重启 Tran Agent 才能使更改生效。',
           );
         }
       }

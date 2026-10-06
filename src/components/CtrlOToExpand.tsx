@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { Text } from '@anthropic/ink';
 import { getShortcutDisplay } from '../keybindings/shortcutFormat.js';
 import { useShortcutDisplay } from '../keybindings/useShortcutDisplay.js';
-import { KeyboardShortcutHint } from '@anthropic/ink';
 import { InVirtualListContext } from './messageActions.js';
 
 // Context to track if we're inside a sub agent
@@ -24,7 +23,7 @@ export function CtrlOToExpand(): React.ReactNode {
   }
   return (
     <Text dimColor>
-      <KeyboardShortcutHint shortcut={expandShortcut} action="展开" parens />
+      ({expandShortcut} 展开)
     </Text>
   );
 }

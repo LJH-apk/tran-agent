@@ -43,7 +43,7 @@ const REMEMBER_DIRECTORY_OPTIONS: Array<{
 function PermissionDescription(): React.ReactNode {
   return (
     <Text dimColor>
-      Claude Code 将可以读取此目录中的文件，并在开启自动接受编辑时进行修改。
+      Tran Agent 将可以读取此目录中的文件，并在开启自动接受编辑时进行修改。
     </Text>
   );
 }

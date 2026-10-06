@@ -49,7 +49,7 @@ export function SelectHookMode({
       >
         <Box flexDirection="column" gap={1}>
           <Text dimColor>此事件未配置任何钩子。</Text>
-          <Text dimColor>如需添加钩子，请直接编辑 settings.json，或询问 Claude。</Text>
+          <Text dimColor>如需添加钩子，请直接编辑 settings.json，或询问 Tran Agent。</Text>
         </Box>
       </Dialog>
     );

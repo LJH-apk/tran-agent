@@ -164,7 +164,7 @@ export function LogoV2(): React.ReactNode {
             <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
             <Text dimColor>
               {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
-                ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Claude 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
+                ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Tran Agent 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
                 : `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
             </Text>
           </Box>
@@ -364,7 +364,7 @@ export function LogoV2(): React.ReactNode {
           <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
           <Text dimColor>
             {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
-              ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Claude 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
+              ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Tran Agent 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
               : `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
           </Text>
         </Box>

@@ -188,7 +188,7 @@ export function Doctor({ onDone }: Props): React.ReactNode {
   }, [toolPermissionContext, tools, agentDefinitions]);
 
   const handleDismiss = useCallback(() => {
-    onDone('Claude Code 诊断面板已关闭', { display: 'system' });
+    onDone('Tran Agent 诊断面板已关闭', { display: 'system' });
   }, [onDone]);
 
   // Handle dismiss via keybindings (Enter, Escape, or Ctrl+C)

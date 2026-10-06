@@ -51,7 +51,7 @@ export function RemoteCallout({ onDone }: Props): React.ReactNode {
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1} flexDirection="column">
           <Text>
-            远程控制让你能从网页（claude.ai/code）或 Claude App 访问此 CLI 会话，从而在任何设备上继续之前的工作。
+            远程控制让你能从网页（claude.ai/code）或 Tran Agent App 访问此 CLI 会话，从而在任何设备上继续之前的工作。
           </Text>
           <Text> </Text>
           <Text>你可以随时再次运行 /remote-control 断开远程访问。</Text>

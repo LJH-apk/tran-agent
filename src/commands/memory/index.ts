@@ -3,7 +3,7 @@ import type { Command } from '../../commands.js'
 const memory: Command = {
   type: 'local-jsx',
   name: 'memory',
-  description: '编辑 Claude 的记忆文件',
+  description: '编辑 Tran Agent 的记忆文件',
   load: () => import('./memory.js'),
 }
 

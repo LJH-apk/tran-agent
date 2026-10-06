@@ -35,8 +35,8 @@ export type PermissionPromptProps<T extends string> = {
 };
 
 const DEFAULT_PLACEHOLDERS: Record<FeedbackType, string> = {
-  accept: '告诉 Claude 接下来做什么',
-  reject: '告诉 Claude 换一种做法',
+  accept: '告诉 Tran Agent 接下来做什么',
+  reject: '告诉 Tran Agent 换一种做法',
 };
 
 /**

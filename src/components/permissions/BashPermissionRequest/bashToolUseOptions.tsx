@@ -69,7 +69,7 @@ export function bashToolUseOptions({
       type: 'input',
       label: '是',
       value: 'yes',
-      placeholder: '并告诉 Claude 接下来做什么',
+      placeholder: '并告诉 Tran Agent 接下来做什么',
       onChange: onAcceptFeedbackChange,
       allowEmptySubmitToCancel: true,
     });
@@ -149,7 +149,7 @@ export function bashToolUseOptions({
       type: 'input',
       label: '否',
       value: 'no',
-      placeholder: '并告诉 Claude 换一种做法',
+      placeholder: '并告诉 Tran Agent 换一种做法',
       onChange: onRejectFeedbackChange,
       allowEmptySubmitToCancel: true,
     });

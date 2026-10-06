@@ -1149,7 +1149,7 @@ async function run(): Promise<CommanderCommand> {
 
   program
     .name('claude')
-    .description(`Claude Code - starts an interactive session by default, use -p/--print for non-interactive output`)
+    .description(`Tran Agent - starts an interactive session by default, use -p/--print for non-interactive output`)
     .argument('[prompt]', 'Your prompt', String)
     // Subcommands inherit helpOption via commander's copyInheritedSettings —
     // setting it once here covers mcp, plugin, auth, and all other subcommands.
@@ -1173,7 +1173,7 @@ async function run(): Promise<CommanderCommand> {
     .option('--verbose', 'Override verbose mode setting from config', () => true)
     .option(
       '-p, --print',
-      'Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Claude is run with the -p mode. Only use this flag in directories you trust.',
+      'Print response and exit (useful for pipes). Note: The workspace trust dialog is skipped when Tran Agent is run with the -p mode. Only use this flag in directories you trust.',
       () => true,
     )
     .option(
@@ -1425,8 +1425,8 @@ async function run(): Promise<CommanderCommand> {
       [] as string[],
     )
     .option('--disable-slash-commands', 'Disable all skills', () => true)
-    .option('--chrome', 'Enable Claude in Chrome integration')
-    .option('--no-chrome', 'Disable Claude in Chrome integration')
+    .option('--chrome', 'Enable Tran Agent in Chrome integration')
+    .option('--no-chrome', 'Disable Tran Agent in Chrome integration')
     .option(
       '--file <specs...>',
       'File resources to download at startup. Format: file_id:relative_path (e.g., --file file_abc:doc.txt file_def:img.png)',
@@ -1444,7 +1444,7 @@ async function run(): Promise<CommanderCommand> {
       // Ignore "code" as a prompt - treat it the same as no prompt
       if (prompt === 'code') {
         logEvent('tengu_code_prompt_ignored', {});
-        console.warn(chalk.yellow('Tip: You can launch Claude Code with just `claude`'));
+        console.warn(chalk.yellow('Tip: You can launch Tran Agent with just `claude`'));
         prompt = undefined;
       }
 
@@ -2022,7 +2022,7 @@ async function run(): Promise<CommanderCommand> {
           });
           logForDebugging(`[Claude in Chrome] Error: ${error}`);
           logError(error);
-          console.error(`Error: Failed to run with Claude in Chrome.`);
+          console.error(`Error: Failed to run with Tran Agent in Chrome.`);
           process.exit(1);
         }
       } else if (autoEnableClaudeInChrome) {
@@ -4503,7 +4503,7 @@ async function run(): Promise<CommanderCommand> {
         .argParser(String)
         .hideHelp(),
     );
-    program.option('--agent-teams', '[ANT-ONLY] Force Claude to use multi-agent mode for solving problems', () => true);
+    program.option('--agent-teams', '[ANT-ONLY] Force Tran Agent to use multi-agent mode for solving problems', () => true);
   }
 
   if (feature('TRANSCRIPT_CLASSIFIER')) {
@@ -4619,7 +4619,7 @@ async function run(): Promise<CommanderCommand> {
 
   mcp
     .command('serve')
-    .description(`Start the Claude Code MCP server`)
+    .description(`Start the Tran Agent MCP server`)
     .option('-d, --debug', 'Enable debug mode', () => true)
     .option('--verbose', 'Override verbose mode setting from config', () => true)
     .action(async ({ debug, verbose }: { debug?: boolean; verbose?: boolean }) => {
@@ -4678,7 +4678,7 @@ async function run(): Promise<CommanderCommand> {
 
   mcp
     .command('add-from-claude-desktop')
-    .description('Import MCP servers from Claude Desktop (Mac and WSL only)')
+    .description('Import MCP servers from Tran Agent Desktop (Mac and WSL only)')
     .option('-s, --scope <scope>', 'Configuration scope (local, user, or project)', 'local')
     .action(async (options: { scope?: string }) => {
       const { mcpAddFromDesktopHandler } = await import('./cli/handlers/mcp.js');
@@ -4697,7 +4697,7 @@ async function run(): Promise<CommanderCommand> {
   if (feature('DIRECT_CONNECT')) {
     program
       .command('server')
-      .description('Start a Claude Code session server')
+      .description('Start a Tran Agent session server')
       .option('--port <number>', 'HTTP port', '0')
       .option('--host <string>', 'Bind address', '0.0.0.0')
       .option('--auth-token <token>', 'Bearer token for auth')
@@ -4785,7 +4785,7 @@ async function run(): Promise<CommanderCommand> {
     program
       .command('ssh <host> [dir]')
       .description(
-        'Run Claude Code on a remote host over SSH. Deploys the binary and ' +
+        'Run Tran Agent on a remote host over SSH. Deploys the binary and ' +
           'tunnels API auth back through your local machine — no remote setup needed.',
       )
       .option('--permission-mode <mode>', 'Permission mode for the remote session')
@@ -4806,7 +4806,7 @@ async function run(): Promise<CommanderCommand> {
         // rewrite predicate didn't match.
         process.stderr.write(
           'Usage: claude ssh <user@host | ssh-config-alias> [dir]\n\n' +
-            "Runs Claude Code on a remote Linux host. You don't need to install\n" +
+            "Runs Tran Agent on a remote Linux host. You don't need to install\n" +
             'anything on the remote or run `claude auth login` there — the binary is\n' +
             'deployed over SSH and API auth tunnels back through your local machine.\n',
         );
@@ -4820,7 +4820,7 @@ async function run(): Promise<CommanderCommand> {
   if (feature('DIRECT_CONNECT')) {
     program
       .command('open <cc-url>')
-      .description('Connect to a Claude Code server (internal — use cc:// URLs)')
+      .description('Connect to a Tran Agent server (internal — use cc:// URLs)')
       .option('-p, --print [prompt]', 'Print mode (headless)')
       .option('--output-format <format>', 'Output format: text, json, stream-json', 'text')
       .action(
@@ -4871,8 +4871,8 @@ async function run(): Promise<CommanderCommand> {
     .description('Sign in to your Anthropic account')
     .option('--email <email>', 'Pre-populate email address on the login page')
     .option('--sso', 'Force SSO login flow')
-    .option('--console', 'Use Anthropic Console (API usage billing) instead of Claude subscription')
-    .option('--claudeai', 'Use Claude subscription (default)')
+    .option('--console', 'Use Anthropic Console (API usage billing) instead of Tran Agent subscription')
+    .option('--claudeai', 'Use Tran Agent subscription (default)')
     .action(
       async ({
         email,
@@ -4921,7 +4921,7 @@ async function run(): Promise<CommanderCommand> {
   const pluginCmd = program
     .command('plugin')
     .alias('plugins')
-    .description('Manage Claude Code plugins')
+    .description('Manage Tran Agent plugins')
     .configureHelp(createSortedHelpConfig());
 
   pluginCmd
@@ -4948,7 +4948,7 @@ async function run(): Promise<CommanderCommand> {
   // Marketplace subcommands
   const marketplaceCmd = pluginCmd
     .command('marketplace')
-    .description('Manage Claude Code marketplaces')
+    .description('Manage Tran Agent marketplaces')
     .configureHelp(createSortedHelpConfig());
 
   marketplaceCmd
@@ -5076,7 +5076,7 @@ async function run(): Promise<CommanderCommand> {
   // Setup token command
   program
     .command('setup-token')
-    .description('Set up a long-lived authentication token (requires Claude subscription)')
+    .description('Set up a long-lived authentication token (requires Tran Agent subscription)')
     .action(async () => {
       const [{ setupTokenHandler }, { createRoot }] = await Promise.all([
         import('./cli/handlers/util.js'),
@@ -5238,7 +5238,7 @@ async function run(): Promise<CommanderCommand> {
   program
     .command('doctor')
     .description(
-      'Check the health of your Claude Code auto-updater. Note: The workspace trust dialog is skipped and stdio servers from .mcp.json are spawned for health checks. Only use this command in directories you trust.',
+      'Check the health of your Tran Agent auto-updater. Note: The workspace trust dialog is skipped and stdio servers from .mcp.json are spawned for health checks. Only use this command in directories you trust.',
     )
     .action(async () => {
       const [{ doctorHandler }, { createRoot }] = await Promise.all([
@@ -5292,7 +5292,7 @@ async function run(): Promise<CommanderCommand> {
   program
     .command('install [target]')
     .description(
-      'Install Claude Code native build. Use [target] to specify version (stable, latest, or specific version)',
+      'Install Tran Agent native build. Use [target] to specify version (stable, latest, or specific version)',
     )
     .option('--force', 'Force installation even if already installed')
     .action(async (target: string | undefined, options: { force?: boolean }) => {

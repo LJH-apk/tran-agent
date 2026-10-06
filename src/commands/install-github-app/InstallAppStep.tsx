@@ -15,10 +15,10 @@ export function InstallAppStep({ repoUrl, onSubmit }: InstallAppStepProps) {
   return (
     <Box flexDirection="column" borderStyle="round" borderDimColor paddingX={1}>
       <Box flexDirection="column" marginBottom={1}>
-        <Text bold>安装 Claude GitHub App</Text>
+        <Text bold>安装 Tran Agent GitHub App</Text>
       </Box>
       <Box marginBottom={1}>
-        <Text>正在打开浏览器以安装 Claude GitHub App…</Text>
+        <Text>正在打开浏览器以安装 Tran Agent GitHub App…</Text>
       </Box>
       <Box marginBottom={1}>
         <Text>如果浏览器没有自动打开，请访问：</Text>

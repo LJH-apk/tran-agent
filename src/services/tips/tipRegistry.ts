@@ -96,7 +96,7 @@ const externalTips: Tip[] = [
   {
     id: 'new-user-warmup',
     content: async () =>
-      `从小功能或 bug 修复入手，让 Claude 先给方案，再核对它建议的改动`,
+      `从小功能或 bug 修复入手，让 Tran Agent 先给方案，再核对它建议的改动`,
     cooldownSessions: 3,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -142,7 +142,7 @@ const externalTips: Tip[] = [
   {
     id: 'git-worktrees',
     content: async () =>
-      '用 git worktree 并行跑多个 Claude 会话。',
+      '用 git worktree 并行跑多个 Tran Agent 会话。',
     cooldownSessions: 10,
     isRelevant: async () => {
       try {
@@ -157,7 +157,7 @@ const externalTips: Tip[] = [
   {
     id: 'color-when-multi-clauding',
     content: async () =>
-      '同时开了多个 Claude 会话？用 /color 和 /rename 一眼区分。',
+      '同时开了多个 Tran Agent 会话？用 /color 和 /rename 一眼区分。',
     cooldownSessions: 10,
     isRelevant: async () => {
       if (getCurrentSessionAgentColor()) return false
@@ -215,7 +215,7 @@ const externalTips: Tip[] = [
   },
   {
     id: 'memory-command',
-    content: async () => '用 /memory 查看和管理 Claude 的记忆',
+    content: async () => '用 /memory 查看和管理 Tran Agent 的记忆',
     cooldownSessions: 15,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -255,7 +255,7 @@ const externalTips: Tip[] = [
   {
     id: 'prompt-queue',
     content: async () =>
-      'Claude 工作时按 Enter 可以把后续消息排进队列。',
+      'Tran Agent 工作时按 Enter 可以把后续消息排进队列。',
     cooldownSessions: 5,
     async isRelevant() {
       const config = getGlobalConfig()
@@ -265,14 +265,14 @@ const externalTips: Tip[] = [
   {
     id: 'enter-to-steer-in-relatime',
     content: async () =>
-      'Claude 工作时也能发消息，实时调整它的方向',
+      'Tran Agent 工作时也能发消息，实时调整它的方向',
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
   {
     id: 'todo-list',
     content: async () =>
-      '处理复杂任务时可以让 Claude 建个待办清单，便于跟踪进度、不跑偏',
+      '处理复杂任务时可以让 Tran Agent 建个待办清单，便于跟踪进度、不跑偏',
     cooldownSessions: 20,
     isRelevant: async () => true,
   },
@@ -305,7 +305,7 @@ const externalTips: Tip[] = [
   },
   {
     id: 'ide-upsell-external-terminal',
-    content: async () => '把 Claude 接入你的 IDE · /ide',
+    content: async () => '把 Tran Agent 接入你的 IDE · /ide',
     cooldownSessions: 4,
     async isRelevant() {
       if (isSupportedTerminal()) {
@@ -331,7 +331,7 @@ const externalTips: Tip[] = [
   },
   {
     id: 'install-slack-app',
-    content: async () => '运行 /install-slack-app 在 Slack 里使用 Claude',
+    content: async () => '运行 /install-slack-app 在 Slack 里使用 Tran Agent',
     cooldownSessions: 10,
     isRelevant: async () => !getGlobalConfig().slackAppInstallCount,
   },
@@ -355,7 +355,7 @@ const externalTips: Tip[] = [
   {
     id: 'paste-images-mac',
     content: async () =>
-      '往 Claude Code 里粘贴图片请用 control+v（不是 cmd+v！）',
+      '往 Tran Agent 里粘贴图片请用 control+v（不是 cmd+v！）',
     cooldownSessions: 10,
     isRelevant: async () => getPlatform() === 'macos',
   },
@@ -435,7 +435,7 @@ const externalTips: Tip[] = [
   {
     id: 'desktop-app',
     content: async () =>
-      '用 Claude 桌面版在本地或远程运行 Claude Code：clau.de/desktop',
+      '用 Tran Agent 桌面版在本地或远程运行 Tran Agent：clau.de/desktop',
     cooldownSessions: 15,
     isRelevant: async () => getPlatform() !== 'linux',
   },
@@ -443,7 +443,7 @@ const externalTips: Tip[] = [
     id: 'desktop-shortcut',
     content: async (ctx?) => {
       const blue = color('suggestion', ctx?.theme ?? 'dark')
-      return `在 Claude Code 桌面版里继续这个会话：${blue('/desktop')}`
+      return `在 Tran Agent 桌面版里继续这个会话：${blue('/desktop')}`
     },
     cooldownSessions: 15,
     isRelevant: async () => {
@@ -464,7 +464,7 @@ const externalTips: Tip[] = [
   {
     id: 'mobile-app',
     content: async () =>
-      '用 /mobile 在手机上的 Claude App 里使用 Claude Code',
+      '用 /mobile 在手机上的 Tran Agent App 里使用 Tran Agent',
     cooldownSessions: 15,
     isRelevant: async () => true,
   },
@@ -519,7 +519,7 @@ const externalTips: Tip[] = [
         'off' | 'copy_a' | 'copy_b'
       >('tengu_tide_elm', 'off')
       return variant === 'copy_b'
-        ? `用 ${cmd} 让一次成型的回答更靠谱，Claude 会先想清楚。`
+        ? `用 ${cmd} 让一次成型的回答更靠谱，Tran Agent 会先想清楚。`
         : `遇到棘手的问题？${cmd} 能让首次回答更好`
     },
     cooldownSessions: 3,
@@ -548,8 +548,8 @@ const externalTips: Tip[] = [
         'off' | 'copy_a' | 'copy_b'
       >('tengu_tern_alloy', 'off')
       return variant === 'copy_b'
-        ? `任务大时，可以让 Claude ${blue('使用子代理')}。它们并行干活，主线程不被塞满。`
-        : `说一句 ${blue('"fan out subagents"')}，Claude 就会派出一支队伍，各挖各的，不漏东西。`
+        ? `任务大时，可以让 Tran Agent ${blue('使用子代理')}。它们并行干活，主线程不被塞满。`
+        : `说一句 ${blue('"fan out subagents"')}，Tran Agent 就会派出一支队伍，各挖各的，不漏东西。`
     },
     cooldownSessions: 3,
     isRelevant: async () => {
@@ -591,7 +591,7 @@ const externalTips: Tip[] = [
       const claude = color('claude', ctx?.theme ?? 'dark')
       const reward = getCachedReferrerReward()
       return reward
-        ? `分享 Claude Code，可获 ${claude(formatCreditAmount(reward))} 额外用量 · ${claude('/passes')}`
+        ? `分享 Tran Agent，可获 ${claude(formatCreditAmount(reward))} 额外用量 · ${claude('/passes')}`
         : `你有免费的体验名额可以分享 · ${claude('/passes')}`
     },
     cooldownSessions: 3,

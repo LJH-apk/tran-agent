@@ -663,7 +663,7 @@ export function useReplBridge(
               createBridgeStatusMessage(
                 url,
                 upgradeNudge
-                  ? 'Please upgrade to the latest version of the Claude mobile app to see your Remote Control sessions.'
+                  ? 'Please upgrade to the latest version of the Tran Agent mobile app to see your Remote Control sessions.'
                   : undefined,
               ),
             ]);

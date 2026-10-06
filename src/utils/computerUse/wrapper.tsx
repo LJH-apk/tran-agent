@@ -67,7 +67,7 @@ function tuc(): ToolUseContext {
 }
 
 function formatLockHeld(holder: string): string {
-  return `Computer use is in use by another Claude session (${holder.slice(0, 8)}…). Wait for that session to finish or run /exit there.`;
+  return `Computer use is in use by another Tran Agent session (${holder.slice(0, 8)}…). Wait for that session to finish or run /exit there.`;
 }
 
 export function buildSessionContext(): ComputerUseSessionContext {
@@ -252,8 +252,8 @@ export function buildSessionContext(): ComputerUseSessionContext {
         });
         tuc().sendOSNotification?.({
           message: escRegistered
-            ? 'Claude 正在使用你的电脑 · 按 Esc 停止'
-            : 'Claude is using your computer · press Ctrl+C to stop',
+            ? 'Tran Agent 正在使用你的电脑 · 按 Esc 停止'
+            : 'Tran Agent is using your computer · press Ctrl+C to stop',
           notificationType: 'computer_use_enter',
         });
       }

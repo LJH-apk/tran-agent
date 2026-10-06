@@ -22,12 +22,12 @@ export function ThinkingToggle({ currentValue, onSelect, onCancel, isMidConversa
     {
       value: 'true',
       label: '启用',
-      description: 'Claude 会先思考再回复',
+      description: 'Tran Agent 会先思考再回复',
     },
     {
       value: 'false',
       label: '禁用',
-      description: 'Claude 将在不进行扩展思考的情况下回复',
+      description: 'Tran Agent 将在不进行扩展思考的情况下回复',
     },
   ];
 

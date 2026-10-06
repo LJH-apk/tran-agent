@@ -3,7 +3,7 @@ type BetaContentBlock = ContentBlock | ToolResultBlockParam;
 import * as React from 'react';
 import { ConfigurableShortcutHint } from 'src/components/ConfigurableShortcutHint.js';
 import { CtrlOToExpand, SubAgentProvider } from 'src/components/CtrlOToExpand.js';
-import { Byline, KeyboardShortcutHint } from '@anthropic/ink';
+import { Byline } from '@anthropic/ink';
 import type { z } from 'zod/v4';
 import { AgentProgressLine } from 'src/components/AgentProgressLine.js';
 import { FallbackToolUseErrorMessage } from 'src/components/FallbackToolUseErrorMessage.js';
@@ -203,7 +203,7 @@ export function AgentPromptDisplay({
   return (
     <Box flexDirection="column">
       <Text color="success" bold>
-        Prompt:
+        提示词：
       </Text>
       <Box paddingLeft={2}>
         <Markdown>{prompt}</Markdown>
@@ -307,7 +307,7 @@ export function renderToolResultMessage(
       <Box flexDirection="column">
         <MessageResponse height={1}>
           <Text>
-            Remote agent launched{' '}
+            远程智能体已启动{' '}
             <Text dimColor>
               · {internal.taskId} · {internal.sessionUrl}
             </Text>
@@ -322,18 +322,18 @@ export function renderToolResultMessage(
       <Box flexDirection="column">
         <MessageResponse height={1}>
           <Text>
-            Backgrounded agent
+            智能体已转入后台
             {!isTranscriptMode && (
               <Text dimColor>
                 {' ('}
                 <Byline>
-                  <KeyboardShortcutHint shortcut="↓" action="manage" />
+                  <Text>↓ 管理</Text>
                   {prompt && (
                     <ConfigurableShortcutHint
                       action="app:toggleTranscript"
                       context="Global"
                       fallback="ctrl+o"
-                      description="expand"
+                      description="展开"
                     />
                   )}
                 </Byline>
@@ -357,12 +357,12 @@ export function renderToolResultMessage(
 
   const { agentId, totalDurationMs, totalToolUseCount, totalTokens, usage, content, prompt } = data;
   const result = [
-    totalToolUseCount === 1 ? '1 tool use' : `${totalToolUseCount} tool uses`,
+    `调用工具 ${totalToolUseCount} 次`,
     formatNumber(totalTokens) + ' tokens',
     formatDuration(totalDurationMs),
   ];
 
-  const completionMessage = `Done (${result.join(' · ')})`;
+  const completionMessage = `完成 (${result.join(' · ')})`;
 
   const finalAssistantMessage = createAssistantMessage({
     content: completionMessage,
@@ -459,7 +459,7 @@ export function renderToolUseTag(
   return <>{tags}</>;
 }
 
-const INITIALIZING_TEXT = 'Initializing…';
+const INITIALIZING_TEXT = '初始化中…';
 
 export function renderToolUseProgressMessage(
   progressMessages: ProgressMessage<Progress>[],
@@ -524,13 +524,13 @@ export function renderToolUseProgressMessage(
     return (
       <MessageResponse height={1}>
         <Text dimColor>
-          In progress… · <Text bold>{toolUseCount}</Text> tool {toolUseCount === 1 ? 'use' : 'uses'}
+          运行中… · 调用工具 <Text bold>{toolUseCount}</Text> 次
           {tokens && ` · ${formatNumber(tokens)} tokens`} ·{' '}
           <ConfigurableShortcutHint
             action="app:toggleTranscript"
             context="Global"
             fallback="ctrl+o"
-            description="expand"
+            description="展开"
             parens
           />
         </Text>
@@ -636,7 +636,7 @@ export function renderToolUseProgressMessage(
         </SubAgentProvider>
         {hiddenToolUseCount > 0 && (
           <Text dimColor>
-            +{hiddenToolUseCount} more tool {hiddenToolUseCount === 1 ? 'use' : 'uses'} <CtrlOToExpand />
+            另有 {hiddenToolUseCount} 次工具调用 <CtrlOToExpand />
           </Text>
         )}
       </Box>
@@ -836,19 +836,19 @@ export function renderGroupedAgentToolUse(
           {allComplete ? (
             allAsync ? (
               <>
-                <Text bold>{toolUses.length}</Text> background agents launched{' '}
+                <Text bold>{toolUses.length}</Text> 个后台智能体已启动{' '}
                 <Text dimColor>
-                  <KeyboardShortcutHint shortcut="↓" action="manage" parens />
+                  (↓ 管理)
                 </Text>
               </>
             ) : (
               <>
-                <Text bold>{toolUses.length}</Text> {commonType ? `${commonType} agents` : 'agents'} finished
+                <Text bold>{toolUses.length}</Text> 个{commonType ? `${commonType} ` : ''}智能体已完成
               </>
             )
           ) : (
             <>
-              Running <Text bold>{toolUses.length}</Text> {commonType ? `${commonType} agents` : 'agents'}…
+              正在运行 <Text bold>{toolUses.length}</Text> 个{commonType ? `${commonType} ` : ''}智能体…
             </>
           )}{' '}
         </Text>

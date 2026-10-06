@@ -31,10 +31,10 @@ export function ClaudeInChromeOnboarding({ onDone }: Props): React.ReactNode {
   });
 
   return (
-    <Dialog title="Claude in Chrome（Beta）" onCancel={onDone} color="chromeYellow">
+    <Dialog title="Tran Agent in Chrome（Beta）" onCancel={onDone} color="chromeYellow">
       <Box flexDirection="column" gap={1}>
         <Text>
-          Claude in Chrome 配合 Chrome 扩展，让你直接从 Claude Code 控制浏览器。你可以浏览网站、填写表单、截取屏幕、录制 GIF，并通过控制台日志和网络请求进行调试。
+          Tran Agent in Chrome 配合 Chrome 扩展，让你直接从 Tran Agent 控制浏览器。你可以浏览网站、填写表单、截取屏幕、录制 GIF，并通过控制台日志和网络请求进行调试。
           {!isExtensionInstalled && (
             <>
               <Newline />
@@ -46,7 +46,7 @@ export function ClaudeInChromeOnboarding({ onDone }: Props): React.ReactNode {
 
         <Text dimColor>
           Site-level permissions are inherited from the Chrome extension. Manage permissions in the Chrome extension
-          settings to control which sites Claude can browse, click, and type on
+          settings to control which sites Tran Agent can browse, click, and type on
           {isExtensionInstalled && (
             <>
               {' '}

@@ -49,7 +49,7 @@ function GracePeriodContentBody(): React.ReactNode {
         <Box paddingLeft={1}>
           <Text>
             <Text>· </Text>
-            <Text bold>你可以帮助改进 Claude </Text>
+            <Text bold>你可以帮助改进 Tran Agent </Text>
             <Text>
               — 允许使用你的对话和编码会话记录来训练和改进 Anthropic 的 AI 模型。你可随时在隐私设置中更改（<Link url={'https://claude.ai/settings/data-privacy-controls'}></Link>
               ）。
@@ -83,7 +83,7 @@ function PostGracePeriodContentBody(): React.ReactNode {
         <Text>有哪些变化？</Text>
 
         <Box flexDirection="column">
-          <Text bold>帮助改进 Claude</Text>
+          <Text bold>帮助改进 Tran Agent</Text>
           <Text>
             允许使用你的对话和编码会话记录来训练和改进 Anthropic 的 AI 模型。你可随时在隐私设置中更改。
           </Text>
@@ -93,7 +93,7 @@ function PostGracePeriodContentBody(): React.ReactNode {
         <Box flexDirection="column">
           <Text bold>这对数据留存的影响</Text>
           <Text>
-            开启「改进 Claude」设置会把数据留存期从 30 天延长至 5 年；关闭则保持默认的 30 天留存。数据可随时删除。
+            开启「改进 Tran Agent」设置会把数据留存期从 30 天延长至 5 年；关闭则保持默认的 30 天留存。数据可随时删除。
           </Text>
         </Box>
       </Box>
@@ -184,17 +184,17 @@ export function GroveDialog({ showIfAlreadyViewed, location, onDone }: Props): R
   const acceptOptions = groveConfig?.domain_excluded
     ? [
         {
-          label: '接受条款 · 改进 Claude：关闭（适用于你所在域名的邮箱）',
+          label: '接受条款 · 改进 Tran Agent：关闭（适用于你所在域名的邮箱）',
           value: 'accept_opt_out',
         },
       ]
     : [
         {
-          label: '接受条款 · 改进 Claude：开启',
+          label: '接受条款 · 改进 Tran Agent：开启',
           value: 'accept_opt_in',
         },
         {
-          label: '接受条款 · 改进 Claude：关闭',
+          label: '接受条款 · 改进 Tran Agent：关闭',
           value: 'accept_opt_out',
         },
       ];
@@ -310,7 +310,7 @@ export function PrivacySettingsDialog({
 
       <Box>
         <Box width={44}>
-          <Text bold>帮助改进 Claude</Text>
+          <Text bold>帮助改进 Tran Agent</Text>
         </Box>
         <Box>{valueComponent}</Box>
       </Box>

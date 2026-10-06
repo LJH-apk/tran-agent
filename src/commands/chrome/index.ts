@@ -3,7 +3,7 @@ import type { Command } from '../../commands.js'
 
 const command: Command = {
   name: 'chrome',
-  description: 'Claude in Chrome（Beta）设置',
+  description: 'Tran Agent in Chrome（Beta）设置',
   availability: [],
   isEnabled: () => !getIsNonInteractiveSession(),
   type: 'local-jsx',

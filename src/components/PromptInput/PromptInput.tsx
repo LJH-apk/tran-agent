@@ -895,7 +895,7 @@ function PromptInput({
     if (feature('ULTRAPLAN') && ultraplanTriggers.length) {
       addNotification({
         key: 'ultraplan-active',
-        text: '该提示词将在 Claude Code 网页端启动 ultraplan 会话',
+        text: '该提示词将在 Tran Agent 网页端启动 ultraplan 会话',
         priority: 'immediate',
         timeoutMs: 5000,
       });
@@ -908,7 +908,7 @@ function PromptInput({
     if (isUltrareviewEnabled() && ultrareviewTriggers.length) {
       addNotification({
         key: 'ultrareview-active',
-        text: 'Claude 完成后运行 /ultrareview 在云端审查这些改动',
+        text: 'Tran Agent 完成后运行 /ultrareview 在云端审查这些改动',
         priority: 'immediate',
         timeoutMs: 5000,
       });

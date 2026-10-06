@@ -1,9 +1,9 @@
-export const PR_TITLE = 'Add Claude Code GitHub Workflow'
+export const PR_TITLE = 'Add Tran Agent GitHub Workflow'
 
 export const GITHUB_ACTION_SETUP_DOCS_URL =
   'https://github.com/anthropics/claude-code-action/blob/main/docs/setup.md'
 
-export const WORKFLOW_CONTENT = `name: Claude Code
+export const WORKFLOW_CONTENT = `name: Tran Agent
 
 on:
   issue_comment:
@@ -28,24 +28,24 @@ jobs:
       pull-requests: read
       issues: read
       id-token: write
-      actions: read # Required for Claude to read CI results on PRs
+      actions: read # Required for Tran Agent to read CI results on PRs
     steps:
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2, 2026-04-25
         with:
           fetch-depth: 1
 
-      - name: Run Claude Code
+      - name: Run Tran Agent
         id: claude
         uses: anthropics/claude-code-action@567fe954a4527e81f132d87d1bdbcc94f7737434 # v1, 2026-04-25
         with:
           anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
 
-          # This is an optional setting that allows Claude to read CI results on PRs
+          # This is an optional setting that allows Tran Agent to read CI results on PRs
           additional_permissions: |
             actions: read
 
-          # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
+          # Optional: Give a custom prompt to Tran Agent. If this is not specified, Tran Agent will perform the instructions specified in the comment that tagged it.
           # prompt: 'Update the pull request description to include a summary of changes.'
 
           # Optional: Add claude_args to customize behavior and configuration
@@ -55,13 +55,13 @@ jobs:
 
 `
 
-export const PR_BODY = `## 🤖 Installing Claude Code GitHub App
+export const PR_BODY = `## 🤖 Installing Tran Agent GitHub App
 
-This PR adds a GitHub Actions workflow that enables Claude Code integration in our repository.
+This PR adds a GitHub Actions workflow that enables Tran Agent integration in our repository.
 
-### What is Claude Code?
+### What is Tran Agent?
 
-[Claude Code](https://claude.com/claude-code) is an AI coding agent that can help with:
+[Tran Agent](https://claude.com/claude-code) is an AI coding agent that can help with:
 - Bug fixes and improvements  
 - Documentation updates
 - Implementing new features
@@ -71,33 +71,33 @@ This PR adds a GitHub Actions workflow that enables Claude Code integration in o
 
 ### How it works
 
-Once this PR is merged, we'll be able to interact with Claude by mentioning @claude in a pull request or issue comment.
-Once the workflow is triggered, Claude will analyze the comment and surrounding context, and execute on the request in a GitHub action.
+Once this PR is merged, we'll be able to interact with Tran Agent by mentioning @claude in a pull request or issue comment.
+Once the workflow is triggered, Tran Agent will analyze the comment and surrounding context, and execute on the request in a GitHub action.
 
 ### Important Notes
 
 - **This workflow won't take effect until this PR is merged**
 - **@claude mentions won't work until after the merge is complete**
-- The workflow runs automatically whenever Claude is mentioned in PR or issue comments
-- Claude gets access to the entire PR or issue context including files, diffs, and previous comments
+- The workflow runs automatically whenever Tran Agent is mentioned in PR or issue comments
+- Tran Agent gets access to the entire PR or issue context including files, diffs, and previous comments
 
 ### Security
 
 - Our Anthropic API key is securely stored as a GitHub Actions secret
 - Only users with write access to the repository can trigger the workflow
-- All Claude runs are stored in the GitHub Actions run history
-- Claude's default tools are limited to reading/writing files and interacting with our repo by creating comments, branches, and commits.
+- All Tran Agent runs are stored in the GitHub Actions run history
+- Tran Agent's default tools are limited to reading/writing files and interacting with our repo by creating comments, branches, and commits.
 - We can add more allowed tools by adding them to the workflow file like:
 
 \`\`\`
 allowed_tools: Bash(npm install),Bash(npm run build),Bash(npm run lint),Bash(npm run test)
 \`\`\`
 
-There's more information in the [Claude Code action repo](https://github.com/anthropics/claude-code-action).
+There's more information in the [Tran Agent action repo](https://github.com/anthropics/claude-code-action).
 
 After merging this PR, let's try mentioning @claude in a comment on any PR to get started!`
 
-export const CODE_REVIEW_PLUGIN_WORKFLOW_CONTENT = `name: Claude Code Review
+export const CODE_REVIEW_PLUGIN_WORKFLOW_CONTENT = `name: Tran Agent Review
 
 on:
   pull_request:
@@ -130,7 +130,7 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Run Claude Code Review
+      - name: Run Tran Agent Review
         id: claude-review
         uses: anthropics/claude-code-action@567fe954a4527e81f132d87d1bdbcc94f7737434 # v1, 2026-04-25
         with:

@@ -4,7 +4,7 @@ const plugin = {
   type: 'local-jsx',
   name: 'plugin',
   aliases: ['plugins', 'marketplace'],
-  description: 'Manage Claude Code plugins',
+  description: 'Manage Tran Agent plugins',
   immediate: true,
   load: () => import('./plugin.js'),
 } satisfies Command;

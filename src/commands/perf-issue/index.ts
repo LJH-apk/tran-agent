@@ -350,7 +350,7 @@ function formatReportMarkdown(
     )
 
   return [
-    '# Claude Code 性能快照',
+    '# Tran Agent 性能快照',
     '',
     `- 时间戳:      ${new Date().toISOString()}`,
     `- 会话:        ${sessionId}`,

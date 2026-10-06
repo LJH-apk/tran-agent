@@ -36,7 +36,7 @@ export function SnapshotUpdateDialog({
           label: '将快照合并到当前记忆',
           value: 'merge',
           description:
-            '保留当前记忆，并请 Claude 合并快照中的变更。',
+            '保留当前记忆，并请 Tran Agent 合并快照中的变更。',
         },
         {
           label: '保留当前记忆',

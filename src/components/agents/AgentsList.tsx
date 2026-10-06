@@ -210,7 +210,7 @@ export function AgentsList({ source, agents, onBack, onSelect, onCreateNew, chan
       <Dialog title={sourceTitle} subtitle="未找到智能体" onCancel={onBack} hideInputGuide>
         <Box flexDirection="column" gap={1} tabIndex={0} autoFocus onKeyDown={handleKeyDown}>
           {onCreateNew && <Box>{renderCreateNewOption()}</Box>}
-          <Text dimColor>未找到智能体。创建可由 Claude 委派的专用子智能体。</Text>
+          <Text dimColor>未找到智能体。创建可由 Tran Agent 委派的专用子智能体。</Text>
           <Text dimColor>每个子智能体都有独立的上下文窗口、自定义系统提示词和特定工具。</Text>
           <Text dimColor>
             可尝试创建：Code Reviewer、Code Simplifier、Security Reviewer、Tech Lead 或 UX Reviewer。

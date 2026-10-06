@@ -61,7 +61,7 @@ export function AgentDetail({ agent, tools, onBack }: Props): React.ReactNode {
 
       <Box flexDirection="column">
         <Text>
-          <Text bold>描述</Text> （告诉 Claude 何时使用此智能体）：
+          <Text bold>描述</Text> （告诉 Tran Agent 何时使用此智能体）：
         </Text>
         <Box marginLeft={2}>
           <Text>{agent.whenToUse}</Text>

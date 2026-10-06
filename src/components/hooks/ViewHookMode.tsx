@@ -51,7 +51,7 @@ export function ViewHookMode({ selectedHook, eventSupportsMatcher, onCancel }: P
             状态消息： <Text dimColor>{selectedHook.config.statusMessage}</Text>
           </Text>
         )}
-        <Text dimColor>如需修改或删除此钩子，请直接编辑 settings.json，或请 Claude 协助。</Text>
+        <Text dimColor>如需修改或删除此钩子，请直接编辑 settings.json，或请 Tran Agent 协助。</Text>
       </Box>
     </Dialog>
   );

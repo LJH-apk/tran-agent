@@ -195,17 +195,17 @@ export function getRequestTooLargeErrorMessage(): string {
     : `请求过大（${limits}）。连按两次 esc 返回，换一个更小的文件重试。`
 }
 export const OAUTH_ORG_NOT_ALLOWED_ERROR_MESSAGE =
-  '你的账号无权使用 Claude Code。请运行 /login。'
+  '你的账号无权使用 Tran Agent。请运行 /login。'
 
 export function getTokenRevokedErrorMessage(): string {
   return getIsNonInteractiveSession()
-    ? '你的账号无权使用 Claude。请重新登录或联系管理员。'
+    ? '你的账号无权使用 Tran Agent。请重新登录或联系管理员。'
     : TOKEN_REVOKED_ERROR_MESSAGE
 }
 
 export function getOauthOrgNotAllowedErrorMessage(): string {
   return getIsNonInteractiveSession()
-    ? '你的组织无权使用 Claude。请重新登录或联系管理员。'
+    ? '你的组织无权使用 Tran Agent。请重新登录或联系管理员。'
     : OAUTH_ORG_NOT_ALLOWED_ERROR_MESSAGE
 }
 
@@ -1195,8 +1195,8 @@ export function getErrorMessageIfRefusal(
   logEvent('tengu_refusal_api_response', {})
 
   const baseMessage = getIsNonInteractiveSession()
-    ? `${API_ERROR_MESSAGE_PREFIX}: Claude Code 无法回应此请求，它似乎违反了我们的使用政策（https://www.anthropic.com/legal/aup）。请换一种说法或换一种方式。`
-    : `${API_ERROR_MESSAGE_PREFIX}: Claude Code 无法回应此请求，它似乎违反了我们的使用政策（https://www.anthropic.com/legal/aup）。请连按两次 esc 修改你的上一条消息，或开启新会话让 Claude Code 处理别的任务。`
+    ? `${API_ERROR_MESSAGE_PREFIX}: Tran Agent 无法回应此请求，它似乎违反了我们的使用政策（https://www.anthropic.com/legal/aup）。请换一种说法或换一种方式。`
+    : `${API_ERROR_MESSAGE_PREFIX}: Tran Agent 无法回应此请求，它似乎违反了我们的使用政策（https://www.anthropic.com/legal/aup）。请连按两次 esc 修改你的上一条消息，或开启新会话让 Tran Agent 处理别的任务。`
 
   const modelSuggestion =
     model !== 'claude-sonnet-4-20250514'

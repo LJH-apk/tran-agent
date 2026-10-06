@@ -35,7 +35,7 @@ export async function sendNotification(
   })
 }
 
-const DEFAULT_TITLE = 'Claude Code'
+const DEFAULT_TITLE = 'Tran Agent'
 
 async function sendToChannel(
   channel: string,

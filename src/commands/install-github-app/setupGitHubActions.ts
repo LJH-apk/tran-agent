@@ -86,7 +86,7 @@ async function createWorkflowFile(
         ...context,
       })
       throw new Error(
-        `创建 workflow 文件 ${workflowPath} 失败：该仓库中已存在 Claude workflow 文件。请先将其删除，或手动更新。`,
+        `创建 workflow 文件 ${workflowPath} 失败：该仓库中已存在 Tran Agent workflow 文件。请先将其删除，或手动更新。`,
       )
     }
 
@@ -225,7 +225,7 @@ export async function setupGitHubActions(
         workflows.push({
           path: '.github/workflows/claude.yml',
           content: WORKFLOW_CONTENT,
-          message: 'Claude PR 助手工作流',
+          message: 'Tran Agent PR 助手工作流',
         })
       }
 
@@ -233,7 +233,7 @@ export async function setupGitHubActions(
         workflows.push({
           path: '.github/workflows/claude-code-review.yml',
           content: CODE_REVIEW_PLUGIN_WORKFLOW_CONTENT,
-          message: 'Claude Code Review 工作流',
+          message: 'Tran Agent Review 工作流',
         })
       }
 

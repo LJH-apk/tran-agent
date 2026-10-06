@@ -692,7 +692,7 @@ export function ExitPlanModePermissionRequest({
     return (
       <PermissionDialog color="planMode" title="退出计划模式？" workerBadge={workerBadge}>
         <Box flexDirection="column" paddingX={1} marginTop={1}>
-          <Text>Claude 想要退出计划模式</Text>
+          <Text>Tran Agent 想要退出计划模式</Text>
           <Box marginTop={1}>
             <Select
               options={[
@@ -723,7 +723,7 @@ export function ExitPlanModePermissionRequest({
       <PermissionDialog color="planMode" title="准备好写代码了吗？" innerPaddingX={0} workerBadge={workerBadge}>
         <Box flexDirection="column" marginTop={1}>
           <Box paddingX={1} flexDirection="column">
-            <Text>这是 Claude 的方案：</Text>
+            <Text>这是 Tran Agent 的方案：</Text>
           </Box>
           <Box
             borderColor="subtle"
@@ -752,7 +752,7 @@ export function ExitPlanModePermissionRequest({
             )}
             {!useStickyFooter && (
               <>
-                <Text dimColor>Claude 已写好计划并准备执行。是否继续？</Text>
+                <Text dimColor>Tran Agent 已写好计划并准备执行。是否继续？</Text>
                 <Box marginTop={1}>
                   <Select
                     options={options}
@@ -852,7 +852,7 @@ export function buildPlanApprovalOptions({
 
   if (showUltraplan) {
     options.push({
-      label: '否，在网页版 Claude Code 上用 Ultraplan 继续完善',
+      label: '否，在网页版 Tran Agent 上用 Ultraplan 继续完善',
       value: 'ultraplan',
     });
   }
@@ -861,7 +861,7 @@ export function buildPlanApprovalOptions({
     type: 'input',
     label: '不，继续规划',
     value: 'no',
-    placeholder: '告诉 Claude 要修改什么',
+    placeholder: '告诉 Tran Agent 要修改什么',
     description: '按 shift+tab 连同此反馈一起批准',
     onChange: onFeedbackChange,
   });

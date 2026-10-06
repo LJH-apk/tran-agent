@@ -89,7 +89,7 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
         // Check specifically for lock failure
         if (result.lockFailed) {
           throw new Error(
-            '无法安装 —— 另一个进程正在安装 Claude。请稍后重试。',
+            '无法安装 —— 另一个进程正在安装 Tran Agent。请稍后重试。',
           );
         }
 
@@ -185,12 +185,12 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
   useEffect(() => {
     if (state.type === 'success') {
       // Give success message time to render before exiting
-      setTimeout(onDone, 2000, 'Claude Code 安装成功', {
+      setTimeout(onDone, 2000, 'Tran Agent 安装成功', {
         display: 'system' as const,
       });
     } else if (state.type === 'error') {
       // Give error message time to render before exiting
-      setTimeout(onDone, 3000, 'Claude Code 安装失败', {
+      setTimeout(onDone, 3000, 'Tran Agent 安装失败', {
         display: 'system' as const,
       });
     }
@@ -203,7 +203,7 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
       {state.type === 'cleaning-npm' && <Text color="warning">正在清理旧的 npm 安装...</Text>}
 
       {state.type === 'installing' && (
-        <Text color="claude">Installing Claude Code native build {state.version}...</Text>
+        <Text color="claude">Installing Tran Agent native build {state.version}...</Text>
       )}
 
       {state.type === 'setting-up' && <Text color="claude">正在配置启动器和 shell 集成...</Text>}
@@ -215,7 +215,7 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
           <Box>
             <StatusIcon status="success" withSpace />
             <Text color="success" bold>
-              Claude Code 安装成功！
+              Tran Agent 安装成功！
             </Text>
           </Box>
           <Box marginLeft={2} flexDirection="column" gap={1}>
@@ -263,7 +263,7 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
 export const install = {
   type: 'local-jsx' as const,
   name: 'install',
-  description: 'Install Claude Code native build',
+  description: 'Install Tran Agent native build',
   argumentHint: '[options]',
   async call(
     onDone: (result: string, options?: { display?: CommandResultDisplay }) => void,

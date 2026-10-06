@@ -79,7 +79,7 @@ function Web({ onDone }: { onDone: LocalJSXCommandOnDone }) {
           logEvent('tengu_remote_setup_result', {
             result: 'not_signed_in' as SafeString,
           });
-          onDone('尚未登录 Claude。请先运行 /login。');
+          onDone('尚未登录 Tran Agent。请先运行 /login。');
           return;
         case 'gh_not_installed':
         case 'gh_not_authenticated': {
@@ -143,14 +143,14 @@ function Web({ onDone }: { onDone: LocalJSXCommandOnDone }) {
   }
 
   if (step.name === 'uploading') {
-    return <LoadingState message="正在将 GitHub 连接到 Claude…" />;
+    return <LoadingState message="正在将 GitHub 连接到 Tran Agent…" />;
   }
 
   const token = step.token;
   return (
-    <Dialog title="要将网页版 Claude 连接到 GitHub 吗？" onCancel={handleCancel} hideInputGuide>
+    <Dialog title="要将网页版 Tran Agent 连接到 GitHub 吗？" onCancel={handleCancel} hideInputGuide>
       <Box flexDirection="column">
-        <Text>网页版 Claude 需要连接你的 GitHub 账号，以便代你克隆和推送代码。</Text>
+        <Text>网页版 Tran Agent 需要连接你的 GitHub 账号，以便代你克隆和推送代码。</Text>
         <Text dimColor>将使用你的本地凭据向 GitHub 进行认证</Text>
       </Box>
       <Select

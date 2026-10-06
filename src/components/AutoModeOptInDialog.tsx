@@ -6,7 +6,7 @@ import { Select } from './CustomSelect/index.js';
 
 // NOTE: This copy is legally reviewed — do not modify without Legal team approval.
 export const AUTO_MODE_DESCRIPTION =
-  "自动模式让 Claude 自动处理权限请求——Claude 会在执行前检查每次工具调用是否存在风险操作和提示注入。Claude 判定为安全的操作会执行，判定为有风险的操作会被拦截，Claude 可能会尝试其他做法。适合长时间运行的任务。会话费用会略高。Claude 可能出错，导致有害命令被执行，建议仅在隔离环境中使用。按 Shift+Tab 切换模式。";
+  "自动模式让 Tran Agent 自动处理权限请求——Tran Agent 会在执行前检查每次工具调用是否存在风险操作和提示注入。Tran Agent 判定为安全的操作会执行，判定为有风险的操作会被拦截，Tran Agent 可能会尝试其他做法。适合长时间运行的任务。会话费用会略高。Tran Agent 可能出错，导致有害命令被执行，建议仅在隔离环境中使用。按 Shift+Tab 切换模式。";
 
 type Props = {
   onAccept(): void;

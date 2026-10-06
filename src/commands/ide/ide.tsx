@@ -108,7 +108,7 @@ function IDEScreen({
             {isSupportedJetBrainsTerminal()
               ? '未检测到可用的 IDE。请安装插件后重启 IDE：\n' +
                 'https://docs.claude.com/s/claude-code-jetbrains'
-              : '未检测到可用的 IDE。请确认你的 IDE 已安装 Claude Code 扩展或插件并正在运行。'}
+              : '未检测到可用的 IDE。请确认你的 IDE 已安装 Tran Agent 扩展或插件并正在运行。'}
           </Text>
         )}
 
@@ -126,7 +126,7 @@ function IDEScreen({
         {availableIDEs.length !== 0 &&
           availableIDEs.some(ide => ide.name === 'VS Code' || ide.name === 'Visual Studio Code') && (
             <Box marginTop={1}>
-              <Text color="warning">注意：同一时间只能有一个 Claude Code 实例连接到 VS Code。</Text>
+              <Text color="warning">注意：同一时间只能有一个 Tran Agent 实例连接到 VS Code。</Text>
             </Box>
           )}
         {availableIDEs.length !== 0 && !isSupportedTerminal() && (
@@ -283,7 +283,7 @@ export async function call(
     const availableIDEs = detectedIDEs.filter(ide => ide.isValid);
 
     if (availableIDEs.length === 0) {
-      onDone('未检测到安装了 Claude Code 扩展的 IDE。');
+      onDone('未检测到安装了 Tran Agent 扩展的 IDE。');
       return null;
     }
 

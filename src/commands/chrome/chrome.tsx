@@ -122,16 +122,16 @@ function ClaudeInChromeMenu({
   const isDisabled = isWSL || ((process.env.USER_TYPE as string) !== 'ant' && !isClaudeAISubscriber);
 
   return (
-    <Dialog title="Claude in Chrome（Beta）" onCancel={() => onDone()} color="chromeYellow">
+    <Dialog title="Tran Agent in Chrome（Beta）" onCancel={() => onDone()} color="chromeYellow">
       <Box flexDirection="column" gap={1}>
         <Text>
-          Claude in Chrome 与 Chrome 扩展配合使用，让你可以直接从 Claude Code 控制浏览器：浏览网页、填写表单、截取屏幕、录制 GIF，并通过控制台日志和网络请求进行调试。
+          Tran Agent in Chrome 与 Chrome 扩展配合使用，让你可以直接从 Tran Agent 控制浏览器：浏览网页、填写表单、截取屏幕、录制 GIF，并通过控制台日志和网络请求进行调试。
         </Text>
 
-        {isWSL && <Text color="error">Claude in Chrome 目前不支持 WSL。</Text>}
+        {isWSL && <Text color="error">Tran Agent in Chrome 目前不支持 WSL。</Text>}
 
         {(process.env.USER_TYPE as string) !== 'ant' && !isClaudeAISubscriber && (
-          <Text color="error">Claude in Chrome 需要 claude.ai 订阅。</Text>
+          <Text color="error">Tran Agent in Chrome 需要 claude.ai 订阅。</Text>
         )}
 
         {!isDisabled && (
@@ -165,7 +165,7 @@ function ClaudeInChromeMenu({
             </Text>
 
             <Text dimColor>
-              站点级权限继承自 Chrome 扩展。如需控制 Claude 可以浏览、点击和输入的网站，请在 Chrome 扩展设置中管理权限。
+              站点级权限继承自 Chrome 扩展。如需控制 Tran Agent 可以浏览、点击和输入的网站，请在 Chrome 扩展设置中管理权限。
             </Text>
           </>
         )}

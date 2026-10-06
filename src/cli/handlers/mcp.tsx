@@ -335,7 +335,7 @@ export async function mcpAddFromDesktopHandler(options: { scope?: string }): Pro
     const servers = await readClaudeDesktopMcpServers();
 
     if (Object.keys(servers).length === 0) {
-      cliOk('No MCP servers found in Claude Desktop configuration or configuration file does not exist.');
+      cliOk('No MCP servers found in Tran Agent Desktop configuration or configuration file does not exist.');
     }
 
     const { unmount } = await render(
@@ -368,6 +368,6 @@ export async function mcpResetChoicesHandler(): Promise<void> {
   }));
   cliOk(
     'All project-scoped (.mcp.json) server approvals and rejections have been reset.\n' +
-      'You will be prompted for approval next time you start Claude Code.',
+      'You will be prompted for approval next time you start Tran Agent.',
   );
 }

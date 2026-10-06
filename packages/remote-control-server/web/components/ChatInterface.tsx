@@ -868,7 +868,7 @@ export function ChatInterface({ client, agentId }: ChatInterfaceProps) {
           isLoading={isLoading}
           onInterrupt={handleCancel}
           disabled={!sessionReady}
-          placeholder={sessionReady ? '给 Claude 发送消息…' : '等待会话...'}
+          placeholder={sessionReady ? '给 Tran Agent 发送消息…' : '等待会话...'}
           supportsImages={supportsImages}
           commands={availableCommands.length > 0 ? availableCommands : undefined}
         />

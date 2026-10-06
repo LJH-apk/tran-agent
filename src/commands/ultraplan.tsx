@@ -127,7 +127,7 @@ function startDetachedPoll(
         setAppState(prev => (prev.ultraplanSessionUrl === url ? { ...prev, ultraplanSessionUrl: undefined } : prev));
         enqueuePendingNotification({
           value: [
-            `Ultraplan 已批准——正在网页版 Claude Code 中执行。进度查看：${url}`,
+            `Ultraplan 已批准——正在网页版 Tran Agent 中执行。进度查看：${url}`,
             '',
             '远程会话结束后结果会以 Pull Request 形式提交。此处无需操作。',
           ].join('\n'),
@@ -193,11 +193,11 @@ function startDetachedPoll(
 // multi-second teleportToRemote round-trip.
 function buildLaunchMessage(disconnectedBridge?: boolean): string {
   const prefix = disconnectedBridge ? `${REMOTE_CONTROL_DISCONNECTED_MSG} ` : '';
-  return `${DIAMOND_OPEN} ultraplan\n${prefix}正在启动网页版 Claude Code…`;
+  return `${DIAMOND_OPEN} ultraplan\n${prefix}正在启动网页版 Tran Agent…`;
 }
 
 function buildSessionReadyMessage(url: string): string {
-  return `${DIAMOND_OPEN} ultraplan · 在网页版 Claude Code 中查看进度 ${url}\n你可以继续工作——当 ${DIAMOND_OPEN} 填满时，按 ↓ 查看结果`;
+  return `${DIAMOND_OPEN} ultraplan · 在网页版 Tran Agent 中查看进度 ${url}\n你可以继续工作——当 ${DIAMOND_OPEN} 填满时，按 ↓ 查看结果`;
 }
 
 function buildAlreadyActiveMessage(url: string | undefined): string {
@@ -494,7 +494,7 @@ const call: LocalJSXCommandCall = async (onDone, context, args) => {
 export default {
   type: 'local-jsx',
   name: 'ultraplan',
-  description: `~10–30 min · Claude Code on the web drafts an advanced plan you can edit and approve. See ${CCR_TERMS_URL}`,
+  description: `~10–30 min · Tran Agent on the web drafts an advanced plan you can edit and approve. See ${CCR_TERMS_URL}`,
   argumentHint: '<prompt>',
   // isEnabled: () => process.env.USER_TYPE === 'ant',
   isEnabled: () => isUltraplanEnabled(),

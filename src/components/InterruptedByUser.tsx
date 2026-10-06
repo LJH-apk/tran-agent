@@ -8,7 +8,7 @@ export function InterruptedByUser(): React.ReactNode {
       {process.env.USER_TYPE === 'ant' ? (
         <Text dimColor>· [仅 ANTHROPIC 内部] 用 /issue 反馈模型问题</Text>
       ) : (
-        <Text dimColor>· 你希望 Claude 改怎么做？</Text>
+        <Text dimColor>· 你希望 Tran Agent 改怎么做？</Text>
       )}
     </>
   );

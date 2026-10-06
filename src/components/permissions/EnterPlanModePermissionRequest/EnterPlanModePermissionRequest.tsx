@@ -38,10 +38,10 @@ export function EnterPlanModePermissionRequest({
   return (
     <PermissionDialog color="planMode" title="进入计划模式？" workerBadge={workerBadge}>
       <Box flexDirection="column" marginTop={1} paddingX={1}>
-        <Text>Claude 想进入计划模式，以探索并设计实现方案。</Text>
+        <Text>Tran Agent 想进入计划模式，以探索并设计实现方案。</Text>
 
         <Box marginTop={1} flexDirection="column">
-          <Text dimColor>在计划模式中，Claude 将：</Text>
+          <Text dimColor>在计划模式中，Tran Agent 将：</Text>
           <Text dimColor> · 全面探索代码库</Text>
           <Text dimColor> · 识别已有的模式</Text>
           <Text dimColor> · 设计实现策略</Text>

@@ -31,7 +31,7 @@ import { which } from '../which.js'
 import { getUserBinDir, getXDGDataHome } from '../xdg.js'
 
 export const MACOS_BUNDLE_ID = 'com.anthropic.claude-code-url-handler'
-const APP_NAME = 'Claude Code URL Handler'
+const APP_NAME = 'Tran Agent URL Handler'
 const DESKTOP_FILE_NAME = 'claude-code-url-handler.desktop'
 const MACOS_APP_NAME = 'Claude Code URL Handler.app'
 
@@ -108,7 +108,7 @@ async function registerMacos(claudePath: string): Promise<void> {
   <array>
     <dict>
       <key>CFBundleURLName</key>
-      <string>Claude Code Deep Link</string>
+      <string>Tran Agent Deep Link</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>${DEEP_LINK_PROTOCOL}</string>
@@ -146,7 +146,7 @@ async function registerLinux(claudePath: string): Promise<void> {
 
   const desktopEntry = `[Desktop Entry]
 Name=${APP_NAME}
-Comment=Handle ${DEEP_LINK_PROTOCOL}:// deep links for Claude Code
+Comment=Handle ${DEEP_LINK_PROTOCOL}:// deep links for Tran Agent
 ${linuxExecLine(claudePath)}
 Type=Application
 NoDisplay=true

@@ -1462,7 +1462,7 @@ function getConfig<A>(
       const backupPath = findMostRecentBackup(file)
       if (backupPath) {
         process.stderr.write(
-          `\nClaude configuration file not found at: ${file}\n` +
+          `\nTran Agent configuration file not found at: ${file}\n` +
             `A backup file exists at: ${backupPath}\n` +
             `You can manually restore it by running: cp "${backupPath}" "${file}"\n\n`,
         )
@@ -1509,7 +1509,7 @@ function getConfig<A>(
       }
 
       process.stderr.write(
-        `\nClaude configuration file at ${file} is corrupted: ${error.message}\n`,
+        `\nTran Agent configuration file at ${file} is corrupted: ${error.message}\n`,
       )
 
       // Try to backup the corrupted config file (only if not already backed up)

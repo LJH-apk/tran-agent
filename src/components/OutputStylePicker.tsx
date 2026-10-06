@@ -8,7 +8,7 @@ import type { OptionWithDescription } from './CustomSelect/select.js';
 import { Select } from './CustomSelect/select.js';
 
 const DEFAULT_OUTPUT_STYLE_LABEL = '默认';
-const DEFAULT_OUTPUT_STYLE_DESCRIPTION = 'Claude 高效完成编码任务并给出简洁回复';
+const DEFAULT_OUTPUT_STYLE_DESCRIPTION = 'Tran Agent 高效完成编码任务并给出简洁回复';
 
 function mapConfigsToOptions(styles: { [styleName: string]: OutputStyleConfig | null }): OptionWithDescription[] {
   return Object.entries(styles).map(([style, config]) => ({
@@ -67,7 +67,7 @@ export function OutputStylePicker({
     >
       <Box flexDirection="column" gap={1}>
         <Box marginTop={1}>
-          <Text dimColor>这会改变 Claude Code 与你交流的方式</Text>
+          <Text dimColor>这会改变 Tran Agent 与你交流的方式</Text>
         </Box>
         {isLoading ? (
           <Text dimColor>正在加载输出风格…</Text>

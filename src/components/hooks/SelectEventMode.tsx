@@ -49,7 +49,7 @@ export function SelectEventMode({
 
         <Box flexDirection="column">
           <Text dimColor>
-            {figures.info} 此菜单为只读。如需添加或修改钩子，请直接编辑 settings.json，或询问 Claude。{' '}
+            {figures.info} 此菜单为只读。如需添加或修改钩子，请直接编辑 settings.json，或询问 Tran Agent。{' '}
             <Link url="https://code.claude.com/docs/en/hooks">了解更多</Link>
           </Text>
         </Box>

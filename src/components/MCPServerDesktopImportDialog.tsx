@@ -75,8 +75,8 @@ export function MCPServerDesktopImportDialog({ servers, scope, onDone }: Props):
   return (
     <>
       <Dialog
-        title="从 Claude Desktop 导入 MCP 服务器"
-        subtitle={`Found ${serverNames.length} MCP ${plural(serverNames.length, 'server')} in Claude Desktop.`}
+        title="从 Tran Agent Desktop 导入 MCP 服务器"
+        subtitle={`Found ${serverNames.length} MCP ${plural(serverNames.length, 'server')} in Tran Agent Desktop.`}
         color="success"
         onCancel={handleEscCancel}
         hideInputGuide

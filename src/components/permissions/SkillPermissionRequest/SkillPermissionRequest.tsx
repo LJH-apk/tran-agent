@@ -214,7 +214,7 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
 
   return (
     <PermissionDialog title={`使用 Skill "${skill}"？`} workerBadge={workerBadge}>
-      <Text>Claude 可能会使用此 Skill 中的指令、代码或文件。</Text>
+      <Text>Tran Agent 可能会使用此 Skill 中的指令、代码或文件。</Text>
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Text dimColor>{commandObj?.description}</Text>
       </Box>

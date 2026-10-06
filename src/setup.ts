@@ -72,7 +72,7 @@ export async function setup(
   if (!nodeVersion || parseInt(nodeVersion, 10) < 18) {
     console.error(
       chalk.bold.red(
-        'Error: Claude Code requires Node.js version 18 or higher.',
+        'Error: Tran Agent requires Node.js version 18 or higher.',
       ),
     )
     process.exit(1)

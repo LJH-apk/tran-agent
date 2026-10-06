@@ -87,8 +87,8 @@ export function UltraplanLaunchDialog({ onChoice }: UltraplanLaunchDialogProps):
   }, [handleChoice]);
 
   const runDescription = isBridgeEnabled
-    ? '禁用远程控制并在网页版 Claude Code 中启动'
-    : '在网页版 Claude Code 中启动';
+    ? '禁用远程控制并在网页版 Tran Agent 中启动'
+    : '在网页版 Tran Agent 中启动';
 
   const options = [
     {
@@ -106,7 +106,7 @@ export function UltraplanLaunchDialog({ onChoice }: UltraplanLaunchDialogProps):
           <Text dimColor>{dialogConfig.dialogBody}</Text>
           {showTermsLink ? (
             <Text dimColor>
-              关于网页版 Claude Code 的更多信息：
+              关于网页版 Tran Agent 的更多信息：
               <Link url={CCR_TERMS_URL}>{CCR_TERMS_URL}</Link>
             </Text>
           ) : null}

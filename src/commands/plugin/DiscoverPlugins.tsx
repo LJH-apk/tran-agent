@@ -781,7 +781,7 @@ function EmptyStateMessage({ reason }: { reason: EmptyMarketplaceReason | null }
       return (
         <>
           <Text dimColor>安装插件市场需要 Git。</Text>
-          <Text dimColor>请先安装 git，然后重启 Claude Code。</Text>
+          <Text dimColor>请先安装 git，然后重启 Tran Agent。</Text>
         </>
       );
     case 'all-blocked-by-policy':

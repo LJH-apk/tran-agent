@@ -92,7 +92,7 @@ function OverridesSelect({ onComplete, currentMode }: Props & { currentMode: Ove
           <Text bold dimColor>
             允许沙箱外回退：
           </Text>{' '}
-          当命令因沙箱限制而失败时，Claude 可以用 dangerouslyDisableSandbox 重试，在沙箱外运行（回退为默认权限）。
+          当命令因沙箱限制而失败时，Tran Agent 可以用 dangerouslyDisableSandbox 重试，在沙箱外运行（回退为默认权限）。
         </Text>
         <Text dimColor>
           <Text bold dimColor>

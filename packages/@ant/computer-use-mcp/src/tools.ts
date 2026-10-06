@@ -539,7 +539,7 @@ export function buildComputerUseTools(
               "Supported agents: claude (runs 'claude'), codex (runs 'codex'), gemini (runs 'gemini'), " +
               'or any custom command. After launching, the tool binds to the new terminal window ' +
               'and takes a screenshot to verify the agent started successfully. ' +
-              "Use this when the user says: 'open Claude Code', 'start a Codex terminal', 'launch Gemini', etc.",
+              "Use this when the user says: 'open Tran Agent', 'start a Codex terminal', 'launch Gemini', etc.",
             inputSchema: {
               type: 'object' as const,
               properties: {
@@ -1044,7 +1044,7 @@ function buildTeachTools(
         'Request permission to guide the user through a task step-by-step with on-screen tooltips. ' +
         'Use this INSTEAD OF request_access when the user wants to LEARN how to do something ' +
         '(phrases like "teach me", "walk me through", "show me how", "help me learn"). ' +
-        'On approval the main Claude window hides and a fullscreen tooltip overlay appears. ' +
+        'On approval the main Tran Agent window hides and a fullscreen tooltip overlay appears. ' +
         'You then call teach_step repeatedly; each call shows one tooltip and waits for the user to click Next. ' +
         'Same app-allowlist semantics as request_access, but no clipboard/system-key flags. ' +
         'Teach mode ends automatically when your turn ends.',
@@ -1061,7 +1061,7 @@ function buildTeachTools(
           reason: {
             type: 'string',
             description:
-              'What you will be teaching. Shown in the approval dialog as "Claude wants to guide you through {reason}". Keep it short and task-focused.',
+              'What you will be teaching. Shown in the approval dialog as "Tran Agent wants to guide you through {reason}". Keep it short and task-focused.',
           },
         },
         required: ['apps', 'reason'],

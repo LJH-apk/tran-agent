@@ -39,7 +39,7 @@ export function ExistingWorkflowStep({ repoName, onSelectAction }: ExistingWorkf
 
       <Box flexDirection="column" marginBottom={1}>
         <Text>
-          A Claude workflow file already exists at <Text color="claude">.github/workflows/claude.yml</Text>
+          A Tran Agent workflow file already exists at <Text color="claude">.github/workflows/claude.yml</Text>
         </Text>
         <Text dimColor>您想怎么做？</Text>
       </Box>

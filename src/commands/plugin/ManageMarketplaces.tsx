@@ -714,7 +714,7 @@ export function ManageMarketplaces({
         {!isUpdating && !shouldSkipPluginAutoupdate() && selectedMarketplace.autoUpdate && (
           <Box marginTop={1}>
             <Text dimColor>
-              已开启自动更新。Claude Code 会自动更新该插件市场及其已安装的插件。
+              已开启自动更新。Tran Agent 会自动更新该插件市场及其已安装的插件。
             </Text>
           </Box>
         )}

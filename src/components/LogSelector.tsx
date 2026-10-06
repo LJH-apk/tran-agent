@@ -954,7 +954,7 @@ export function LogSelector({
       {agenticSearchState.status === 'results' && agenticSearchState.results.length > 0 && (
         <Box paddingLeft={1} marginBottom={1} flexShrink={0}>
           <Text dimColor italic>
-            Claude 找到了以下结果：
+            Tran Agent 找到了以下结果：
           </Text>
         </Box>
       )}
@@ -992,7 +992,7 @@ export function LogSelector({
                 {isAgenticSearchOptionFocused ? figures.pointer : ' '}
               </Text>
               <Text color={isAgenticSearchOptionFocused ? 'suggestion' : undefined} bold={isAgenticSearchOptionFocused}>
-                使用 Claude 深度搜索 →
+                使用 Tran Agent 深度搜索 →
               </Text>
             </Box>
             <Box height={1} />
@@ -1095,7 +1095,7 @@ export function LogSelector({
         ) : agenticSearchState.status === 'searching' ? (
           <Text dimColor>
             <Byline>
-              <Text>正在用 Claude 搜索…</Text>
+              <Text>正在用 Tran Agent 搜索…</Text>
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"

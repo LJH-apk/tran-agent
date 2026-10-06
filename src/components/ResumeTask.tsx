@@ -128,9 +128,9 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
       <Box flexDirection="column" padding={1}>
         <Box flexDirection="row">
           <Spinner />
-          <Text bold>正在加载 Claude Code 会话…</Text>
+          <Text bold>正在加载 Tran Agent 会话…</Text>
         </Box>
-        <Text dimColor>{retrying ? '正在重试…' : '正在获取你的 Claude Code 会话…'}</Text>
+        <Text dimColor>{retrying ? '正在重试…' : '正在获取你的 Tran Agent 会话…'}</Text>
       </Box>
     );
   }
@@ -139,7 +139,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold color="error">
-          加载 Claude Code 会话时出错
+          加载 Tran Agent 会话时出错
         </Text>
 
         {renderErrorSpecificGuidance(loadErrorType)}
@@ -155,7 +155,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold>
-          未找到 Claude Code 会话
+          未找到 Tran Agent 会话
           {currentRepo && <Text>（{currentRepo}）</Text>}
         </Text>
         <Box marginTop={1}>
@@ -292,9 +292,9 @@ function renderErrorSpecificGuidance(errorType: LoadErrorType): React.ReactNode 
     case 'auth':
       return (
         <Box marginY={1} flexDirection="column">
-          <Text dimColor>Teleport 需要 Claude 账号</Text>
+          <Text dimColor>Teleport 需要 Tran Agent 账号</Text>
           <Text dimColor>
-            运行 <Text bold>/login</Text> 并选择 &quot;Claude account with subscription&quot;
+            运行 <Text bold>/login</Text> 并选择 &quot;Tran Agent account with subscription&quot;
           </Text>
         </Box>
       );
@@ -302,14 +302,14 @@ function renderErrorSpecificGuidance(errorType: LoadErrorType): React.ReactNode 
     case 'api':
       return (
         <Box marginY={1} flexDirection="column">
-          <Text dimColor>抱歉，Claude 遇到了错误</Text>
+          <Text dimColor>抱歉，Tran Agent 遇到了错误</Text>
         </Box>
       );
 
     case 'other':
       return (
         <Box marginY={1} flexDirection="row">
-          <Text dimColor>抱歉，Claude Code 遇到了错误</Text>
+          <Text dimColor>抱歉，Tran Agent 遇到了错误</Text>
         </Box>
       );
   }

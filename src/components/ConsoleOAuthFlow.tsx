@@ -286,7 +286,7 @@ export function ConsoleOAuthFlow({
         setOAuthStatus({ state: 'success' });
         void sendNotification(
           {
-            message: 'Claude Code 登录成功',
+            message: 'Tran Agent 登录成功',
             notificationType: 'auth_success',
           },
           terminal,
@@ -438,7 +438,7 @@ function OAuthStatusMessage({
           <Text bold>
             {startingMessage
               ? startingMessage
-              : `你可以使用 Claude 订阅来使用 Claude Code，也可以通过 Console 账号按 API 用量计费。`}
+              : `你可以使用 Tran Agent 订阅来使用 Tran Agent，也可以通过 Console 账号按 API 用量计费。`}
           </Text>
 
           <Text>选择登录方式：</Text>
@@ -494,7 +494,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      带订阅的 Claude 账号 · <Text dimColor>Pro、Max、Team 或 Enterprise</Text>
+                      带订阅的 Tran Agent 账号 · <Text dimColor>Pro、Max、Team 或 Enterprise</Text>
                       {process.env.USER_TYPE === 'ant' && (
                         <Text>
                           {'\n'}
@@ -1581,7 +1581,7 @@ function OAuthStatusMessage({
 
           <Box flexDirection="column" gap={1}>
             <Text>
-              Claude Code 支持 Amazon Bedrock、Microsoft Foundry 和 Vertex AI。请设置所需的环境变量，然后重启 Claude Code。
+              Tran Agent 支持 Amazon Bedrock、Microsoft Foundry 和 Vertex AI。请设置所需的环境变量，然后重启 Tran Agent。
             </Text>
 
             <Text>
@@ -1657,7 +1657,7 @@ function OAuthStatusMessage({
         <Box flexDirection="column" gap={1}>
           <Box>
             <Spinner />
-            <Text>正在为 Claude Code 创建 API 密钥…</Text>
+            <Text>正在为 Tran Agent 创建 API 密钥…</Text>
           </Box>
         </Box>
       );

@@ -306,7 +306,7 @@ export const BROWSER_TOOLS = [
             },
             showWatermark: {
               type: 'boolean',
-              description: 'Show Claude logo watermark (default: true)',
+              description: 'Show Tran Agent logo watermark (default: true)',
             },
             quality: {
               type: 'number',

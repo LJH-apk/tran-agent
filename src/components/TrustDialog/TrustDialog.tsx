@@ -202,7 +202,7 @@ export function TrustDialog({ onDone, commands }: Props): React.ReactNode {
         <Text>
           这是你信任的项目吗？（你自己的代码、知名的开源项目，或来自你团队的工作）。
         </Text>
-        <Text>信任后，Claude Code 可以读取、编辑，并在这个文件夹中运行命令。</Text>
+        <Text>信任后，Tran Agent 可以读取、编辑，并在这个文件夹中运行命令。</Text>
 
         <Text dimColor>
           <Link url="https://code.claude.com/docs/en/security">安全指南</Link>

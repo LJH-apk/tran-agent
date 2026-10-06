@@ -7,7 +7,7 @@ const feedback = {
   aliases: ['bug'],
   type: 'local-jsx',
   name: 'feedback',
-  description: `提交关于 Claude Code 的反馈`,
+  description: `提交关于 Tran Agent 的反馈`,
   argumentHint: '[report]',
   isEnabled: () =>
     !(

@@ -197,7 +197,7 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
           setState(prev => ({
             ...prev,
             step: 'error',
-            error: '该仓库中已存在 Claude 工作流文件。',
+            error: '该仓库中已存在 Tran Agent 工作流文件。',
             errorReason: '工作流文件冲突',
             errorInstructions: [
               '     文件 .github/workflows/claude.yml 已存在',

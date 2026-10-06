@@ -42,7 +42,7 @@ const USAGE_TEXT = [
   '  status      显示当前 TUI 模式状态',
   '',
   'TUI 模式使用 ANSI 备用屏幕缓冲区（\\x1b[?1049h），使',
-  'Claude Code 界面占据干净的全屏区域，没有回滚',
+  'Tran Agent 界面占据干净的全屏区域，没有回滚',
   '闪烁。该设置保存在 ~/.claude/.tui-mode 中，并在',
   '下次会话启动时生效。',
   '',

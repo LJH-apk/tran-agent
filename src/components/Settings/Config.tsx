@@ -778,7 +778,7 @@ export function Config({
           },
           {
             id: 'agentPushNotifEnabled',
-            label: 'Claude 决定时推送',
+            label: 'Tran Agent 决定时推送',
             value: globalConfig.agentPushNotifEnabled ?? false,
             type: 'boolean' as const,
             onChange(agentPushNotifEnabled: boolean) {
@@ -962,7 +962,7 @@ export function Config({
       : []),
     {
       id: 'claudeInChromeDefaultEnabled',
-      label: '默认启用 Claude in Chrome',
+      label: '默认启用 Tran Agent in Chrome',
       value: globalConfig.claudeInChromeDefaultEnabled ?? true,
       type: 'boolean' as const,
       onChange(enabled: boolean) {

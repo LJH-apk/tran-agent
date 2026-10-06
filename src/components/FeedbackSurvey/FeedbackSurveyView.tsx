@@ -23,7 +23,7 @@ const inputToResponse: Record<ResponseInput, FeedbackSurveyResponse> = {
 export const isValidResponseInput = (input: string): input is ResponseInput =>
   (RESPONSE_INPUTS as readonly string[]).includes(input);
 
-const DEFAULT_MESSAGE = '本次会话中 Claude 表现如何？（可选）';
+const DEFAULT_MESSAGE = '本次会话中 Tran Agent 表现如何？（可选）';
 
 export function FeedbackSurveyView({
   onSelect,

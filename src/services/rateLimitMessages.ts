@@ -276,7 +276,7 @@ function getWarningUpsellText(
 
     // Pro/Max users: prompt to upgrade
     if (subscriptionType === 'pro' || subscriptionType === 'max') {
-      return '用 /upgrade 继续使用 Claude Code'
+      return '用 /upgrade 继续使用 Tran Agent'
     }
   }
 

@@ -209,7 +209,7 @@ export function OAuthFlowStep({ onSuccess, onCancel }: OAuthFlowStepProps): Reac
             {!showPastePrompt && (
               <Box>
                 <Spinner />
-                <Text>正在打开浏览器以登录你的 Claude 账号……</Text>
+                <Text>正在打开浏览器以登录你的 Tran Agent 账号……</Text>
               </Box>
             )}
 

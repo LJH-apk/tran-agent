@@ -4889,7 +4889,7 @@ export function REPL({
         ) {
           void sendNotification(
             {
-              message: 'Claude 正在等待你的输入',
+              message: 'Tran Agent 正在等待你的输入',
               notificationType: 'idle_prompt',
             },
             terminal,
@@ -5230,7 +5230,7 @@ export function REPL({
     const handleSuspend = () => {
       // Print suspension instructions
       process.stdout.write(
-        `\nClaude Code has been suspended. Run \`fg\` to bring Claude Code back.\nNote: ctrl + z now suspends Claude Code, ctrl + _ undoes input.\n`,
+        `\nTran Agent has been suspended. Run \`fg\` to bring Tran Agent back.\nNote: ctrl + z now suspends Tran Agent, ctrl + _ undoes input.\n`,
       );
     };
 
@@ -6447,7 +6447,7 @@ export function REPL({
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         onRequestFeedback={handleSurveyRequestFeedback}
-                        message="Claude 对记忆的利用情况如何？（可选）"
+                        message="Tran Agent 对记忆的利用情况如何？（可选）"
                       />
                     ) : (
                       <FeedbackSurvey

@@ -46,7 +46,7 @@ export function createWhatsNewFeed(releaseNotes: string[]): FeedConfig {
   const emptyMessage =
     process.env.USER_TYPE === 'ant'
       ? 'Unable to fetch latest claude-cli-internal commits'
-      : '查看 Claude Code 更新日志了解最新变化';
+      : '查看 Tran Agent 更新日志了解最新变化';
 
   return {
     title: process.env.USER_TYPE === 'ant' ? "新功能 [ANT-ONLY: Latest CC commits]" : '新功能',
@@ -88,8 +88,8 @@ export function createProjectOnboardingFeed(steps: Step[]): FeedConfig {
 export function createGuestPassesFeed(): FeedConfig {
   const reward = getCachedReferrerReward();
   const subtitle = reward
-    ? `分享 Claude Code，可获赠 ${formatCreditAmount(reward)} 额外用量`
-    : '把 Claude Code 分享给朋友';
+    ? `分享 Tran Agent，可获赠 ${formatCreditAmount(reward)} 额外用量`
+    : '把 Tran Agent 分享给朋友';
   return {
     title: '3 张体验邀请',
     lines: [],

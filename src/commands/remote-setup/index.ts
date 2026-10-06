@@ -6,7 +6,7 @@ const web = {
   type: 'local-jsx',
   name: 'web-setup',
   description:
-    '配置网页版 Claude Code（需要关联 GitHub 账号）',
+    '配置网页版 Tran Agent（需要关联 GitHub 账号）',
   availability: ['claude-ai'],
   isEnabled: () =>
     getFeatureValue_CACHED_MAY_BE_STALE('tengu_cobalt_lantern', false) &&

@@ -213,9 +213,9 @@ function PermissionRulesTab({
       <Text>
         {
           {
-            allow: "Claude Code 使用已允许的工具前不会再询问。",
-            ask: 'Claude Code 使用这些工具前始终会请求确认。',
-            deny: 'Claude Code 始终会拒绝使用被拒绝工具的请求。',
+            allow: "Tran Agent 使用已允许的工具前不会再询问。",
+            ask: 'Tran Agent 使用这些工具前始终会请求确认。',
+            deny: 'Tran Agent 始终会拒绝使用被拒绝工具的请求。',
           }[tab]
         }
       </Text>
@@ -670,7 +670,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
           </Tab>
           <Tab id="workspace" title="工作区">
             <Box flexDirection="column">
-              <Text>Claude Code 可以读取工作区中的文件，并在开启自动接受编辑时进行修改。</Text>
+              <Text>Tran Agent 可以读取工作区中的文件，并在开启自动接受编辑时进行修改。</Text>
               <WorkspaceTab
                 onExit={onExit}
                 toolPermissionContext={toolPermissionContext}

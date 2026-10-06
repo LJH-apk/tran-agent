@@ -48,7 +48,7 @@ export function RemoveWorkspaceDirectory({
       <Box marginX={2} flexDirection="column">
         <Text bold>{directoryPath}</Text>
       </Box>
-      <Text>Claude Code 将不再能访问此目录中的文件。</Text>
+      <Text>Tran Agent 将不再能访问此目录中的文件。</Text>
       <Select
         onChange={handleSelect}
         onCancel={onCancel}

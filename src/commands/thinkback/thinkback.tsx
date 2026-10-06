@@ -345,8 +345,8 @@ function ThinkbackMenu({
 
   return (
     <Dialog
-      title="用 Claude Code 回顾 2025"
-      subtitle="生成你的 2025 Claude Code 年度回顾（需要运行几分钟）"
+      title="用 Tran Agent 回顾 2025"
+      subtitle="生成你的 2025 Tran Agent 年度回顾（需要运行几分钟）"
       onCancel={handleCancel}
       color="claude"
     >
@@ -354,7 +354,7 @@ function ThinkbackMenu({
         {/* Description for first-time users */}
         {!hasGenerated && (
           <Box flexDirection="column">
-            <Text>与 Claude 一起重温你的编码之年。</Text>
+            <Text>与 Tran Agent 一起重温你的编码之年。</Text>
             <Text dimColor>{"我们会为你的旅程打造一段个性化的 ASCII 动画。"}</Text>
           </Box>
         )}
@@ -367,13 +367,13 @@ function ThinkbackMenu({
 }
 
 const EDIT_PROMPT =
-  'Use the Skill tool to invoke the "thinkback" skill with mode=edit to modify my existing Claude Code year in review animation. Ask me what I want to change. When the animation is ready, tell the user to run /think-back again to play it.';
+  'Use the Skill tool to invoke the "thinkback" skill with mode=edit to modify my existing Tran Agent year in review animation. Ask me what I want to change. When the animation is ready, tell the user to run /think-back again to play it.';
 
 const FIX_PROMPT =
-  'Use the Skill tool to invoke the "thinkback" skill with mode=fix to fix validation or rendering errors in my existing Claude Code year in review animation. Run the validator, identify errors, and fix them. When the animation is ready, tell the user to run /think-back again to play it.';
+  'Use the Skill tool to invoke the "thinkback" skill with mode=fix to fix validation or rendering errors in my existing Tran Agent year in review animation. Run the validator, identify errors, and fix them. When the animation is ready, tell the user to run /think-back again to play it.';
 
 const REGENERATE_PROMPT =
-  'Use the Skill tool to invoke the "thinkback" skill with mode=regenerate to create a completely new Claude Code year in review animation from scratch. Delete the existing animation and start fresh. When the animation is ready, tell the user to run /think-back again to play it.';
+  'Use the Skill tool to invoke the "thinkback" skill with mode=regenerate to create a completely new Tran Agent year in review animation from scratch. Delete the existing animation and start fresh. When the animation is ready, tell the user to run /think-back again to play it.';
 
 function ThinkbackFlow({
   onDone,

@@ -91,14 +91,14 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
           <OrderedList.Item>
             <Text>接受改动前务必先审阅</Text>
             <Text dimColor wrap="wrap">
-              Claude can make mistakes — especially when running commands
+              Tran Agent can make mistakes — especially when running commands
               <Newline />
               or editing files. You stay in control of every action.
               <Newline />
             </Text>
           </OrderedList.Item>
           <OrderedList.Item>
-            <Text>只在信任的项目中使用 Claude Code</Text>
+            <Text>只在信任的项目中使用 Tran Agent</Text>
             <Text dimColor wrap="wrap">
               不受信任的代码可能包含提示注入攻击。
               <Newline />
@@ -161,7 +161,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
       id: 'terminal-setup',
       component: (
         <Box flexDirection="column" gap={1} paddingLeft={1}>
-          <Text bold>要使用 Claude Code 的终端配置吗？</Text>
+          <Text bold>要使用 Tran Agent 的终端配置吗？</Text>
           <Box flexDirection="column" width={70} gap={1}>
             <Text>
               For the optimal coding experience, enable the recommended settings

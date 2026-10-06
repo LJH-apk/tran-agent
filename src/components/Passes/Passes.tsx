@@ -193,8 +193,8 @@ export function Passes({ onDone }: Props): React.ReactNode {
         <Box flexDirection="column" marginLeft={2}>
           <Text dimColor>
             {referrerReward
-              ? `把免费一周的 Claude Code 分享给朋友。如果他们喜欢并订阅，你将获得 ${formatCreditAmount(referrerReward)} 的额外用量继续开发。 `
-              : '把免费一周的 Claude Code 分享给朋友。 '}
+              ? `把免费一周的 Tran Agent 分享给朋友。如果他们喜欢并订阅，你将获得 ${formatCreditAmount(referrerReward)} 的额外用量继续开发。 `
+              : '把免费一周的 Tran Agent 分享给朋友。 '}
             <Link
               url={
                 referrerReward

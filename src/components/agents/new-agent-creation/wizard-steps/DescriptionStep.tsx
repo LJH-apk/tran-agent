@@ -43,7 +43,7 @@ export function DescriptionStep(): ReactNode {
 
   return (
     <WizardDialogLayout
-      subtitle="描述（告诉 Claude 何时使用此智能体）"
+      subtitle="描述（告诉 Tran Agent 何时使用此智能体）"
       footerText={
         <Byline>
           <KeyboardShortcutHint shortcut="Type" action="输入文本" />
@@ -59,7 +59,7 @@ export function DescriptionStep(): ReactNode {
       }
     >
       <Box flexDirection="column">
-        <Text>Claude 应在何时使用此智能体？</Text>
+        <Text>Tran Agent 应在何时使用此智能体？</Text>
 
         <Box marginTop={1}>
           <TextInput

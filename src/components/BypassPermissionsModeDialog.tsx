@@ -54,10 +54,10 @@ export function BypassPermissionsModeDialog({ onAccept }: Props): React.ReactNod
   }
 
   return (
-    <Dialog title="警告：Claude Code 正在以「绕过权限」模式运行" color="error" onCancel={handleEscape}>
+    <Dialog title="警告：Tran Agent 正在以「绕过权限」模式运行" color="error" onCancel={handleEscape}>
       <Box flexDirection="column" gap={1}>
         <Text>
-          在绕过权限模式下，Claude Code 执行有潜在危险的命令前不会再征求你的同意。
+          在绕过权限模式下，Tran Agent 执行有潜在危险的命令前不会再征求你的同意。
           <Newline />
           该模式只应在沙箱容器或虚拟机中使用，且需限制外网访问、损坏后能快速恢复。
         </Text>
