@@ -1,0 +1,307 @@
+{
+  "skillName": "traffic-congestion-governance",
+  "archive": "skill-2.zip",
+  "archiveSha256": "9bf81297b33270b59a35ebfbcd7b51838395317cb2d1268153b330877b79fb57",
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "ddd1546c7104f335bc18d66cd09e9ea7f5c30647fda53157fd3f868a83740655",
+      "bytes": 144,
+      "bundled": false
+    },
+    {
+      "path": "INSTALL.md",
+      "sha256": "dde24615f552f1679fb32b93884dad6d9bf0ce3568409828bb27abfa4a7597b7",
+      "bytes": 310,
+      "bundled": false
+    },
+    {
+      "path": "references/00_knowledge_map.md",
+      "sha256": "e8cb7c44a651fd4268e5ded7c88b4d4e861b699c7f61328e8be12b14162b6268",
+      "bytes": 3739,
+      "bundled": true
+    },
+    {
+      "path": "references/01_governance_principles.md",
+      "sha256": "25c258ab75841b01138921fa5c47c1d3422a44ade81dd77c0956950b1f857406",
+      "bytes": 3630,
+      "bundled": true
+    },
+    {
+      "path": "references/02_diagnosis_framework.md",
+      "sha256": "ecba8d68e40eaf314672d08307d0694206719e870e710d371129f3dc21419985",
+      "bytes": 2151,
+      "bundled": true
+    },
+    {
+      "path": "references/03_strategy_selection_matrix.md",
+      "sha256": "b34477f4e98447f23fe92f1c5c3fd219e21b0858cd381a7a61b2a4fe08971cac",
+      "bytes": 1662,
+      "bundled": true
+    },
+    {
+      "path": "references/04_demand_pricing_parking.md",
+      "sha256": "887a3b69691df94751904a0260ab33ba292ebb214c6338d1ebb7b1b332f061df",
+      "bytes": 1832,
+      "bundled": true
+    },
+    {
+      "path": "references/05_road_space_network_design.md",
+      "sha256": "e05fc2480d261f5e4f7159ecd55dcc247c387a81580fc6d51bdeebb6bb96c6b0",
+      "bytes": 1227,
+      "bundled": true
+    },
+    {
+      "path": "references/06_signal_control_principles.md",
+      "sha256": "b13c94fdb6d956dfd287434832c700917e9b4fea53e94a23c98528a7d21b6842",
+      "bytes": 1561,
+      "bundled": true
+    },
+    {
+      "path": "references/07_max_pressure_and_rl.md",
+      "sha256": "c1b21b15e7b581a170836d172bf419d075c42d0fb89dea7b0bb5d53348ead369",
+      "bytes": 1161,
+      "bundled": true
+    },
+    {
+      "path": "references/08_mfd_perimeter_control.md",
+      "sha256": "c11a1943cd97e8b6bc5ba0d03e18a4416971dc4df073bce8c8d2dfb8f977c72b",
+      "bytes": 1299,
+      "bundled": true
+    },
+    {
+      "path": "references/09_freeway_corridor_control.md",
+      "sha256": "d8357f41f820e19e5e9fc2c57025b62246dd6c23792fdbce2d3b3b1789472c0b",
+      "bytes": 1116,
+      "bundled": true
+    },
+    {
+      "path": "references/10_transit_multimodal.md",
+      "sha256": "effbabc7ba241f574a4d3292fdce05e99ebf031d71e6ea8a81c1b7a6749f4330",
+      "bytes": 1002,
+      "bundled": true
+    },
+    {
+      "path": "references/11_incident_resilience.md",
+      "sha256": "5db520e9f86b628d35a23c42b9b9b6ec1c90b403c553abd8592b1c2c4b79bbe7",
+      "bytes": 815,
+      "bundled": true
+    },
+    {
+      "path": "references/12_integrated_control.md",
+      "sha256": "3ebda8b782fa9633c0e2e6c28d817224f093bff59522ebd93d73a2bcf1c77841",
+      "bytes": 955,
+      "bundled": true
+    },
+    {
+      "path": "references/13_equity_environment_safety.md",
+      "sha256": "fc2245433d3a8bdc57f1838dc5b16baee6a22a2b663155605092f2aa368c2a38",
+      "bytes": 870,
+      "bundled": true
+    },
+    {
+      "path": "references/14_evaluation_and_simulation.md",
+      "sha256": "b9d8494b9c392372c39af66f3fb11f0592af518dc2e1bb9ce9b82d4617d1f39e",
+      "bytes": 1081,
+      "bundled": true
+    },
+    {
+      "path": "references/15_kpi_dictionary.md",
+      "sha256": "f2cde62a8dcdd324a441ec085458cdcd1c6428375d9d2e48514c566d32322536",
+      "bytes": 1029,
+      "bundled": true
+    },
+    {
+      "path": "references/16_failure_modes.md",
+      "sha256": "80208481b26b34240f83c58b2a784f7fbbc92f4d8b449370bf55db0243e07880",
+      "bytes": 1241,
+      "bundled": true
+    },
+    {
+      "path": "references/17_agent_reasoning_rules.md",
+      "sha256": "a73443c8d5d111246a7d92783090c9a0214391a0982e9c7ef9c92943e64e0f04",
+      "bytes": 1179,
+      "bundled": true
+    },
+    {
+      "path": "references/18_itsac_playbook.md",
+      "sha256": "6d5ea3754b6f1fdc15f3b76bcdba802d6db2ef3af8a18b93a17228539d63e363",
+      "bytes": 1364,
+      "bundled": true
+    },
+    {
+      "path": "references/19_literature_quality_rules.md",
+      "sha256": "8cee8e29708c7887a09624f2f63a8c6a946a7fdc2ab22044211d7f8493c16b44",
+      "bytes": 954,
+      "bundled": true
+    },
+    {
+      "path": "references/20_research_gaps.md",
+      "sha256": "caed4bccb2be392067e829f2cc874b9135cdcac30d45b9dda64d996771ac7b08",
+      "bytes": 990,
+      "bundled": true
+    },
+    {
+      "path": "references/21_paper_index.md",
+      "sha256": "b9b817ee86b0c4a362e29d6440023e5a75c61b909f5ab1eb324ed422bfb2b94e",
+      "bytes": 13501,
+      "bundled": true
+    },
+    {
+      "path": "references/22_master_bibliography.md",
+      "sha256": "af93852e9dd567b21e61bc0f62ecb10979818b5a0659e36d0fb12c794f2e8a05",
+      "bytes": 15244,
+      "bundled": true
+    },
+    {
+      "path": "references/23_source_provenance.md",
+      "sha256": "40d61c54ce2184aa6a49f857559f52d721571ab6349573c34758a8b95888bfe9",
+      "bytes": 836,
+      "bundled": true
+    },
+    {
+      "path": "references/24_pricing_acceptability.md",
+      "sha256": "736330af9b40c03f8ebdb3554f3a8642883ca2aff13ea4c70ed46da3de4babae",
+      "bytes": 2803,
+      "bundled": true
+    },
+    {
+      "path": "references/25_parking_curb_management.md",
+      "sha256": "781ea0f485f0ae79daa8be4875fefed279db57eac79f11210fe6cb142b17866c",
+      "bytes": 2456,
+      "bundled": true
+    },
+    {
+      "path": "references/26_adaptive_signal_systems.md",
+      "sha256": "42cd51c5f15ce20ab3091e8674719b391d455b074b10d429dfe93e1857bdb9eb",
+      "bytes": 2266,
+      "bundled": true
+    },
+    {
+      "path": "references/27_dynamic_assignment_route_guidance.md",
+      "sha256": "fe047ebf914410b29401c2f973bac4495ecd06a450f1b51a1ec392562a394b1a",
+      "bytes": 1707,
+      "bundled": true
+    },
+    {
+      "path": "references/28_freeway_bottleneck_capacity_drop.md",
+      "sha256": "5c63a1168b20a66f1978b18ec718fc8ed4c989aafa6a4202a4703e381fd74430",
+      "bytes": 1654,
+      "bundled": true
+    },
+    {
+      "path": "references/29_rl_deployment_benchmarking.md",
+      "sha256": "962932bb83fcfee128364845039e8eb3e36122faec1ac44d2cecd9f27068c7c8",
+      "bytes": 1905,
+      "bundled": true
+    },
+    {
+      "path": "references/30_policy_case_evidence.md",
+      "sha256": "c5a6e57a7d523a9fc83dc8cf01723ce39299c7955f90a3c750bc216aaf8f9844",
+      "bytes": 1343,
+      "bundled": true
+    },
+    {
+      "path": "references/31_strategy_portfolio_templates.md",
+      "sha256": "67e8255159d89f9a1f469ee9eb69df069f79ed1b9c80154d9c37c8ac0de06cfb",
+      "bytes": 1572,
+      "bundled": true
+    },
+    {
+      "path": "references/32_literature_reading_map.md",
+      "sha256": "68aa2852a332e4496a2b06ddddfde5436e7c296282f023454b61aeb746895ccf",
+      "bytes": 1519,
+      "bundled": true
+    },
+    {
+      "path": "references/33_governance_decision_tables.md",
+      "sha256": "0239135dd818bab7819401c12c4126e27c8f4a6ad215ba5a17722cf081e07425",
+      "bytes": 1854,
+      "bundled": true
+    },
+    {
+      "path": "references/34_paper_reading_protocol.md",
+      "sha256": "08c5757c5e98b4d6bad77be18047d88d09d3fbc0668e0e7b580422876a61e6f0",
+      "bytes": 1795,
+      "bundled": true
+    },
+    {
+      "path": "references/35_must_read_papers.md",
+      "sha256": "98e0523f5e089da24c0f118d4643d9037946cd770cd718dc18850a7af51a98ac",
+      "bytes": 22599,
+      "bundled": true
+    },
+    {
+      "path": "references/36_principle_evidence_matrix.md",
+      "sha256": "68fbe66601aaf86fb036a57fa76b6a5492ab9e628c2ac98397ce7fcc6d588650",
+      "bytes": 3033,
+      "bundled": true
+    },
+    {
+      "path": "references/paper_catalog.csv",
+      "sha256": "885046505da65259c9ae1bee30e34c506c7e8d0a91b5b4561720f80138fbcf4f",
+      "bytes": 50630,
+      "bundled": true
+    },
+    {
+      "path": "references/paper_evidence_matrix.csv",
+      "sha256": "e7642a3e196853a8b60c149e29e5a155f805433afe68edbae1249709bb80ddd1",
+      "bytes": 17370,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_ai.md",
+      "sha256": "ee0734412ba63517d695e8fd35c38a29c7eac481563d58f6c757b5063d093613",
+      "bytes": 11161,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_demand.md",
+      "sha256": "65df7075d3548f7d9ea065f9e251d3ef981455428678ddb9f16f636f533dbcd7",
+      "bytes": 11416,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_foundations.md",
+      "sha256": "1b8b9866e57a1aefe3a26c51c4acb68e2099edd7a9869bbff6a127757ffe7d93",
+      "bytes": 10205,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_freeway.md",
+      "sha256": "2415f58a900fd242d1bc5f344e10d6b1cf148501550f5f2cc55370060fce08ef",
+      "bytes": 9098,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_integrated.md",
+      "sha256": "3a922e177aa7cee5f8efda8ddd08ca1bbb64027afd871b0fd2d93585486c6f66",
+      "bytes": 3141,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_mfd.md",
+      "sha256": "5a6b6f9604e3273fb4b743aa00745c0ff0ccabaf09f2b89e320e3e901a6a531f",
+      "bytes": 6542,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_signal.md",
+      "sha256": "cffce360dbc67faefb9d4d03f3d249ae94787b346edb876ca1726f889ea9f84f",
+      "bytes": 11360,
+      "bundled": true
+    },
+    {
+      "path": "references/papers_transit.md",
+      "sha256": "ae14cf910d2ecb2c439945a71f04ec21e90213c26384cba22f6e5cacb464f871",
+      "bytes": 7322,
+      "bundled": true
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "41f30bb7028d07a746f5387f170075da67126e89b5cad47a930554de0c0e6ba7",
+      "bytes": 5200,
+      "bundled": false
+    }
+  ]
+}

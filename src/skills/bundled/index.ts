@@ -17,6 +17,7 @@ import { registerDreamSkill } from './dream.js'
 import { registerUpdateConfigSkill } from './updateConfig.js'
 import { registerVerifySkill } from './verify.js'
 import { registerTransportationSkill } from './transportation.js'
+import { registerTrafficCongestionGovernanceSkill } from './trafficCongestionGovernance.js'
 
 /**
  * Initialize all bundled skills.
@@ -30,6 +31,7 @@ import { registerTransportationSkill } from './transportation.js'
 export function initBundledSkills(): void {
   registerUpdateConfigSkill()
   registerTransportationSkill()
+  registerTrafficCongestionGovernanceSkill()
   registerKeybindingsSkill()
   registerVerifySkill()
   registerDebugSkill()
