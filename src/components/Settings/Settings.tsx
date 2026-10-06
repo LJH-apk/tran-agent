@@ -62,10 +62,10 @@ export function Settings({ onClose, context, defaultTab }: Props): React.ReactNo
   });
 
   const tabs = [
-    <Tab key="status" title="状态">
+    <Tab key="status" id="Status" title="状态">
       <Status context={context} diagnosticsPromise={diagnosticsPromise} />
     </Tab>,
-    <Tab key="config" title="配置">
+    <Tab key="config" id="Config" title="配置">
       <Suspense fallback={null}>
         <Config
           context={context}
@@ -76,7 +76,7 @@ export function Settings({ onClose, context, defaultTab }: Props): React.ReactNo
         />
       </Suspense>
     </Tab>,
-    <Tab key="usage" title="用量">
+    <Tab key="usage" id="Usage" title="用量">
       <Usage />
     </Tab>,
   ];
@@ -88,9 +88,9 @@ export function Settings({ onClose, context, defaultTab }: Props): React.ReactNo
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
         hidden={tabsHidden}
-        // Config has interactive content — start with header unfocused so
-        // left/right/tab cycle option values instead of switching tabs.
-        initialHeaderFocused={defaultTab !== 'Config'}
+        // Start on the header so Tab/left/right can switch pages immediately.
+        // Down enters Config; its own handlers then edit option values.
+        initialHeaderFocused
         // Inside a Modal, skip the Tabs-level cap so tall tabs (Status's
         // MCP list) flow to their natural height for the Modal's ScrollBox
         // to scroll. Config still gets contentHeight above — it

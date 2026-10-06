@@ -17,7 +17,7 @@ import { checkInstall } from './nativeInstaller/index.js';
 import { getProxyUrl } from './proxy.js';
 import { SandboxManager } from './sandbox/sandbox-adapter.js';
 import { getSettingsWithAllErrors } from './settings/allErrors.js';
-import { getEnabledSettingSources, getSettingSourceDisplayNameCapitalized } from './settings/constants.js';
+import { getEnabledSettingSources } from './settings/constants.js';
 import { getManagedFileSettingsPresence, getPolicySettingsOrigin, getSettingsForSource } from './settings/settings.js';
 import type { ThemeName } from './theme.js';
 
@@ -133,15 +133,15 @@ export function buildMcpProperties(clients: MCPServerConnection[] = [], theme: T
     else byState.failed++;
   }
   const parts: string[] = [];
-  if (byState.connected) parts.push(color('success', theme)(`${byState.connected} connected`));
-  if (byState.needsAuth) parts.push(color('warning', theme)(`${byState.needsAuth} need auth`));
-  if (byState.pending) parts.push(color('inactive', theme)(`${byState.pending} pending`));
-  if (byState.failed) parts.push(color('error', theme)(`${byState.failed} failed`));
+  if (byState.connected) parts.push(color('success', theme)(`${byState.connected} 个已连接`));
+  if (byState.needsAuth) parts.push(color('warning', theme)(`${byState.needsAuth} 个待认证`));
+  if (byState.pending) parts.push(color('inactive', theme)(`${byState.pending} 个连接中`));
+  if (byState.failed) parts.push(color('error', theme)(`${byState.failed} 个连接失败`));
 
   return [
     {
-      label: 'MCP servers',
-      value: `${parts.join(', ')} ${color('inactive', theme)('· /mcp')}`,
+      label: 'MCP服务状态',
+      value: `${parts.join('，')} ${color('inactive', theme)('· /mcp')}`,
     },
   ];
 }
@@ -182,32 +182,38 @@ export function buildSettingSourcesProperties(): Property[] {
         }
         switch (origin) {
           case 'remote':
-            return 'Enterprise managed settings (remote)';
+            return '企业托管配置（远程）';
           case 'plist':
-            return 'Enterprise managed settings (plist)';
+            return '企业托管配置（plist）';
           case 'hklm':
-            return 'Enterprise managed settings (HKLM)';
+            return '企业托管配置（HKLM）';
           case 'file': {
             const { hasBase, hasDropIns } = getManagedFileSettingsPresence();
             if (hasBase && hasDropIns) {
-              return 'Enterprise managed settings (file + drop-ins)';
+              return '企业托管配置（文件和配置片段）';
             }
             if (hasDropIns) {
-              return 'Enterprise managed settings (drop-ins)';
+              return '企业托管配置（配置片段）';
             }
-            return 'Enterprise managed settings (file)';
+            return '企业托管配置（文件）';
           }
           case 'hkcu':
-            return 'Enterprise managed settings (HKCU)';
+            return '企业托管配置（HKCU）';
         }
       }
-      return getSettingSourceDisplayNameCapitalized(source);
+      return {
+        userSettings: '用户配置',
+        projectSettings: '项目共享配置',
+        localSettings: '项目本地配置',
+        flagSettings: '命令行参数',
+        policySettings: '企业托管配置',
+      }[source];
     })
     .filter((name): name is string => name !== null);
 
   return [
     {
-      label: 'Setting sources',
+      label: '配置来源',
       value: sourceNames,
     },
   ];
@@ -259,7 +265,7 @@ export function buildAccountProperties(): Property[] {
 
   if (accountInfo.tokenSource) {
     properties.push({
-      label: 'Auth token',
+      label: '登陆令牌',
       value: accountInfo.tokenSource,
     });
   }
@@ -312,7 +318,7 @@ export function buildAPIProviderProperties(): Property[] {
     const anthropicBaseUrl = process.env.ANTHROPIC_BASE_URL;
     if (anthropicBaseUrl) {
       properties.push({
-        label: 'Anthropic base URL',
+        label: '大模型API地址',
         value: anthropicBaseUrl,
       });
     }
@@ -407,7 +413,7 @@ export function buildAPIProviderProperties(): Property[] {
   const proxyUrl = getProxyUrl();
   if (proxyUrl) {
     properties.push({
-      label: 'Proxy',
+      label: '代理地址',
       value: proxyUrl,
     });
   }
