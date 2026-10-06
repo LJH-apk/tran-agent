@@ -86,7 +86,7 @@ export function TeleportResumeWrapper({
         <Text dimColor>{error.message}</Text>
         <Box marginTop={1}>
           <Text dimColor>
-            Press <Text bold>Esc</Text> to cancel
+            按 <Text bold>Esc</Text> 取消
           </Text>
         </Box>
       </Box>

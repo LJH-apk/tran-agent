@@ -573,7 +573,7 @@ export function ManageMarketplaces({
         <Box marginLeft={3}>
           <Text dimColor italic>
             {exitState.pending ? (
-              <>Press {exitState.keyName} again to go back</>
+              <>再按一次 {exitState.keyName} 返回</>
             ) : (
               <Byline>
                 <ConfigurableShortcutHint
@@ -853,7 +853,7 @@ function ManageMarketplacesKeyHints({
     return (
       <Box marginTop={1}>
         <Text dimColor italic>
-          Press {exitState.keyName} again to go back
+          再按一次 {exitState.keyName} 返回
         </Text>
       </Box>
     );

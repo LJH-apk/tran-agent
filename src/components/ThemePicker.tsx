@@ -188,7 +188,7 @@ export function ThemePicker({
             <Box>
               <Text dimColor italic>
                 {exitState.pending ? (
-                  <>Press {exitState.keyName} again to exit</>
+                  <>再按一次 {exitState.keyName} 退出</>
                 ) : (
                   <Byline>
                     <KeyboardShortcutHint shortcut="Enter" action="选择" />

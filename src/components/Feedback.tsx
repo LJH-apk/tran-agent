@@ -327,7 +327,7 @@ export function Feedback({
       isCancelActive={step !== 'userInput'}
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : step === 'userInput' ? (
           <Byline>
             <KeyboardShortcutHint shortcut="Enter" action="继续" />

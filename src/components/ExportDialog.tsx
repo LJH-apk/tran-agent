@@ -99,7 +99,7 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
     }
 
     if (exitState.pending) {
-      return <Text>Press {exitState.keyName} again to exit</Text>;
+      return <Text>再按一次 {exitState.keyName} 退出</Text>;
     }
 
     return <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />;

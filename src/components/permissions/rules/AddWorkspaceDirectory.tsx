@@ -224,7 +224,7 @@ export function AddWorkspaceDirectory({
             ? undefined
             : exitState =>
                 exitState.pending ? (
-                  <Text>Press {exitState.keyName} again to exit</Text>
+                  <Text>再按一次 {exitState.keyName} 退出</Text>
                 ) : (
                   <Byline>
                     <KeyboardShortcutHint shortcut="Tab" action="完成" />

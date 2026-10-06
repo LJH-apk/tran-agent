@@ -51,7 +51,7 @@ export function Dialog({
   });
 
   const defaultInputGuide = exitState.pending ? (
-    <Text>Press {exitState.keyName} again to exit</Text>
+    <Text>再按一次 {exitState.keyName} 退出</Text>
   ) : (
     <Byline>
       <KeyboardShortcutHint shortcut="Enter" action="confirm" />

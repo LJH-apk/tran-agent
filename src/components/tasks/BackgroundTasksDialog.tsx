@@ -575,7 +575,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
 
   function renderInputGuide(exitState: ExitState): React.ReactNode {
     if (exitState.pending) {
-      return <Text>Press {exitState.keyName} again to exit</Text>;
+      return <Text>再按一次 {exitState.keyName} 退出</Text>;
     }
     return <Byline>{actions}</Byline>;
   }

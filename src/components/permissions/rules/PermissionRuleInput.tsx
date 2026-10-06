@@ -76,7 +76,7 @@ export function PermissionRuleInput({ onCancel, onSubmit, ruleBehavior }: Permis
       </Box>
       <Box marginLeft={3}>
         {exitState.pending ? (
-          <Text dimColor>Press {exitState.keyName} again to exit</Text>
+          <Text dimColor>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Text dimColor>按 Enter 提交 · 按 Esc 取消</Text>
         )}

@@ -84,7 +84,7 @@ function RuleDetails({
   const footer = (
     <Box marginLeft={3}>
       {exitState.pending ? (
-        <Text dimColor>Press {exitState.keyName} again to exit</Text>
+        <Text dimColor>再按一次 {exitState.keyName} 退出</Text>
       ) : (
         <Text dimColor>按 Esc 取消</Text>
       )}
@@ -684,7 +684,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
         <Box marginTop={1} paddingLeft={1}>
           <Text dimColor>
             {exitState.pending ? (
-              <>Press {exitState.keyName} again to exit</>
+              <>再按一次 {exitState.keyName} 退出</>
             ) : headerFocused ? (
               <>←/→ 切换标签页 · ↓ 返回 · Esc 取消</>
             ) : isSearchMode ? (

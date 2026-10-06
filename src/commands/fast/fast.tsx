@@ -122,7 +122,7 @@ export function FastModePicker({
       color="fastMode"
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : isUnavailable ? (
           <Text>Esc 取消</Text>
         ) : (

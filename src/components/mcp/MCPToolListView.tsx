@@ -53,7 +53,7 @@ export function MCPToolListView({ server, onSelectTool, onBack }: Props): React.
       onCancel={onBack}
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Byline>
             <KeyboardShortcutHint shortcut="↑↓" action="导航" />

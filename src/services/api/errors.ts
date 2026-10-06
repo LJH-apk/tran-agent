@@ -171,7 +171,7 @@ export function getPdfTooLargeErrorMessage(): string {
   const limits = `max ${API_PDF_MAX_PAGES} pages, ${formatFileSize(PDF_TARGET_RAW_SIZE)}`
   return getIsNonInteractiveSession()
     ? `PDF too large (${limits}). Try reading the file a different way (e.g., extract text with pdftotext).`
-    : `PDF too large (${limits}). Double press esc to go back and try again, or use pdftotext to convert to text first.`
+    : `PDF too large (${limits}). 连按两次 esc 返回并重试，或先用 pdftotext 转成文本。`
 }
 export function getPdfPasswordProtectedErrorMessage(): string {
   return getIsNonInteractiveSession()
@@ -181,18 +181,18 @@ export function getPdfPasswordProtectedErrorMessage(): string {
 export function getPdfInvalidErrorMessage(): string {
   return getIsNonInteractiveSession()
     ? 'The PDF file was not valid. Try converting it to text first (e.g., pdftotext).'
-    : 'The PDF file was not valid. Double press esc to go back and try again with a different file.'
+    : 'PDF 文件无效。连按两次 esc 返回，换一个文件重试。'
 }
 export function getImageTooLargeErrorMessage(): string {
   return getIsNonInteractiveSession()
     ? 'Image was too large. Try resizing the image or using a different approach.'
-    : 'Image was too large. Double press esc to go back and try again with a smaller image.'
+    : '图片过大。连按两次 esc 返回，换一张更小的图片重试。'
 }
 export function getRequestTooLargeErrorMessage(): string {
   const limits = `max ${formatFileSize(PDF_TARGET_RAW_SIZE)}`
   return getIsNonInteractiveSession()
     ? `Request too large (${limits}). Try with a smaller file.`
-    : `Request too large (${limits}). Double press esc to go back and try with a smaller file.`
+    : `Request too large (${limits}). 连按两次 esc 返回，换一个更小的文件重试。`
 }
 export const OAUTH_ORG_NOT_ALLOWED_ERROR_MESSAGE =
   'Your account does not have access to Claude Code. Please run /login.'

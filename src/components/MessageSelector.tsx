@@ -526,7 +526,7 @@ export function MessageSelector({
         {!messageToRestore && (
           <Text dimColor italic>
             {exitState.pending ? (
-              <>Press {exitState.keyName} again to exit</>
+              <>再按一次 {exitState.keyName} 退出</>
             ) : (
               <>{!error && hasMessagesToSelect && 'Enter 继续 · '}Esc 退出</>
             )}

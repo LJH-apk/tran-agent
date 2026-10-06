@@ -198,7 +198,7 @@ export function PromptInputFooterLeftSide({
   if (exitMessage.show) {
     return (
       <Text dimColor key="exit-message">
-        Press {exitMessage.key} again to exit
+        再按一次 {exitMessage.key} 退出
       </Text>
     );
   }

@@ -195,7 +195,7 @@ export function MCPStdioServerMenu({
       <Box marginTop={1}>
         <Text dimColor italic>
           {exitState.pending ? (
-            <>Press {exitState.keyName} again to exit</>
+            <>再按一次 {exitState.keyName} 退出</>
           ) : (
             <Byline>
               <KeyboardShortcutHint shortcut="↑↓" action="导航" />

@@ -60,7 +60,7 @@ export function DreamDetailDialog({ task, onDone, onBack, onKill }: Props): Reac
         color="background"
         inputGuide={exitState =>
           exitState.pending ? (
-            <Text>Press {exitState.keyName} again to exit</Text>
+            <Text>再按一次 {exitState.keyName} 退出</Text>
           ) : (
             <Byline>
               {onBack && <KeyboardShortcutHint shortcut="←" action="返回" />}

@@ -65,7 +65,7 @@ export function MCPToolDetailView({ tool, server, onBack }: Props): React.ReactN
       onCancel={onBack}
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
         )

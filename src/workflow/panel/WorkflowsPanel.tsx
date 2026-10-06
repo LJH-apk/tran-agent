@@ -280,7 +280,7 @@ export function WorkflowsPanel({
           onCancel={() => setConfirmKill(null)}
           color="warning"
         >
-          <Text color="subtle">Press y to confirm, or n/Esc to cancel.</Text>
+          <Text color="subtle">按 y 确认，按 n/Esc 取消。</Text>
         </Dialog>
       ) : null}
     </Box>

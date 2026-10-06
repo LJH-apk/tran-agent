@@ -1079,7 +1079,7 @@ export function LogSelector({
       )}
       <Box paddingLeft={2}>
         {exitState.pending ? (
-          <Text dimColor>Press {exitState.keyName} again to exit</Text>
+          <Text dimColor>再按一次 {exitState.keyName} 退出</Text>
         ) : viewMode === 'rename' ? (
           <Text dimColor>
             <Byline>

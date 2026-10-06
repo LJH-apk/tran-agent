@@ -1049,7 +1049,7 @@ function ElicitationFormDialog({
       isCancelActive={(!currentField || !!focusedButton) && !expandedAccordion}
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Byline>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
@@ -1220,7 +1220,7 @@ function ElicitationURLDialog({
         isCancelActive
         inputGuide={exitState =>
           exitState.pending ? (
-            <Text>Press {exitState.keyName} again to exit</Text>
+            <Text>再按一次 {exitState.keyName} 退出</Text>
           ) : (
             <Byline>
               <ConfigurableShortcutHint
@@ -1292,7 +1292,7 @@ function ElicitationURLDialog({
       isCancelActive
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Byline>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />

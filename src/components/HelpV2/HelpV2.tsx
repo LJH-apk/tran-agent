@@ -108,9 +108,9 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
         <Box marginTop={1}>
           <Text dimColor>
             {exitState.pending ? (
-              <>Press {exitState.keyName} again to exit</>
+              <>再按一次 {exitState.keyName} 退出</>
             ) : (
-              <Text italic>{dismissShortcut} to cancel</Text>
+              <Text italic>{dismissShortcut} 取消</Text>
             )}
           </Text>
         </Box>

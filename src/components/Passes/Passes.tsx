@@ -122,7 +122,7 @@ export function Passes({ onDone }: Props): React.ReactNode {
         <Box flexDirection="column" gap={1}>
           <Text dimColor>正在加载嘉宾通行证信息…</Text>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc 取消</>}
+            {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Esc 取消</>}
           </Text>
         </Box>
       </Pane>
@@ -135,7 +135,7 @@ export function Passes({ onDone }: Props): React.ReactNode {
         <Box flexDirection="column" gap={1}>
           <Text>嘉宾通行证当前不可用。</Text>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc 取消</>}
+            {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Esc 取消</>}
           </Text>
         </Box>
       </Pane>
@@ -209,7 +209,7 @@ export function Passes({ onDone }: Props): React.ReactNode {
 
         <Box>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 复制链接 · Esc 取消</>}
+            {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Enter 复制链接 · Esc 取消</>}
           </Text>
         </Box>
       </Box>

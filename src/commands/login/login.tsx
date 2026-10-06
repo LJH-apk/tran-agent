@@ -147,7 +147,7 @@ export function Login(props: {
       color="permission"
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
         )

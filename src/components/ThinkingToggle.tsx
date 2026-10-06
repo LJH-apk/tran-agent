@@ -96,7 +96,7 @@ export function ThinkingToggle({ currentValue, onSelect, onCancel, isMidConversa
       </Box>
       <Text dimColor italic>
         {exitState.pending ? (
-          <>Press {exitState.keyName} again to exit</>
+          <>再按一次 {exitState.keyName} 退出</>
         ) : confirmationPending !== null ? (
           <Byline>
             <KeyboardShortcutHint shortcut="Enter" action="确认" />

@@ -1612,7 +1612,7 @@ function OAuthStatusMessage({
 
             <Box marginTop={1}>
               <Text dimColor>
-                Press <Text bold>Enter</Text> to go back to login options.
+                按 <Text bold>Enter</Text> 返回登录选项。
               </Text>
             </Box>
           </Box>

@@ -218,7 +218,7 @@ export function TrustDialog({ onDone, commands }: Props): React.ReactNode {
         />
 
         <Text dimColor>
-          {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 确认 · Esc 取消</>}
+          {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Enter 确认 · Esc 取消</>}
         </Text>
       </Box>
     </PermissionDialog>

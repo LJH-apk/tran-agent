@@ -351,7 +351,7 @@ function ReviewSessionDetail({ session, onDone, onBack, onKill }: Omit<Props, 't
       color="background"
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Byline>
             <KeyboardShortcutHint shortcut="Enter" action="选择" />
@@ -454,7 +454,7 @@ export function RemoteSessionDetailDialog({ session, toolUseContext, onDone, onB
         color="background"
         inputGuide={exitState =>
           exitState.pending ? (
-            <Text>Press {exitState.keyName} again to exit</Text>
+            <Text>再按一次 {exitState.keyName} 退出</Text>
           ) : (
             <Byline>
               {onBack && <KeyboardShortcutHint shortcut="←" action="返回" />}

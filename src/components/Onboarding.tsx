@@ -246,7 +246,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
         {currentStep?.component}
         {exitState.pending && (
           <Box padding={1}>
-            <Text dimColor>Press {exitState.keyName} again to exit</Text>
+            <Text dimColor>再按一次 {exitState.keyName} 退出</Text>
           </Box>
         )}
       </Box>

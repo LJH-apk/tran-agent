@@ -351,7 +351,7 @@ export function It2SetupPrompt({ onDone, tmuxAvailable }: Props): React.ReactNod
         {renderContent()}
         {step !== 'installing' && step !== 'verifying' && step !== 'success' && (
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc to cancel</>}
+            {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Esc 取消</>}
           </Text>
         )}
       </Box>
