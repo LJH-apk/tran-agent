@@ -70,10 +70,10 @@ export function SubmitQuestionsView({
               options={[
                 {
                   type: 'text' as const,
-                  label: 'Submit answers',
+                  label: '提交答案',
                   value: 'submit',
                 },
-                { type: 'text' as const, label: 'Cancel', value: 'cancel' },
+                { type: 'text' as const, label: '取消', value: 'cancel' },
               ]}
               onChange={value => onFinalResponse(value as 'submit' | 'cancel')}
               onCancel={() => onFinalResponse('cancel')}

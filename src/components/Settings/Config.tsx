@@ -626,7 +626,7 @@ export function Config({
       ? [
           {
             id: 'useAutoModeDuringPlan',
-            label: 'Use auto mode during plan',
+            label: '计划模式下使用自动模式',
             value: (settingsData as { useAutoModeDuringPlan?: boolean } | undefined)?.useAutoModeDuringPlan ?? true,
             type: 'boolean' as const,
             onChange(useAutoModeDuringPlan: boolean) {
@@ -1647,7 +1647,7 @@ export function Config({
           <Box>
             <Text dimColor italic>
               <Byline>
-                <KeyboardShortcutHint shortcut="Enter" action="select" />
+                <KeyboardShortcutHint shortcut="Enter" action="选择" />
                 <ConfigurableShortcutHint
                   action="confirm:no"
                   context="Confirmation"
@@ -1680,7 +1680,7 @@ export function Config({
           />
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
@@ -1728,7 +1728,7 @@ export function Config({
           />
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
@@ -1749,7 +1749,7 @@ export function Config({
           />
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
@@ -1788,7 +1788,7 @@ export function Config({
           />
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
@@ -1825,7 +1825,7 @@ export function Config({
           />
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="取消" />
             </Byline>
           </Text>
@@ -2016,7 +2016,7 @@ export function Config({
             <Text dimColor>
               <Byline>
                 <Text>输入以筛选</Text>
-                <KeyboardShortcutHint shortcut="Enter/↓" action="select" />
+                <KeyboardShortcutHint shortcut="Enter/↓" action="选择" />
                 <KeyboardShortcutHint shortcut="↑" action="tabs" />
                 <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="清除" />
               </Byline>

@@ -351,7 +351,7 @@ export function ConsoleOAuthFlow({
       {oauthStatus.state === 'waiting_for_login' && showPastePrompt && (
         <Box flexDirection="column" key="urlToCopy" gap={1} paddingBottom={1}>
           <Box paddingX={1}>
-            <Text dimColor>Browser didn&apos;t open? Use the url below to sign in </Text>
+            <Text dimColor>浏览器没打开？用下面的网址登录 </Text>
             {urlCopied ? (
               <Text color="success">（已复制！）</Text>
             ) : (
@@ -371,8 +371,8 @@ export function ConsoleOAuthFlow({
           <Box flexDirection="column" gap={1}>
             <Text>你的 OAuth token（有效期 1 年）：</Text>
             <Text color="warning">{oauthStatus.token}</Text>
-            <Text dimColor>Store this token securely. You won&apos;t be able to see it again.</Text>
-            <Text dimColor>Use this token by setting: export CLAUDE_CODE_OAUTH_TOKEN=&lt;token&gt;</Text>
+            <Text dimColor>请妥善保存这个 token，之后将无法再次查看。</Text>
+            <Text dimColor>用法：设置环境变量 export CLAUDE_CODE_OAUTH_TOKEN=&lt;token&gt;</Text>
           </Box>
         </Box>
       )}
@@ -458,7 +458,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      OpenAI 兼容 · <Text dimColor>Ollama, DeepSeek, vLLM, One API, etc.</Text>
+                      OpenAI 兼容 · <Text dimColor>Ollama、DeepSeek、vLLM、One API 等</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -467,7 +467,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      中国大模型服务商 · <Text dimColor>DeepSeek, Zhipu GLM, Qwen, MiMo</Text>
+                      中国大模型服务商 · <Text dimColor>DeepSeek、智谱 GLM、Qwen、MiMo</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -476,7 +476,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      带订阅的 ChatGPT 账号 · <Text dimColor>Plus, Pro, Business, Edu, or Enterprise</Text>
+                      带订阅的 ChatGPT 账号 · <Text dimColor>Plus、Pro、Business、Edu 或 Enterprise</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -494,7 +494,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      带订阅的 Claude 账号 · <Text dimColor>Pro, Max, Team, or Enterprise</Text>
+                      带订阅的 Claude 账号 · <Text dimColor>Pro、Max、Team 或 Enterprise</Text>
                       {process.env.USER_TYPE === 'ant' && (
                         <Text>
                           {'\n'}
@@ -521,7 +521,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      第三方平台 · <Text dimColor>Amazon Bedrock, Microsoft Foundry, or Vertex AI</Text>
+                      第三方平台 · <Text dimColor>Amazon Bedrock、Microsoft Foundry 或 Vertex AI</Text>
                       {'\n'}
                     </Text>
                   ),

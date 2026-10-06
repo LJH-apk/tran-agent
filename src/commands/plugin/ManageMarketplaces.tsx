@@ -623,7 +623,7 @@ export function ManageMarketplaces({
           )}
           <Box marginTop={1}>
             <Text>
-              Press <Text bold>y</Text> to confirm or <Text bold>n</Text> to cancel
+              按 <Text bold>y</Text> 确认，按 <Text bold>n</Text> 取消
             </Text>
           </Box>
         </Box>

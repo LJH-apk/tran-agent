@@ -35,7 +35,7 @@ export function AutoRunIssueNotification({ onRun, onCancel, reason }: Props): Re
       </Box>
       <Box>
         <Text dimColor>
-          Press <KeyboardShortcutHint shortcut="Esc" action="cancel" /> anytime
+          Press <KeyboardShortcutHint shortcut="Esc" action="取消" /> anytime
         </Text>
       </Box>
       <Box>

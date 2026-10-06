@@ -1996,10 +1996,10 @@ function PromptInput({
       const terminalName = getNativeCSIuTerminalDisplayName();
       const jsx = terminalName ? (
         <Text dimColor>
-          To enable {shortcut}, set <Text bold>Option as Meta</Text> in {terminalName} preferences (⌘,)
+          要启用 {shortcut}，请在 {terminalName} 偏好设置（⌘,）中勾选 <Text bold>Option as Meta</Text>
         </Text>
       ) : (
-        <Text dimColor>To enable {shortcut}, run /terminal-setup</Text>
+        <Text dimColor>要启用 {shortcut}，请运行 /terminal-setup</Text>
       );
       addNotification({
         key: 'option-meta-hint',

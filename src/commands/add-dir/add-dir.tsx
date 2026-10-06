@@ -84,7 +84,7 @@ export async function call(
         persistPermissionUpdate(permissionUpdate);
         message = `已添加 ${chalk.bold(path)} 为工作目录，并保存到本地设置`;
       } catch (error) {
-        message = `已添加 ${chalk.bold(path)} 为工作目录，但保存到本地设置失败：${error instanceof Error ? error.message : 'Unknown error'}`;
+        message = `已添加 ${chalk.bold(path)} 为工作目录，但保存到本地设置失败：${error instanceof Error ? error.message : '未知错误'}`;
       }
     } else {
       message = `已在本次会话中添加 ${chalk.bold(path)} 为工作目录`;

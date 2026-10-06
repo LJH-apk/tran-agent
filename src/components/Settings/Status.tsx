@@ -153,7 +153,7 @@ function Diagnostics({ promise }: { promise: Promise<Diagnostic[]> }): React.Rea
   if (diagnostics.length === 0) return null;
   return (
     <Box flexDirection="column" paddingBottom={1}>
-      <Text bold>System Diagnostics</Text>
+      <Text bold>系统诊断</Text>
       {diagnostics.map((diagnostic, i) => (
         <Box key={i} flexDirection="row" gap={1} paddingX={1}>
           <Text color="error">{figures.warning}</Text>

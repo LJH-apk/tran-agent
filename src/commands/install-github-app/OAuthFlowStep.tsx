@@ -289,7 +289,7 @@ export function OAuthFlowStep({ onSuccess, onCancel }: OAuthFlowStepProps): Reac
       {oauthStatus.state === 'waiting_for_login' && showPastePrompt && (
         <Box flexDirection="column" key="urlToCopy" gap={1} paddingBottom={1}>
           <Box paddingX={1}>
-            <Text dimColor>Browser didn&apos;t open? Use the url below to sign in </Text>
+            <Text dimColor>浏览器没打开？用下面的网址登录 </Text>
             {urlCopied ? (
               <Text color="success">（已复制！）</Text>
             ) : (

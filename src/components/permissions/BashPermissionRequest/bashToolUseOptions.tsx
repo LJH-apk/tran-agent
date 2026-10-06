@@ -92,7 +92,7 @@ export function bashToolUseOptions({
     if (editablePrefix !== undefined && onEditablePrefixChange && !hasNonBashSuggestions && suggestions.length > 0) {
       options.push({
         type: 'input',
-        label: 'Yes, and don\u2019t ask again for',
+        label: '是，且不再询问',
         value: 'yes-prefix-edited',
         placeholder: '命令前缀（例如 npm run:*）',
         initialValue: editablePrefix,
@@ -131,7 +131,7 @@ export function bashToolUseOptions({
     ) {
       options.push({
         type: 'input',
-        label: 'Yes, and don\u2019t ask again for',
+        label: '是，且不再询问',
         value: 'yes-classifier-reviewed',
         placeholder: '描述要允许的内容...',
         initialValue: classifierDescription ?? '',

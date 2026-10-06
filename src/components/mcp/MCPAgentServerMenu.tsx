@@ -85,14 +85,14 @@ export function MCPAgentServerMenu({ agentServer, onCancel, onComplete }: Props)
   if (isAuthenticating) {
     return (
       <Box flexDirection="column" gap={1} padding={1}>
-        <Text color="claude">Authenticating with {agentServer.name}…</Text>
+        <Text color="claude">正在与 {agentServer.name} 进行身份验证…</Text>
         <Box>
           <Spinner />
           <Text> 将打开浏览器窗口进行身份验证</Text>
         </Box>
         {authorizationUrl && (
           <Box flexDirection="column">
-            <Text dimColor>If your browser doesn&apos;t open automatically, copy this URL manually:</Text>
+            <Text dimColor>如果浏览器没有自动打开，请手动复制此网址：</Text>
             <Link url={authorizationUrl} />
           </Box>
         )}
@@ -111,7 +111,7 @@ export function MCPAgentServerMenu({ agentServer, onCancel, onComplete }: Props)
   // Only show authenticate option for HTTP/SSE servers
   if (agentServer.needsAuth) {
     menuOptions.push({
-      label: agentServer.isAuthenticated ? '重新验证身份' : 'Authenticate',
+      label: agentServer.isAuthenticated ? '重新验证身份' : '验证身份',
       value: 'auth',
     });
   }
@@ -128,11 +128,11 @@ export function MCPAgentServerMenu({ agentServer, onCancel, onComplete }: Props)
       onCancel={onCancel}
       inputGuide={exitState =>
         exitState.pending ? (
-          <Text>Press {exitState.keyName} again to exit</Text>
+          <Text>再按一次 {exitState.keyName} 退出</Text>
         ) : (
           <Byline>
-            <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
-            <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+            <KeyboardShortcutHint shortcut="↑↓" action="导航" />
+            <KeyboardShortcutHint shortcut="Enter" action="确认" />
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
           </Byline>
         )

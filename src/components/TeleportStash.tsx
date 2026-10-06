@@ -85,12 +85,12 @@ export function TeleportStash({ onStashAndContinue, onCancel }: TeleportStashPro
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold color="error">
-          Error: {error}
+          错误：{error}
         </Text>
         <Box marginTop={1}>
           <Text dimColor>Press </Text>
           <Text bold>Escape</Text>
-          <Text dimColor> to cancel</Text>
+          <Text dimColor> 取消</Text>
         </Box>
       </Box>
     );

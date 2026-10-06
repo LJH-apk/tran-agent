@@ -173,12 +173,12 @@ export function AssistantToolUseMessage({
           (isClassifierChecking ? (
             <MessageResponse height={1}>
               <Text dimColor>
-                {isAutoClassifier ? 'Auto classifier checking\u2026' : 'Bash classifier checking\u2026'}
+                {isAutoClassifier ? '自动分类器检查中…' : 'Bash 分类器检查中…'}
               </Text>
             </MessageResponse>
           ) : isWaitingForPermission ? (
             <MessageResponse height={1}>
-              <Text dimColor>Waiting for permission…</Text>
+              <Text dimColor>等待授权…</Text>
             </MessageResponse>
           ) : (
             renderToolUseProgressMessage(

@@ -1987,7 +1987,7 @@ export function ManagePlugins({
             <Text dimColor>正在卸载……</Text>
           ) : (
             <Text>
-              <Text bold>y</Text> to delete · <Text bold>n</Text> to keep · <Text bold>esc</Text> to cancel
+              <Text bold>y</Text> 删除 · <Text bold>n</Text> 保留 · <Text bold>esc</Text> 取消
             </Text>
           )}
         </Box>

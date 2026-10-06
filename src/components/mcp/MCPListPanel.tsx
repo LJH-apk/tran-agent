@@ -6,7 +6,6 @@ import { useKeybindings } from '../../keybindings/useKeybinding.js';
 import type { ConfigScope } from '../../services/mcp/types.js';
 import { describeMcpConfigFilePath } from '../../services/mcp/utils.js';
 import { isDebugMode } from '../../utils/debug.js';
-import { plural } from '../../utils/stringUtils.js';
 import { ConfigurableShortcutHint } from '../ConfigurableShortcutHint.js';
 import { Byline, Dialog, KeyboardShortcutHint } from '@anthropic/ink';
 import { McpParsingWarnings } from './McpParsingWarnings.js';
@@ -167,10 +166,10 @@ export function MCPListPanel({
 
     if (server.client.type === 'disabled') {
       statusIcon = color('inactive', theme)(figures.radioOff);
-      statusText = 'disabled';
+      statusText = '已禁用';
     } else if (server.client.type === 'connected') {
       statusIcon = color('success', theme)(figures.tick);
-      statusText = 'connected';
+      statusText = '已连接';
     } else if (server.client.type === 'pending') {
       statusIcon = color('inactive', theme)(figures.radioOff);
       const { reconnectAttempt, maxReconnectAttempts } = server.client;
@@ -184,7 +183,7 @@ export function MCPListPanel({
       statusText = '需要身份验证';
     } else {
       statusIcon = color('error', theme)(figures.cross);
-      statusText = 'failed';
+      statusText = '连接失败';
     }
 
     return (
@@ -222,8 +221,8 @@ export function MCPListPanel({
       <McpParsingWarnings />
 
       <Dialog
-        title=" 个 MCP 服务器管理 MCP 服务器"
-        subtitle={`${totalServers} ${plural(totalServers, 'server')}`}
+        title="管理 MCP 服务器"
+        subtitle={`共 ${totalServers} 个服务器`}
         onCancel={handleCancel}
         hideInputGuide
       >
@@ -258,7 +257,7 @@ export function MCPListPanel({
           {agentServers.length > 0 && (
             <Box flexDirection="column" marginBottom={1}>
               <Box paddingLeft={2}>
-                <Text bold>Agent MCP</Text>
+                <Text bold>智能体 MCP</Text>
               </Box>
               {/* Group servers by source agent */}
               {[...new Set(agentServers.flatMap(s => s.sourceAgents))].map(agentName => (
@@ -303,8 +302,8 @@ export function MCPListPanel({
       <Box paddingX={1}>
         <Text dimColor italic>
           <Byline>
-            <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
-            <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+            <KeyboardShortcutHint shortcut="↑↓" action="导航" />
+            <KeyboardShortcutHint shortcut="Enter" action="确认" />
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         </Text>

@@ -1053,24 +1053,24 @@ function ElicitationFormDialog({
         ) : (
           <Byline>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
-            <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
+            <KeyboardShortcutHint shortcut="↑↓" action="导航" />
             {currentField && <KeyboardShortcutHint shortcut="Backspace" action="unset" />}
             {currentField && currentField.schema.type === 'boolean' && (
-              <KeyboardShortcutHint shortcut="Space" action="toggle" />
+              <KeyboardShortcutHint shortcut="Space" action="切换" />
             )}
             {currentField &&
               isEnumSchema(currentField.schema) &&
               (expandedAccordion ? (
-                <KeyboardShortcutHint shortcut="Space" action="select" />
+                <KeyboardShortcutHint shortcut="Space" action="选择" />
               ) : (
-                <KeyboardShortcutHint shortcut="→" action="expand" />
+                <KeyboardShortcutHint shortcut="→" action="展开" />
               ))}
             {currentField &&
               isMultiSelectEnumSchema(currentField.schema) &&
               (expandedAccordion ? (
-                <KeyboardShortcutHint shortcut="Space" action="toggle" />
+                <KeyboardShortcutHint shortcut="Space" action="切换" />
               ) : (
-                <KeyboardShortcutHint shortcut="→" action="expand" />
+                <KeyboardShortcutHint shortcut="→" action="展开" />
               ))}
           </Byline>
         )

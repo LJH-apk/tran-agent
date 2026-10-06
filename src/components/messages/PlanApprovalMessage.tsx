@@ -62,11 +62,11 @@ export function PlanApprovalResponseDisplay({ response, senderName }: PlanApprov
         <Box borderStyle="round" borderColor="success" flexDirection="column" paddingX={1} paddingY={1}>
           <Box>
             <Text color="success" bold>
-              ✓ Plan Approved by {senderName}
+              ✓ 方案已获 {senderName} 批准
             </Text>
           </Box>
           <Box marginTop={1}>
-            <Text>You can now proceed with implementation. Your plan mode restrictions have been lifted.</Text>
+            <Text>现在可以开始实施了。计划模式限制已解除。</Text>
           </Box>
         </Box>
       </Box>

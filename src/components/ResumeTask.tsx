@@ -145,7 +145,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
         {renderErrorSpecificGuidance(loadErrorType)}
 
         <Text dimColor>
-          Press <Text bold>Ctrl+R</Text> to retry · Press <Text bold>{escKey}</Text> to cancel
+          按 <Text bold>Ctrl+R</Text> 重试 · 按 <Text bold>{escKey}</Text> 取消
         </Text>
       </Box>
     );
@@ -156,11 +156,11 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
       <Box flexDirection="column" padding={1}>
         <Text bold>
           未找到 Claude Code 会话
-          {currentRepo && <Text> for {currentRepo}</Text>}
+          {currentRepo && <Text>（{currentRepo}）</Text>}
         </Text>
         <Box marginTop={1}>
           <Text dimColor>
-            Press <Text bold>{escKey}</Text> to cancel
+            按 <Text bold>{escKey}</Text> 取消
           </Text>
         </Box>
       </Box>
@@ -204,7 +204,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
         {showScrollPosition && (
           <Text dimColor>
             {' '}
-            ({focusedIndex} of {sessions.length})
+            （{focusedIndex}/{sessions.length}）
           </Text>
         )}
         {currentRepo && <Text dimColor> ({currentRepo})</Text>}:
@@ -294,7 +294,7 @@ function renderErrorSpecificGuidance(errorType: LoadErrorType): React.ReactNode 
         <Box marginY={1} flexDirection="column">
           <Text dimColor>Teleport 需要 Claude 账号</Text>
           <Text dimColor>
-            Run <Text bold>/login</Text> and select &quot;Claude account with subscription&quot;
+            运行 <Text bold>/login</Text> 并选择 &quot;Claude account with subscription&quot;
           </Text>
         </Box>
       );

@@ -43,7 +43,7 @@ const SEARCH_ADAPTERS: AdapterMeta[] = [
 
 const FETCH_ADAPTERS: AdapterMeta[] = [
   { key: 'tavily', label: 'Tavily Extract', description: '使用 Tavily /extract（默认）', hasConfig: true },
-  { key: 'http', label: 'HTTP Direct', description: '直接通过 HTTP 抓取 URL', hasConfig: true },
+  { key: 'http', label: 'HTTP 直连', description: '直接通过 HTTP 抓取 URL', hasConfig: true },
 ];
 
 // ── Config field definitions ───────────────────────────────────────────────

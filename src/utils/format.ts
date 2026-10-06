@@ -152,24 +152,24 @@ export function formatRelativeTime(
 
   // Define time intervals with custom short units
   const intervals = [
-    { unit: 'year', seconds: 31536000, shortUnit: 'y' },
-    { unit: 'month', seconds: 2592000, shortUnit: 'mo' },
-    { unit: 'week', seconds: 604800, shortUnit: 'w' },
-    { unit: 'day', seconds: 86400, shortUnit: 'd' },
-    { unit: 'hour', seconds: 3600, shortUnit: 'h' },
-    { unit: 'minute', seconds: 60, shortUnit: 'm' },
-    { unit: 'second', seconds: 1, shortUnit: 's' },
+    { unit: 'year', seconds: 31536000, zhUnit: '年' },
+    { unit: 'month', seconds: 2592000, zhUnit: '个月' },
+    { unit: 'week', seconds: 604800, zhUnit: '周' },
+    { unit: 'day', seconds: 86400, zhUnit: '天' },
+    { unit: 'hour', seconds: 3600, zhUnit: '小时' },
+    { unit: 'minute', seconds: 60, zhUnit: '分钟' },
+    { unit: 'second', seconds: 1, zhUnit: '秒' },
   ] as const
 
   // Find the appropriate unit
-  for (const { unit, seconds: intervalSeconds, shortUnit } of intervals) {
+  for (const { unit, seconds: intervalSeconds, zhUnit } of intervals) {
     if (Math.abs(diffInSeconds) >= intervalSeconds) {
       const value = Math.trunc(diffInSeconds / intervalSeconds)
       // For short style, use custom format
       if (style === 'narrow') {
         return diffInSeconds < 0
-          ? `${Math.abs(value)}${shortUnit} ago`
-          : `in ${value}${shortUnit}`
+          ? `${Math.abs(value)}${zhUnit}前`
+          : `${value}${zhUnit}后`
       }
       // For days and longer, use long style regardless of the style parameter
       return getRelativeTimeFormat('long', numeric).format(value, unit)
@@ -178,7 +178,7 @@ export function formatRelativeTime(
 
   // For values less than 1 second
   if (style === 'narrow') {
-    return diffInSeconds <= 0 ? '0s ago' : 'in 0s'
+    return diffInSeconds <= 0 ? '0秒前' : '0秒后'
   }
   return getRelativeTimeFormat(style, numeric).format(0, 'second')
 }
@@ -213,7 +213,7 @@ export function formatLogMetadata(log: {
   const sizeOrCount =
     log.fileSize !== undefined
       ? formatFileSize(log.fileSize)
-      : `${log.messageCount} messages`
+      : `${log.messageCount} 条消息`
   const parts = [
     formatRelativeTimeAgo(log.modified, { style: 'short' }),
     ...(log.gitBranch ? [log.gitBranch] : []),

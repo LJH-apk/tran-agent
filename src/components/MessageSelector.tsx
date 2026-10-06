@@ -137,11 +137,11 @@ export function MessageSelector({
           { value: 'conversation', label: '恢复对话' },
           { value: 'code', label: '恢复代码' },
         ]
-      : [{ value: 'conversation', label: 'Restore conversation' }];
+      : [{ value: 'conversation', label: '恢复对话' }];
 
     const summarizeInputProps = {
       type: 'input' as const,
-      placeholder: 'add context (optional)',
+      placeholder: '补充上下文（可选）',
       initialValue: '',
       allowEmptySubmitToCancel: true,
       showLabelWithValue: true,

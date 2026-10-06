@@ -423,7 +423,7 @@ export function Feedback({
           <Box marginTop={1}>
             <Text>Press </Text>
             <Text bold>Enter </Text>
-            <Text>to open your browser and draft a GitHub issue, or any other key to close.</Text>
+            <Text>用浏览器起草一个 GitHub issue，按其他任意键关闭。</Text>
           </Box>
         </Box>
       )}

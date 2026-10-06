@@ -161,7 +161,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
       id: 'terminal-setup',
       component: (
         <Box flexDirection="column" gap={1} paddingLeft={1}>
-          <Text bold>Use Claude Code&apos;s terminal setup?</Text>
+          <Text bold>要使用 Claude Code 的终端配置吗？</Text>
           <Box flexDirection="column" width={70} gap={1}>
             <Text>
               For the optimal coding experience, enable the recommended settings
@@ -195,7 +195,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
               onCancel={() => goToNextStep()}
             />
             <Text dimColor>
-              {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 确认 · Esc 跳过</>}
+              {exitState.pending ? <>再按一次 {exitState.keyName} 退出</> : <>Enter 确认 · Esc 跳过</>}
             </Text>
           </Box>
         </Box>

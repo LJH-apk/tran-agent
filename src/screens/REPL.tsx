@@ -709,11 +709,11 @@ function TranscriptSearchBar({
       {off < query.length && <Text>{query.slice(off + 1)}</Text>}
       <Box flexGrow={1} />
       {indexStatus === 'building' ? (
-        <Text dimColor>indexing… </Text>
+        <Text dimColor>索引中… </Text>
       ) : indexStatus ? (
-        <Text dimColor>indexed in {indexStatus.ms}ms </Text>
+        <Text dimColor>已索引，用时 {indexStatus.ms}ms </Text>
       ) : count === 0 && query ? (
-        <Text color="error">no matches </Text>
+        <Text color="error">无匹配 </Text>
       ) : count > 0 ? (
         // Engine-counted (indexOf on extractSearchText). May drift from
         // render-count for ghost/phantom messages — badge is a rough
@@ -2827,7 +2827,7 @@ export function REPL({
       key: 'sandbox-unavailable',
       jsx: (
         <>
-          <Text color="warning">sandbox disabled</Text>
+          <Text color="warning">沙箱已禁用</Text>
           <Text dimColor> · /sandbox</Text>
         </>
       ),
@@ -4935,13 +4935,13 @@ export function REPL({
           jsx:
             mode === 'hint_v2' ? (
               <>
-                <Text dimColor>new task? </Text>
+                <Text dimColor>要开新任务？</Text>
                 <Text color="suggestion">/clear</Text>
-                <Text dimColor> to save </Text>
+                <Text dimColor> 可节省 </Text>
                 <Text color="suggestion">{formattedTokens} tokens</Text>
               </>
             ) : (
-              <Text color="warning">new task? /clear to save {formattedTokens} tokens</Text>
+              <Text color="warning">要开新任务？/clear 可节省 {formattedTokens} tokens</Text>
             ),
           priority: 'medium',
           // Persist until submit — the hint fires at T+75min idle, user may

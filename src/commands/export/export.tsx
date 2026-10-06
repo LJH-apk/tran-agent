@@ -83,7 +83,7 @@ export async function call(
       onDone(`对话已导出至：${filepath}`);
       return null;
     } catch (error) {
-      onDone(`导出对话失败：${error instanceof Error ? error.message : 'Unknown error'}`);
+      onDone(`导出对话失败：${error instanceof Error ? error.message : '未知错误'}`);
       return null;
     }
   }

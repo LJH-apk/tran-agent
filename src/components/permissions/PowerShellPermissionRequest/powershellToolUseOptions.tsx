@@ -58,7 +58,7 @@ export function powershellToolUseOptions({
     if (editablePrefix !== undefined && onEditablePrefixChange && !hasNonPowerShellSuggestions) {
       options.push({
         type: 'input',
-        label: 'Yes, and don\u2019t ask again for',
+        label: '是，且不再询问',
         value: 'yes-prefix-edited',
         placeholder: '命令前缀（例如 Get-Process:*）',
         initialValue: editablePrefix,

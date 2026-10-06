@@ -923,8 +923,8 @@ function renderOverviewToAnsi(stats: ClaudeCodeStats): string[] {
   );
 
   // Row 3: Current streak | Longest streak
-  const currentStreakVal = `${stats.streaks.currentStreak} ${stats.streaks.currentStreak === 1 ? 'day' : 'days'}`;
-  const longestStreakVal = `${stats.streaks.longestStreak} ${stats.streaks.longestStreak === 1 ? 'day' : 'days'}`;
+  const currentStreakVal = `${stats.streaks.currentStreak} 天`;
+  const longestStreakVal = `${stats.streaks.longestStreak} 天`;
   lines.push(row('当前连续天数', currentStreakVal, '最长连续天数', longestStreakVal));
 
   // Row 4: Active days | Peak hour

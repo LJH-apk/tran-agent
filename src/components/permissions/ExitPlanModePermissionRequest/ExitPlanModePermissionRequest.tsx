@@ -723,7 +723,7 @@ export function ExitPlanModePermissionRequest({
       <PermissionDialog color="planMode" title="准备好写代码了吗？" innerPaddingX={0} workerBadge={workerBadge}>
         <Box flexDirection="column" marginTop={1}>
           <Box paddingX={1} flexDirection="column">
-            <Text>Here is Claude&apos;s plan:</Text>
+            <Text>这是 Claude 的方案：</Text>
           </Box>
           <Box
             borderColor="subtle"
@@ -859,7 +859,7 @@ export function buildPlanApprovalOptions({
 
   options.push({
     type: 'input',
-    label: 'No, keep planning',
+    label: '不，继续规划',
     value: 'no',
     placeholder: '告诉 Claude 要修改什么',
     description: '按 shift+tab 连同此反馈一起批准',

@@ -95,7 +95,7 @@ export function ThemePicker({
     <Box flexDirection="column" gap={1}>
       <Box flexDirection="column" gap={1}>
         {showIntroText ? (
-          <Text>Let&apos;s get started.</Text>
+          <Text>开始吧。</Text>
         ) : (
           <Text bold color="permission">
             主题

@@ -29,7 +29,7 @@ export function SuccessStep({
         )}
         {(!secretExists || !useExistingSecret) && (
           <Box marginTop={1}>
-            <Text color="success">✓ API key saved as {secretName} secret</Text>
+            <Text color="success">✓ API 密钥已保存为 {secretName} secret</Text>
           </Box>
         )}
         <Box marginTop={1}>
@@ -37,14 +37,14 @@ export function SuccessStep({
         </Box>
         {skipWorkflow ? (
           <>
-            <Text>1. Install the Claude GitHub App if you haven&apos;t already</Text>
+            <Text>1. 如果还没装，请先安装 Claude GitHub App</Text>
             <Text>2. 你的工作流文件保持不变</Text>
             <Text>3. API 密钥已配置好，可直接使用</Text>
           </>
         ) : (
           <>
             <Text>1. 已创建一个预填好的 PR 页面</Text>
-            <Text>2. Install the Claude GitHub App if you haven&apos;t already</Text>
+            <Text>2. 如果还没装，请先安装 Claude GitHub App</Text>
             <Text>3. 合并该 PR 以启用 Claude PR 助手</Text>
           </>
         )}

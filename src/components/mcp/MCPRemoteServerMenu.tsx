@@ -411,7 +411,7 @@ export function MCPRemoteServerMenu({
         {authorizationUrl && (
           <Box flexDirection="column">
             <Box>
-              <Text dimColor>If your browser doesn&apos;t open automatically, copy this URL manually </Text>
+              <Text dimColor>如果浏览器没有自动打开，请手动复制此网址 </Text>
               {urlCopied ? (
                 <Text color="success">（已复制！）</Text>
               ) : (
@@ -462,7 +462,7 @@ export function MCPRemoteServerMenu({
         {claudeAIAuthUrl && (
           <Box flexDirection="column">
             <Box>
-              <Text dimColor>If your browser doesn&apos;t open automatically, copy this URL manually </Text>
+              <Text dimColor>如果浏览器没有自动打开，请手动复制此网址 </Text>
               {urlCopied ? (
                 <Text color="success">（已复制！）</Text>
               ) : (
@@ -489,14 +489,14 @@ export function MCPRemoteServerMenu({
   if (isClaudeAIClearingAuth) {
     return (
       <Box flexDirection="column" gap={1} padding={1}>
-        <Text color="claude">Clear authentication for {server.name}</Text>
+        <Text color="claude">清除 {server.name} 的身份验证</Text>
         {claudeAIClearAuthBrowserOpened ? (
           <>
-            <Text>Find the MCP server in the browser and click &quot;Disconnect&quot;.</Text>
+            <Text>在浏览器中找到该 MCP 服务器，点击 &quot;Disconnect&quot;。</Text>
             {claudeAIClearAuthUrl && (
               <Box flexDirection="column">
                 <Box>
-                  <Text dimColor>If your browser didn&apos;t open automatically, copy this URL manually </Text>
+                  <Text dimColor>如果浏览器没有自动打开，请手动复制此网址 </Text>
                   {urlCopied ? (
                     <Text color="success">（已复制！）</Text>
                   ) : (
@@ -764,8 +764,8 @@ export function MCPRemoteServerMenu({
             <>Press {exitState.keyName} again to exit</>
           ) : (
             <Byline>
-              <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
-              <KeyboardShortcutHint shortcut="Enter" action="select" />
+              <KeyboardShortcutHint shortcut="↑↓" action="导航" />
+              <KeyboardShortcutHint shortcut="Enter" action="选择" />
               <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           )}

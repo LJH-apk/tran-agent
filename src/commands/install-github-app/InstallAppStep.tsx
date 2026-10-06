@@ -21,7 +21,7 @@ export function InstallAppStep({ repoUrl, onSubmit }: InstallAppStepProps) {
         <Text>正在打开浏览器以安装 Claude GitHub App…</Text>
       </Box>
       <Box marginBottom={1}>
-        <Text>If your browser doesn&apos;t open automatically, visit:</Text>
+        <Text>如果浏览器没有自动打开，请访问：</Text>
       </Box>
       <Box marginBottom={1}>
         <Text underline>https://github.com/apps/claude</Text>
