@@ -28,13 +28,13 @@ export function getUpsellMessage({
 
   if (isMax20x) {
     if (isExtraUsageCommandEnabled) {
-      return '/extra-usage to finish what you\u2019re working on.';
+      return '用 /extra-usage 把手头的活干完。';
     }
     return '/login 切换到按 API 用量计费的账号。';
   }
 
   if (shouldAutoOpenRateLimitOptionsMenu) {
-    return 'Opening your options\u2026';
+    return '正在打开选项…';
   }
 
   if (!isTeamOrEnterprise && !isExtraUsageCommandEnabled) {
@@ -45,13 +45,13 @@ export function getUpsellMessage({
     if (!isExtraUsageCommandEnabled) return null;
 
     if (hasBillingAccess) {
-      return '/extra-usage to finish what you\u2019re working on.';
+      return '用 /extra-usage 把手头的活干完。';
     }
 
     return '/extra-usage 向管理员申请更多用量。';
   }
 
-  return '/upgrade or /extra-usage to finish what you\u2019re working on.';
+  return '用 /upgrade 或 /extra-usage 把手头的活干完。';
 }
 
 type RateLimitMessageProps = {

@@ -19,11 +19,11 @@ const FEEDBACK_CHANNEL_ANT = '#briarpatch-cc'
  * Export this to avoid fragile string matching in UI components
  */
 export const RATE_LIMIT_ERROR_PREFIXES = [
-  "You've hit your",
-  "You've used",
-  "You're now using extra usage",
-  "You're close to",
-  "You're out of extra usage",
+  '你已达到',
+  '你已使用',
+  '你已切换到额外用量',
+  '你接近',
+  '你的额外用量已用尽',
 ] as const
 
 /**
@@ -52,7 +52,7 @@ export function getRateLimitMessage(
     // Show warning if approaching overage spending limit
     if (limits.overageStatus === 'allowed_warning') {
       return {
-        message: "You're close to your extra usage spending limit",
+        message: '你接近额外用量的花费上限',
         severity: 'warning',
       }
     }
@@ -146,7 +146,7 @@ function getLimitReachedText(limits: ClaudeAILimits, model: string): string {
   const overageResetTime = limits.overageResetsAt
     ? formatResetTime(limits.overageResetsAt, true)
     : undefined
-  const resetMessage = resetTime ? ` · resets ${resetTime}` : ''
+  const resetMessage = resetTime ? ` · 重置于 ${resetTime}` : ''
 
   // if BOTH subscription (checked before this method) and overage are exhausted
   if (limits.overageStatus === 'rejected') {
@@ -155,21 +155,21 @@ function getLimitReachedText(limits: ClaudeAILimits, model: string): string {
     if (resetsAt && limits.overageResetsAt) {
       // Both timestamps present - use the earlier one
       if (resetsAt < limits.overageResetsAt) {
-        overageResetMessage = ` · resets ${resetTime}`
+        overageResetMessage = ` · 重置于 ${resetTime}`
       } else {
-        overageResetMessage = ` · resets ${overageResetTime}`
+        overageResetMessage = ` · 重置于 ${overageResetTime}`
       }
     } else if (resetTime) {
-      overageResetMessage = ` · resets ${resetTime}`
+      overageResetMessage = ` · 重置于 ${resetTime}`
     } else if (overageResetTime) {
-      overageResetMessage = ` · resets ${overageResetTime}`
+      overageResetMessage = ` · 重置于 ${overageResetTime}`
     }
 
     if (limits.overageDisabledReason === 'out_of_credits') {
-      return `You're out of extra usage${overageResetMessage}`
+      return `你的额外用量已用尽${overageResetMessage}`
     }
 
-    return formatLimitReachedText('limit', overageResetMessage, model)
+    return formatLimitReachedText('额度', overageResetMessage, model)
   }
 
   if (limits.rateLimitType === 'seven_day_sonnet') {
@@ -177,42 +177,42 @@ function getLimitReachedText(limits: ClaudeAILimits, model: string): string {
     const isProOrEnterprise =
       subscriptionType === 'pro' || subscriptionType === 'enterprise'
     // For pro and enterprise, Sonnet limit is the same as weekly
-    const limit = isProOrEnterprise ? 'weekly limit' : 'Sonnet limit'
+    const limit = isProOrEnterprise ? '每周额度' : 'Sonnet 额度'
     return formatLimitReachedText(limit, resetMessage, model)
   }
 
   if (limits.rateLimitType === 'seven_day_opus') {
-    return formatLimitReachedText('Opus limit', resetMessage, model)
+    return formatLimitReachedText('Opus 额度', resetMessage, model)
   }
 
   if (limits.rateLimitType === 'seven_day') {
-    return formatLimitReachedText('weekly limit', resetMessage, model)
+    return formatLimitReachedText('每周额度', resetMessage, model)
   }
 
   if (limits.rateLimitType === 'five_hour') {
-    return formatLimitReachedText('session limit', resetMessage, model)
+    return formatLimitReachedText('会话额度', resetMessage, model)
   }
 
-  return formatLimitReachedText('usage limit', resetMessage, model)
+  return formatLimitReachedText('用量上限', resetMessage, model)
 }
 
 function getEarlyWarningText(limits: ClaudeAILimits): string | null {
   let limitName: string | null = null
   switch (limits.rateLimitType) {
     case 'seven_day':
-      limitName = 'weekly limit'
+      limitName = '每周额度'
       break
     case 'five_hour':
-      limitName = 'session limit'
+      limitName = '会话额度'
       break
     case 'seven_day_opus':
-      limitName = 'Opus limit'
+      limitName = 'Opus 额度'
       break
     case 'seven_day_sonnet':
-      limitName = 'Sonnet limit'
+      limitName = 'Sonnet 额度'
       break
     case 'overage':
-      limitName = 'extra usage'
+      limitName = '额外用量'
       break
     case undefined:
       return null
@@ -230,26 +230,23 @@ function getEarlyWarningText(limits: ClaudeAILimits): string | null {
   const upsell = getWarningUpsellText(limits.rateLimitType)
 
   if (used && resetTime) {
-    const base = `You've used ${used}% of your ${limitName} · resets ${resetTime}`
+    const base = `你已使用${limitName}的 ${used}% · 重置于 ${resetTime}`
     return upsell ? `${base} · ${upsell}` : base
   }
 
   if (used) {
-    const base = `You've used ${used}% of your ${limitName}`
+    const base = `你已使用${limitName}的 ${used}%`
     return upsell ? `${base} · ${upsell}` : base
   }
 
-  if (limits.rateLimitType === 'overage') {
-    // For the "Approaching <x>" verbiage, "extra usage limit" makes more sense than "extra usage"
-    limitName += ' limit'
-  }
+  // 中文模板自带「上限」，这里不需要再改写 limitName
 
   if (resetTime) {
-    const base = `Approaching ${limitName} · resets ${resetTime}`
+    const base = `接近${limitName}上限 · 重置于 ${resetTime}`
     return upsell ? `${base} · ${upsell}` : base
   }
 
-  const base = `Approaching ${limitName}`
+  const base = `接近${limitName}上限`
   return upsell ? `${base} · ${upsell}` : base
 }
 
@@ -271,7 +268,7 @@ function getWarningUpsellText(
     // Only show if overage provisioning is allowed for this org type (e.g., not AWS marketplace)
     if (subscriptionType === 'team' || subscriptionType === 'enterprise') {
       if (!hasExtraUsageEnabled && isOverageProvisioningAllowed()) {
-        return '/extra-usage to request more'
+        return '用 /extra-usage 申请更多'
       }
       // Teams/Enterprise with overages enabled or unsupported billing type don't need upsell
       return null
@@ -279,7 +276,7 @@ function getWarningUpsellText(
 
     // Pro/Max users: prompt to upgrade
     if (subscriptionType === 'pro' || subscriptionType === 'max') {
-      return '/upgrade to keep using Claude Code'
+      return '用 /upgrade 继续使用 Claude Code'
     }
   }
 
@@ -287,7 +284,7 @@ function getWarningUpsellText(
   if (rateLimitType === 'overage') {
     if (subscriptionType === 'team' || subscriptionType === 'enterprise') {
       if (!hasExtraUsageEnabled && isOverageProvisioningAllowed()) {
-        return '/extra-usage to request more'
+        return '用 /extra-usage 申请更多'
       }
     }
   }
@@ -307,27 +304,27 @@ export function getUsingOverageText(limits: ClaudeAILimits): string {
 
   let limitName = ''
   if (limits.rateLimitType === 'five_hour') {
-    limitName = 'session limit'
+    limitName = '会话额度'
   } else if (limits.rateLimitType === 'seven_day') {
-    limitName = 'weekly limit'
+    limitName = '每周额度'
   } else if (limits.rateLimitType === 'seven_day_opus') {
-    limitName = 'Opus limit'
+    limitName = 'Opus 额度'
   } else if (limits.rateLimitType === 'seven_day_sonnet') {
     const subscriptionType = getSubscriptionType()
     const isProOrEnterprise =
       subscriptionType === 'pro' || subscriptionType === 'enterprise'
     // For pro and enterprise, Sonnet limit is the same as weekly
-    limitName = isProOrEnterprise ? 'weekly limit' : 'Sonnet limit'
+    limitName = isProOrEnterprise ? '每周额度' : 'Sonnet 额度'
   }
 
   if (!limitName) {
-    return 'Now using extra usage'
+    return '你已切换到额外用量'
   }
 
   const resetMessage = resetTime
-    ? ` · Your ${limitName} resets ${resetTime}`
+    ? ` · 你的${limitName}重置于 ${resetTime}`
     : ''
-  return `You're now using extra usage${resetMessage}`
+  return `你已切换到额外用量${resetMessage}`
 }
 
 function formatLimitReachedText(
@@ -340,5 +337,5 @@ function formatLimitReachedText(
     return `You've hit your ${limit}${resetMessage}. If you have feedback about this limit, post in ${FEEDBACK_CHANNEL_ANT}. You can reset your limits with /reset-limits`
   }
 
-  return `You've hit your ${limit}${resetMessage}`
+  return `你已达到${limit}上限${resetMessage}`
 }
