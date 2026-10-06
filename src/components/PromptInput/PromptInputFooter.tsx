@@ -154,9 +154,14 @@ function PromptInputFooter({
         paddingX={2}
         gap={isNarrow ? 0 : 1}
       >
-        <Box flexDirection="column" flexShrink={isNarrow ? 0 : 1}>
+        <Box flexDirection="column" flexGrow={1} minWidth={0} flexShrink={isNarrow ? 0 : 1}>
           {mode === 'prompt' && !isShort && !exitMessage.show && !isPasting && statusLineShouldDisplay(settings) && (
-            <StatusLine messagesRef={messagesRef} lastAssistantMessageId={lastAssistantMessageId} vimMode={vimMode} />
+            <StatusLine
+              messagesRef={messagesRef}
+              lastAssistantMessageId={lastAssistantMessageId}
+              isLoading={isLoading}
+              vimMode={vimMode}
+            />
           )}
           <PipeStatusInline />
           <PromptInputFooterLeftSide

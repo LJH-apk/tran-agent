@@ -22,6 +22,8 @@ import {
   getTotalLinesAdded,
   getTotalLinesRemoved,
   getTotalOutputTokens,
+  getTotalCacheReadInputTokens,
+  getTotalCacheCreationInputTokens,
 } from '../cost-tracker.js';
 import { useMainLoopModel } from '../hooks/useMainLoopModel.js';
 import { type ReadonlySettings, useSettings } from '../hooks/useSettings.js';
@@ -46,6 +48,7 @@ import { computeHitRate, tokenSignature } from '../utils/cacheStats.js';
 import { onResponse as cacheOnResponse, getCacheStatsState, initCacheStatsState } from '../utils/cacheStatsState.js';
 import { BuiltinStatusLine } from './BuiltinStatusLine.js';
 import { formatTokens } from 'src/utils/format.js';
+import { getDisplayedEffortLevel } from '../utils/effort.js';
 
 // ---------------------------------------------------------------------------
 // CachePill — cache hit-rate + 1-hour TTL countdown pill
@@ -206,11 +209,8 @@ export function statusLineShouldDisplay(settings: ReadonlySettings): boolean {
   // Assistant mode: statusline fields (model, permission mode, cwd) reflect the
   // REPL/daemon process, not what the agent child is actually running. Hide it.
   if (feature('KAIROS') && getKairosActive()) return false;
-  // Show the status line when explicitly enabled, or when a statusLine command
-  // is configured (backward compatibility for users who set statusLine.command
-  // without toggling statusLineEnabled). Only hide when explicitly disabled.
-  if (settings?.statusLineEnabled === false) return false;
-  return settings?.statusLineEnabled === true || !!settings?.statusLine?.command;
+  // Show session metrics by default; respect an explicit opt-out.
+  return settings?.statusLineEnabled !== false;
 }
 
 function buildStatusLineCommandInput(
@@ -319,6 +319,8 @@ type Props = {
   // lastAssistantMessageId is the actual re-render trigger.
   messagesRef: React.RefObject<Message[]>;
   lastAssistantMessageId: string | null;
+  // Invalidate memo at request completion, when usage can update without a new message UUID.
+  isLoading: boolean;
   vimMode?: VimMode;
 };
 
@@ -338,6 +340,7 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
   // re-reads settings.json on every call, so another session's /model write
   // would leak into this session's statusline (anthropics/claude-code#37596).
   const mainLoopModel = useMainLoopModel();
+  const effortValue = useAppState(s => s.effortValue);
 
   // Keep latest values in refs for stable callback access
   const settingsRef = useRef(settings);
@@ -514,11 +517,11 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
   // Get padding from settings or default to 0
   const paddingX = settings?.statusLine?.padding ?? 0;
 
-  // ---- Top row data: feed BuiltinStatusLine (model + ctx + 5h + 7d + cost) ---
+  // ---- Top row data: model, effort, tokens, context and rate limits ---
   const builtinRuntimeModel = getRuntimeMainLoopModel({
     permissionMode,
     mainLoopModel,
-    exceeds200kTokens: previousStateRef.current.exceeds200kTokens,
+    exceeds200kTokens: doesMostRecentAssistantMessageExceed200k(messagesRef.current),
   });
   const builtinContextWindowSize = getContextWindowForModel(builtinRuntimeModel, getSdkBetas());
   const builtinCurrentUsage = getCurrentUsage(messagesRef.current);
@@ -526,10 +529,15 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
     ? builtinCurrentUsage.input_tokens +
       builtinCurrentUsage.cache_creation_input_tokens +
       builtinCurrentUsage.cache_read_input_tokens
-    : 0;
-  const builtinContextPct = builtinCurrentUsage
-    ? Math.round(calculateContextPercentages(builtinCurrentUsage, builtinContextWindowSize).used ?? 0)
-    : 0;
+    : null;
+  const builtinContextPct = calculateContextPercentages(builtinCurrentUsage, builtinContextWindowSize).used;
+  const effortLabels = {
+    low: '快速',
+    medium: '标准',
+    high: '深入思考',
+    xhigh: '仔细推敲',
+    max: '全力思考',
+  };
   const builtinRawUtil = getRawUtilization();
   const builtinRateLimits = {
     ...(builtinRawUtil.five_hour && {
@@ -546,27 +554,31 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
     }),
   };
 
-  // BuiltinStatusLine + CachePill: only when statusLineEnabled is explicitly true.
+  // Session metrics are visible by default; extra cache details remain opt-in.
   // Shell command output: only when a statusLine.command is configured.
   // These are independent — a user can have one, both, or neither.
-  const showBuiltin = settings?.statusLineEnabled === true;
+  const showBuiltin = settings?.statusLineEnabled !== false;
   const hasShellCommand = !!settings?.statusLine?.command;
 
   return (
     <Box flexDirection="column" paddingX={paddingX}>
-      {/* Top: built-in fork status (model | ctx | 5h | 7d | cost) + Cache pill */}
+      {/* Top: session metrics and optional cache details */}
       {showBuiltin && (
-        <Box gap={2}>
+        <Box flexDirection="column">
           <BuiltinStatusLine
             modelName={renderModelName(builtinRuntimeModel)}
+            effortLabel={effortLabels[getDisplayedEffortLevel(builtinRuntimeModel, effortValue)]}
+            totalInputTokens={
+              getTotalInputTokens() + getTotalCacheReadInputTokens() + getTotalCacheCreationInputTokens()
+            }
+            totalOutputTokens={getTotalOutputTokens()}
             contextUsedPct={builtinContextPct}
             usedTokens={builtinUsedTokens}
             contextWindowSize={builtinContextWindowSize}
-            totalCostUsd={getTotalCost()}
             rateLimits={builtinRateLimits}
           />
           <GoalPill />
-          <CachePill messages={messagesRef.current} />
+          {settings?.statusLineEnabled === true && <CachePill messages={messagesRef.current} />}
         </Box>
       )}
       {/* Bottom: user-configured /statusline shell stdout (reserves row in fullscreen) */}
@@ -582,6 +594,6 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
 }
 
 // Parent (PromptInputFooter) re-renders on every setMessages, but StatusLine's
-// own props now only change when lastAssistantMessageId flips — memo keeps it
+// own props change at message/request boundaries — memo keeps it
 // from being dragged along (previously ~18 no-prop-change renders per session).
 export const StatusLine = memo(StatusLineInner);

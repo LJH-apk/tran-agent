@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { formatCost } from '../cost-tracker.js';
-import { Box, Text } from '@anthropic/ink';
+import { Box, Text, stringWidth } from '@anthropic/ink';
 import { formatTokens } from '../utils/format.js';
 import { useTerminalSize } from '../hooks/useTerminalSize.js';
 
@@ -11,10 +10,12 @@ type RateLimitBucket = {
 
 type BuiltinStatusLineProps = {
   modelName: string;
-  contextUsedPct: number;
-  usedTokens: number;
+  effortLabel: string;
+  totalInputTokens: number;
+  totalOutputTokens: number;
+  contextUsedPct: number | null;
+  usedTokens: number | null;
   contextWindowSize: number;
-  totalCostUsd: number;
   rateLimits: {
     five_hour?: RateLimitBucket;
     seven_day?: RateLimitBucket;
@@ -38,20 +39,17 @@ export function formatCountdown(epochSeconds: number): string {
   return `${minutes}m`;
 }
 
-function Separator() {
-  return <Text dimColor>{' \u2502 '}</Text>;
-}
-
 function BuiltinStatusLineInner({
   modelName,
+  effortLabel,
+  totalInputTokens,
+  totalOutputTokens,
   contextUsedPct,
   usedTokens,
   contextWindowSize,
-  totalCostUsd,
   rateLimits,
 }: BuiltinStatusLineProps) {
   const { columns } = useTerminalSize();
-
   // Force re-render every 60s so countdowns stay current
   const [tick, setTick] = useState(0);
   useEffect(() => {
@@ -64,12 +62,6 @@ function BuiltinStatusLineInner({
   // Suppress unused-variable lint for tick (it exists only to trigger re-renders)
   void tick;
 
-  // Model display: use first two words (e.g. "Opus 4.6") instead of just first word
-  const modelParts = modelName.split(' ');
-  const shortModel = modelParts.length >= 2 ? `${modelParts[0]} ${modelParts[1]}` : modelName;
-
-  const narrow = columns < 60;
-
   const hasFiveHour = rateLimits.five_hour != null;
   const hasSevenDay = rateLimits.seven_day != null;
 
@@ -77,49 +69,65 @@ function BuiltinStatusLineInner({
   const sevenDayPct = hasSevenDay ? Math.round(rateLimits.seven_day!.utilization * 100) : 0;
 
   // Token display: "50k/1M"
-  const tokenDisplay = `${formatTokens(usedTokens)}/${formatTokens(contextWindowSize)}`;
+  const tokenDisplay = `${usedTokens === null ? '--' : formatTokens(usedTokens)}/${formatTokens(contextWindowSize)}`;
+  const inputDisplay = formatTokens(totalInputTokens);
+  const outputDisplay = formatTokens(totalOutputTokens);
+  const percentageDisplay = `${contextUsedPct === null ? '--' : contextUsedPct}%`;
+  const fullWidth = stringWidth(
+    `模型 ${modelName}  思考强度 ${effortLabel}  累计输入 ${inputDisplay} tokens  累计输出 ${outputDisplay} tokens  上下文 ${tokenDisplay} tokens（${percentageDisplay}）`,
+  );
+  const compact = fullWidth > Math.max(1, columns - 4);
+  const contextColor = (contextUsedPct ?? 0) >= 90 ? 'error' : (contextUsedPct ?? 0) >= 70 ? 'warning' : 'claude';
 
   return (
-    <Box>
-      {/* Model name */}
-      <Text>{shortModel}</Text>
-
-      {/* Context usage with token counts */}
-      <Separator />
-      <Text dimColor>上下文 </Text>
-      <Text>{contextUsedPct}%</Text>
-      {!narrow && <Text dimColor> ({tokenDisplay})</Text>}
+    <Box flexWrap="wrap" columnGap={2} width="100%">
+      <Text>
+        <Text dimColor>模型 </Text>
+        <Text color="professionalBlue" bold>
+          {modelName}
+        </Text>
+      </Text>
+      <Text>
+        <Text dimColor>{compact ? '思考 ' : '思考强度 '}</Text>
+        <Text color="merged">{effortLabel}</Text>
+      </Text>
+      <Text>
+        <Text dimColor>{compact ? '输入 ' : '累计输入 '}</Text>
+        <Text color="success">{inputDisplay}</Text>
+        {!compact && <Text dimColor> tokens</Text>}
+      </Text>
+      <Text>
+        <Text dimColor>{compact ? '输出 ' : '累计输出 '}</Text>
+        <Text color="professionalBlue">{outputDisplay}</Text>
+        {!compact && <Text dimColor> tokens</Text>}
+      </Text>
+      <Text>
+        <Text dimColor>上下文 </Text>
+        <Text color={contextColor}>{tokenDisplay}</Text>
+        <Text dimColor> tokens</Text>
+        <Text color={contextColor}>（{percentageDisplay}）</Text>
+      </Text>
 
       {/* 5-hour session rate limit */}
       {hasFiveHour && (
-        <>
-          <Separator />
+        <Text>
           <Text dimColor>会话 </Text>
           <Text>{fiveHourPct}%</Text>
-          {!narrow && rateLimits.five_hour!.resets_at > 0 && (
+          {rateLimits.five_hour!.resets_at > 0 && (
             <Text dimColor> {formatCountdown(rateLimits.five_hour!.resets_at)}</Text>
           )}
-        </>
+        </Text>
       )}
 
       {/* 7-day weekly rate limit */}
       {hasSevenDay && (
-        <>
-          <Separator />
+        <Text>
           <Text dimColor>本周 </Text>
           <Text>{sevenDayPct}%</Text>
-          {!narrow && rateLimits.seven_day!.resets_at > 0 && (
+          {rateLimits.seven_day!.resets_at > 0 && (
             <Text dimColor> {formatCountdown(rateLimits.seven_day!.resets_at)}</Text>
           )}
-        </>
-      )}
-
-      {/* Cost */}
-      {totalCostUsd > 0 && (
-        <>
-          <Separator />
-          <Text>{formatCost(totalCostUsd)}</Text>
-        </>
+        </Text>
       )}
     </Box>
   );
