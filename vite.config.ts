@@ -128,6 +128,7 @@ export default defineConfig({
     alias: {
       // src/* path alias (mirrors tsconfig paths)
       'src/': resolve(projectRoot, 'src/'),
+      '@anthropic/ink': resolve(projectRoot, 'packages/@ant/ink/src/index.ts'),
     },
     // Ensure workspace packages share a single copy of these
     dedupe: ['react', 'react-reconciler', 'react-compiler-runtime'],

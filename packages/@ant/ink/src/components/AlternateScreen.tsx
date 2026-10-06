@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren, useContext, useInsertionEffect } from 'react';
 import instances from '../core/instances.js';
+import { hasStartupScreen } from '../core/startup-screen.js';
 import {
   DISABLE_MOUSE_TRACKING,
   ENABLE_MOUSE_TRACKING,
@@ -53,7 +54,10 @@ export function AlternateScreen({ children, mouseTracking = true }: Props): Reac
     const ink = instances.get(process.stdout);
     if (!writeRaw) return;
 
-    writeRaw(ENTER_ALT_SCREEN + '\x1b[2J\x1b[H' + (mouseTracking ? ENABLE_MOUSE_TRACKING : ''));
+    // Preserve the launcher's splash until the renderer can replace it with a full frame.
+    writeRaw(
+      (hasStartupScreen() ? '' : ENTER_ALT_SCREEN + '\x1b[2J\x1b[H') + (mouseTracking ? ENABLE_MOUSE_TRACKING : ''),
+    );
     ink?.setAltScreenActive(true, mouseTracking);
 
     return () => {

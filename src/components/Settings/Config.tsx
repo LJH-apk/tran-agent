@@ -300,6 +300,16 @@ export function Config({
   const settingsItems: Setting[] = [
     // Global settings
     {
+      id: 'skipStartupAnimation',
+      label: '跳过启动动画',
+      value: globalConfig.skipStartupAnimation ?? false,
+      type: 'boolean' as const,
+      onChange(skipStartupAnimation: boolean) {
+        saveGlobalConfig(current => ({ ...current, skipStartupAnimation }));
+        setGlobalConfig({ ...getGlobalConfig(), skipStartupAnimation });
+      },
+    },
+    {
       id: 'autoCompactEnabled',
       label: '自动压缩',
       value: globalConfig.autoCompactEnabled,
@@ -1283,6 +1293,9 @@ export function Config({
     }
     if (globalConfig.autoCompactEnabled !== initialConfig.current.autoCompactEnabled) {
       formattedChanges.push(`自动压缩：${globalConfig.autoCompactEnabled ? '开启' : '关闭'}`);
+    }
+    if ((globalConfig.skipStartupAnimation ?? false) !== (initialConfig.current.skipStartupAnimation ?? false)) {
+      formattedChanges.push(`跳过启动动画：${globalConfig.skipStartupAnimation ? '开启' : '关闭'}（下次启动生效）`);
     }
     if (globalConfig.respectGitignore !== initialConfig.current.respectGitignore) {
       formattedChanges.push(

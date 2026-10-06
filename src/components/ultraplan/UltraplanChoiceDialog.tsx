@@ -139,7 +139,7 @@ export function UltraplanChoiceDialog({
             setMessages(prev => [
               ...prev,
               createSystemMessage(
-                `上一个会话已保存 · 用以下命令恢复：ccb --resume ${previousSessionId}`,
+                `上一个会话已保存 · 用以下命令恢复：tran --resume ${previousSessionId}`,
                 'suggestion',
               ),
             ]);

@@ -376,7 +376,7 @@ const externalTips: Tip[] = [
   {
     id: 'continue',
     content: async () =>
-      '运行 ccb --continue 或 ccb --resume 继续之前的对话',
+      '运行 tran --continue 或 tran --resume 继续之前的对话',
     cooldownSessions: 10,
     isRelevant: async () => true,
   },

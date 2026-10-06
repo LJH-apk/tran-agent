@@ -1,5 +1,14 @@
 # Claude Code Best V5 (CCB)
 
+编译与分发：`bun run build` 会生成同包的 `dist/tran.js` 和完整 CLI；npm 包提供 `tran` 命令（需要 Bun 运行时）。安装包后，在任意项目目录运行 `tran` 即可，当前目录就是 Agent 的工作目录。
+本机源码工作区也可把 `dist/tran.js` 链接到 PATH 中使用。完整 `80x40` 字符画需要至少 81 列、46 行；较小窗口自动使用对应尺寸。
+
+Tran Agent 校徽启动壳（源码版）：`bun run tran`。约一秒的独立校徽动画播放后，保持校徽画面直到 CLI 第一帧准备好再切换；进入后的欢迎界面保留 TA。
+启动动画默认显示 chafa 生成的全彩字符画（`symbols`、`block+border+diagonal+half`），大窗口使用原版 `80x40`，小窗口自动缩小，无需运行时安装 chafa。iTerm2 / Kitty 可用 `TRAN_PNG_SPLASH=1` 切换为透明 PNG。
+使用 `bun run tran --splash-only` 单独预览，`bun run tran --no-splash` 或 `TRAN_NO_SPLASH=1` 跳过动画。
+在 Agent 内输入 `/config`，开启“跳过启动动画”后，下次在任何目录运行 `tran` 都会直接进入 Agent。关闭后恢复动画；`tran --splash-only` 仍可单独预览。
+`TRAN_REDUCED_MOTION=1` 可关闭动画；`NO_COLOR=1` 使用无彩色动画。非交互模式、命令行子命令及带其他参数的启动直接透传至原 CLI。
+
 [![GitHub Stars](https://img.shields.io/github/stars/claude-code-best/claude-code?style=flat-square&logo=github&color=yellow)](https://github.com/claude-code-best/claude-code/stargazers)
 [![GitHub Contributors](https://img.shields.io/github/contributors/claude-code-best/claude-code?style=flat-square&color=green)](https://github.com/claude-code-best/claude-code/graphs/contributors)
 [![GitHub Issues](https://img.shields.io/github/issues/claude-code-best/claude-code?style=flat-square&color=orange)](https://github.com/claude-code-best/claude-code/issues)

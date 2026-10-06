@@ -2,6 +2,7 @@ import { readdir, readFile, writeFile, cp } from 'fs/promises'
 import { join } from 'path'
 import { getMacroDefines } from './scripts/defines.ts'
 import { DEFAULT_BUILD_FEATURES } from './scripts/defines.ts'
+import { buildTranLauncher } from './scripts/build-tran-launcher.ts'
 
 const outdir = 'dist'
 
@@ -106,3 +107,4 @@ chmodSync(cliBun, 0o755)
 chmodSync(cliNode, 0o755)
 
 console.log(`Generated ${cliBun} (shebang: bun) and ${cliNode} (shebang: node)`)
+await buildTranLauncher(outdir)

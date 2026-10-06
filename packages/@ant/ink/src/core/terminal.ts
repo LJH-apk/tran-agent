@@ -5,6 +5,8 @@ import type { Diff } from './frame.js'
 import { cursorMove, cursorTo, eraseLines } from './termio/csi.js'
 import { BSU, ESU, HIDE_CURSOR, SHOW_CURSOR } from './termio/dec.js'
 import { link } from './termio/osc.js'
+import { hasStartupScreen, takeStartupScreenPrefix } from './startup-screen.js'
+import stripAnsi from 'strip-ansi'
 
 export type Progress = {
   state: 'running' | 'completed' | 'error' | 'indeterminate'
@@ -189,6 +191,7 @@ export function writeDiffToTerminal(
   terminal: Terminal,
   diff: Diff,
   skipSyncMarkers = false,
+  altScreenActive = false,
 ): void {
   // No output if there are no patches
   if (diff.length === 0) {
@@ -202,6 +205,16 @@ export function writeDiffToTerminal(
 
   // Buffer all writes into a single string to avoid multiple write calls
   let buffer = useSync ? BSU : ''
+  if (
+    terminal.stdout === process.stdout &&
+    hasStartupScreen() &&
+    diff.some(
+      patch =>
+        patch.type === 'stdout' && stripAnsi(patch.content).trim().length > 0,
+    )
+  ) {
+    buffer += takeStartupScreenPrefix(altScreenActive)
+  }
 
   for (const patch of diff) {
     switch (patch.type) {

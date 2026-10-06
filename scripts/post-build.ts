@@ -9,6 +9,7 @@
 import { readdir, readFile, writeFile, cp } from 'node:fs/promises'
 import { chmodSync } from 'node:fs'
 import { join } from 'node:path'
+import { buildTranLauncher } from './build-tran-launcher.ts'
 
 const outdir = 'dist'
 
@@ -77,6 +78,7 @@ async function postBuild() {
 
   chmodSync(cliBun, 0o755)
   chmodSync(cliNode, 0o755)
+  await buildTranLauncher(outdir)
 
   console.log(
     `Post-build complete: patched ${bunPatched} Bun destructure across ${jsFiles.length + chunkFiles.length} files, generated entry points`,

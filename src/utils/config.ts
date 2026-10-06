@@ -238,6 +238,7 @@ export type GlobalConfig = {
   bypassPermissionsModeAccepted?: boolean
   hasUsedBackslashReturn?: boolean
   autoCompactEnabled: boolean // Controls whether auto-compact is enabled
+  skipStartupAnimation?: boolean // Tran startup preference, shared across projects
   showTurnDuration: boolean // Controls whether to show turn duration message (e.g., "Cooked for 1m 6s")
   /**
    * @deprecated Use settings.env instead.
@@ -600,6 +601,7 @@ function createDefaultGlobalConfig(): GlobalConfig {
     verbose: false,
     editorMode: 'normal',
     autoCompactEnabled: true,
+    skipStartupAnimation: false,
     showTurnDuration: true,
     hasSeenTasksHint: false,
     hasUsedStash: false,
@@ -644,6 +646,7 @@ export const GLOBAL_CONFIG_KEYS = [
   'editorMode',
   'hasUsedBackslashReturn',
   'autoCompactEnabled',
+  'skipStartupAnimation',
   'showTurnDuration',
   'diffTool',
   'env',

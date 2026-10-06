@@ -14,6 +14,7 @@
     "types": ["bun"],
     "paths": {
       "src/*": ["./src/*"],
+      "@anthropic/ink": ["./packages/@ant/ink/src/index.ts"],
       "@claude-code-best/builtin-tools/*": ["./packages/builtin-tools/src/*"],
       "@claude-code-best/builtin-tools": [
         "./packages/builtin-tools/src/index.ts"
