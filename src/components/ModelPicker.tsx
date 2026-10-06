@@ -244,8 +244,7 @@ export function ModelPicker({
           </Text>
           {sessionModel && (
             <Text dimColor>
-              Currently using {modelDisplayString(sessionModel)} for this session (set by plan mode). Selecting a model
-              will undo this.
+              本会话当前使用 {modelDisplayString(sessionModel)}（由计划模式设定）。选择其他模型会撤销这一设定。
             </Text>
           )}
         </Box>
@@ -264,7 +263,7 @@ export function ModelPicker({
           </Box>
           {hiddenCount > 0 && (
             <Box paddingLeft={3}>
-              <Text dimColor>and {hiddenCount} more…</Text>
+              <Text dimColor>另有 {hiddenCount} 个…</Text>
             </Box>
           )}
         </Box>
@@ -272,8 +271,8 @@ export function ModelPicker({
         <Box marginBottom={1} flexDirection="column">
           {focusedSupportsEffort ? (
             <Text dimColor>
-              <EffortLevelIndicator effort={displayEffort} /> {capitalize(displayEffort)} effort
-              {displayEffort === focusedDefaultEffort ? ` （默认）` : ``} <Text color="subtle">← → 调整</Text>
+              <EffortLevelIndicator effort={displayEffort} /> 投入级别：{capitalize(displayEffort)}
+              {displayEffort === focusedDefaultEffort ? `（默认）` : ``} <Text color="subtle">← → 调整</Text>
             </Text>
           ) : (
             <Text color="subtle">
@@ -299,14 +298,13 @@ export function ModelPicker({
           showFastModeNotice ? (
             <Box marginBottom={1}>
               <Text dimColor>
-                Fast mode is <Text bold>ON</Text> and available with {FAST_MODE_MODEL_DISPLAY} only (/fast). Switching
-                to other models turn off fast mode.
+                快速模式已<Text bold>开启</Text>，仅 {FAST_MODE_MODEL_DISPLAY} 可用（/fast）。切换到其他模型会关闭快速模式。
               </Text>
             </Box>
           ) : isFastModeAvailable() && !isFastModeCooldown() ? (
             <Box marginBottom={1}>
               <Text dimColor>
-                Use <Text bold>/fast</Text> to turn on Fast mode ({FAST_MODE_MODEL_DISPLAY} only).
+                用 <Text bold>/fast</Text> 开启快速模式（仅 {FAST_MODE_MODEL_DISPLAY} 可用）。
               </Text>
             </Box>
           ) : null
@@ -316,7 +314,7 @@ export function ModelPicker({
       {isStandaloneCommand && (
         <Text dimColor italic>
           {exitState.pending ? (
-            <>Press {exitState.keyName} again to 退出</>
+            <>再按一次 {exitState.keyName} 退出</>
           ) : (
             <Byline>
               <KeyboardShortcutHint shortcut="Enter" action="确认" />

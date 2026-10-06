@@ -49,7 +49,7 @@ export function createWhatsNewFeed(releaseNotes: string[]): FeedConfig {
       : '查看 Claude Code 更新日志了解最新变化';
 
   return {
-    title: process.env.USER_TYPE === 'ant' ? "新功能 [ANT-ONLY: Latest CC commits]" : "What's new",
+    title: process.env.USER_TYPE === 'ant' ? "新功能 [ANT-ONLY: Latest CC commits]" : '新功能',
     lines,
     footer: lines.length > 0 ? '/release-notes 查看更多' : undefined,
     emptyMessage,

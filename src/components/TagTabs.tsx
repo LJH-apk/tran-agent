@@ -13,10 +13,11 @@ const RIGHT_HINT_NO_COUNT = '（Tab 循环切换）';
 const MAX_OVERFLOW_DIGITS = 2; // Assume max 99 hidden tabs for width calculation
 
 // Computed widths
-const LEFT_ARROW_WIDTH = LEFT_ARROW_PREFIX.length + MAX_OVERFLOW_DIGITS + 1; // "← NN " with gap
+// 中文按显示宽度（每字 2 列）算，不能用 .length，否则预留宽度偏小、右侧会溢出。
+const LEFT_ARROW_WIDTH = stringWidth(LEFT_ARROW_PREFIX) + MAX_OVERFLOW_DIGITS + 1; // "← NN " with gap
 const RIGHT_HINT_WIDTH_WITH_COUNT =
-  RIGHT_HINT_WITH_COUNT_PREFIX.length + MAX_OVERFLOW_DIGITS + RIGHT_HINT_SUFFIX.length; // "→NN (tab to cycle)"
-const RIGHT_HINT_WIDTH_NO_COUNT = RIGHT_HINT_NO_COUNT.length;
+  stringWidth(RIGHT_HINT_WITH_COUNT_PREFIX) + MAX_OVERFLOW_DIGITS + stringWidth(RIGHT_HINT_SUFFIX); // "→NN （Tab 循环切换）"
+const RIGHT_HINT_WIDTH_NO_COUNT = stringWidth(RIGHT_HINT_NO_COUNT);
 
 type Props = {
   tabs: string[];
@@ -30,7 +31,7 @@ type Props = {
  */
 function getTabWidth(tab: string, maxWidth?: number): number {
   if (tab === ALL_TAB_LABEL) {
-    return ALL_TAB_LABEL.length + TAB_PADDING;
+    return stringWidth(ALL_TAB_LABEL) + TAB_PADDING;
   }
   // For non-All tabs: " #{tag} " but truncate tag if needed
   const tagWidth = stringWidth(tab);
@@ -54,8 +55,8 @@ function truncateTag(tag: string, maxWidth: number): string {
 }
 
 export function TagTabs({ tabs, selectedIndex, availableWidth, showAllProjects = false }: Props): React.ReactNode {
-  const resumeLabel = showAllProjects ? '恢复 (All Projects)' : 'Resume';
-  const resumeLabelWidth = resumeLabel.length + 1; // +1 for gap
+  const resumeLabel = showAllProjects ? '恢复（所有项目）' : '恢复';
+  const resumeLabelWidth = stringWidth(resumeLabel) + 1; // +1 for gap
 
   // Calculate how much space we have for tabs (use worst-case hint width)
   const rightHintWidth = Math.max(RIGHT_HINT_WIDTH_WITH_COUNT, RIGHT_HINT_WIDTH_NO_COUNT);

@@ -88,11 +88,12 @@ export function AssistantTextMessage({
       );
     }
 
+    // 常量本身要和原始 API 错误文本做子串比对，保持英文；这里只改渲染。
     case CREDIT_BALANCE_TOO_LOW_ERROR_MESSAGE:
       return (
         <MessageResponse height={1}>
           <Text color="error">
-            Credit balance too low &middot; Add funds: https://platform.claude.com/settings/billing
+            余额不足 &middot; 充值：https://platform.claude.com/settings/billing
           </Text>
         </MessageResponse>
       );
@@ -127,7 +128,7 @@ export function AssistantTextMessage({
         <MessageResponse height={1}>
           <Text color="error">
             {API_TIMEOUT_ERROR_MESSAGE}
-            {process.env.API_TIMEOUT_MS && <> (API_TIMEOUT_MS={process.env.API_TIMEOUT_MS}ms, try increasing it)</>}
+            {process.env.API_TIMEOUT_MS && <>（API_TIMEOUT_MS={process.env.API_TIMEOUT_MS}ms，可以试着调大）</>}
           </Text>
         </MessageResponse>
       );
@@ -138,8 +139,7 @@ export function AssistantTextMessage({
           <Box flexDirection="column" gap={1}>
             <Text color="error">Opus 4 目前需求很高。</Text>
             <Text>
-              To continue immediately, use /model to switch to {renderModelName(getDefaultSonnetModel())} and continue
-              coding.
+              想立刻继续，可以用 /model 切到 {renderModelName(getDefaultSonnetModel())} 接着写。
             </Text>
           </Box>
         </MessageResponse>

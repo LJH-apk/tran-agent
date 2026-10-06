@@ -313,7 +313,7 @@ export async function launchRemoteReview(
   return [
     {
       type: 'text',
-      text: `已为 ${target} 启动 Ultrareview（约 10–20 分钟，在云端运行）。进度查看：${sessionUrl}${resolvedBillingNote} 结果将通过任务通知送达。 Briefly acknowledge the launch to the user without repeating the target or URL — both are already visible in the tool output above.`,
+      text: `已为 ${target} 启动 Ultrareview（约 10–20 分钟，在云端运行）。进度查看：${sessionUrl}${resolvedBillingNote} 结果将通过任务通知送达。 请简要向用户确认已启动，不要重复目标和 URL——两者在上面的工具输出里已经可见。`,
     },
   ]
 }
