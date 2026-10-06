@@ -50,7 +50,7 @@ function GracePeriodContentBody(): React.ReactNode {
         <Box paddingLeft={1}>
           <Text>
             <Text>· </Text>
-            <Text bold>You can help improve Claude </Text>
+            <Text bold>你可以帮助改进 Claude </Text>
             <Text>
               — Allow the use of your chats and coding sessions to train and improve Anthropic AI models. Change anytime
               in your Privacy Settings (<Link url={'https://claude.ai/settings/data-privacy-controls'}></Link>
@@ -61,7 +61,7 @@ function GracePeriodContentBody(): React.ReactNode {
         <Box paddingLeft={1}>
           <Text>
             <Text>· </Text>
-            <Text bold>Updates to data retention </Text>
+            <Text bold>数据留存政策的更新 </Text>
             <Text>
               — To help us improve our AI models and safety protections, we&apos;re extending data retention to 5 years.
             </Text>
@@ -87,19 +87,17 @@ function PostGracePeriodContentBody(): React.ReactNode {
         <Text>What&apos;s changing?</Text>
 
         <Box flexDirection="column">
-          <Text bold>Help improve Claude</Text>
+          <Text bold>帮助改进 Claude</Text>
           <Text>
-            Allow the use of your chats and coding sessions to train and improve Anthropic AI models. You can change
-            this anytime in Privacy Settings
+            允许使用你的对话和编码会话记录来训练和改进 Anthropic 的 AI 模型。你可随时在隐私设置中更改。
           </Text>
           <Link url={'https://claude.ai/settings/data-privacy-controls'}></Link>
         </Box>
 
         <Box flexDirection="column">
-          <Text bold>How this affects data retention</Text>
+          <Text bold>这对数据留存的影响</Text>
           <Text>
-            Turning ON the improve Claude setting extends data retention from 30 days to 5 years. Turning it OFF keeps
-            the default 30-day data retention. Delete data anytime.
+            开启「改进 Claude」设置会把数据留存期从 30 天延长至 5 年；关闭则保持默认的 30 天留存。数据可随时删除。
           </Text>
         </Box>
       </Box>
@@ -192,17 +190,17 @@ export function GroveDialog({ showIfAlreadyViewed, location, onDone }: Props): R
   const acceptOptions = groveConfig?.domain_excluded
     ? [
         {
-          label: 'Accept terms · Help improve Claude: OFF (for emails with your domain)',
+          label: '接受条款 · 改进 Claude：关闭（适用于你所在域名的邮箱）',
           value: 'accept_opt_out',
         },
       ]
     : [
         {
-          label: 'Accept terms · Help improve Claude: ON',
+          label: '接受条款 · 改进 Claude：开启',
           value: 'accept_opt_in',
         },
         {
-          label: 'Accept terms · Help improve Claude: OFF',
+          label: '接受条款 · 改进 Claude：关闭',
           value: 'accept_opt_out',
         },
       ];
@@ -217,7 +215,7 @@ export function GroveDialog({ showIfAlreadyViewed, location, onDone }: Props): R
 
   return (
     <Dialog
-      title="Updates to Consumer Terms and Policies"
+      title="消费者条款与政策更新"
       color="professionalBlue"
       onCancel={handleCancel}
       inputGuide={exitState =>
@@ -225,8 +223,8 @@ export function GroveDialog({ showIfAlreadyViewed, location, onDone }: Props): R
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : (
           <Byline>
-            <KeyboardShortcutHint shortcut="Enter" action="confirm" />
-            <KeyboardShortcutHint shortcut="Esc" action="cancel" />
+            <KeyboardShortcutHint shortcut="Enter" action="确认" />
+            <KeyboardShortcutHint shortcut="Esc" action="取消" />
           </Byline>
         )
       }
@@ -243,14 +241,14 @@ export function GroveDialog({ showIfAlreadyViewed, location, onDone }: Props): R
       <Box flexDirection="column" gap={1}>
         <Box flexDirection="column">
           <Text bold>Please select how you&apos;d like to continue</Text>
-          <Text>Your choice takes effect immediately upon confirmation.</Text>
+          <Text>你的选择在确认后立即生效。</Text>
         </Box>
 
         <Select
           options={[
             ...acceptOptions,
             // Only show "Not now" if in grace period
-            ...(groveConfig?.notice_is_grace_period ? [{ label: 'Not now', value: 'defer' }] : []),
+            ...(groveConfig?.notice_is_grace_period ? [{ label: '暂不', value: 'defer' }] : []),
           ]}
           onChange={value => onChange(value as 'accept_opt_in' | 'accept_opt_out' | 'defer')}
           onCancel={handleCancel}
@@ -288,37 +286,37 @@ export function PrivacySettingsDialog({
 
   let valueComponent = <Text color="error">false</Text>;
   if (domainExcluded) {
-    valueComponent = <Text color="error">false (for emails with your domain)</Text>;
+    valueComponent = <Text color="error">false（适用于你所在域名的邮箱）</Text>;
   } else if (groveEnabled) {
     valueComponent = <Text color="success">true</Text>;
   }
 
   return (
     <Dialog
-      title="Data Privacy"
+      title="数据隐私"
       color="professionalBlue"
       onCancel={onDone}
       inputGuide={exitState =>
         exitState.pending ? (
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : domainExcluded ? (
-          <KeyboardShortcutHint shortcut="Esc" action="cancel" />
+          <KeyboardShortcutHint shortcut="Esc" action="取消" />
         ) : (
           <Byline>
-            <KeyboardShortcutHint shortcut="Enter/Tab/Space" action="toggle" />
-            <KeyboardShortcutHint shortcut="Esc" action="cancel" />
+            <KeyboardShortcutHint shortcut="Enter/Tab/Space" action="切换" />
+            <KeyboardShortcutHint shortcut="Esc" action="取消" />
           </Byline>
         )
       }
     >
       <Text>
-        Review and manage your privacy settings at{' '}
+        在以下地址查看和管理你的隐私设置：{' '}
         <Link url={'https://claude.ai/settings/data-privacy-controls'}></Link>
       </Text>
 
       <Box>
         <Box width={44}>
-          <Text bold>Help improve Claude</Text>
+          <Text bold>帮助改进 Claude</Text>
         </Box>
         <Box>{valueComponent}</Box>
       </Box>

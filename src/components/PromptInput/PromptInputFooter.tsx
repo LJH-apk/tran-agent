@@ -237,7 +237,7 @@ function BridgeStatusIndicator({ bridgeSelected }: BridgeStatusProps): React.Rea
   return (
     <Text color={bridgeSelected ? 'background' : status.color} inverse={bridgeSelected} wrap="truncate">
       {status.label}
-      {bridgeSelected && <Text dimColor> · Enter to view</Text>}
+      {bridgeSelected && <Text dimColor> · 回车查看</Text>}
     </Text>
   );
 }
@@ -335,7 +335,7 @@ function PipeStatusInline(): React.ReactNode {
   if (!selectorOpen) {
     return (
       <Box height={1} gap={1}>
-        <Text dimColor>pipe:</Text>
+        <Text dimColor>管道：</Text>
         <Text bold>{pipeIpc.serverName}</Text>
         <Text dimColor>({displayRole})</Text>
         {pipeIpc.localIp && <Text dimColor>{pipeIpc.localIp}</Text>}
@@ -354,7 +354,7 @@ function PipeStatusInline(): React.ReactNode {
           <Text color={selectedRouteActive ? 'success' : undefined} dimColor={!selectedRouteActive}>
             {selectedPipes.length > 0
               ? `${routeMode === 'local' ? 'local main' : 'selected pipes only'} · ←/→ switch · Shift+↓ edit`
-              : 'local main · Shift+↓ select'}
+              : '本地主会话 · Shift+↓ 选择'}
           </Text>
         )}
       </Box>
@@ -365,11 +365,11 @@ function PipeStatusInline(): React.ReactNode {
   return (
     <Box flexDirection="column">
       <Box height={1} gap={1}>
-        <Text dimColor>pipe:</Text>
+        <Text dimColor>管道：</Text>
         <Text bold>{pipeIpc.serverName}</Text>
         <Text dimColor>({displayRole})</Text>
         {pipeIpc.localIp && <Text dimColor>{pipeIpc.localIp}</Text>}
-        <Text color="warning">↑↓ move Space select ←/→ or m route Enter/Esc close Shift+↓ toggle</Text>
+        <Text color="warning">↑↓ 移动 Space 选择 ←/→ 或 m 路由 Enter/Esc 关闭 Shift+↓ 切换</Text>
       </Box>
       <Box height={1} paddingLeft={2}>
         <Text dimColor>
@@ -393,7 +393,7 @@ function PipeStatusInline(): React.ReactNode {
               dimColor={!isConnected && !isCursor}
             >
               {isSelected ? '☑' : '☐'} {name}
-              {isConnected ? '' : ' [offline]'}
+              {isConnected ? '' : ' [离线]'}
               {label ? ` (${label})` : ''}
             </Text>
           </Box>
@@ -401,7 +401,7 @@ function PipeStatusInline(): React.ReactNode {
       })}
       {allPipes.length === 0 && (
         <Box height={1} paddingLeft={2}>
-          <Text dimColor>No other pipes found. Start another instance.</Text>
+          <Text dimColor>未发现其他管道。请再启动一个实例。</Text>
         </Box>
       )}
     </Box>

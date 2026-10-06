@@ -25,7 +25,7 @@ export function LanguagePicker({ initialLanguage, onComplete, onCancel }: Props)
 
   return (
     <Box flexDirection="column" gap={1}>
-      <Text>Enter your preferred response and voice language:</Text>
+      <Text>请输入你偏好的回复与语音语言：</Text>
       <Box flexDirection="row" gap={1}>
         <Text>{figures.pointer}</Text>
         <TextInput
@@ -40,7 +40,7 @@ export function LanguagePicker({ initialLanguage, onComplete, onCancel }: Props)
           onChangeCursorOffset={setCursorOffset}
         />
       </Box>
-      <Text dimColor>Leave empty for default (English)</Text>
+      <Text dimColor>留空则使用默认（English）</Text>
     </Box>
   );
 }

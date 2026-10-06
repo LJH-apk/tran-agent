@@ -20,10 +20,10 @@ type Props = {
 const SPINNER_FRAMES = ['◐', '◓', '◑', '◒'];
 
 const STEPS: { key: TeleportProgressStep; label: string }[] = [
-  { key: 'validating', label: 'Validating session' },
-  { key: 'fetching_logs', label: 'Fetching session logs' },
-  { key: 'fetching_branch', label: 'Getting branch info' },
-  { key: 'checking_out', label: 'Checking out branch' },
+  { key: 'validating', label: '正在校验会话' },
+  { key: 'fetching_logs', label: '正在获取会话日志' },
+  { key: 'fetching_branch', label: '正在获取分支信息' },
+  { key: 'checking_out', label: '正在检出分支' },
 ];
 
 export function TeleportProgress({ currentStep, sessionId }: Props): React.ReactNode {
@@ -36,7 +36,7 @@ export function TeleportProgress({ currentStep, sessionId }: Props): React.React
     <Box ref={ref} flexDirection="column" paddingX={1} paddingY={1}>
       <Box marginBottom={1}>
         <Text bold color="claude">
-          {SPINNER_FRAMES[frame]} Teleporting session…
+          {SPINNER_FRAMES[frame]} 正在传输会话…
         </Text>
       </Box>
 

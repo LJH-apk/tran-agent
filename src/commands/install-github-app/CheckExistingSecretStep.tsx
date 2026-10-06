@@ -48,38 +48,38 @@ export function CheckExistingSecretStep({
     <>
       <Box flexDirection="column" borderStyle="round" paddingX={1}>
         <Box flexDirection="column" marginBottom={1}>
-          <Text bold>Install GitHub App</Text>
-          <Text dimColor>Setup API key secret</Text>
+          <Text bold>安装 GitHub App</Text>
+          <Text dimColor>设置 API 密钥</Text>
         </Box>
         <Box marginBottom={1}>
-          <Text color="warning">ANTHROPIC_API_KEY already exists in repository secrets!</Text>
+          <Text color="warning">仓库密钥中已存在 ANTHROPIC_API_KEY！</Text>
         </Box>
         <Box marginBottom={1}>
-          <Text>Would you like to:</Text>
+          <Text>你想如何处理：</Text>
         </Box>
         <Box marginBottom={1}>
           <Text>
             {useExistingSecret ? color('success', theme)('> ') : '  '}
-            Use the existing API key
+            使用已有的 API 密钥
           </Text>
         </Box>
         <Box marginBottom={1}>
           <Text>
             {!useExistingSecret ? color('success', theme)('> ') : '  '}
-            Create a new secret with a different name
+            用其他名称新建一个密钥
           </Text>
         </Box>
         {!useExistingSecret && (
           <>
             <Box marginBottom={1}>
-              <Text>Enter new secret name (alphanumeric with underscores):</Text>
+              <Text>输入新的密钥名称（字母数字和下划线）：</Text>
             </Box>
             <TextInput
               value={secretName}
               onChange={onSecretNameChange}
               onSubmit={onSubmit}
               focus={true}
-              placeholder="e.g., CLAUDE_API_KEY"
+              placeholder="例如 CLAUDE_API_KEY"
               columns={terminalSize.columns}
               cursorOffset={cursorOffset}
               onChangeCursorOffset={setCursorOffset}
@@ -89,7 +89,7 @@ export function CheckExistingSecretStep({
         )}
       </Box>
       <Box marginLeft={3}>
-        <Text dimColor>↑/↓ to select · Enter to continue</Text>
+        <Text dimColor>↑/↓ 选择 · Enter 继续</Text>
       </Box>
     </>
   );

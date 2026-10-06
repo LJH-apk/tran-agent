@@ -41,7 +41,7 @@ export const call: LocalCommandCall = async args => {
     const key = getShortcutDisplay('voice:pushToTalk', 'Chat', 'Space')
     return {
       type: 'text' as const,
-      value: `Voice mode switched to Doubao ASR. Hold ${key} to record.`,
+      value: `语音模式已切换为 Doubao ASR。按住 ${key} 录音。`,
     }
   }
 
@@ -61,7 +61,7 @@ export const call: LocalCommandCall = async args => {
     const key = getShortcutDisplay('voice:pushToTalk', 'Chat', 'Space')
     return {
       type: 'text' as const,
-      value: `Voice mode switched to Anthropic STT. Hold ${key} to record.`,
+      value: `语音模式已切换为 Anthropic STT。按住 ${key} 录音。`,
     }
   }
 
@@ -100,7 +100,7 @@ export const call: LocalCommandCall = async args => {
     return {
       type: 'text' as const,
       value:
-        recording.reason ?? 'Voice mode is not available in this environment.',
+        recording.reason ?? '当前环境中语音模式不可用。',
     }
   }
 
@@ -120,11 +120,11 @@ export const call: LocalCommandCall = async args => {
   const deps = await checkVoiceDependencies()
   if (!deps.available) {
     const hint = deps.installCommand
-      ? `\nInstall audio recording tools? Run: ${deps.installCommand}`
-      : '\nInstall SoX manually for audio recording.'
+      ? `\n安装音频录制工具？请运行：${deps.installCommand}`
+      : '\n请手动安装 SoX 以进行音频录制。'
     return {
       type: 'text' as const,
-      value: `No audio recording tool found.${hint}`,
+      value: `未找到音频录制工具。${hint}`,
     }
   }
 
@@ -135,13 +135,13 @@ export const call: LocalCommandCall = async args => {
     if (process.platform === 'win32') {
       guidance = 'Settings \u2192 Privacy \u2192 Microphone'
     } else if (process.platform === 'linux') {
-      guidance = "your system's audio settings"
+      guidance = "系统的音频设置"
     } else {
       guidance = 'System Settings \u2192 Privacy & Security \u2192 Microphone'
     }
     return {
       type: 'text' as const,
-      value: `Microphone access is denied. To enable it, go to ${guidance}, then run /voice again.`,
+      value: `麦克风访问被拒绝。要启用，请前往 ${guidance}，然后再次运行 /voice。`,
     }
   }
 
@@ -170,9 +170,9 @@ export const call: LocalCommandCall = async args => {
     const priorCount = langChanged ? 0 : (cfg.voiceLangHintShownCount ?? 0)
     const showHint = !stt.fellBackFrom && priorCount < LANG_HINT_MAX_SHOWS
     if (stt.fellBackFrom) {
-      langNote = ` Note: "${stt.fellBackFrom}" is not a supported dictation language; using English. Change it via /config.`
+      langNote = ` 注意："${stt.fellBackFrom}" 不是受支持的听写语言，将使用英语。可通过 /config 更改。`
     } else if (showHint) {
-      langNote = ` Dictation language: ${stt.code} (/config to change).`
+      langNote = ` 听写语言：${stt.code}（可通过 /config 更改）。`
     }
     if (langChanged || showHint) {
       saveGlobalConfig(prev => ({
@@ -184,6 +184,6 @@ export const call: LocalCommandCall = async args => {
   }
   return {
     type: 'text' as const,
-    value: `Voice mode enabled (${providerLabel}). Hold ${key} to record.${langNote}`,
+    value: `语音模式已启用（${providerLabel}）。按住 ${key} 录音。${langNote}`,
   }
 }

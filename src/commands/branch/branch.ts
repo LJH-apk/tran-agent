@@ -39,7 +39,7 @@ export function deriveFirstPrompt(
   firstUserMessage: Extract<SerializedMessage, { type: 'user' }> | undefined,
 ): string {
   const content = (firstUserMessage as any)?.message?.content
-  if (!content) return 'Branched conversation'
+  if (!content) return '分支会话'
   const raw =
     typeof content === 'string'
       ? content
@@ -51,7 +51,7 @@ export function deriveFirstPrompt(
         )?.text
   if (!raw) return 'Branched conversation'
   return (
-    raw.replace(/\s+/g, ' ').trim().slice(0, 100) || 'Branched conversation'
+    raw.replace(/\s+/g, ' ').trim().slice(0, 100) || '分支会话'
   )
 }
 
@@ -81,11 +81,11 @@ async function createFork(customTitle?: string): Promise<{
   try {
     transcriptContent = await readFile(currentTranscriptPath)
   } catch {
-    throw new Error('No conversation to branch')
+    throw new Error('没有可分支的对话')
   }
 
   if (transcriptContent.length === 0) {
-    throw new Error('No conversation to branch')
+    throw new Error('没有可分支的对话')
   }
 
   // Parse all transcript entries (messages + metadata entries like content-replacement)
@@ -113,7 +113,7 @@ async function createFork(customTitle?: string): Promise<{
     .flatMap(entry => entry.replacements)
 
   if (mainConversationEntries.length === 0) {
-    throw new Error('No messages to branch')
+    throw new Error('没有可分支的消息')
   }
 
   // Build forked entries with new sessionId and preserved metadata
@@ -179,7 +179,7 @@ async function createFork(customTitle?: string): Promise<{
  * If "baseName (Branch)" already exists, tries "baseName (Branch 2)", "baseName (Branch 3)", etc.
  */
 async function getUniqueForkName(baseName: string): Promise<string> {
-  const candidateName = `${baseName} (Branch)`
+  const candidateName = `${baseName}（分支）`
 
   // Check if this exact name already exists
   const existingWithExactName = await searchSessionsByCustomTitle(
@@ -218,7 +218,7 @@ async function getUniqueForkName(baseName: string): Promise<string> {
     nextNumber++
   }
 
-  return `${baseName} (Branch ${nextNumber})`
+  return `${baseName}（分支 ${nextNumber}）`
 }
 
 export async function call(
@@ -277,8 +277,8 @@ export async function call(
 
     // Resume into the fork
     const titleInfo = title ? ` "${title}"` : ''
-    const resumeHint = `\nTo resume the original: claude -r ${originalSessionId}`
-    const successMessage = `Branched conversation${titleInfo}. You are now in the branch.${resumeHint}`
+    const resumeHint = `\n要恢复原会话：claude -r ${originalSessionId}`
+    const successMessage = `已分支对话${titleInfo}。你现在处于分支会话中。${resumeHint}`
 
     if (context.resume) {
       await context.resume(sessionId, forkLog, 'fork')
@@ -286,15 +286,15 @@ export async function call(
     } else {
       // Fallback if resume not available
       onDone(
-        `Branched conversation${titleInfo}. Resume with: /resume ${sessionId}`,
+        `已分支对话${titleInfo}。用 /resume ${sessionId} 恢复。`,
       )
     }
 
     return null
   } catch (error) {
     const message =
-      error instanceof Error ? error.message : 'Unknown error occurred'
-    onDone(`Failed to branch conversation: ${message}`)
+      error instanceof Error ? error.message : '发生未知错误'
+    onDone(`分支对话失败：${message}`)
     return null
   }
 }

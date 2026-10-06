@@ -24,14 +24,14 @@ export async function call(
     const resolved = getResolvedLanguage()
     const suffix =
       pref === 'auto' ? ` → ${getLanguageDisplayName(resolved)}` : ''
-    onDone(`Language: ${getLanguageDisplayName(pref)}${suffix}`, {
+    onDone(`语言：${getLanguageDisplayName(pref)}${suffix}`, {
       display: 'system',
     })
     return null
   }
 
   if (!VALID_LANGS.includes(arg as PreferredLanguage)) {
-    onDone(`Invalid language "${arg}". Use: en, zh, or auto`, {
+    onDone(`无效的语言“${arg}”。可用值：en、zh 或 auto`, {
       display: 'system',
     })
     return null
@@ -42,7 +42,7 @@ export async function call(
 
   const resolved = getResolvedLanguage()
   const suffix = lang === 'auto' ? ` → ${getLanguageDisplayName(resolved)}` : ''
-  onDone(`Language set to ${getLanguageDisplayName(lang)}${suffix}`, {
+  onDone(`语言已设置为 ${getLanguageDisplayName(lang)}${suffix}`, {
     display: 'system',
   })
   return null

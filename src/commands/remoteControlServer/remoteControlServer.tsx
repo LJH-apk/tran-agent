@@ -66,7 +66,7 @@ function RemoteControlServer({ onDone }: Props): React.ReactNode {
         if (!cancelled) {
           setStatus('running');
           daemonStatus = 'running';
-          onDone('Remote Control Server started. Use /remote-control-server to manage.', { display: 'system' });
+          onDone('远程控制服务器已启动。用 /remote-control-server 管理。', { display: 'system' });
         }
       } catch (err) {
         if (!cancelled) {
@@ -74,7 +74,7 @@ function RemoteControlServer({ onDone }: Props): React.ReactNode {
           setStatus('error');
           setError(msg);
           daemonStatus = 'error';
-          onDone(`Remote Control Server failed to start: ${msg}`, {
+          onDone(`远程控制服务器启动失败：${msg}`, {
             display: 'system',
           });
         }
@@ -108,16 +108,16 @@ function ServerManagementDialog({ onDone }: Props): React.ReactNode {
 
   function handleStop(): void {
     stopDaemon();
-    onDone('Remote Control Server stopped.', { display: 'system' });
+    onDone('远程控制服务器已停止。', { display: 'system' });
   }
 
   function handleRestart(): void {
     stopDaemon();
     try {
       startDaemon();
-      onDone('Remote Control Server restarted.', { display: 'system' });
+      onDone('远程控制服务器已重启。', { display: 'system' });
     } catch (err) {
-      onDone(`Failed to restart: ${errorMessage(err)}`, { display: 'system' });
+      onDone(`重启失败：${errorMessage(err)}`, { display: 'system' });
     }
   }
 
@@ -145,18 +145,18 @@ function ServerManagementDialog({ onDone }: Props): React.ReactNode {
   );
 
   return (
-    <Dialog title="Remote Control Server" onCancel={handleContinue} hideInputGuide>
+    <Dialog title="远程控制服务器" onCancel={handleContinue} hideInputGuide>
       <Box flexDirection="column" gap={1}>
         <Text>
-          Remote Control Server is{' '}
+          远程控制服务器正在 {' '}
           <Text bold color="success">
-            running
+            运行
           </Text>
-          {daemonProcess ? ` (PID: ${daemonProcess.pid})` : ''}
+          {daemonProcess ? ` （PID：${daemonProcess.pid}）` : ''}
         </Text>
         {logPreview.length > 0 && (
           <Box flexDirection="column">
-            <Text dimColor>Recent logs:</Text>
+            <Text dimColor>最近日志：</Text>
             {logPreview.map((line, i) => (
               <Text key={i} dimColor>
                 {line}
@@ -166,16 +166,16 @@ function ServerManagementDialog({ onDone }: Props): React.ReactNode {
         )}
         <Box flexDirection="column">
           <ListItem isFocused={focusIndex === 0}>
-            <Text>Stop server</Text>
+            <Text>停止服务器</Text>
           </ListItem>
           <ListItem isFocused={focusIndex === 1}>
-            <Text>Restart server</Text>
+            <Text>重启服务器</Text>
           </ListItem>
           <ListItem isFocused={focusIndex === 2}>
-            <Text>Continue</Text>
+            <Text>继续</Text>
           </ListItem>
         </Box>
-        <Text dimColor>Enter to select · Esc to continue</Text>
+        <Text dimColor>Enter 选择 · Esc 继续</Text>
       </Box>
     </Dialog>
   );
@@ -237,13 +237,13 @@ function startDaemon(): void {
   child.on('exit', (code: number | null, signal: NodeJS.Signals | null) => {
     daemonProcess = null;
     daemonStatus = 'stopped';
-    daemonLogs.push(`[daemon] exited (code=${code ?? 'unknown'}, signal=${signal})`);
+    daemonLogs.push(`[daemon] 已退出（code=${code ?? 'unknown'}，signal=${signal}）`);
   });
 
   child.on('error', (err: Error) => {
     daemonProcess = null;
     daemonStatus = 'error';
-    daemonLogs.push(`[daemon] error: ${err.message}`);
+    daemonLogs.push(`[daemon] 错误：${err.message}`);
   });
 }
 

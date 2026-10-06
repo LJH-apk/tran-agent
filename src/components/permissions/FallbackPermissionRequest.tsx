@@ -119,7 +119,7 @@ export function FallbackPermissionRequest({
   const options = useMemo((): PermissionPromptOption<FallbackOptionValue>[] => {
     const result: PermissionPromptOption<FallbackOptionValue>[] = [
       {
-        label: 'Yes',
+        label: '是',
         value: 'yes',
         feedbackConfig: { type: 'accept' },
       },
@@ -138,7 +138,7 @@ export function FallbackPermissionRequest({
     }
 
     result.push({
-      label: 'No',
+      label: '否',
       value: 'no',
       feedbackConfig: { type: 'reject' },
     });
@@ -155,12 +155,12 @@ export function FallbackPermissionRequest({
   );
 
   return (
-    <PermissionDialog title="Tool use" workerBadge={workerBadge}>
+    <PermissionDialog title="工具调用" workerBadge={workerBadge}>
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Text>
           {userFacingName}(
           {toolUseConfirm.tool.renderToolUseMessage(toolUseConfirm.input as never, { theme, verbose: true })})
-          {originalUserFacingName.endsWith(' (MCP)') ? <Text dimColor> (MCP)</Text> : ''}
+          {originalUserFacingName.endsWith(' （MCP）') ? <Text dimColor> (MCP)</Text> : ''}
         </Text>
         <Text dimColor>{truncateToLines(toolUseConfirm.description, 3)}</Text>
       </Box>

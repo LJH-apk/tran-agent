@@ -133,7 +133,7 @@ export function UserToolSuccessMessage({
         {feature('TRANSCRIPT_CLASSIFIER')
           ? yoloReason && (
               <MessageResponse height={1}>
-                <Text dimColor>Allowed by auto mode classifier</Text>
+                <Text dimColor>由自动模式分类器允许</Text>
               </MessageResponse>
             )
           : null}

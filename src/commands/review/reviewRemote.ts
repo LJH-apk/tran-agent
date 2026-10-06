@@ -72,7 +72,7 @@ export async function checkOverageGate(): Promise<OverageGate> {
   if (quota.reviews_remaining > 0) {
     return {
       kind: 'proceed',
-      billingNote: ` This is free ultrareview ${quota.reviews_used + 1} of ${quota.reviews_limit}.`,
+      billingNote: ` 这是免费的 ultrareview，第 ${quota.reviews_used + 1}/${quota.reviews_limit} 次。`,
     }
   }
 
@@ -109,7 +109,7 @@ export async function checkOverageGate(): Promise<OverageGate> {
 
   return {
     kind: 'proceed',
-    billingNote: ' This review bills as Extra Usage.',
+    billingNote: ' 本次审查将按额外用量计费。',
   }
 }
 
@@ -154,7 +154,7 @@ export async function launchRemoteReview(
       return [
         {
           type: 'text',
-          text: `Ultrareview cannot launch:\n${reasons}`,
+          text: `无法启动 Ultrareview：\n${reasons}`,
         },
       ]
     }
@@ -248,7 +248,7 @@ export async function launchRemoteReview(
       return [
         {
           type: 'text',
-          text: `Could not find merge-base with ${baseBranch}. Make sure you're in a git repo with a ${baseBranch} branch.`,
+          text: `找不到与 ${baseBranch} 的共同祖先。请确认你在一个含 ${baseBranch} 分支的 git 仓库中。`,
         },
       ]
     }
@@ -265,7 +265,7 @@ export async function launchRemoteReview(
       return [
         {
           type: 'text',
-          text: `No changes against the ${baseBranch} fork point. Make some commits or stage files first.`,
+          text: `相对 ${baseBranch} 分叉点没有任何改动。请先提交或暂存一些文件。`,
         },
       ]
     }
@@ -313,7 +313,7 @@ export async function launchRemoteReview(
   return [
     {
       type: 'text',
-      text: `Ultrareview launched for ${target} (~10–20 min, runs in the cloud). Track: ${sessionUrl}${resolvedBillingNote} Findings arrive via task-notification. Briefly acknowledge the launch to the user without repeating the target or URL — both are already visible in the tool output above.`,
+      text: `已为 ${target} 启动 Ultrareview（约 10–20 分钟，在云端运行）。进度查看：${sessionUrl}${resolvedBillingNote} 结果将通过任务通知送达。 Briefly acknowledge the launch to the user without repeating the target or URL — both are already visible in the tool output above.`,
     },
   ]
 }

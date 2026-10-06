@@ -16,7 +16,7 @@ export function LocalVaultView(props: LocalVaultViewProps): React.ReactNode {
     if (props.keys.length === 0) {
       return (
         <Box>
-          <Text dimColor>No secrets stored. Use /local-vault set &lt;key&gt; &lt;value&gt; to add one.</Text>
+          <Text dimColor>尚未存储任何密钥。用 /local-vault set &lt;key&gt; &lt;value&gt; 添加。</Text>
         </Box>
       );
     }
@@ -40,9 +40,9 @@ export function LocalVaultView(props: LocalVaultViewProps): React.ReactNode {
     return (
       <Box>
         <Text color={'success' as keyof Theme}>✓</Text>
-        <Text> Secret stored: </Text>
+        <Text> 密钥已存储：</Text>
         <Text bold>{props.key}</Text>
-        <Text dimColor> = [REDACTED]</Text>
+        <Text dimColor>  = [已遮蔽]</Text>
       </Box>
     );
   }
@@ -72,7 +72,7 @@ export function LocalVaultView(props: LocalVaultViewProps): React.ReactNode {
         </Box>
         <Box marginTop={1}>
           <Text dimColor color={'warning' as keyof Theme}>
-            ⚠ Secret revealed in terminal — clear scrollback if this session is shared.
+            ⚠ 密钥已在终端中明文显示 —— 如果本次会话是共享的，请清除回滚缓冲区。
           </Text>
         </Box>
       </Box>
@@ -82,7 +82,7 @@ export function LocalVaultView(props: LocalVaultViewProps): React.ReactNode {
   if (props.mode === 'not-found') {
     return (
       <Box>
-        <Text color={'error' as keyof Theme}>Key not found: </Text>
+        <Text color={'error' as keyof Theme}>未找到密钥：</Text>
         <Text bold>{props.key}</Text>
       </Box>
     );
@@ -92,7 +92,7 @@ export function LocalVaultView(props: LocalVaultViewProps): React.ReactNode {
     return (
       <Box>
         <Text color={'success' as keyof Theme}>✓</Text>
-        <Text> Deleted: </Text>
+        <Text>  已删除：</Text>
         <Text bold>{props.key}</Text>
       </Box>
     );

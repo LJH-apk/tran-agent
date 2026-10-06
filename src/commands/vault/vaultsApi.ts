@@ -109,26 +109,26 @@ function classifyError(err: unknown, id?: string): VaultsApiError {
     const status = err.response?.status ?? 0
     if (status === 401) {
       return new VaultsApiError(
-        'Authentication failed. Please run /login to re-authenticate.',
+        '身份验证失败。请运行 /login 重新验证。',
         401,
       )
     }
     if (status === 403) {
       return new VaultsApiError(
-        'Subscription required. Vault management requires a Claude Pro/Max/Team subscription.',
+        '需要订阅。保险库管理需要 Claude Pro/Max/Team 订阅。',
         403,
       )
     }
     if (status === 404) {
-      return new VaultsApiError(`Vault or credential not found${safeId}.`, 404)
+      return new VaultsApiError(`未找到保险库或凭据${safeId}。`, 404)
     }
     if (status === 429) {
       const retryAfter =
         (err.response?.headers as Record<string, string> | undefined)?.[
           'retry-after'
         ] ?? ''
-      const detail = retryAfter ? ` Retry after ${retryAfter}s.` : ''
-      return new VaultsApiError(`Rate limit exceeded.${detail}`, 429)
+      const detail = retryAfter ? `请在 ${retryAfter} 秒后重试。` : ''
+      return new VaultsApiError(`已超出速率限制。${detail}`, 429)
     }
     const msg =
       (err.response?.data as { error?: { message?: string } } | undefined)
@@ -178,7 +178,7 @@ async function withRetry<T>(fn: () => Promise<T>, id?: string): Promise<T> {
       throw classified
     }
   }
-  throw lastErr ?? new VaultsApiError('Request failed after retries', 0)
+  throw lastErr ?? new VaultsApiError('重试后仍然失败', 0)
 }
 
 // ── Vault CRUD ─────────────────────────────────────────────────────────────

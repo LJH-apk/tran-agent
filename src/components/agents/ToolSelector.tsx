@@ -24,7 +24,6 @@ import { WebSearchTool } from '@claude-code-best/builtin-tools/tools/WebSearchTo
 import { type KeyboardEvent, Box, Text } from '@anthropic/ink';
 import { useKeybinding } from '../../keybindings/useKeybinding.js';
 import { count } from '../../utils/array.js';
-import { plural } from '../../utils/stringUtils.js';
 import { Divider } from '@anthropic/ink';
 
 type Props = {
@@ -51,7 +50,7 @@ type ToolBuckets = {
 function getToolBuckets(): ToolBuckets {
   return {
     READ_ONLY: {
-      name: 'Read-only tools',
+      name: '只读工具',
       toolNames: new Set([
         GlobTool.name,
         GrepTool.name,
@@ -67,22 +66,22 @@ function getToolBuckets(): ToolBuckets {
       ]),
     },
     EDIT: {
-      name: 'Edit tools',
+      name: '编辑工具',
       toolNames: new Set([FileEditTool.name, FileWriteTool.name, NotebookEditTool.name]),
     },
     EXECUTION: {
-      name: 'Execution tools',
+      name: '执行工具',
       toolNames: new Set(
         [BashTool.name, process.env.USER_TYPE === 'ant' ? TungstenTool.name : undefined].filter(n => n !== undefined),
       ),
     },
     MCP: {
-      name: 'MCP tools',
+      name: 'MCP 工具',
       toolNames: new Set(), // Dynamic - no static list
       isMcp: true,
     },
     OTHER: {
-      name: 'Other tools',
+      name: '其他工具',
       toolNames: new Set(), // Dynamic - catch-all for uncategorized tools
     },
   };
@@ -216,7 +215,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
   // Continue button
   navigableItems.push({
     id: 'continue',
-    label: 'Continue',
+    label: '继续',
     action: handleConfirm,
     isContinue: true,
   });
@@ -224,7 +223,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
   // All tools
   navigableItems.push({
     id: 'bucket-all',
-    label: `${isAllSelected ? figures.checkboxOn : figures.checkboxOff} All tools`,
+    label: `${isAllSelected ? figures.checkboxOn : figures.checkboxOff} 全部工具`,
     action: () => {
       const allToolNames = customAgentTools.map(t => t.name);
       handleToggleTools(allToolNames, !isAllSelected);
@@ -278,7 +277,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
   const toggleButtonIndex = navigableItems.length;
   navigableItems.push({
     id: 'toggle-individual',
-    label: showIndividualTools ? 'Hide advanced options' : 'Show advanced options',
+    label: showIndividualTools ? '隐藏高级选项' : '显示高级选项',
     action: () => {
       setShowIndividualTools(!showIndividualTools);
       // If hiding tools and focus is on an individual tool, move focus to toggle button
@@ -298,7 +297,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
     if (mcpServerBuckets.length > 0) {
       navigableItems.push({
         id: 'mcp-servers-header',
-        label: 'MCP Servers:',
+        label: 'MCP 服务器：',
         action: () => {}, // No action - just a header
         isHeader: true,
       });
@@ -309,7 +308,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
 
         navigableItems.push({
           id: `mcp-server-${serverName}`,
-          label: `${isFullySelected ? figures.checkboxOn : figures.checkboxOff} ${serverName} (${serverTools.length} ${plural(serverTools.length, 'tool')})`,
+          label: `${isFullySelected ? figures.checkboxOn : figures.checkboxOff} ${serverName} （${serverTools.length} 个工具）`,
           action: () => {
             const toolNames = serverTools.map(t => t.name);
             handleToggleTools(toolNames, !isFullySelected);
@@ -320,7 +319,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
       // Add separator header before individual tools
       navigableItems.push({
         id: 'tools-header',
-        label: 'Individual Tools:',
+        label: '单个工具：',
         action: () => {},
         isHeader: true,
       });
@@ -382,7 +381,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
     <Box flexDirection="column" marginTop={1} tabIndex={0} autoFocus onKeyDown={handleKeyDown}>
       {/* Render Continue button */}
       <Text color={focusIndex === 0 ? 'suggestion' : undefined} bold={focusIndex === 0}>
-        {focusIndex === 0 ? `${figures.pointer} ` : '  '}[ Continue ]
+        {focusIndex === 0 ? `${figures.pointer} ` : '  '}[ 继续 ]
       </Text>
 
       {/* Separator */}
@@ -416,7 +415,7 @@ export function ToolSelector({ tools, initialTools, onComplete, onCancel }: Prop
 
       <Box marginTop={1} flexDirection="column">
         <Text dimColor>
-          {isAllSelected ? 'All tools selected' : `${selectedSet.size} of ${customAgentTools.length} tools selected`}
+          {isAllSelected ? '已选择全部工具' : `已选择 ${selectedSet.size} / ${customAgentTools.length} 个工具`}
         </Text>
       </Box>
     </Box>

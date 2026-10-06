@@ -39,23 +39,23 @@ export function TypeStep(_props: Props): ReactNode {
 
   return (
     <WizardDialogLayout
-      subtitle="Agent type (identifier)"
+      subtitle="智能体类型（标识符）"
       footerText={
         <Byline>
-          <KeyboardShortcutHint shortcut="Type" action="enter text" />
-          <KeyboardShortcutHint shortcut="Enter" action="continue" />
-          <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="go back" />
+          <KeyboardShortcutHint shortcut="Type" action="输入文本" />
+          <KeyboardShortcutHint shortcut="Enter" action="继续" />
+          <ConfigurableShortcutHint action="confirm:no" context="Settings" fallback="Esc" description="返回" />
         </Byline>
       }
     >
       <Box flexDirection="column">
-        <Text>Enter a unique identifier for your agent:</Text>
+        <Text>为你的智能体输入唯一标识符：</Text>
         <Box marginTop={1}>
           <TextInput
             value={agentType}
             onChange={setAgentType}
             onSubmit={handleSubmit}
-            placeholder="e.g., test-runner, tech-lead, etc"
+            placeholder="例如：test-runner、tech-lead 等"
             columns={60}
             cursorOffset={cursorOffset}
             onChangeCursorOffset={setCursorOffset}

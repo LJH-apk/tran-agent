@@ -72,8 +72,8 @@ export function PluginOptionsFlow({ plugin, pluginId, onDone }: Props): React.Re
     if (Object.keys(unconfigured).length > 0) {
       result.push({
         key: 'top-level',
-        title: `Configure ${plugin.name}`,
-        subtitle: 'Plugin options',
+        title: `配置 ${plugin.name}`,
+        subtitle: '插件选项',
         schema: unconfigured,
         load: () => loadPluginOptions(pluginId),
         save: values => savePluginOptions(pluginId, values, plugin.manifest.userConfig!),
@@ -85,8 +85,8 @@ export function PluginOptionsFlow({ plugin, pluginId, onDone }: Props): React.Re
     for (const channel of channels) {
       result.push({
         key: `channel:${channel.server}`,
-        title: `Configure ${channel.displayName}`,
-        subtitle: `Plugin: ${plugin.name}`,
+        title: `配置 ${channel.displayName}`,
+        subtitle: `插件：${plugin.name}`,
         schema: channel.configSchema,
         load: () => loadMcpServerUserConfig(pluginId, channel.server) ?? undefined,
         save: values => saveMcpServerUserConfig(pluginId, channel.server, values, channel.configSchema),

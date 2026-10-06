@@ -25,7 +25,6 @@ import {
   validateElicitationInput,
   validateElicitationInputAsync,
 } from '../../utils/mcp/elicitationValidation.js';
-import { plural } from '../../utils/stringUtils.js';
 import { ConfigurableShortcutHint } from '../ConfigurableShortcutHint.js';
 import { Byline, Dialog, KeyboardShortcutHint } from '@anthropic/ink';
 import TextInput from '../TextInput.js';
@@ -229,7 +228,7 @@ function ElicitationFormDialog({
   const isEditingTextField = currentFieldIsText && !focusedButton;
 
   useRegisterOverlay('elicitation');
-  useNotifyAfterTimeout('Claude Code needs your input', 'elicitation_dialog');
+  useNotifyAfterTimeout('Claude Code 需要你的输入', 'elicitation_dialog');
 
   // Sync textInputValue when the focused field changes
   const syncTextInput = useCallback(
@@ -258,9 +257,9 @@ function ElicitationFormDialog({
     const max = schema.maxItems;
     // Skip minItems check when field is optional and unset
     if (min !== undefined && selected.length < min && (selected.length > 0 || fieldRequired)) {
-      updateValidationError(fieldName, `Select at least ${min} ${plural(min, 'item')}`);
+      updateValidationError(fieldName, `至少选择 ${min} 项`);
     } else if (max !== undefined && selected.length > max) {
-      updateValidationError(fieldName, `Select at most ${max} ${plural(max, 'item')}`);
+      updateValidationError(fieldName, `至多选择 ${max} 项`);
     } else {
       updateValidationError(fieldName);
     }
@@ -543,9 +542,9 @@ function ElicitationFormDialog({
             const min = msSchema.minItems;
             const max = msSchema.maxItems;
             if (min !== undefined && newSelected.length < min && (newSelected.length > 0 || currentField.isRequired)) {
-              updateValidationError(currentField.name, `Select at least ${min} ${plural(min, 'item')}`);
+              updateValidationError(currentField.name, `至少选择 ${min} 项`);
             } else if (max !== undefined && newSelected.length > max) {
-              updateValidationError(currentField.name, `Select at most ${max} ${plural(max, 'item')}`);
+              updateValidationError(currentField.name, `至多选择 ${max} 项`);
             } else {
               updateValidationError(currentField.name);
             }
@@ -892,7 +891,7 @@ function ElicitationFormDialog({
                   <Text>
                     {arrow}
                     <Text dimColor italic>
-                      not set
+                      未设置
                     </Text>
                   </Text>
                 );
@@ -941,7 +940,7 @@ function ElicitationFormDialog({
                   <Text>
                     {arrow}
                     <Text dimColor italic>
-                      not set
+                      未设置
                     </Text>
                   </Text>
                 );
@@ -961,7 +960,7 @@ function ElicitationFormDialog({
                 <Text>{value ? figures.checkboxOn : figures.checkboxOff}</Text>
               ) : (
                 <Text dimColor italic>
-                  not set
+                  未设置
                 </Text>
               );
             }
@@ -987,7 +986,7 @@ function ElicitationFormDialog({
                 <Text>{displayValue}</Text>
               ) : (
                 <Text dimColor italic>
-                  not set
+                  未设置
                 </Text>
               );
             }
@@ -996,7 +995,7 @@ function ElicitationFormDialog({
               <Text>{String(value)}</Text>
             ) : (
               <Text dimColor italic>
-                not set
+                未设置
               </Text>
             );
           }
@@ -1053,7 +1052,7 @@ function ElicitationFormDialog({
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : (
           <Byline>
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
             <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
             {currentField && <KeyboardShortcutHint shortcut="Backspace" action="unset" />}
             {currentField && currentField.schema.type === 'boolean' && (
@@ -1086,7 +1085,7 @@ function ElicitationFormDialog({
             color={focusedButton === 'accept' ? 'success' : undefined}
             dimColor={focusedButton !== 'accept'}
           >
-            {' Accept  '}
+            {' 接受  '}
           </Text>
           <Text color="error">{focusedButton === 'decline' ? figures.pointer : ' '}</Text>
           <Text
@@ -1094,7 +1093,7 @@ function ElicitationFormDialog({
             color={focusedButton === 'decline' ? 'error' : undefined}
             dimColor={focusedButton !== 'decline'}
           >
-            {' Decline'}
+            {' 拒绝'}
           </Text>
         </Box>
       </Box>
@@ -1119,7 +1118,7 @@ function ElicitationURLDialog({
   const [focusedButton, setFocusedButton] = useState<'accept' | 'decline' | 'open' | 'action' | 'cancel'>('accept');
   const showCancel = waitingState?.showCancel ?? false;
 
-  useNotifyAfterTimeout('Claude Code needs your input', 'elicitation_url_dialog');
+  useNotifyAfterTimeout('Claude Code 需要你的输入', 'elicitation_url_dialog');
   useRegisterOverlay('elicitation-url');
 
   // Keep refs in sync for use in abort handler (avoids re-registering listener)
@@ -1211,7 +1210,7 @@ function ElicitationURLDialog({
   });
 
   if (phase === 'waiting') {
-    const actionLabel = waitingState?.actionLabel ?? 'Continue without waiting';
+    const actionLabel = waitingState?.actionLabel ?? '不等待，继续';
     return (
       <Dialog
         title={`MCP server \u201c${serverName}\u201d \u2014 waiting for completion`}
@@ -1228,7 +1227,7 @@ function ElicitationURLDialog({
                 action="confirm:no"
                 context="Confirmation"
                 fallback="Esc"
-                description="cancel"
+                description="取消"
               />
               <KeyboardShortcutHint shortcut="\u2190\u2192" action="switch" />
             </Byline>
@@ -1245,7 +1244,7 @@ function ElicitationURLDialog({
           </Box>
           <Box marginBottom={1}>
             <Text dimColor italic>
-              Waiting for the server to confirm completion…
+              正在等待服务器确认完成…
             </Text>
           </Box>
           <Box>
@@ -1255,7 +1254,7 @@ function ElicitationURLDialog({
               color={focusedButton === 'open' ? 'success' : undefined}
               dimColor={focusedButton !== 'open'}
             >
-              {' Reopen URL  '}
+              {' 重新打开 URL  '}
             </Text>
             <Text color="success">{focusedButton === 'action' ? figures.pointer : ' '}</Text>
             <Text
@@ -1274,7 +1273,7 @@ function ElicitationURLDialog({
                   color={focusedButton === 'cancel' ? 'error' : undefined}
                   dimColor={focusedButton !== 'cancel'}
                 >
-                  {' Cancel'}
+                  {' 取消'}
                 </Text>
               </>
             )}
@@ -1296,7 +1295,7 @@ function ElicitationURLDialog({
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : (
           <Byline>
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
             <KeyboardShortcutHint shortcut="\u2190\u2192" action="switch" />
           </Byline>
         )
@@ -1317,7 +1316,7 @@ function ElicitationURLDialog({
             color={focusedButton === 'accept' ? 'success' : undefined}
             dimColor={focusedButton !== 'accept'}
           >
-            {' Accept  '}
+            {' 接受  '}
           </Text>
           <Text color="error">{focusedButton === 'decline' ? figures.pointer : ' '}</Text>
           <Text
@@ -1325,7 +1324,7 @@ function ElicitationURLDialog({
             color={focusedButton === 'decline' ? 'error' : undefined}
             dimColor={focusedButton !== 'decline'}
           >
-            {' Decline'}
+            {' 拒绝'}
           </Text>
         </Box>
       </Box>

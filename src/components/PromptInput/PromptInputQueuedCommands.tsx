@@ -35,7 +35,7 @@ const MAX_VISIBLE_NOTIFICATIONS = 3;
  */
 function createOverflowNotificationMessage(count: number): string {
   return `<${TASK_NOTIFICATION_TAG}>
-<${SUMMARY_TAG}>+${count} more tasks completed</${SUMMARY_TAG}>
+<${SUMMARY_TAG}>另有 ${count} 个任务已完成</${SUMMARY_TAG}>
 <${STATUS_TAG}>completed</${STATUS_TAG}>
 </${TASK_NOTIFICATION_TAG}>`;
 }

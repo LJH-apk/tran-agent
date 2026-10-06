@@ -92,7 +92,7 @@ export function PackageManagerAutoUpdater({ verbose }: Props): React.ReactNode {
         ? 'winget upgrade Anthropic.ClaudeCode'
         : packageManager === 'apk'
           ? 'apk upgrade claude-code'
-          : 'your package manager update command';
+          : '你的包管理器更新命令';
 
   return (
     <>

@@ -18,7 +18,7 @@ export function SandboxOverridesTab({ onComplete }: Props): React.ReactNode {
   if (!isEnabled) {
     return (
       <Box flexDirection="column" paddingY={1}>
-        <Text color="subtle">Sandbox is not enabled. Enable sandbox to configure override settings.</Text>
+        <Text color="subtle">沙箱未启用。请先启用沙箱以配置覆盖设置。</Text>
       </Box>
     );
   }
@@ -27,11 +27,11 @@ export function SandboxOverridesTab({ onComplete }: Props): React.ReactNode {
     return (
       <Box flexDirection="column" paddingY={1}>
         <Text color="subtle">
-          Override settings are managed by a higher-priority configuration and cannot be changed locally.
+          覆盖设置由更高优先级的配置管理，无法在本地修改。
         </Text>
         <Box marginTop={1}>
           <Text dimColor>
-            Current setting: {currentAllowUnsandboxed ? 'Allow unsandboxed fallback' : 'Strict sandbox mode'}
+            当前设置： {currentAllowUnsandboxed ? '允许沙箱外回退' : '严格沙箱模式'}
           </Text>
         </Box>
       </Box>
@@ -47,15 +47,15 @@ export function SandboxOverridesTab({ onComplete }: Props): React.ReactNode {
 function OverridesSelect({ onComplete, currentMode }: Props & { currentMode: OverrideMode }): React.ReactNode {
   const [theme] = useTheme();
   const { headerFocused, focusHeader } = useTabHeaderFocus();
-  const currentIndicator = color('success', theme)(`(current)`);
+  const currentIndicator = color('success', theme)(`（当前）`);
 
   const options = [
     {
-      label: currentMode === 'open' ? `Allow unsandboxed fallback ${currentIndicator}` : 'Allow unsandboxed fallback',
+      label: currentMode === 'open' ? `允许沙箱外回退 ${currentIndicator}` : 'Allow unsandboxed fallback',
       value: 'open',
     },
     {
-      label: currentMode === 'closed' ? `Strict sandbox mode ${currentIndicator}` : 'Strict sandbox mode',
+      label: currentMode === 'closed' ? `严格沙箱模式 ${currentIndicator}` : 'Strict sandbox mode',
       value: 'closed',
     },
   ];
@@ -69,8 +69,8 @@ function OverridesSelect({ onComplete, currentMode }: Props & { currentMode: Ove
 
     const message =
       mode === 'open'
-        ? '✓ Unsandboxed fallback allowed - commands can run outside sandbox when necessary'
-        : '✓ Strict sandbox mode - all commands must run in sandbox or be excluded via the `excludedCommands` option';
+        ? '✓ 已允许沙箱外回退 - 必要时命令可在沙箱外运行'
+        : '✓ 严格沙箱模式 - 所有命令必须在沙箱中运行，或通过 `excludedCommands` 选项排除';
 
     onComplete(message);
   }
@@ -78,7 +78,7 @@ function OverridesSelect({ onComplete, currentMode }: Props & { currentMode: Ove
   return (
     <Box flexDirection="column" paddingY={1}>
       <Box marginBottom={1}>
-        <Text bold>Configure Overrides:</Text>
+        <Text bold>配置覆盖项：</Text>
       </Box>
       <Select
         options={options}
@@ -90,20 +90,18 @@ function OverridesSelect({ onComplete, currentMode }: Props & { currentMode: Ove
       <Box flexDirection="column" marginTop={1} gap={1}>
         <Text dimColor>
           <Text bold dimColor>
-            Allow unsandboxed fallback:
+            允许沙箱外回退：
           </Text>{' '}
-          When a command fails due to sandbox restrictions, Claude can retry with dangerouslyDisableSandbox to run
-          outside the sandbox (falling back to default permissions).
+          当命令因沙箱限制而失败时，Claude 可以用 dangerouslyDisableSandbox 重试，在沙箱外运行（回退为默认权限）。
         </Text>
         <Text dimColor>
           <Text bold dimColor>
-            Strict sandbox mode:
+            严格沙箱模式：
           </Text>{' '}
-          All bash commands invoked by the model must run in the sandbox unless they are explicitly listed in
-          excludedCommands.
+          模型调用的所有 bash 命令都必须在沙箱中运行，除非它们被显式列入 excludedCommands。
         </Text>
         <Text dimColor>
-          Learn more:{' '}
+          了解更多：{' '}
           <Link url="https://code.claude.com/docs/en/sandboxing#configure-sandboxing">
             code.claude.com/docs/en/sandboxing#configure-sandboxing
           </Link>

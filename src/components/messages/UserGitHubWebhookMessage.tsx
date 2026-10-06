@@ -22,7 +22,7 @@ export function UserGitHubWebhookMessage({ param, addMargin }: Props): React.Rea
   const repoMatch = extracted.match(/repo(?:sitory)?[":\s]+["']?([^"'\s,}]+)/);
   const event = eventMatch?.[1] ?? 'activity';
   const repo = repoMatch?.[1] ?? '';
-  const repoSuffix = repo ? ` in ${repo}` : '';
+  const repoSuffix = repo ? ` ，位于 ${repo}` : '';
 
   return (
     <Box flexDirection="row" marginTop={addMargin ? 1 : 0}>

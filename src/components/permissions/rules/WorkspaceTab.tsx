@@ -56,7 +56,7 @@ export function WorkspaceTab({
     [additionalDirectories, onRequestAddDirectory, onRequestRemoveDirectory],
   );
 
-  const handleCancel = useCallback(() => onExit('Workspace dialog dismissed', { display: 'system' }), [onExit]);
+  const handleCancel = useCallback(() => onExit('工作区对话框已关闭', { display: 'system' }), [onExit]);
 
   // Main list view options
   const options = React.useMemo(() => {
@@ -79,7 +79,7 @@ export function WorkspaceTab({
       {/* Current working directory section */}
       <Box flexDirection="row" marginTop={1} marginLeft={2} gap={1}>
         <Text>{`-  ${getOriginalCwd()}`}</Text>
-        <Text dimColor>(Original working directory)</Text>
+        <Text dimColor>（原始工作目录）</Text>
       </Box>
       <Select
         options={options}

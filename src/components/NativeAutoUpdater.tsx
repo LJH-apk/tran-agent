@@ -98,7 +98,7 @@ export function NativeAutoUpdater({
       const maxVersion = await getMaxVersion();
       if (maxVersion && gt(MACRO.VERSION, maxVersion)) {
         const msg = await getMaxVersionMessage();
-        setMaxVersionIssue(msg ?? 'affects your version');
+        setMaxVersionIssue(msg ?? '影响你的版本');
       }
 
       const result = await installLatest(channel);
@@ -191,7 +191,7 @@ export function NativeAutoUpdater({
       {isUpdating ? (
         <Box>
           <Text dimColor wrap="truncate">
-            Checking for updates
+            正在检查更新
           </Text>
         </Box>
       ) : (
@@ -199,7 +199,7 @@ export function NativeAutoUpdater({
         showSuccessMessage &&
         updateSemver && (
           <Text color="success" wrap="truncate">
-            ✓ Update installed · Restart to update
+            ✓ 更新已安装 · 重启以完成更新
           </Text>
         )
       )}

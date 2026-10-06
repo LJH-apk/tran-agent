@@ -33,15 +33,15 @@ const SCOPE_ORDER: ConfigScope[] = ['project', 'local', 'user', 'enterprise'];
 function getScopeHeading(scope: ConfigScope): { label: string; path?: string } {
   switch (scope) {
     case 'project':
-      return { label: 'Project MCPs', path: describeMcpConfigFilePath(scope) };
+      return { label: '项目 MCP', path: describeMcpConfigFilePath(scope) };
     case 'user':
-      return { label: 'User MCPs', path: describeMcpConfigFilePath(scope) };
+      return { label: '用户 MCP', path: describeMcpConfigFilePath(scope) };
     case 'local':
-      return { label: 'Local MCPs', path: describeMcpConfigFilePath(scope) };
+      return { label: '本地 MCP', path: describeMcpConfigFilePath(scope) };
     case 'enterprise':
-      return { label: 'Enterprise MCPs' };
+      return { label: '企业 MCP' };
     case 'dynamic':
-      return { label: 'Built-in MCPs', path: 'always available' };
+      return { label: '内置 MCP', path: '始终可用' };
     default:
       return { label: scope };
   }
@@ -117,7 +117,7 @@ export function MCPListPanel({
   }, [serversByScope, claudeAiServers, agentServers, dynamicServers]);
 
   const handleCancel = useCallback((): void => {
-    onComplete('MCP dialog dismissed', {
+    onComplete('已关闭 MCP 对话框', {
       display: 'system',
     });
   }, [onComplete]);
@@ -175,13 +175,13 @@ export function MCPListPanel({
       statusIcon = color('inactive', theme)(figures.radioOff);
       const { reconnectAttempt, maxReconnectAttempts } = server.client;
       if (reconnectAttempt && maxReconnectAttempts) {
-        statusText = `reconnecting (${reconnectAttempt}/${maxReconnectAttempts})…`;
+        statusText = `正在重连（${reconnectAttempt}/${maxReconnectAttempts}）…`;
       } else {
-        statusText = 'connecting…';
+        statusText = '正在连接…';
       }
     } else if (server.client.type === 'needs-auth') {
       statusIcon = color('warning', theme)(figures.triangleUpOutline);
-      statusText = 'needs authentication';
+      statusText = '需要身份验证';
     } else {
       statusIcon = color('error', theme)(figures.cross);
       statusText = 'failed';
@@ -203,7 +203,7 @@ export function MCPListPanel({
     const statusIcon = agentServer.needsAuth
       ? color('warning', theme)(figures.triangleUpOutline)
       : color('inactive', theme)(figures.radioOff);
-    const statusText = agentServer.needsAuth ? 'may need auth' : 'agent-only';
+    const statusText = agentServer.needsAuth ? '可能需要验证' : '仅 agent 可用';
 
     return (
       <Box key={`agent-${agentServer.name}-${index}`}>
@@ -222,7 +222,7 @@ export function MCPListPanel({
       <McpParsingWarnings />
 
       <Dialog
-        title="Manage MCP servers"
+        title=" 个 MCP 服务器管理 MCP 服务器"
         subtitle={`${totalServers} ${plural(totalServers, 'server')}`}
         onCancel={handleCancel}
         hideInputGuide
@@ -258,7 +258,7 @@ export function MCPListPanel({
           {agentServers.length > 0 && (
             <Box flexDirection="column" marginBottom={1}>
               <Box paddingLeft={2}>
-                <Text bold>Agent MCPs</Text>
+                <Text bold>Agent MCP</Text>
               </Box>
               {/* Group servers by source agent */}
               {[...new Set(agentServers.flatMap(s => s.sourceAgents))].map(agentName => (
@@ -289,11 +289,11 @@ export function MCPListPanel({
           <Box flexDirection="column">
             {hasFailedClients && (
               <Text dimColor>
-                {debugMode ? '※ Error logs shown inline with --debug' : '※ Run claude --debug to see error logs'}
+                {debugMode ? '※ 错误日志随 --debug 内联显示' : '※ 运行 claude --debug 可查看错误日志'}
               </Text>
             )}
             <Text dimColor>
-              <Link url="https://code.claude.com/docs/en/mcp">https://code.claude.com/docs/en/mcp</Link> for help
+              <Link url="https://code.claude.com/docs/en/mcp">https://code.claude.com/docs/en/mcp</Link> 获取帮助
             </Text>
           </Box>
         </Box>
@@ -305,7 +305,7 @@ export function MCPListPanel({
           <Byline>
             <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
             <KeyboardShortcutHint shortcut="Enter" action="confirm" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         </Text>
       </Box>

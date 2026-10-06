@@ -130,7 +130,7 @@ function MainLine({
     <Box onClick={onClick} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <Text dimColor={!isSelected && !isViewed && !hover} bold={isViewed}>
         {prefix}
-        {bullet} main
+        {bullet} 主
       </Text>
     </Box>
   );
@@ -164,7 +164,7 @@ function AgentLine({ task, name, isSelected, isViewed, onClick }: AgentLineProps
   const tokenText = tokenCount !== undefined && tokenCount > 0 ? ` · ${arrow} ${formatNumber(tokenCount)} tokens` : '';
 
   const queuedCount = task.pendingMessages.length;
-  const queuedText = queuedCount > 0 ? ` · ${queuedCount} queued` : '';
+  const queuedText = queuedCount > 0 ? ` · ${queuedCount} 条排队` : '';
 
   // Precedence: AI summary > static description (no tool-call activity noise)
   const displayDescription = task.progress?.summary || task.description;

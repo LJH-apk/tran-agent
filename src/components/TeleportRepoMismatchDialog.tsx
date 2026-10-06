@@ -46,7 +46,7 @@ export function TeleportRepoMismatchDialog({
       setAvailablePaths(updatedPaths);
       setValidating(false);
 
-      setErrorMessage(`${getDisplayPath(value)} no longer contains the correct repository. Select another path.`);
+      setErrorMessage(`${getDisplayPath(value)} 不再包含正确的仓库。请选择其他路径。`);
     },
     [targetRepo, availablePaths, onSelectPath, onCancel],
   );
@@ -60,11 +60,11 @@ export function TeleportRepoMismatchDialog({
       ),
       value: path,
     })),
-    { label: 'Cancel', value: 'cancel' },
+    { label: '取消', value: 'cancel' },
   ];
 
   return (
-    <Dialog title="Teleport to Repo" onCancel={onCancel} color="background">
+    <Dialog title="Teleport 到仓库" onCancel={onCancel} color="background">
       {availablePaths.length > 0 ? (
         <>
           <Box flexDirection="column" gap={1}>
@@ -77,7 +77,7 @@ export function TeleportRepoMismatchDialog({
           {validating ? (
             <Box>
               <Spinner />
-              <Text> Validating repository…</Text>
+              <Text> 正在校验仓库…</Text>
             </Box>
           ) : (
             <Select options={options} onChange={value => void handleChange(value)} />

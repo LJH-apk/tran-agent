@@ -882,7 +882,7 @@ function PromptInput({
     if (thinkTriggers.length && isUltrathinkEnabled()) {
       addNotification({
         key: 'ultrathink-active',
-        text: 'Effort set to high for this turn',
+        text: '本轮推理强度已设为高',
         priority: 'immediate',
         timeoutMs: 5000,
       });
@@ -895,7 +895,7 @@ function PromptInput({
     if (feature('ULTRAPLAN') && ultraplanTriggers.length) {
       addNotification({
         key: 'ultraplan-active',
-        text: 'This prompt will launch an ultraplan session in Claude Code on the web',
+        text: '该提示词将在 Claude Code 网页端启动 ultraplan 会话',
         priority: 'immediate',
         timeoutMs: 5000,
       });
@@ -908,7 +908,7 @@ function PromptInput({
     if (isUltrareviewEnabled() && ultrareviewTriggers.length) {
       addNotification({
         key: 'ultrareview-active',
-        text: 'Run /ultrareview after Claude finishes to review these changes in the cloud',
+        text: 'Claude 完成后运行 /ultrareview 在云端审查这些改动',
         priority: 'immediate',
         timeoutMs: 5000,
       });
@@ -955,7 +955,7 @@ function PromptInput({
           key: 'stash-hint',
           jsx: (
             <Text dimColor>
-              Tip: <ConfigurableShortcutHint action="chat:stash" context="Chat" fallback="ctrl+s" description="stash" />
+              提示： <ConfigurableShortcutHint action="chat:stash" context="Chat" fallback="ctrl+s" description="stash" />
             </Text>
           ),
           priority: 'immediate',
@@ -1197,7 +1197,7 @@ function PromptInput({
           if (result.success) {
             addNotification({
               key: 'direct-message-sent',
-              text: `Sent to @${result.recipientName}`,
+              text: `已发送给 @${result.recipientName}`,
               priority: 'immediate',
               timeoutMs: 3000,
             });
@@ -1335,7 +1335,7 @@ function PromptInput({
       type: 'image',
       content: image,
       mediaType: mediaType || 'image/png', // default to PNG if not provided
-      filename: filename || 'Pasted image',
+      filename: filename || '已粘贴图片',
       dimensions,
       sourcePath,
     };
@@ -1532,7 +1532,7 @@ function PromptInput({
       }
       addNotification({
         key: 'external-editor-error',
-        text: `External editor failed: ${errorMessage(err)}`,
+        text: `外部编辑器出错：${errorMessage(err)}`,
         color: 'warning',
         priority: 'high',
       });
@@ -1682,8 +1682,8 @@ function PromptInput({
       } else {
         const shortcutDisplay = getShortcutDisplay('chat:imagePaste', 'Chat', 'ctrl+v');
         const message = env.isSSH()
-          ? "No image found in clipboard. You're SSH'd; try scp?"
-          : `No image found in clipboard. Use ${shortcutDisplay} to paste images.`;
+          ? "剪贴板中没有图片。你正通过 SSH 连接，试试 scp？"
+          : `剪贴板中没有图片。用 ${shortcutDisplay} 粘贴图片。`;
         addNotification({
           key: 'no-image-in-clipboard',
           text: message,
@@ -2171,12 +2171,12 @@ function PromptInput({
       });
       setShowModelPicker(false);
       const effectiveFastMode = (isFastMode ?? false) && !wasFastModeDisabled;
-      let message = `Model set to ${modelDisplayString(model)}`;
+      let message = `模型已切换为 ${modelDisplayString(model)}`;
       if (isBilledAsExtraUsage(model, effectiveFastMode, isOpus1mMergeEnabled())) {
-        message += ' · Billed as extra usage';
+        message += ' · 按额外用量计费';
       }
       if (wasFastModeDisabled) {
-        message += ' · Fast mode OFF';
+        message += ' · 快速模式已关闭';
       }
       addNotification({
         key: 'model-switched',
@@ -2445,7 +2445,7 @@ function PromptInput({
         width="100%"
       >
         <Text dimColor italic>
-          Save and close editor to continue...
+          保存并关闭编辑器以继续…
         </Text>
       </Box>
     );
@@ -2462,7 +2462,7 @@ function PromptInput({
       {!isFullscreenEnvEnabled() && <PromptInputQueuedCommands />}
       {hasSuppressedDialogs && (
         <Box marginTop={1} marginLeft={2}>
-          <Text dimColor>Waiting for permission…</Text>
+          <Text dimColor>等待授权…</Text>
         </Box>
       )}
       <PromptInputStashNotice hasStash={stashedPrompt !== undefined} />

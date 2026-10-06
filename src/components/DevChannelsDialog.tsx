@@ -42,13 +42,12 @@ export function DevChannelsDialog({ channels, onAccept }: Props): React.ReactNod
   }
 
   return (
-    <Dialog title="WARNING: Loading development channels" color="error" onCancel={handleEscape}>
+    <Dialog title="警告：正在加载开发通道" color="error" onCancel={handleEscape}>
       <Box flexDirection="column" gap={1}>
         <Text>
-          --dangerously-load-development-channels is for local channel development only. Do not use this option to run
-          channels you have downloaded off the internet.
+          --dangerously-load-development-channels 仅用于本地通道开发。不要用它运行从网上下载的通道。
         </Text>
-        <Text>Please use --channels to run a list of approved channels.</Text>
+        <Text>请使用 --channels 运行已批准的通道列表。</Text>
         <Text dimColor>
           Channels:{' '}
           {channels
@@ -59,8 +58,8 @@ export function DevChannelsDialog({ channels, onAccept }: Props): React.ReactNod
 
       <Select
         options={[
-          { label: 'I am using this for local development', value: 'accept' },
-          { label: 'Exit', value: 'exit' },
+          { label: '我是在做本地开发', value: 'accept' },
+          { label: '退出', value: 'exit' },
         ]}
         onChange={value => onChange(value as 'accept' | 'exit')}
       />

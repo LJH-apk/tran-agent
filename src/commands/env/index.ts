@@ -59,19 +59,19 @@ function formatEnvVars(): string {
     .sort(([a], [b]) => a.localeCompare(b))
 
   if (entries.length === 0) {
-    return '  (no recognized env vars set)'
+    return '  （没有设置可识别的环境变量）'
   }
   return entries.map(([k, v]) => `  ${k}=${v}`).join('\n')
 }
 
 function formatRuntime(): string {
   const lines = [
-    `  platform:        ${process.platform} ${process.arch}`,
-    `  cwd:             ${process.cwd()}`,
-    `  pid:             ${process.pid}`,
-    `  bun:             ${typeof Bun !== 'undefined' ? Bun.version : 'n/a'}`,
-    `  node:            ${process.version}`,
-    `  session:         ${getSessionId()}`,
+    `  平台：           ${process.platform} ${process.arch}`,
+    `  工作目录：       ${process.cwd()}`,
+    `  进程 ID：        ${process.pid}`,
+    `  bun：            ${typeof Bun !== 'undefined' ? Bun.version : 'n/a'}`,
+    `  node：           ${process.version}`,
+    `  会话：           ${getSessionId()}`,
   ]
   return lines.join('\n')
 }
@@ -86,13 +86,13 @@ const env: Command = {
   load: async () => ({
     call: async (): Promise<LocalCommandResult> => {
       const text = [
-        '## Runtime',
+        '## 运行时',
         formatRuntime(),
         '',
-        '## Environment Variables (allowlisted prefixes)',
+        '## 环境变量（白名单前缀）',
         formatEnvVars(),
         '',
-        '_Secrets matching token/password/auth/api_key are masked. Set additional `CLAUDE_*` / `FEATURE_*` env vars to see them here._',
+        '_匹配 token/password/auth/api_key 的敏感信息已遮蔽。设置更多 `CLAUDE_*` / `FEATURE_*` 环境变量即可在此查看。_',
       ].join('\n')
       return { type: 'text', value: text }
     },

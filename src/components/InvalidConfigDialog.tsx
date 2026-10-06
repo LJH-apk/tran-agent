@@ -38,7 +38,7 @@ function InvalidConfigDialog({
   };
 
   return (
-    <Dialog title="Configuration Error" color="error" onCancel={onExit}>
+    <Dialog title="配置错误" color="error" onCancel={onExit}>
       <Box flexDirection="column" gap={1}>
         <Text>
           The configuration file at <Text bold>{filePath}</Text> contains invalid JSON.
@@ -46,11 +46,11 @@ function InvalidConfigDialog({
         <Text>{errorDescription}</Text>
       </Box>
       <Box flexDirection="column">
-        <Text bold>Choose an option:</Text>
+        <Text bold>请选择一项：</Text>
         <Select
           options={[
-            { label: 'Exit and fix manually', value: 'exit' },
-            { label: 'Reset with default configuration', value: 'reset' },
+            { label: '退出并手动修复', value: 'exit' },
+            { label: '重置为默认配置', value: 'reset' },
           ]}
           onChange={handleSelect}
           onCancel={onExit}

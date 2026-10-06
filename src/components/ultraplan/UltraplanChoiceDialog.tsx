@@ -139,7 +139,7 @@ export function UltraplanChoiceDialog({
             setMessages(prev => [
               ...prev,
               createSystemMessage(
-                `Previous session saved · resume with: ccb --resume ${previousSessionId}`,
+                `上一个会话已保存 · 用以下命令恢复：ccb --resume ${previousSessionId}`,
                 'suggestion',
               ),
             ]);
@@ -155,7 +155,7 @@ export function UltraplanChoiceDialog({
           await writeFile(savePath, plan, { encoding: 'utf-8' });
           setMessages(prev => [
             ...prev,
-            createSystemMessage(`Ultraplan rejected · Plan saved to ${toRelativePath(savePath)}`, 'suggestion'),
+            createSystemMessage(`Ultraplan 已拒绝 · 计划已保存到 ${toRelativePath(savePath)}`, 'suggestion'),
           ]);
           break;
         }
@@ -183,19 +183,19 @@ export function UltraplanChoiceDialog({
   const options: Array<{ label: string; value: ChoiceValue; description: string }> = React.useMemo(
     () => [
       {
-        label: 'Implement here',
+        label: '在此实现',
         value: 'here' as const,
-        description: 'Inject plan into the current conversation',
+        description: '把计划注入当前会话',
       },
       {
-        label: 'Start new session',
+        label: '开始新会话',
         value: 'fresh' as const,
-        description: 'Clear conversation and start with only the plan',
+        description: '清空会话，只带着这份计划开始',
       },
       {
-        label: 'Cancel',
+        label: '取消',
         value: 'cancel' as const,
-        description: "Don't implement — save plan and return",
+        description: "不实现 —— 保存计划并返回",
       },
     ],
     [],
@@ -204,8 +204,8 @@ export function UltraplanChoiceDialog({
   // ── Render ─────────────────────────────────────────────────────────
   return (
     <Dialog
-      title="Ultraplan approved"
-      subtitle="How should the plan be implemented?"
+      title="Ultraplan 已批准"
+      subtitle="这份计划要如何实现？"
       onCancel={() => {}}
       hideInputGuide
     >
@@ -218,9 +218,9 @@ export function UltraplanChoiceDialog({
               {canScrollUp ? figures.arrowUp : ' '}
               {canScrollDown ? figures.arrowDown : ' '} {scrollOffset + 1}–
               {Math.min(scrollOffset + visibleHeight, wrappedLines.length)}
-              {' of '}
+              {' / '}
               {wrappedLines.length}
-              {' · ctrl+u/ctrl+d to scroll'}
+              {' · ctrl+u/ctrl+d 滚动'}
             </Text>
           )}
         </Box>

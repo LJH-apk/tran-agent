@@ -5,7 +5,6 @@ import { Box, Text } from '@anthropic/ink';
 import { errorMessage } from '../../utils/errors.js';
 import { logError } from '../../utils/log.js';
 import { validateManifest } from '../../utils/plugins/validatePlugin.js';
-import { plural } from '../../utils/stringUtils.js';
 
 type Props = {
   onComplete: (result?: string) => void;
@@ -18,16 +17,16 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
       // If no path provided, show usage
       if (!path) {
         onComplete(
-          'Usage: /plugin validate <path>\n\n' +
-            'Validate a plugin or marketplace manifest file or directory.\n\n' +
-            'Examples:\n' +
+          '用法：/plugin validate <路径>\n\n' +
+            '校验插件或插件市场的清单文件或目录。\n\n' +
+            '示例：\n' +
             '  /plugin validate .claude-plugin/plugin.json\n' +
             '  /plugin validate /path/to/plugin-directory\n' +
             '  /plugin validate .\n\n' +
-            'When given a directory, automatically validates .claude-plugin/marketplace.json\n' +
-            'or .claude-plugin/plugin.json (prefers marketplace if both exist).\n\n' +
-            'Or from the command line:\n' +
-            '  claude plugin validate <path>',
+            '给定目录时，会自动校验 .claude-plugin/marketplace.json\n' +
+            '或 .claude-plugin/plugin.json（两者都存在时优先 marketplace）。\n\n' +
+            '或在命令行中执行：\n' +
+            '  claude plugin validate <路径>',
         );
         return;
       }
@@ -38,11 +37,11 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
         let output = '';
 
         // Add header
-        output += `Validating ${result.fileType} manifest: ${result.filePath}\n\n`;
+        output += `正在校验 ${result.fileType} 清单：${result.filePath}\n\n`;
 
         // Show errors
         if (result.errors.length > 0) {
-          output += `${figures.cross} Found ${result.errors.length} ${plural(result.errors.length, 'error')}:\n\n`;
+          output += `${figures.cross} 发现 ${result.errors.length} 个错误：\n\n`;
 
           result.errors.forEach(error => {
             output += `  ${figures.pointer} ${error.path}: ${error.message}\n`;
@@ -53,7 +52,7 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
 
         // Show warnings
         if (result.warnings.length > 0) {
-          output += `${figures.warning} Found ${result.warnings.length} ${plural(result.warnings.length, 'warning')}:\n\n`;
+          output += `${figures.warning} 发现 ${result.warnings.length} 个警告：\n\n`;
 
           result.warnings.forEach(warning => {
             output += `  ${figures.pointer} ${warning.path}: ${warning.message}\n`;
@@ -65,15 +64,15 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
         // Show success or failure
         if (result.success) {
           if (result.warnings.length > 0) {
-            output += `${figures.tick} Validation passed with warnings\n`;
+            output += `${figures.tick} 校验通过，但有警告\n`;
           } else {
-            output += `${figures.tick} Validation passed\n`;
+            output += `${figures.tick} 校验通过\n`;
           }
 
           // Exit with code 0 (success)
           process.exitCode = 0;
         } else {
-          output += `${figures.cross} Validation failed\n`;
+          output += `${figures.cross} 校验失败\n`;
 
           // Exit with code 1 (validation failure)
           process.exitCode = 1;
@@ -86,7 +85,7 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
 
         logError(error);
 
-        onComplete(`${figures.cross} Unexpected error during validation: ${errorMessage(error)}`);
+        onComplete(`${figures.cross} 校验过程中出现意外错误：${errorMessage(error)}`);
       }
     }
 
@@ -95,7 +94,7 @@ export function ValidatePlugin({ onComplete, path }: Props): React.ReactNode {
 
   return (
     <Box flexDirection="column">
-      <Text>Running validation...</Text>
+      <Text>正在执行校验…</Text>
     </Box>
   );
 }

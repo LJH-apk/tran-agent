@@ -24,14 +24,14 @@ export function InvalidSettingsDialog({ settingsErrors, onContinue, onExit }: Pr
   }
 
   return (
-    <Dialog title="Settings Error" onCancel={onExit} color="warning">
+    <Dialog title="设置错误" onCancel={onExit} color="warning">
       <ValidationErrorsList errors={settingsErrors} />
-      <Text dimColor>Files with errors are skipped entirely, not just the invalid settings.</Text>
+      <Text dimColor>含错误的文件会被整体跳过，而不只是跳过无效的设置项。</Text>
       <Select
         options={[
-          { label: 'Exit and fix manually', value: 'exit' },
+          { label: '退出并手动修复', value: 'exit' },
           {
-            label: 'Continue without these settings',
+            label: '忽略这些设置并继续',
             value: 'continue',
           },
         ]}

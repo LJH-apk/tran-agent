@@ -30,15 +30,14 @@ export function ManagedSettingsSecurityDialog({ settings, onAccept, onReject }: 
   }
 
   return (
-    <PermissionDialog color="warning" titleColor="warning" title="Managed settings require approval">
+    <PermissionDialog color="warning" titleColor="warning" title="托管设置需要批准">
       <Box flexDirection="column" gap={1} paddingTop={1}>
         <Text>
-          Your organization has configured managed settings that could allow execution of arbitrary code or interception
-          of your prompts and responses.
+          你的组织配置了托管设置，这可能允许执行任意代码，或截获你的提示与回复。
         </Text>
 
         <Box flexDirection="column">
-          <Text dimColor>Settings requiring approval:</Text>
+          <Text dimColor>需要批准的设置：</Text>
           {settingsList.map((item, index) => (
             <Box key={index} paddingLeft={2}>
               <Text>
@@ -56,15 +55,15 @@ export function ManagedSettingsSecurityDialog({ settings, onAccept, onReject }: 
 
         <Select
           options={[
-            { label: 'Yes, I trust these settings', value: 'accept' },
-            { label: 'No, exit Claude Code', value: 'exit' },
+            { label: '是，我信任这些设置', value: 'accept' },
+            { label: '否，退出 Claude Code', value: 'exit' },
           ]}
           onChange={value => onChange(value as 'accept' | 'exit')}
           onCancel={() => onChange('exit')}
         />
 
         <Text dimColor>
-          {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter to confirm · Esc to exit</>}
+          {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 确认 · Esc 退出</>}
         </Text>
       </Box>
     </PermissionDialog>

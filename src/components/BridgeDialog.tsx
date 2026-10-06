@@ -124,7 +124,7 @@ export function BridgeDialog({ onDone }: Props): React.ReactNode {
       : undefined;
 
   return (
-    <Dialog title="Remote Control" onCancel={onDone} hideInputGuide>
+    <Dialog title="远程控制" onCancel={onDone} hideInputGuide>
       <Box flexDirection="column" gap={1}>
         <Box flexDirection="column">
           <Text>
@@ -145,7 +145,7 @@ export function BridgeDialog({ onDone }: Props): React.ReactNode {
           </Box>
         )}
         {footerText && <Text dimColor>{footerText}</Text>}
-        <Text dimColor>d to disconnect · space for QR code · Enter/Esc to close</Text>
+        <Text dimColor>d 断开连接 · space 显示二维码 · Enter/Esc 关闭</Text>
       </Box>
     </Dialog>
   );

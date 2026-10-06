@@ -2,12 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { useTerminalSize } from 'src/hooks/useTerminalSize.js';
 import { type CodeSession, fetchCodeSessionsFromSessionsAPI } from 'src/utils/teleport/api.js';
 // eslint-disable-next-line custom-rules/prefer-use-keybindings -- raw j/k/arrow list navigation
-import { Box, Text, useInput } from '@anthropic/ink';
+import { Box, stringWidth, Text, useInput } from '@anthropic/ink';
 import { useKeybinding } from '../keybindings/useKeybinding.js';
 import { useShortcutDisplay } from '../keybindings/useShortcutDisplay.js';
 import { logForDebugging } from '../utils/debug.js';
 import { detectCurrentRepository } from '../utils/detectRepository.js';
 import { formatRelativeTime } from '../utils/format.js';
+import { padEndWidth } from '../utils/truncate.js';
 import { ConfigurableShortcutHint } from './ConfigurableShortcutHint.js';
 import { Select } from './CustomSelect/index.js';
 import { Byline, KeyboardShortcutHint } from '@anthropic/ink';
@@ -22,7 +23,7 @@ type Props = {
 
 type LoadErrorType = 'network' | 'auth' | 'api' | 'other';
 
-const UPDATED_STRING = 'Updated';
+const UPDATED_STRING = '更新时间';
 const SPACE_BETWEEN_TABLE_COLUMNS = '  ';
 
 export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): React.ReactNode {
@@ -127,9 +128,9 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
       <Box flexDirection="column" padding={1}>
         <Box flexDirection="row">
           <Spinner />
-          <Text bold>Loading Claude Code sessions…</Text>
+          <Text bold>正在加载 Claude Code 会话…</Text>
         </Box>
-        <Text dimColor>{retrying ? 'Retrying…' : 'Fetching your Claude Code sessions…'}</Text>
+        <Text dimColor>{retrying ? '正在重试…' : '正在获取你的 Claude Code 会话…'}</Text>
       </Box>
     );
   }
@@ -138,7 +139,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold color="error">
-          Error loading Claude Code sessions
+          加载 Claude Code 会话时出错
         </Text>
 
         {renderErrorSpecificGuidance(loadErrorType)}
@@ -154,7 +155,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold>
-          No Claude Code sessions found
+          未找到 Claude Code 会话
           {currentRepo && <Text> for {currentRepo}</Text>}
         </Text>
         <Box marginTop={1}>
@@ -170,10 +171,10 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
     ...session,
     timeString: formatRelativeTime(new Date(session.updated_at)),
   }));
-  const maxTimeStringLength = Math.max(UPDATED_STRING.length, ...sessionMetadata.map(meta => meta.timeString.length));
+  const maxTimeStringLength = Math.max(stringWidth(UPDATED_STRING), ...sessionMetadata.map(meta => stringWidth(meta.timeString)));
 
   const options = sessionMetadata.map(({ timeString, title, id }) => {
-    const paddedTime = timeString.padEnd(maxTimeStringLength, ' ');
+    const paddedTime = padEndWidth(timeString, maxTimeStringLength);
 
     // TODO: include branch name when API returns it
     return {
@@ -199,7 +200,7 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
   return (
     <Box flexDirection="column" padding={1} height={maxHeight}>
       <Text bold>
-        Select a session to resume
+        选择要恢复的会话
         {showScrollPosition && (
           <Text dimColor>
             {' '}
@@ -211,9 +212,9 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
       <Box flexDirection="column" marginTop={1} flexGrow={1}>
         <Box marginLeft={2}>
           <Text bold>
-            {UPDATED_STRING.padEnd(maxTimeStringLength, ' ')}
+            {padEndWidth(UPDATED_STRING, maxTimeStringLength)}
             {SPACE_BETWEEN_TABLE_COLUMNS}
-            {'Session Title'}
+            {'会话标题'}
           </Text>
         </Box>
         <Select
@@ -236,9 +237,9 @@ export function ResumeTask({ onSelect, onCancel, isEmbedded = false }: Props): R
       <Box flexDirection="row">
         <Text dimColor>
           <Byline>
-            <KeyboardShortcutHint shortcut="↑/↓" action="select" />
-            <KeyboardShortcutHint shortcut="Enter" action="confirm" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <KeyboardShortcutHint shortcut="↑/↓" action="选择" />
+            <KeyboardShortcutHint shortcut="Enter" action="确认" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         </Text>
       </Box>
@@ -284,14 +285,14 @@ function renderErrorSpecificGuidance(errorType: LoadErrorType): React.ReactNode 
     case 'network':
       return (
         <Box marginY={1} flexDirection="column">
-          <Text dimColor>Check your internet connection</Text>
+          <Text dimColor>请检查你的网络连接</Text>
         </Box>
       );
 
     case 'auth':
       return (
         <Box marginY={1} flexDirection="column">
-          <Text dimColor>Teleport requires a Claude account</Text>
+          <Text dimColor>Teleport 需要 Claude 账号</Text>
           <Text dimColor>
             Run <Text bold>/login</Text> and select &quot;Claude account with subscription&quot;
           </Text>
@@ -301,14 +302,14 @@ function renderErrorSpecificGuidance(errorType: LoadErrorType): React.ReactNode 
     case 'api':
       return (
         <Box marginY={1} flexDirection="column">
-          <Text dimColor>Sorry, Claude encountered an error</Text>
+          <Text dimColor>抱歉，Claude 遇到了错误</Text>
         </Box>
       );
 
     case 'other':
       return (
         <Box marginY={1} flexDirection="row">
-          <Text dimColor>Sorry, Claude Code encountered an error</Text>
+          <Text dimColor>抱歉，Claude Code 遇到了错误</Text>
         </Box>
       );
   }

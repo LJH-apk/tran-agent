@@ -124,26 +124,26 @@ function classifyError(err: unknown): MemoryStoresApiError {
     const status = err.response?.status ?? 0
     if (status === 401) {
       return new MemoryStoresApiError(
-        'Authentication failed. Please run /login to re-authenticate.',
+        '身份验证失败。请运行 /login 重新登录。',
         401,
       )
     }
     if (status === 403) {
       return new MemoryStoresApiError(
-        'Subscription required. Memory stores require a Claude Pro/Max/Team subscription.',
+        '需要订阅。记忆存储需要 Claude Pro/Max/Team 订阅。',
         403,
       )
     }
     if (status === 404) {
-      return new MemoryStoresApiError('Memory store or memory not found.', 404)
+      return new MemoryStoresApiError('未找到记忆存储或记忆。', 404)
     }
     if (status === 429) {
       const retryAfter =
         (err.response?.headers as Record<string, string> | undefined)?.[
           'retry-after'
         ] ?? ''
-      const detail = retryAfter ? ` Retry after ${retryAfter}s.` : ''
-      return new MemoryStoresApiError(`Rate limit exceeded.${detail}`, 429)
+      const detail = retryAfter ? ` 请在 ${retryAfter} 秒后重试。` : ''
+      return new MemoryStoresApiError(`请求过于频繁。${detail}`, 429)
     }
     const msg =
       (err.response?.data as { error?: { message?: string } } | undefined)
@@ -196,7 +196,7 @@ async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
       throw classified
     }
   }
-  throw lastErr ?? new MemoryStoresApiError('Request failed after retries', 0)
+  throw lastErr ?? new MemoryStoresApiError('重试后请求仍然失败', 0)
 }
 
 // ── Store CRUD ─────────────────────────────────────────────────────────────

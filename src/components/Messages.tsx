@@ -897,7 +897,7 @@ const MessagesImpl = ({
       {/* Truncation indicator */}
       {hasTruncatedMessages && (
         <Divider
-          title={`${toggleShowAllShortcut} to show ${chalk.bold(hiddenMessageCount)} previous messages`}
+          title={`${toggleShowAllShortcut} 显示之前 ${chalk.bold(hiddenMessageCount)} 条消息`}
           width={columns}
         />
       )}
@@ -911,7 +911,7 @@ const MessagesImpl = ({
         // nothing is actually "hidden" to restore.
         !disableRenderCap && (
           <Divider
-            title={`${toggleShowAllShortcut} to hide ${chalk.bold(hiddenMessageCount)} previous messages`}
+            title={`${toggleShowAllShortcut} 隐藏之前 ${chalk.bold(hiddenMessageCount)} 条消息`}
             width={columns}
           />
         )}

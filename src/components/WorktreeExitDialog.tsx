@@ -60,13 +60,13 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
               setCwd(worktreeSession.originalCwd);
               recordWorktreeExit();
               getPlansDirectory.cache.clear?.();
-              setResultMessage('Worktree removed (no changes)');
+              setResultMessage('工作树已移除（无更改）');
             })
             .catch(error => {
               logForDebugging(`Failed to clean up worktree: ${error}`, {
                 level: 'error',
               });
-              setResultMessage('Worktree cleanup failed, exiting anyway');
+              setResultMessage('工作树清理失败，仍将退出');
             })
             .then(() => {
               setStatus('done');
@@ -88,7 +88,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
   }, [status, onDone, resultMessage]);
 
   if (!worktreeSession) {
-    onDone('No active worktree session found', { display: 'system' });
+    onDone('未找到活动的工作树会话', { display: 'system' });
     return null;
   }
 
@@ -114,11 +114,11 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
       getPlansDirectory.cache.clear?.();
       if (hasTmux) {
         setResultMessage(
-          `Worktree kept. Your work is saved at ${worktreeSession.worktreePath} on branch ${worktreeSession.worktreeBranch}. Reattach to tmux session with: tmux attach -t ${worktreeSession.tmuxSessionName}`,
+          `工作树已保留。你的工作已保存在 ${worktreeSession.worktreePath}，分支为 ${worktreeSession.worktreeBranch}。可用以下命令重新接入 tmux 会话：tmux attach -t ${worktreeSession.tmuxSessionName}`,
         );
       } else {
         setResultMessage(
-          `Worktree kept. Your work is saved at ${worktreeSession.worktreePath} on branch ${worktreeSession.worktreeBranch}`,
+          `工作树已保留。你的工作已保存在 ${worktreeSession.worktreePath}，分支为 ${worktreeSession.worktreeBranch}`,
         );
       }
       setStatus('done');
@@ -137,7 +137,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
       recordWorktreeExit();
       getPlansDirectory.cache.clear?.();
       setResultMessage(
-        `Worktree kept at ${worktreeSession.worktreePath} on branch ${worktreeSession.worktreeBranch}. Tmux session terminated.`,
+        `工作树已保留在 ${worktreeSession.worktreePath}，分支为 ${worktreeSession.worktreeBranch}。Tmux 会话已终止。`,
       );
       setStatus('done');
     } else if (value === 'remove' || value === 'remove-with-tmux') {
@@ -159,11 +159,11 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
         logForDebugging(`Failed to clean up worktree: ${error}`, {
           level: 'error',
         });
-        setResultMessage('Worktree cleanup failed, exiting anyway');
+        setResultMessage('工作树清理失败，仍将退出');
         setStatus('done');
         return;
       }
-      const tmuxNote = hasTmux ? ' Tmux session terminated.' : '';
+      const tmuxNote = hasTmux ? ' Tmux 会话已终止。' : '';
       if (commitCount > 0 && changes.length > 0) {
         setResultMessage(
           `Worktree removed. ${commitCount} ${commitCount === 1 ? 'commit' : 'commits'} and uncommitted changes were discarded.${tmuxNote}`,
@@ -173,9 +173,9 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
           `Worktree removed. ${commitCount} ${commitCount === 1 ? 'commit' : 'commits'} on ${worktreeSession.worktreeBranch} ${commitCount === 1 ? 'was' : 'were'} discarded.${tmuxNote}`,
         );
       } else if (changes.length > 0) {
-        setResultMessage(`Worktree removed. Uncommitted changes were discarded.${tmuxNote}`);
+        setResultMessage(`工作树已移除。未提交的更改已丢弃。${tmuxNote}`);
       } else {
-        setResultMessage(`Worktree removed.${tmuxNote}`);
+        setResultMessage(`工作树已移除。${tmuxNote}`);
       }
       setStatus('done');
     }
@@ -185,7 +185,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
     return (
       <Box flexDirection="row" marginY={1}>
         <Spinner />
-        <Text>Keeping worktree…</Text>
+        <Text>正在保留工作树…</Text>
       </Box>
     );
   }
@@ -194,7 +194,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
     return (
       <Box flexDirection="row" marginY={1}>
         <Spinner />
-        <Text>Removing worktree…</Text>
+        <Text>正在移除工作树…</Text>
       </Box>
     );
   }
@@ -211,7 +211,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
   } else if (hasCommits) {
     subtitle = `You have ${commitCount} ${commitCount === 1 ? 'commit' : 'commits'} on ${branchName}. The branch will be deleted if you remove the worktree.`;
   } else {
-    subtitle = 'You are working in a worktree. Keep it to continue working there, or remove it to clean up.';
+    subtitle = '你正在工作树中工作。保留它可继续在其中工作，移除它则进行清理。';
   }
 
   function handleCancel() {
@@ -225,36 +225,36 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
   }
 
   const removeDescription =
-    hasUncommitted || hasCommits ? 'All changes and commits will be lost.' : 'Clean up the worktree directory.';
+    hasUncommitted || hasCommits ? '所有更改和提交都将丢失。' : '清理工作树目录。';
 
   const hasTmuxSession = Boolean(worktreeSession.tmuxSessionName);
 
   const options = hasTmuxSession
     ? [
         {
-          label: 'Keep worktree and tmux session',
+          label: '保留工作树和 tmux 会话',
           value: 'keep-with-tmux',
-          description: `Stays at ${worktreeSession.worktreePath}. Reattach with: tmux attach -t ${worktreeSession.tmuxSessionName}`,
+          description: `保持在 ${worktreeSession.worktreePath}。用以下命令重新接入：tmux attach -t ${worktreeSession.tmuxSessionName}`,
         },
         {
-          label: 'Keep worktree, kill tmux session',
+          label: '保留工作树，结束 tmux 会话',
           value: 'keep-kill-tmux',
-          description: `Keeps worktree at ${worktreeSession.worktreePath}, terminates tmux session.`,
+          description: `保留工作树于 ${worktreeSession.worktreePath}，终止 tmux 会话。`,
         },
         {
-          label: 'Remove worktree and tmux session',
+          label: '移除工作树和 tmux 会话',
           value: 'remove-with-tmux',
           description: removeDescription,
         },
       ]
     : [
         {
-          label: 'Keep worktree',
+          label: '保留工作树',
           value: 'keep',
-          description: `Stays at ${worktreeSession.worktreePath}`,
+          description: `保持在 ${worktreeSession.worktreePath}`,
         },
         {
-          label: 'Remove worktree',
+          label: '移除工作树',
           value: 'remove',
           description: removeDescription,
         },
@@ -263,7 +263,7 @@ export function WorktreeExitDialog({ onDone, onCancel }: Props): React.ReactNode
   const defaultValue = hasTmuxSession ? 'keep-with-tmux' : 'keep';
 
   return (
-    <Dialog title="Exiting worktree session" subtitle={subtitle} onCancel={handleCancel}>
+    <Dialog title="正在退出工作树会话" subtitle={subtitle} onCancel={handleCancel}>
       <Select defaultFocusValue={defaultValue} options={options} onChange={handleSelect} />
     </Dialog>
   );

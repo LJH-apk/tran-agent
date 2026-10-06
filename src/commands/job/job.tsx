@@ -29,6 +29,6 @@ export async function call(
     console.error = origError;
   }
 
-  onDone(lines.join('\n') || 'Done.', { display: 'system' });
+  onDone(lines.join('\n') || '已完成。', { display: 'system' });
   return null;
 }

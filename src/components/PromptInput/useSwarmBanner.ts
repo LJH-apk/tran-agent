@@ -88,7 +88,7 @@ export function useSwarmBanner(): SwarmBannerInfo {
     if (insideTmux === false && !inProcessMode && !nativePanes) {
       const hint =
         backendType === 'windows-terminal'
-          ? 'View teammates in the Windows Terminal tabs spawned for each teammate'
+          ? '在每个队友对应的 Windows Terminal 标签页中查看队友'
           : `View teammates: \`tmux -L ${getSwarmSocketName()} a\``
       return {
         text: hint,

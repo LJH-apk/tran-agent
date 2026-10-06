@@ -23,7 +23,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
       reason: parsed.reason as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
     onDone(
-      `Usage: /schedule list | get ID | create CRON PROMPT | update ID FIELD VALUE | delete ID | run ID | enable ID | disable ID\n${parsed.reason}`,
+      `用法：/schedule list | get ID | create CRON PROMPT | update ID FIELD VALUE | delete ID | run ID | enable ID | disable ID\n${parsed.reason}`,
       { display: 'system' },
     );
     return null;
@@ -34,7 +34,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     logEvent('tengu_schedule_list', {});
     try {
       const triggers = await listTriggers();
-      onDone(triggers.length === 0 ? 'No scheduled triggers found.' : `${triggers.length} scheduled trigger(s).`, {
+      onDone(triggers.length === 0 ? '未找到已计划的触发器。' : `${triggers.length} 个已计划的触发器。`, {
         display: 'system',
       });
       return React.createElement(ScheduleView, { mode: 'list', triggers });
@@ -43,7 +43,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list triggers: ${msg}`, { display: 'system' });
+      onDone(`列出触发器失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -56,14 +56,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     });
     try {
       const trigger = await getTrigger(id);
-      onDone(`Trigger ${id} fetched.`, { display: 'system' });
+      onDone(`已获取触发器 ${id}。`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'detail', trigger });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to get trigger ${id}: ${msg}`, { display: 'system' });
+      onDone(`获取触发器 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -74,7 +74,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
 
     const cronFields = parseCronExpression(cron);
     if (!cronFields) {
-      const reason = `Invalid cron expression: "${cron}". Expected 5 fields (minute hour day month weekday).`;
+      const reason = `cron 表达式无效："${cron}"。应为 5 个字段（分 时 日 月 周）。`;
       logEvent('tengu_schedule_failed', {
         reason: reason as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
@@ -87,14 +87,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     });
     try {
       const trigger = await createTrigger({ cron_expression: cron, prompt });
-      onDone(`Trigger created: ${trigger.trigger_id}`, { display: 'system' });
+      onDone(`触发器已创建：${trigger.trigger_id}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'created', trigger });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to create trigger: ${msg}`, { display: 'system' });
+      onDone(`创建触发器失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -118,7 +118,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     } else if (field === 'agent_id') {
       body = { agent_id: value };
     } else {
-      const reason = `Unknown field "${field}". Valid fields: enabled, cron_expression, prompt, agent_id`;
+      const reason = `未知字段 "${field}"。有效字段：enabled、cron_expression、prompt、agent_id`;
       logEvent('tengu_schedule_failed', {
         reason: reason as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
@@ -131,14 +131,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
 
     try {
       const trigger = await updateTrigger(id, body);
-      onDone(`Trigger ${id} updated.`, { display: 'system' });
+      onDone(`触发器 ${id} 已更新。`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'updated', trigger });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to update trigger ${id}: ${msg}`, { display: 'system' });
+      onDone(`更新触发器 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -151,14 +151,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     });
     try {
       await deleteTrigger(id);
-      onDone(`Trigger ${id} deleted.`, { display: 'system' });
+      onDone(`触发器 ${id} 已删除。`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'deleted', id });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to delete trigger ${id}: ${msg}`, { display: 'system' });
+      onDone(`删除触发器 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -171,7 +171,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     });
     try {
       const result = await runTrigger(id);
-      onDone(`Trigger ${id} fired. Run ID: ${result.run_id}`, {
+      onDone(`触发器 ${id} 已触发。运行 ID：${result.run_id}`, {
         display: 'system',
       });
       return React.createElement(ScheduleView, {
@@ -184,7 +184,7 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to run trigger ${id}: ${msg}`, { display: 'system' });
+      onDone(`运行触发器 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -197,14 +197,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
     });
     try {
       await updateTrigger(id, { enabled: true });
-      onDone(`Trigger ${id} enabled.`, { display: 'system' });
+      onDone(`触发器 ${id} 已启用。`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'enabled', id });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_schedule_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to enable trigger ${id}: ${msg}`, { display: 'system' });
+      onDone(`启用触发器 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(ScheduleView, { mode: 'error', message: msg });
     }
   }
@@ -217,14 +217,14 @@ export const callSchedule: LocalJSXCommandCall = async (onDone, _context, args) 
   });
   try {
     await updateTrigger(id, { enabled: false });
-    onDone(`Trigger ${id} disabled.`, { display: 'system' });
+    onDone(`触发器 ${id} 已禁用。`, { display: 'system' });
     return React.createElement(ScheduleView, { mode: 'disabled', id });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logEvent('tengu_schedule_failed', {
       reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
-    onDone(`Failed to disable trigger ${id}: ${msg}`, { display: 'system' });
+    onDone(`禁用触发器 ${id} 失败：${msg}`, { display: 'system' });
     return React.createElement(ScheduleView, { mode: 'error', message: msg });
   }
 };

@@ -79,18 +79,18 @@ function classifyError(err: unknown): AgentsApiError {
     const status = err.response?.status ?? 0
     if (status === 401) {
       return new AgentsApiError(
-        'Authentication failed. Please run /login to re-authenticate.',
+        '认证失败。请运行 /login 重新登录。',
         401,
       )
     }
     if (status === 403) {
       return new AgentsApiError(
-        'Subscription required. Scheduled agents require a Claude Pro/Max/Team subscription.',
+        '需要订阅。定时智能体需要 Claude Pro/Max/Team 订阅。',
         403,
       )
     }
     if (status === 404) {
-      return new AgentsApiError('Agent not found.', 404)
+      return new AgentsApiError('未找到该智能体。', 404)
     }
     // G2: add 429 handler (was missing; other P2 clients have it)
     if (status === 429) {
@@ -98,8 +98,8 @@ function classifyError(err: unknown): AgentsApiError {
         (err.response?.headers as Record<string, string> | undefined)?.[
           'retry-after'
         ] ?? ''
-      const detail = retryAfter ? ` Retry after ${retryAfter}s.` : ''
-      return new AgentsApiError(`Rate limit exceeded.${detail}`, 429)
+      const detail = retryAfter ? ` 请在 ${retryAfter} 秒后重试。` : ''
+      return new AgentsApiError(`已超出速率限制。${detail}`, 429)
     }
     const msg =
       (err.response?.data as { error?: { message?: string } } | undefined)
@@ -150,7 +150,7 @@ async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
       throw classified
     }
   }
-  throw lastErr ?? new AgentsApiError('Request failed after retries', 0)
+  throw lastErr ?? new AgentsApiError('重试后请求仍然失败', 0)
 }
 
 export async function listAgents(): Promise<AgentTrigger[]> {

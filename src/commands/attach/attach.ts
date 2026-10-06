@@ -25,7 +25,7 @@ export const call: LocalCommandCall = async (args, context) => {
   if (getPipeIpc(currentState).slaves[targetName]) {
     return {
       type: 'text',
-      value: `Already attached to "${targetName}".`,
+      value: `已连接到“${targetName}”。`,
     }
   }
 
@@ -79,7 +79,7 @@ export const call: LocalCommandCall = async (args, context) => {
       client.disconnect()
       resolve({
         type: 'text',
-        value: `Attach to "${targetName}" timed out (no response within 5s).`,
+        value: `连接“${targetName}”超时（5 秒内无响应）。`,
       })
     }, 5000)
 
@@ -114,7 +114,7 @@ export const call: LocalCommandCall = async (args, context) => {
           Object.keys(getPipeIpc(currentState).slaves).length + 1
         resolve({
           type: 'text',
-          value: `Attached to "${targetName}" as master. Now monitoring ${slaveCount} sub session(s).\nUse /send ${targetName} <message> to send tasks.\nUse /status to see all connected subs.\nUse /detach ${targetName} to disconnect.`,
+          value: `已作为主会话连接到“${targetName}”，正在监控 ${slaveCount} 个子会话。\n用 /send ${targetName} <消息> 发送任务。\n用 /status 查看所有已连接的子会话。\n用 /detach ${targetName} 断开连接。`,
         })
       } else if (msg.type === 'attach_reject') {
         clearTimeout(timeout)
@@ -122,7 +122,7 @@ export const call: LocalCommandCall = async (args, context) => {
 
         resolve({
           type: 'text',
-          value: `Attach rejected by "${targetName}": ${msg.data ?? 'unknown reason'}`,
+          value: `连接被“${targetName}”拒绝：${msg.data ?? 'unknown reason'}`,
         })
       }
     })

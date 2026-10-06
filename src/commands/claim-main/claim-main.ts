@@ -60,17 +60,17 @@ export const call: LocalCommandCall = async (_args, context) => {
   }))
 
   const lines: string[] = []
-  lines.push('Main role claimed successfully.')
-  lines.push(`Machine ID: ${machineId.slice(0, 8)}...`)
-  lines.push(`Pipe:       ${myName}`)
+  lines.push('已成功认领主角色。')
+  lines.push(`机器 ID：${machineId.slice(0, 8)}...`)
+  lines.push(`管道：      ${myName}`)
   if (registry.mainMachineId && registry.mainMachineId !== machineId) {
     lines.push(
-      `Previous main machine: ${registry.mainMachineId.slice(0, 8)}...`,
+      `原主机器：${registry.mainMachineId.slice(0, 8)}...`,
     )
   }
   lines.push('')
-  lines.push('All existing subs are now bound to this instance.')
-  lines.push('Use /pipes to verify.')
+  lines.push('所有已有的子实例现已绑定到本实例。')
+  lines.push('用 /pipes 验证。')
 
   return { type: 'text', value: lines.join('\n') }
 }

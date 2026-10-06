@@ -22,7 +22,7 @@ export function NotebookEditToolUseRejectedMessage({
   edit_mode = 'replace',
   verbose,
 }: Props): React.ReactNode {
-  const operation = edit_mode === 'delete' ? 'delete' : `${edit_mode} cell in`;
+  const operation = edit_mode === 'delete' ? 'delete' : `在 ${edit_mode} 单元格中`;
 
   return (
     <MessageResponse>

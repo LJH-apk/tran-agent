@@ -25,7 +25,7 @@ export function QuestionNavigationBar({
     // Calculate fixed width elements
     const leftArrow = '← ';
     const rightArrow = ' →';
-    const submitText = hideSubmitTab ? '' : ` ${figures.tick} Submit `;
+    const submitText = hideSubmitTab ? '' : ` ${figures.tick} 提交 `;
     const checkboxWidth = 2; // checkbox + space
     const paddingPerTab = 2; // space before and after each tab text
 
@@ -37,13 +37,13 @@ export function QuestionNavigationBar({
     if (availableForTabs <= 0) {
       // Terminal too narrow, fallback to minimal display
       return questions.map((q: Question, index: number) => {
-        const header = q?.header || `Q${index + 1}`;
+        const header = q?.header || `问题 ${index + 1}`;
         return index === currentQuestionIndex ? header.slice(0, 3) : '';
       });
     }
 
     // Calculate ideal width for each tab (checkbox + padding + text)
-    const tabHeaders = questions.map((q: Question, index: number) => q?.header || `Q${index + 1}`);
+    const tabHeaders = questions.map((q: Question, index: number) => q?.header || `问题 ${index + 1}`);
     const idealWidths = tabHeaders.map(header => checkboxWidth + paddingPerTab + stringWidth(header));
 
     // Calculate total ideal width
@@ -114,10 +114,10 @@ export function QuestionNavigationBar({
           {currentQuestionIndex === questions.length ? (
             <Text backgroundColor="permission" color="inverseText">
               {' '}
-              {figures.tick} Submit{' '}
+              {figures.tick} 提交{' '}
             </Text>
           ) : (
-            <Text> {figures.tick} Submit </Text>
+            <Text> {figures.tick} 提交 </Text>
           )}
         </Box>
       )}

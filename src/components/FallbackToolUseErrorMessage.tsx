@@ -20,7 +20,7 @@ export function FallbackToolUseErrorMessage({ result, verbose }: Props): React.R
   let error: string;
 
   if (typeof result !== 'string') {
-    error = 'Tool execution failed';
+    error = '工具执行失败';
   } else {
     const extractedError = extractTag(result, 'tool_use_error') ?? result;
     // Remove sandbox_violations tags from error display (Claude still sees them in the tool result)
@@ -28,8 +28,8 @@ export function FallbackToolUseErrorMessage({ result, verbose }: Props): React.R
     // Strip <error> tags but keep their content (tags are for the model, not the UI)
     const withoutErrorTags = withoutSandboxViolations.replace(/<\/?error>/g, '');
     const trimmed = withoutErrorTags.trim();
-    if (!verbose && trimmed.includes('InputValidationError: ')) {
-      error = 'Invalid tool parameters';
+    if (!verbose && trimmed.includes('InputValidation错误：')) {
+      error = '工具参数无效';
     } else if (trimmed.startsWith('Error: ') || trimmed.startsWith('Cancelled: ')) {
       error = trimmed;
     } else {
@@ -56,7 +56,7 @@ export function FallbackToolUseErrorMessage({ result, verbose }: Props): React.R
               {transcriptShortcut}
             </Text>
             <Text> </Text>
-            <Text dimColor>to see all)</Text>
+            <Text dimColor>查看全部）</Text>
           </Box>
         )}
       </Box>

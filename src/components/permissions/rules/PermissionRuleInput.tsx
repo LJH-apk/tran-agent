@@ -49,10 +49,10 @@ export function PermissionRuleInput({ onCancel, onSubmit, ruleBehavior }: Permis
         </Text>
         <Box flexDirection="column">
           <Text>
-            Permission rules are a tool name, optionally followed by a specifier in parentheses.
+            权限规则由工具名构成，后面可选用括号跟一个限定符。
             <Newline />
-            e.g., <Text bold>{permissionRuleValueToString({ toolName: WebFetchTool.name })}</Text>
-            <Text bold={false}> or </Text>
+            例如， <Text bold>{permissionRuleValueToString({ toolName: WebFetchTool.name })}</Text>
+            <Text bold={false}> 或 </Text>
             <Text bold>
               {permissionRuleValueToString({
                 toolName: BashTool.name,
@@ -78,7 +78,7 @@ export function PermissionRuleInput({ onCancel, onSubmit, ruleBehavior }: Permis
         {exitState.pending ? (
           <Text dimColor>Press {exitState.keyName} again to exit</Text>
         ) : (
-          <Text dimColor>Enter to submit · Esc to cancel</Text>
+          <Text dimColor>按 Enter 提交 · 按 Esc 取消</Text>
         )}
       </Box>
     </>

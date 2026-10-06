@@ -170,41 +170,41 @@ export async function call(
   _args: string,
 ): Promise<null> {
   if (env.terminal && env.terminal in NATIVE_CSIU_TERMINALS) {
-    const message = `Shift+Enter is natively supported in ${NATIVE_CSIU_TERMINALS[env.terminal]}.
+    const message = `${NATIVE_CSIU_TERMINALS[env.terminal]} 原生支持 Shift+Enter。
 
-No configuration needed. Just use Shift+Enter to add newlines.`;
+无需任何配置，直接按 Shift+Enter 即可换行。`;
     onDone(message);
     return null;
   }
 
   // Check if terminal is supported
   if (!shouldOfferTerminalSetup()) {
-    const terminalName = env.terminal || 'your current terminal';
+    const terminalName = env.terminal || '你当前使用的终端';
     const currentPlatform = getPlatform();
 
     // Build platform-specific terminal suggestions
     let platformTerminals = '';
     if (currentPlatform === 'macos') {
-      platformTerminals = '   • macOS: Apple Terminal\n';
+      platformTerminals = '   • macOS：Apple Terminal\n';
     } else if (currentPlatform === 'windows') {
-      platformTerminals = '   • Windows: Windows Terminal\n';
+      platformTerminals = '   • Windows：Windows Terminal\n';
     }
     // For Linux and other platforms, we don't show native terminal options
     // since they're not currently supported
 
-    const message = `Terminal setup cannot be run from ${terminalName}.
+    const message = `无法从 ${terminalName} 运行终端设置。
 
-This command configures a convenient Shift+Enter shortcut for multi-line prompts.
+该命令会为多行提示配置便捷的 Shift+Enter 快捷键。
 ${chalk.dim('Note: You can already use backslash (\\\\) + return to add newlines.')}
 
-To set up the shortcut (optional):
+如需设置该快捷键（可选）：
 1. Exit tmux/screen temporarily
 2. Run /terminal-setup directly in one of these terminals:
 ${platformTerminals}   • IDE: VSCode, Cursor, Windsurf, Zed
    • Other: Alacritty
 3. Return to tmux/screen - settings will persist
 
-${chalk.dim('Note: iTerm2, WezTerm, Ghostty, Kitty, and Warp support Shift+Enter natively.')}`;
+${chalk.dim('注意：iTerm2、WezTerm、Ghostty、Kitty 和 Warp 原生支持 Shift+Enter。')}`;
     onDone(message);
     return null;
   }
@@ -232,8 +232,8 @@ async function installBindingsForVSCodeTerminal(
       'warning',
       theme,
     )(
-      `Cannot install keybindings from a remote ${editor} session.`,
-    )}${EOL}${EOL}${editor} keybindings must be installed on your local machine, not the remote server.${EOL}${EOL}To install the Shift+Enter keybinding:${EOL}1. Open ${editor} on your local machine (not connected to remote)${EOL}2. Open the Command Palette (Cmd/Ctrl+Shift+P) → "Preferences: Open Keyboard Shortcuts (JSON)"${EOL}3. Add this keybinding (the file must be a JSON array):${EOL}${EOL}${chalk.dim(`[
+      `无法从远程 ${editor} 会话安装快捷键。`,
+    )}${EOL}${EOL}${editor} 的快捷键必须安装在本地机器上，而不是远程服务器。${EOL}${EOL}安装 Shift+Enter 快捷键的步骤：${EOL}1. 在本地机器上打开 ${editor}（不要连接到远程）${EOL}2. 打开命令面板（Cmd/Ctrl+Shift+P）→ "Preferences: Open Keyboard Shortcuts (JSON)"${EOL}3. 添加以下快捷键（该文件必须是 JSON 数组）：${EOL}${EOL}${chalk.dim(`[
   {
     "key": "shift+enter",
     "command": "workbench.action.terminal.sendSequence",
@@ -281,8 +281,8 @@ async function installBindingsForVSCodeTerminal(
           'warning',
           theme,
         )(
-          `Error backing up existing ${editor} terminal keybindings. Bailing out.`,
-        )}${EOL}${chalk.dim(`See ${formatPathLink(keybindingsPath)}`)}${EOL}${chalk.dim(`Backup path: ${formatPathLink(backupPath)}`)}${EOL}`;
+          `备份现有 ${editor} 终端快捷键时出错，已中止。`,
+        )}${EOL}${chalk.dim(`参见 ${formatPathLink(keybindingsPath)}`)}${EOL}${chalk.dim(`备份路径：${formatPathLink(backupPath)}`)}${EOL}`;
       }
     }
 
@@ -298,8 +298,8 @@ async function installBindingsForVSCodeTerminal(
         'warning',
         theme,
       )(
-        `Found existing ${editor} terminal Shift+Enter key binding. Remove it to continue.`,
-      )}${EOL}${chalk.dim(`See ${formatPathLink(keybindingsPath)}`)}${EOL}`;
+        `发现已存在的 ${editor} 终端 Shift+Enter 快捷键。请先移除它再继续。`,
+      )}${EOL}${chalk.dim(`参见 ${formatPathLink(keybindingsPath)}`)}${EOL}`;
     }
 
     // Create the new keybinding
@@ -320,11 +320,11 @@ async function installBindingsForVSCodeTerminal(
       'success',
       theme,
     )(
-      `Installed ${editor} terminal Shift+Enter key binding`,
-    )}${EOL}${chalk.dim(`See ${formatPathLink(keybindingsPath)}`)}${EOL}`;
+      `已安装 ${editor} 终端的 Shift+Enter 快捷键`,
+    )}${EOL}${chalk.dim(`参见 ${formatPathLink(keybindingsPath)}`)}${EOL}`;
   } catch (error) {
     logError(error);
-    throw new Error(`Failed to install ${editor} terminal Shift+Enter key binding`);
+    throw new Error(`安装 ${editor} 终端 Shift+Enter 快捷键失败`);
   }
 }
 
@@ -386,7 +386,7 @@ async function enableOptionAsMetaForTerminal(theme: ThemeName): Promise<string> 
     // Create a backup of the current plist file
     const backupPath = await backupTerminalPreferences();
     if (!backupPath) {
-      throw new Error('Failed to create backup of Terminal.app preferences, bailing out');
+      throw new Error('创建 Terminal.app 偏好设置备份失败，已中止');
     }
 
     // Read the current default profile from the plist
@@ -444,23 +444,23 @@ async function enableOptionAsMetaForTerminal(theme: ThemeName): Promise<string> 
       'success',
       theme,
     )(
-      `Configured Terminal.app settings:`,
-    )}${EOL}${color('success', theme)('- Enabled "Use Option as Meta key"')}${EOL}${color('success', theme)('- Switched to visual bell')}${EOL}${chalk.dim('Option+Enter will now enter a newline.')}${EOL}${chalk.dim('You must restart Terminal.app for changes to take effect.', theme)}${EOL}`;
+      `已配置 Terminal.app 设置：`,
+    )}${EOL}${color('success', theme)('- 已启用 "Use Option as Meta key"')}${EOL}${color('success', theme)('- 已切换为视觉提示音')}${EOL}${chalk.dim('现在 Option+Enter 将输入换行。')}${EOL}${chalk.dim('必须重启 Terminal.app 后更改才会生效。', theme)}${EOL}`;
   } catch (error) {
     logError(error);
 
     // Attempt to restore from backup
     const restoreResult = await checkAndRestoreTerminalBackup();
 
-    const errorMessage = 'Failed to enable Option as Meta key for Terminal.app.';
+    const errorMessage = '为 Terminal.app 启用 Option 作为 Meta 键失败。';
     if (restoreResult.status === 'restored') {
-      throw new Error(`${errorMessage} Your settings have been restored from backup.`);
+      throw new Error(`${errorMessage} 你的设置已从备份中恢复。`);
     } else if (restoreResult.status === 'failed') {
       throw new Error(
-        `${errorMessage} Restoring from backup failed, try manually with: defaults import com.apple.Terminal ${restoreResult.backupPath}`,
+        `${errorMessage} 从备份恢复失败，请手动执行：defaults import com.apple.Terminal ${restoreResult.backupPath}`,
       );
     } else {
-      throw new Error(`${errorMessage} No backup was available to restore from.`);
+      throw new Error(`${errorMessage} 没有可用于恢复的备份。`);
     }
   }
 }
@@ -513,7 +513,7 @@ chars = "\\u001B\\r"`;
   }
 
   if (!configPath) {
-    throw new Error('No valid config path found for Alacritty');
+    throw new Error('未找到 Alacritty 的有效配置路径');
   }
 
   try {
@@ -524,8 +524,8 @@ chars = "\\u001B\\r"`;
           'warning',
           theme,
         )(
-          'Found existing Alacritty Shift+Enter key binding. Remove it to continue.',
-        )}${EOL}${chalk.dim(`See ${formatPathLink(configPath)}`)}${EOL}`;
+          '发现已存在的 Alacritty Shift+Enter 快捷键。请先移除它再继续。',
+        )}${EOL}${chalk.dim(`参见 ${formatPathLink(configPath)}`)}${EOL}`;
       }
 
       // Create backup
@@ -538,8 +538,8 @@ chars = "\\u001B\\r"`;
           'warning',
           theme,
         )(
-          'Error backing up existing Alacritty config. Bailing out.',
-        )}${EOL}${chalk.dim(`See ${formatPathLink(configPath)}`)}${EOL}${chalk.dim(`Backup path: ${formatPathLink(backupPath)}`)}${EOL}`;
+          '备份现有 Alacritty 配置时出错，已中止。',
+        )}${EOL}${chalk.dim(`参见 ${formatPathLink(configPath)}`)}${EOL}${chalk.dim(`备份路径：${formatPathLink(backupPath)}`)}${EOL}`;
       }
     } else {
       // Ensure config directory exists (idempotent with recursive)
@@ -556,15 +556,15 @@ chars = "\\u001B\\r"`;
     // Write the updated config
     await writeFile(configPath, updatedContent, { encoding: 'utf-8' });
 
-    return `${color('success', theme)('Installed Alacritty Shift+Enter key binding')}${EOL}${color(
+    return `${color('success', theme)('已安装 Alacritty Shift+Enter 快捷键')}${EOL}${color(
       'success',
       theme,
     )(
-      'You may need to restart Alacritty for changes to take effect',
-    )}${EOL}${chalk.dim(`See ${formatPathLink(configPath)}`)}${EOL}`;
+      '可能需要重启 Alacritty 后更改才会生效',
+    )}${EOL}${chalk.dim(`参见 ${formatPathLink(configPath)}`)}${EOL}`;
   } catch (error) {
     logError(error);
-    throw new Error('Failed to install Alacritty Shift+Enter key binding');
+    throw new Error('安装 Alacritty Shift+Enter 快捷键失败');
   }
 }
 
@@ -594,8 +594,8 @@ async function installBindingsForZed(theme: ThemeName): Promise<string> {
           'warning',
           theme,
         )(
-          'Found existing Zed Shift+Enter key binding. Remove it to continue.',
-        )}${EOL}${chalk.dim(`See ${formatPathLink(keymapPath)}`)}${EOL}`;
+          '发现已存在的 Zed Shift+Enter 快捷键。请先移除它再继续。',
+        )}${EOL}${chalk.dim(`参见 ${formatPathLink(keymapPath)}`)}${EOL}`;
       }
 
       // Create backup
@@ -608,8 +608,8 @@ async function installBindingsForZed(theme: ThemeName): Promise<string> {
           'warning',
           theme,
         )(
-          'Error backing up existing Zed keymap. Bailing out.',
-        )}${EOL}${chalk.dim(`See ${formatPathLink(keymapPath)}`)}${EOL}${chalk.dim(`Backup path: ${formatPathLink(backupPath)}`)}${EOL}`;
+          '备份现有 Zed 键位映射时出错，已中止。',
+        )}${EOL}${chalk.dim(`参见 ${formatPathLink(keymapPath)}`)}${EOL}${chalk.dim(`备份路径：${formatPathLink(backupPath)}`)}${EOL}`;
       }
     }
 
@@ -643,9 +643,9 @@ async function installBindingsForZed(theme: ThemeName): Promise<string> {
     return `${color(
       'success',
       theme,
-    )('Installed Zed Shift+Enter key binding')}${EOL}${chalk.dim(`See ${formatPathLink(keymapPath)}`)}${EOL}`;
+    )('已安装 Zed Shift+Enter 快捷键')}${EOL}${chalk.dim(`See ${formatPathLink(keymapPath)}`)}${EOL}`;
   } catch (error) {
     logError(error);
-    throw new Error('Failed to install Zed Shift+Enter key binding');
+    throw new Error('安装 Zed Shift+Enter 快捷键失败');
   }
 }

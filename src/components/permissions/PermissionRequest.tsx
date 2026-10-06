@@ -165,22 +165,22 @@ function getNotificationMessage(toolUseConfirm: ToolUseConfirm): string {
   const toolName = toolUseConfirm.tool.userFacingName(toolUseConfirm.input as never);
 
   if (toolUseConfirm.tool === ExitPlanModeV2Tool) {
-    return 'Claude Code needs your approval for the plan';
+    return 'Claude Code 需要你批准该计划';
   }
 
   if (toolUseConfirm.tool === EnterPlanModeTool) {
-    return 'Claude Code wants to enter plan mode';
+    return 'Claude Code 想要进入计划模式';
   }
 
   if (feature('REVIEW_ARTIFACT') && toolUseConfirm.tool === ReviewArtifactTool) {
-    return 'Claude needs your approval for a review artifact';
+    return 'Claude 需要你批准一份审查产物';
   }
 
   if (!toolName || toolName.trim() === '') {
-    return 'Claude Code needs your attention';
+    return 'Claude Code 需要你的关注';
   }
 
-  return `Claude needs your permission to use ${toolName}`;
+  return `Claude 需要使用 ${toolName}，请授予权限`;
 }
 
 // TODO: Move this to Tool.renderPermissionRequest

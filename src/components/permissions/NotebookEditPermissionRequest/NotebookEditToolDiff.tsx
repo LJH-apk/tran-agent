@@ -106,13 +106,13 @@ function NotebookEditToolDiffInner({
   let editTypeDescription: string;
   switch (edit_mode) {
     case 'insert':
-      editTypeDescription = 'Insert new cell';
+      editTypeDescription = '插入新单元格';
       break;
     case 'delete':
-      editTypeDescription = 'Delete cell';
+      editTypeDescription = '删除单元格';
       break;
     default:
-      editTypeDescription = 'Replace cell contents';
+      editTypeDescription = '替换单元格内容';
   }
 
   return (
@@ -121,7 +121,7 @@ function NotebookEditToolDiffInner({
         <Box paddingBottom={1} flexDirection="column">
           <Text bold>{verbose ? notebook_path : relative(getCwd(), notebook_path)}</Text>
           <Text dimColor>
-            {editTypeDescription} for cell {cell_id}
+            {editTypeDescription} 单元格 {cell_id}
             {cell_type ? ` (${cell_type})` : ''}
           </Text>
         </Box>

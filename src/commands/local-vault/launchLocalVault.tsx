@@ -8,8 +8,9 @@ import { LocalVaultView } from './LocalVaultView.js';
 import { parseLocalVaultArgs } from './parseArgs.js';
 import { launchCommand } from '../_shared/launchCommand.js';
 import type { LocalJSXCommandOnDone } from '../../types/command.js';
+import { padEndWidth } from '../../utils/truncate.js';
 
-const USAGE = 'Usage: /local-vault list | set KEY VALUE | get KEY [--reveal] | delete KEY';
+const USAGE = '用法：/local-vault list | set KEY VALUE | get KEY [--reveal] | delete KEY';
 
 type LocalVaultViewProps = React.ComponentProps<typeof LocalVaultView>;
 
@@ -23,9 +24,9 @@ const ACTION_LABEL_COLUMN_WIDTH = 26;
 
 function formatKeyList(keys: string[]): string {
   if (keys.length === 0) {
-    return 'No secrets stored.';
+    return '尚未存储任何密钥。';
   }
-  return ['Local Vault Keys', ...keys.map(key => `- ${key}`)].join('\n');
+  return ['本地保险库密钥', ...keys.map(key => `- ${key}`)].join('\n');
 }
 
 // ── Interactive multi-step panel ───────────────────────────────────────────
@@ -50,26 +51,26 @@ const VAULT_MENU: Array<{
   label: string;
   description: string;
 }> = [
-  { kind: 'list', label: 'List', description: 'Show stored secret keys' },
+  { kind: 'list', label: '列表', description: '显示已存储的密钥名' },
   {
     kind: 'set',
-    label: 'Set',
-    description: 'Store a secret: KEY + VALUE (input is masked)',
+    label: '设置',
+    description: '存储密钥：KEY + VALUE（输入内容已遮蔽）',
   },
   {
     kind: 'get',
-    label: 'Get',
-    description: 'Look up a secret (returns masked preview)',
+    label: '获取',
+    description: '查询密钥（返回遮蔽后的预览）',
   },
   {
     kind: 'delete',
-    label: 'Delete',
-    description: 'Delete a stored secret by KEY',
+    label: '删除',
+    description: '按 KEY 删除已存储的密钥',
   },
   {
     kind: 'about',
-    label: 'About',
-    description: 'Show command syntax',
+    label: '关于',
+    description: '显示命令语法',
   },
 ];
 
@@ -144,7 +145,7 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
           setInFlight(true);
           const key = step.key;
           void deleteSecret(key).then(removed => {
-            closeWith(removed ? `Deleted: ${key}` : `Key not found: ${key}`);
+            closeWith(removed ? `已删除：${key}` : `未找到该密钥：${key}`);
           });
         } else {
           // confirm-overwrite — proceed with setSecret
@@ -152,8 +153,8 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
           const k = step.key;
           const v = step.value;
           void setSecret(k, v)
-            .then(() => closeWith(`Secret stored: ${k} = [REDACTED]`))
-            .catch(e => closeWith(`Failed to store ${k}: ${e instanceof Error ? e.message : String(e)}`));
+            .then(() => closeWith(`密钥已存储：${k} = [已遮蔽]`))
+            .catch(e => closeWith(`存储 ${k} 失败：${e instanceof Error ? e.message : String(e)}`));
         }
       } else if (ch === 'n') {
         transition({ kind: 'menu' });
@@ -185,11 +186,11 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
   const handleKeySubmit = (raw: string) => {
     const key = raw.trim();
     if (!key) {
-      setError('Key required');
+      setError('必须填写 Key');
       return;
     }
     if (!isValidKey(key)) {
-      setError('Invalid key (allowed: letters/digits/._- only; no leading dot; not a Windows reserved name)');
+      setError('Key 无效（只允许字母/数字/._-；不能以点开头；不能是 Windows 保留名称）');
       return;
     }
     if (step.kind !== 'collect-key') return;
@@ -197,9 +198,9 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
       setInFlight(true);
       void getSecret(key).then(v => {
         if (v === null) {
-          closeWith(`Key not found: ${key}`);
+          closeWith(`未找到该密钥：${key}`);
         } else {
-          closeWith(`Key found: ${key} = ${maskSecret(v)}`);
+          closeWith(`已找到密钥：${key} = ${maskSecret(v)}`);
         }
       });
       return;
@@ -217,7 +218,7 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
   const handleValueSubmit = (rawValue: string) => {
     if (step.kind !== 'collect-value') return;
     if (rawValue.length === 0) {
-      setError('Secret value cannot be empty');
+      setError('密钥值不能为空');
       return;
     }
     const k = step.key;
@@ -235,35 +236,35 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
           });
           return;
         }
-        return setSecret(k, rawValue).then(() => closeWith(`Secret stored: ${k} = [REDACTED]`));
+        return setSecret(k, rawValue).then(() => closeWith(`密钥已存储：${k} = [已遮蔽]`));
       })
-      .catch(e => closeWith(`Failed to store ${k}: ${e instanceof Error ? e.message : String(e)}`));
+      .catch(e => closeWith(`存储 ${k} 失败：${e instanceof Error ? e.message : String(e)}`));
   };
 
   // ── Render ──────────────────────────────────────────────────────────────
   if (step.kind === 'menu') {
     return (
       <Dialog
-        title="Local Vault"
-        subtitle={`${VAULT_MENU.length} actions`}
-        onCancel={() => closeWith('Local vault panel dismissed')}
+        title="本地保险库"
+        subtitle={`${VAULT_MENU.length} 个操作`}
+        onCancel={() => closeWith('已关闭本地保险库面板')}
         color="background"
         hideInputGuide
       >
         <Box flexDirection="column">
           {VAULT_MENU.map((m, i) => (
             <Box key={m.kind} flexDirection="row">
-              <Text>{`${i === selectedIndex ? '›' : ' '} ${m.label}`.padEnd(ACTION_LABEL_COLUMN_WIDTH)}</Text>
+              <Text>{padEndWidth(`${i === selectedIndex ? '›' : ' '} ${m.label}`, ACTION_LABEL_COLUMN_WIDTH)}</Text>
               <Text dimColor>{m.description}</Text>
             </Box>
           ))}
           {inFlight && (
             <Box marginTop={1}>
-              <Text dimColor>Working...</Text>
+              <Text dimColor>处理中...</Text>
             </Box>
           )}
           <Box marginTop={1}>
-            <Text dimColor>↑/↓ or 1-5 select · Enter run · Esc close</Text>
+            <Text dimColor>↑/↓ 或 1-5 选择 · Enter 执行 · Esc 关闭</Text>
           </Box>
         </Box>
       </Dialog>
@@ -272,13 +273,13 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
 
   if (step.kind === 'confirm-delete') {
     return (
-      <Dialog title="Confirm Delete" onCancel={() => transition({ kind: 'menu' })} color="warning" hideInputGuide>
+      <Dialog title="确认删除" onCancel={() => transition({ kind: 'menu' })} color="warning" hideInputGuide>
         <Box flexDirection="column">
           <Text>Delete secret "{step.key}"? This cannot be undone.</Text>
           <Box marginTop={1}>
-            <Text dimColor>y/Enter = delete · n/Esc = cancel</Text>
+            <Text dimColor>y/Enter = 删除 · n/Esc = 取消</Text>
           </Box>
-          {inFlight && <Text dimColor>Deleting...</Text>}
+          {inFlight && <Text dimColor>删除中...</Text>}
         </Box>
       </Dialog>
     );
@@ -286,26 +287,26 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
 
   if (step.kind === 'confirm-overwrite') {
     return (
-      <Dialog title="Confirm Overwrite" onCancel={() => transition({ kind: 'menu' })} color="warning" hideInputGuide>
+      <Dialog title="确认覆盖" onCancel={() => transition({ kind: 'menu' })} color="warning" hideInputGuide>
         <Box flexDirection="column">
           <Text>Secret "{step.key}" already exists. Overwrite? Old value is lost.</Text>
           <Box marginTop={1}>
-            <Text dimColor>y/Enter = overwrite · n/Esc = cancel</Text>
+            <Text dimColor>y/Enter = 覆盖 · n/Esc = 取消</Text>
           </Box>
-          {inFlight && <Text dimColor>Storing...</Text>}
+          {inFlight && <Text dimColor>存储中...</Text>}
         </Box>
       </Dialog>
     );
   }
 
   // collect-key / collect-value
-  const fieldLabel = step.kind === 'collect-key' ? 'KEY NAME' : 'SECRET VALUE';
-  const placeholder = step.kind === 'collect-key' ? 'e.g. github-token' : '(masked input — value never displayed)';
+  const fieldLabel = step.kind === 'collect-key' ? '密钥名' : '密钥值';
+  const placeholder = step.kind === 'collect-key' ? '例如 github-token' : '（遮蔽输入 —— 值不会显示）';
   const onSubmit = step.kind === 'collect-key' ? handleKeySubmit : handleValueSubmit;
   const isMasked = step.kind === 'collect-value';
   return (
     <Dialog
-      title={`Local Vault · ${step.kind === 'collect-key' ? 'KEY' : 'VALUE'}`}
+      title={`本地保险库 · ${step.kind === 'collect-key' ? 'KEY' : 'VALUE'}`}
       onCancel={() => transition({ kind: 'menu' })}
       color="background"
       hideInputGuide
@@ -338,11 +339,11 @@ function LocalVaultPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
         )}
         {inFlight && (
           <Box marginTop={0}>
-            <Text dimColor>Working...</Text>
+            <Text dimColor>处理中...</Text>
           </Box>
         )}
         <Box marginTop={1}>
-          <Text dimColor>Enter = next · Esc = back</Text>
+          <Text dimColor>Enter = 下一步 · Esc = 返回</Text>
         </Box>
       </Box>
     </Dialog>
@@ -363,7 +364,7 @@ async function dispatchLocalVault(
     const { key, value } = parsed;
     await setSecret(key, value);
     // Never echo the value in onDone — security invariant
-    onDone(`Secret stored: ${key} = [REDACTED]`, { display: 'system' });
+    onDone(`密钥已存储：${key} = [已遮蔽]`, { display: 'system' });
     return null;
   }
 
@@ -371,19 +372,19 @@ async function dispatchLocalVault(
     const { key, reveal } = parsed;
     const value = await getSecret(key);
     if (value === null) {
-      onDone(`Key not found: ${key}`, { display: 'system' });
+      onDone(`未找到该密钥：${key}`, { display: 'system' });
       return null;
     }
     if (reveal) {
       // Security invariant: only --reveal shows plaintext; warn user
-      onDone([`Secret revealed for: ${key}`, 'Warning: secret revealed in terminal.', `${key} = ${value}`].join('\n'), {
+      onDone([`已显示密钥明文：${key}`, '警告：密钥明文已在终端中显示。', `${key} = ${value}`].join('\n'), {
         display: 'system',
       });
       return null;
     }
     // Default: mask display
     const masked = maskSecret(value);
-    onDone(`Key found: ${key} = ${masked}`, { display: 'system' });
+    onDone(`已找到密钥：${key} = ${masked}`, { display: 'system' });
     return null;
   }
 
@@ -391,10 +392,10 @@ async function dispatchLocalVault(
     const { key } = parsed;
     const deleted = await deleteSecret(key);
     if (!deleted) {
-      onDone(`Key not found: ${key}`, { display: 'system' });
+      onDone(`未找到该密钥：${key}`, { display: 'system' });
       return null;
     }
-    onDone(`Deleted: ${key}`, { display: 'system' });
+    onDone(`已删除：${key}`, { display: 'system' });
     return null;
   }
 

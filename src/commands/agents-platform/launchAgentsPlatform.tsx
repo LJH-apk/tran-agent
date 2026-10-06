@@ -20,7 +20,7 @@ async function dispatchAgentsPlatform(
     logEvent('tengu_agents_platform_list', {});
     try {
       const agents = await listAgents();
-      onDone(agents.length === 0 ? 'No scheduled agents found.' : `${agents.length} scheduled agent(s).`, {
+      onDone(agents.length === 0 ? '未找到定时智能体。' : `共 ${agents.length} 个定时智能体。`, {
         display: 'system',
       });
       return { mode: 'list', agents };
@@ -29,7 +29,7 @@ async function dispatchAgentsPlatform(
       logEvent('tengu_agents_platform_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list agents: ${msg}`, { display: 'system' });
+      onDone(`获取智能体列表失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -40,7 +40,7 @@ async function dispatchAgentsPlatform(
     // Validate cron expression client-side before hitting the network
     const cronFields = parseCronExpression(cron);
     if (!cronFields) {
-      const reason = `Invalid cron expression: "${cron}". Expected 5 fields (minute hour day month weekday).`;
+      const reason = `cron 表达式无效："${cron}"。应为 5 个字段（分 时 日 月 周）。`;
       logEvent('tengu_agents_platform_failed', {
         reason: reason as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
@@ -53,14 +53,14 @@ async function dispatchAgentsPlatform(
     });
     try {
       const agent = await createAgent(cron, prompt);
-      onDone(`Agent created: ${agent.id}`, { display: 'system' });
+      onDone(`智能体已创建：${agent.id}`, { display: 'system' });
       return { mode: 'created', agent };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_agents_platform_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to create agent: ${msg}`, { display: 'system' });
+      onDone(`创建智能体失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -72,14 +72,14 @@ async function dispatchAgentsPlatform(
     });
     try {
       await deleteAgent(id);
-      onDone(`Agent ${id} deleted.`, { display: 'system' });
+      onDone(`智能体 ${id} 已删除。`, { display: 'system' });
       return { mode: 'deleted', id };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_agents_platform_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to delete agent ${id}: ${msg}`, { display: 'system' });
+      onDone(`删除智能体 ${id} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -92,14 +92,14 @@ async function dispatchAgentsPlatform(
   });
   try {
     const result = await runAgent(id);
-    onDone(`Agent ${id} triggered. Run ID: ${result.run_id}`, { display: 'system' });
+    onDone(`已触发智能体 ${id}。运行 ID：${result.run_id}`, { display: 'system' });
     return { mode: 'ran', id, runId: result.run_id };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logEvent('tengu_agents_platform_failed', {
       reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
-    onDone(`Failed to run agent ${id}: ${msg}`, { display: 'system' });
+    onDone(`运行智能体 ${id} 失败：${msg}`, { display: 'system' });
     return { mode: 'error', message: msg };
   }
 }
@@ -120,7 +120,7 @@ export const callAgentsPlatform: LocalJSXCommandCall = launchCommand<
       });
       return {
         action: 'invalid' as const,
-        reason: `Usage: /agents-platform list | create CRON PROMPT | delete ID | run ID\n${result.reason}`,
+        reason: `用法：/agents-platform list | create CRON PROMPT | delete ID | run ID\n${result.reason}`,
       };
     }
     return result;

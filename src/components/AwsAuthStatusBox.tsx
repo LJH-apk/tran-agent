@@ -26,7 +26,7 @@ export function AwsAuthStatusBox(): React.ReactNode {
   return (
     <Box flexDirection="column" borderStyle="round" borderColor="permission" paddingX={1} marginY={1}>
       <Text bold color="permission">
-        Cloud Authentication
+        云认证
       </Text>
 
       {status.output.length > 0 && (

@@ -20,7 +20,7 @@ const onboarding: Command = {
   isHidden: false,
   bridgeSafe: false,
   getBridgeInvocationError: () =>
-    'onboarding requires the local interactive UI and is not bridge-safe',
+    'onboarding 需要本地交互式界面，不支持桥接',
   load: async () => {
     const m = await import('./launchOnboarding.js')
     return { call: m.callOnboarding }

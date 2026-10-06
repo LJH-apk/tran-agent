@@ -2955,7 +2955,7 @@ const usageReport: Command = {
   name: 'insights',
   description: 'Generate a report analyzing your Claude Code sessions',
   contentLength: 0, // Dynamic content
-  progressMessage: 'analyzing your sessions',
+  progressMessage: '正在分析你的会话',
   source: 'builtin',
   async getPromptForCommand(args) {
     let collectRemote = false
@@ -2973,7 +2973,7 @@ const usageReport: Command = {
       // Show collection message if collecting
       if (collectRemote && hasRemoteHosts) {
         console.error(
-          `Collecting sessions from ${remoteHosts.length} homespace(s): ${remoteHosts.join(', ')}...`,
+          `正在从 ${remoteHosts.length} 个 homespace 收集会话：${remoteHosts.join(', ')}...`,
         )
       }
     }
@@ -3007,8 +3007,8 @@ const usageReport: Command = {
         // Upload failed - fall back to local file and show upload command
         reportUrl = `file://${htmlPath}`
         uploadHint = `\nAutomatic upload failed. Are you on the boron namespace? Try \`use-bo\` and ensure you've run \`sso\`.
-To share, run: ff cp ${htmlPath} ${s3Path}
-Then access at: ${s3Url}`
+如需分享，请运行：ff cp ${htmlPath} ${s3Path}
+然后访问：${s3Url}`
       }
     }
 

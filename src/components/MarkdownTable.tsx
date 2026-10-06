@@ -262,7 +262,7 @@ export const MarkdownTable = React.memo(function MarkdownTable({
       }
 
       row.forEach((cell, colIndex) => {
-        const label = headers[colIndex] || `Column ${colIndex + 1}`;
+        const label = headers[colIndex] || `第 ${colIndex + 1} 列`;
         // Clean value: trim, remove extra internal whitespace/newlines
         const rawValue = formatCell(cell.tokens).trimEnd();
         const value = rawValue.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();

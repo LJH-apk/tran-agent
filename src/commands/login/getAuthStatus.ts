@@ -79,10 +79,10 @@ const WORKSPACE_KEY_PREFIX = 'sk-ant-api03-'
 function maskApiKey(key: string): string {
   const len = key.length
   // E3: short keys — show only length, no prefix
-  if (len < 20) return `[redacted] (${len} chars)`
+  if (len < 20) return `[已遮蔽]（${len} 个字符）`
   const first4 = key.slice(0, 4)
   const last2 = key.slice(-2)
-  return `${first4}...${last2} (${len} chars)`
+  return `${first4}...${last2}（${len} 个字符）`
 }
 
 // ---------------------------------------------------------------------------

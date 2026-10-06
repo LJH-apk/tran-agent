@@ -52,13 +52,13 @@ export function summariseAutofixOutcome(
   if (payload.state === 'MERGED') {
     return {
       completed: true,
-      summary: `${owner}/${repo}#${prNumber} merged. Autofix monitoring complete.`,
+      summary: `${owner}/${repo}#${prNumber} 已合并。自动修复监控结束。`,
     }
   }
   if (payload.state === 'CLOSED') {
     return {
       completed: true,
-      summary: `${owner}/${repo}#${prNumber} closed without merge. Autofix monitoring complete.`,
+      summary: `${owner}/${repo}#${prNumber} 已关闭但未合并。自动修复监控结束。`,
     }
   }
 
@@ -70,12 +70,12 @@ export function summariseAutofixOutcome(
   if (ciState.state === 'failure') {
     return {
       completed: true,
-      summary: `Autofix pushed commits to ${owner}/${repo}#${prNumber} but CI is failing (${ciState.detail}).`,
+      summary: `自动修复已向 ${owner}/${repo}#${prNumber} 推送提交，但 CI 未通过（${ciState.detail}）。`,
     }
   }
   return {
     completed: true,
-    summary: `Autofix pushed commits to ${owner}/${repo}#${prNumber}, CI green.`,
+    summary: `自动修复已向 ${owner}/${repo}#${prNumber} 推送提交，CI 已通过。`,
   }
 }
 
@@ -118,6 +118,6 @@ function summariseCiRollup(
   if (pending > 0)
     return { state: 'pending', detail: `${pending}/${total} checks pending` }
   if (failed > 0)
-    return { state: 'failure', detail: `${failed}/${total} checks failing` }
+    return { state: 'failure', detail: `${failed}/${total} 项检查未通过` }
   return { state: 'success', detail: `${total}/${total} checks passing` }
 }

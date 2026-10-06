@@ -577,9 +577,9 @@ function TranscriptModeFooter({
       <Text dimColor>
         Showing detailed transcript · {toggleShortcut} to toggle
         {searchBadge
-          ? ' · n/N to navigate'
+          ? ' · n/N 导航'
           : virtualScroll
-            ? ` · ${figures.arrowUp}${figures.arrowDown} scroll · home/end top/bottom`
+            ? ` · ${figures.arrowUp}${figures.arrowDown} 滚动 · home/end 首尾`
             : suppressShowAll
               ? ''
               : ` · ${showAllShortcut} to ${showAllInTranscript ? 'collapse' : 'show all'}`}
@@ -1453,14 +1453,14 @@ export function REPL({
     sessionStatus !== 'waiting'
       ? undefined
       : toolUseConfirmQueue.length > 0
-        ? `approve ${toolUseConfirmQueue[0]!.tool.name}`
+        ? `批准 ${toolUseConfirmQueue[0]!.tool.name}`
         : pendingWorkerRequest
-          ? 'worker request'
+          ? '工作进程请求'
           : pendingSandboxRequest
-            ? 'sandbox request'
+            ? '沙箱请求'
             : isShowingLocalJSXCommand
-              ? 'dialog open'
-              : 'input needed';
+              ? '对话框已打开'
+              : '需要输入';
 
   // Push status to the PID file for `claude ps`. Fire-and-forget; ps falls
   // back to transcript-tail derivation when this is missing/stale.
@@ -2621,7 +2621,7 @@ export function REPL({
     } else if (focusedInputDialog === 'prompt') {
       // Reject all pending prompts and clear the queue
       for (const item of promptQueue) {
-        item.reject(new Error('Prompt cancelled by user'));
+        item.reject(new Error('提示词已被用户取消'));
       }
       setPromptQueue([]);
       abortController?.abort('user-cancel');
@@ -2764,7 +2764,7 @@ export function REPL({
               SANDBOX_NETWORK_ACCESS_TOOL_NAME,
               { host: hostPattern.host },
               randomUUID(),
-              `Allow network connection to ${hostPattern.host}?`,
+              `允许连接到 ${hostPattern.host} 吗？`,
             );
 
             const unsubscribe = bridgeCallbacks.onResponse(bridgeRequestId, response => {
@@ -2816,13 +2816,13 @@ export function REPL({
     if (!reason) return;
     if (SandboxManager.isSandboxRequired()) {
       process.stderr.write(
-        `\nError: sandbox required but unavailable: ${reason}\n` +
-          `  sandbox.failIfUnavailable is set — refusing to start without a working sandbox.\n\n`,
+        `\n错误：需要沙箱但不可用：${reason}\n` +
+          `  已设置 sandbox.failIfUnavailable — 没有可用沙箱时拒绝启动。\n\n`,
       );
       gracefulShutdownSync(1, 'other');
       return;
     }
-    logForDebugging(`sandbox disabled: ${reason}`, { level: 'warn' });
+    logForDebugging(`沙箱已禁用：${reason}`, { level: 'warn' });
     addNotification({
       key: 'sandbox-unavailable',
       jsx: (
@@ -2839,7 +2839,7 @@ export function REPL({
     // If sandboxing is enabled (setting.sandbox is defined, initialise the manager)
     SandboxManager.initialize(sandboxAskCallback).catch(err => {
       // Initialization/validation failed - display error and exit
-      process.stderr.write(`\n❌ Sandbox Error: ${errorMessage(err)}\n`);
+      process.stderr.write(`\n❌ 沙箱错误：${errorMessage(err)}\n`);
       gracefulShutdownSync(1, 'other');
     });
   }
@@ -3012,7 +3012,7 @@ export function REPL({
               );
               break;
             case 'compact_start':
-              setSpinnerMessage('Compacting conversation');
+              setSpinnerMessage('正在压缩会话');
               compactProgressActiveRef.current = true;
               break;
             case 'compact_end':
@@ -3267,7 +3267,7 @@ export function REPL({
                 persistCurrentGoal();
                 addNotification({
                   key: 'goal-auto-paused-connectivity-error',
-                  text: 'Detected connection error. Active goal was auto-paused. Run /goal resume after network recovers.',
+                  text: '检测到连接错误。进行中的目标已自动暂停。网络恢复后运行 /goal resume。',
                   priority: 'immediate',
                 });
               }
@@ -4889,7 +4889,7 @@ export function REPL({
         ) {
           void sendNotification(
             {
-              message: 'Claude is waiting for your input',
+              message: 'Claude 正在等待你的输入',
               notificationType: 'idle_prompt',
             },
             terminal,
@@ -5152,7 +5152,7 @@ export function REPL({
     onMaxTurnsReached: () => {
       addNotification({
         key: 'goal-max-turns-reached',
-        text: 'Goal reached max continuation turns (1). Run /goal continue to reset turn counter and continue.',
+        text: '目标已达到最大续跑轮数（1）。运行 /goal continue 重置轮数并继续。',
         priority: 'immediate',
       });
     },
@@ -5300,11 +5300,11 @@ export function REPL({
       const cmd = currentHooks[completedCount]?.data.command;
       const label = cmd ? ` '${truncateToWidth(cmd, 40)}'` : '';
       return total === 1
-        ? `running ${hookType} hook${label}`
-        : `running ${hookType} hook${label}\u2026 ${completedCount}/${total}`;
+        ? `正在运行 ${hookType} hook${label}`
+        : `正在运行 ${hookType} hook${label}\u2026 ${completedCount}/${total}`;
     }
 
-    return total === 1 ? `running ${hookType} hook` : `running stop hooks… ${completedCount}/${total}`;
+    return total === 1 ? `running ${hookType} hook` : `正在运行 stop hooks… ${completedCount}/${total}`;
   }, [messages, isLoading]);
 
   // Callback to capture frozen state when entering transcript mode
@@ -5431,7 +5431,7 @@ export function REPL({
           clearTimeout(editorTimerRef.current);
           setEditorStatus(s);
         };
-        setStatus(`rendering ${deferredMessages.length} messages…`);
+        setStatus(`正在渲染 ${deferredMessages.length} 条消息…`);
         void (async () => {
           try {
             // Width = terminal minus vim's line-number gutter (4 digits +
@@ -5445,7 +5445,7 @@ export function REPL({
             const path = join(tmpdir(), `cc-transcript-${Date.now()}.txt`);
             await writeFile(path, text);
             const opened = openFileInExternalEditor(path);
-            setStatus(opened ? `opening ${path}` : `wrote ${path} · no $VISUAL/$EDITOR set`);
+            setStatus(opened ? `正在打开 ${path}` : `已写入 ${path} · 未设置 $VISUAL/$EDITOR`);
           } catch (e) {
             setStatus(`render failed: ${e instanceof Error ? e.message : String(e)}`);
           }
@@ -6084,7 +6084,7 @@ export function REPL({
                     onAbort={() => {
                       const item = promptQueue[0];
                       if (!item) return;
-                      item.reject(new Error('Prompt cancelled by user'));
+                      item.reject(new Error('提示词已被用户取消'));
                       setPromptQueue(([, ...tail]) => tail);
                     }}
                   />
@@ -6099,8 +6099,8 @@ export function REPL({
                 {/* Show pending indicator for sandbox permission on worker side */}
                 {pendingSandboxRequest && (
                   <WorkerPendingPermission
-                    toolName="Network Access"
-                    description={`Waiting for leader to approve network access to ${pendingSandboxRequest.host}`}
+                    toolName="网络访问"
+                    description={`等待负责人批准对 ${pendingSandboxRequest.host} 的网络访问`}
                   />
                 )}
                 {/* Worker sandbox permission requests from swarm workers */}
@@ -6447,7 +6447,7 @@ export function REPL({
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         onRequestFeedback={handleSurveyRequestFeedback}
-                        message="How well did Claude use its memory? (optional)"
+                        message="Claude 对记忆的利用情况如何？（可选）"
                       />
                     ) : (
                       <FeedbackSurvey
@@ -6570,7 +6570,7 @@ export function REPL({
                         setMessages(prev => [
                           ...prev,
                           createSystemMessage(
-                            'That message is no longer in the active context (snipped or pre-compact). Choose a more recent message.',
+                            '该消息已不在当前上下文中（被裁剪或在压缩之前）。请选择更新的消息。',
                             'warning',
                           ),
                         ]);
@@ -6655,7 +6655,7 @@ export function REPL({
                       const historyShortcut = getShortcutDisplay('app:toggleTranscript', 'Global', 'ctrl+o');
                       addNotification({
                         key: 'summarize-ctrl-o-hint',
-                        text: `Conversation summarized (${historyShortcut} for history)`,
+                        text: `会话已生成摘要（${historyShortcut} 查看历史）`,
                         priority: 'medium',
                         timeoutMs: 8000,
                       });

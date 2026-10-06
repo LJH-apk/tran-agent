@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 const call = async (onDone: LocalJSXCommandOnDone): Promise<ReactNode> => {
   onDone(
-    'torch: Reserved internal debug command. No implementation is available in this build.',
+    'torch：保留的内部调试命令。当前版本中无可用实现。',
     { display: 'system' },
   )
   return null

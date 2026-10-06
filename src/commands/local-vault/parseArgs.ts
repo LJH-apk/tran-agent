@@ -22,7 +22,7 @@ export type LocalVaultArgs =
 // and strips them. Use uppercase placeholder names without angle brackets
 // so the full usage line is visible to users.
 const USAGE =
-  'Usage: /local-vault list | set KEY VALUE | get KEY [--reveal] | delete KEY'
+  '用法：/local-vault list | set KEY VALUE | get KEY [--reveal] | delete KEY'
 
 // M1 fix (codecov-100 audit #4): defensively reject hyphen-like Unicode
 // prefixes on key names. ASCII '-' is the obvious flag prefix, but a key
@@ -63,7 +63,7 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
   if (subCmd === 'set') {
     const key = tokens[1]
     if (!key) {
-      return { action: 'invalid', reason: `set requires a key name. ${USAGE}` }
+      return { action: 'invalid', reason: `set 需要提供键名。${USAGE}` }
     }
     // D3 + M1: reject keys that start with '-' or any hyphen-like Unicode
     // character. ASCII '-' would be mistaken for a flag; non-ASCII hyphen
@@ -73,7 +73,7 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
     if (HYPHEN_LIKE_PREFIX_REGEX.test(key)) {
       return {
         action: 'invalid',
-        reason: `Key name must not start with "-" or a hyphen-like character (reserved for flags). ${USAGE}`,
+        reason: `键名不能以 "-" 或类连字符字符开头（保留给命令行标志）。${USAGE}`,
       }
     }
     // D4: value is tokens[2..] joined, not substring math (handles keys with repeated substrings)
@@ -81,7 +81,7 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
     if (!rest) {
       return {
         action: 'invalid',
-        reason: `set requires a value. ${USAGE}`,
+        reason: `set 需要提供一个值。${USAGE}`,
       }
     }
     return { action: 'set', key, value: rest }
@@ -95,7 +95,7 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
     const argsWithoutFlags = tokens.filter(t => !flags.includes(t))
     const key = argsWithoutFlags[1] // argsWithoutFlags[0] is 'get'
     if (!key) {
-      return { action: 'invalid', reason: `get requires a key name. ${USAGE}` }
+      return { action: 'invalid', reason: `get 需要提供键名。${USAGE}` }
     }
     const reveal = tokens.includes('--reveal')
     return { action: 'get', key, reveal }
@@ -107,7 +107,7 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
     if (!key) {
       return {
         action: 'invalid',
-        reason: `delete requires a key name. ${USAGE}`,
+        reason: `delete 需要提供键名。${USAGE}`,
       }
     }
     return { action: 'delete', key }
@@ -115,6 +115,6 @@ export function parseLocalVaultArgs(args: string): LocalVaultArgs {
 
   return {
     action: 'invalid',
-    reason: `Unknown sub-command "${subCmd}". ${USAGE}`,
+    reason: `未知子命令 "${subCmd}"。${USAGE}`,
   }
 }

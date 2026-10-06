@@ -76,7 +76,7 @@ export function NewInstallWizard({ defaultDir, onInstalled, onCancel, onError }:
       child.unref();
 
       child.on('error', err => {
-        onError(`Failed to start daemon: ${err.message}`);
+        onError(`启动守护进程失败：${err.message}`);
       });
 
       // Give the daemon a moment to initialize, then report success.
@@ -86,34 +86,34 @@ export function NewInstallWizard({ defaultDir, onInstalled, onCancel, onError }:
         onInstalled(dir);
       }, 1500);
     } catch (err) {
-      onError(`Failed to start daemon: ${err instanceof Error ? err.message : String(err)}`);
+      onError(`启动守护进程失败：${err instanceof Error ? err.message : String(err)}`);
     }
   }
 
   if (starting) {
     return (
-      <Dialog title="Assistant Setup" onCancel={onCancel} hideInputGuide>
+      <Dialog title="助手设置" onCancel={onCancel} hideInputGuide>
         <Text>Starting daemon in {defaultDir}...</Text>
       </Dialog>
     );
   }
 
   return (
-    <Dialog title="Assistant Setup" onCancel={onCancel} hideInputGuide>
+    <Dialog title="助手设置" onCancel={onCancel} hideInputGuide>
       <Box flexDirection="column" gap={1}>
-        <Text>No active assistant sessions found.</Text>
+        <Text>未找到活动的助手会话。</Text>
         <Text>
           Start a daemon in <Text bold>{defaultDir || '.'}</Text> to create a cloud session?
         </Text>
         <Box flexDirection="column">
           <ListItem isFocused={focusIndex === 0}>
-            <Text>Start assistant daemon</Text>
+            <Text>启动助手守护进程</Text>
           </ListItem>
           <ListItem isFocused={focusIndex === 1}>
-            <Text>Cancel</Text>
+            <Text>取消</Text>
           </ListItem>
         </Box>
-        <Text dimColor>Enter to select · Esc to cancel</Text>
+        <Text dimColor>回车选择 · Esc 取消</Text>
       </Box>
     </Dialog>
   );
@@ -143,7 +143,7 @@ export async function call(
           assistantPanelVisible: true,
         }) as AppState,
     );
-    onDone('KAIROS assistant mode activated.', { display: 'system' });
+    onDone('KAIROS 助手模式已启用。', { display: 'system' });
     return null;
   }
 
@@ -159,7 +159,7 @@ export async function call(
           assistantPanelVisible: false,
         }) as AppState,
     );
-    onDone('Assistant panel hidden.', { display: 'system' });
+    onDone('助手面板已隐藏。', { display: 'system' });
   } else {
     setAppState(
       (prev: AppState) =>
@@ -168,7 +168,7 @@ export async function call(
           assistantPanelVisible: true,
         }) as AppState,
     );
-    onDone('Assistant panel opened.', { display: 'system' });
+    onDone('助手面板已打开。', { display: 'system' });
   }
 
   return null;

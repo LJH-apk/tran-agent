@@ -85,11 +85,11 @@ function ClaudeInChromeMenu({
   }
 
   const options: OptionWithDescription<MenuAction>[] = [];
-  const requiresExtensionSuffix = isExtensionInstalled ? '' : ' (requires extension)';
+  const requiresExtensionSuffix = isExtensionInstalled ? '' : '（需先安装扩展）';
 
   if (!isExtensionInstalled && !isHomespace) {
     options.push({
-      label: 'Install Chrome extension',
+      label: '安装 Chrome 扩展',
       value: 'install-extension',
     });
   }
@@ -98,7 +98,7 @@ function ClaudeInChromeMenu({
     {
       label: (
         <>
-          <Text>Manage permissions</Text>
+          <Text>管理权限</Text>
           <Text dimColor>{requiresExtensionSuffix}</Text>
         </>
       ),
@@ -107,14 +107,14 @@ function ClaudeInChromeMenu({
     {
       label: (
         <>
-          <Text>Reconnect extension</Text>
+          <Text>重新连接扩展</Text>
           <Text dimColor>{requiresExtensionSuffix}</Text>
         </>
       ),
       value: 'reconnect',
     },
     {
-      label: `Enabled by default: ${enabledByDefault ? 'Yes' : 'No'}`,
+      label: `默认启用：${enabledByDefault ? 'Yes' : 'No'}`,
       value: 'toggle-default',
     },
   );
@@ -122,18 +122,16 @@ function ClaudeInChromeMenu({
   const isDisabled = isWSL || ((process.env.USER_TYPE as string) !== 'ant' && !isClaudeAISubscriber);
 
   return (
-    <Dialog title="Claude in Chrome (Beta)" onCancel={() => onDone()} color="chromeYellow">
+    <Dialog title="Claude in Chrome（Beta）" onCancel={() => onDone()} color="chromeYellow">
       <Box flexDirection="column" gap={1}>
         <Text>
-          Claude in Chrome works with the Chrome extension to let you control your browser directly from Claude Code.
-          Navigate websites, fill forms, capture screenshots, record GIFs, and debug with console logs and network
-          requests.
+          Claude in Chrome 与 Chrome 扩展配合使用，让你可以直接从 Claude Code 控制浏览器：浏览网页、填写表单、截取屏幕、录制 GIF，并通过控制台日志和网络请求进行调试。
         </Text>
 
-        {isWSL && <Text color="error">Claude in Chrome is not supported in WSL at this time.</Text>}
+        {isWSL && <Text color="error">Claude in Chrome 目前不支持 WSL。</Text>}
 
         {(process.env.USER_TYPE as string) !== 'ant' && !isClaudeAISubscriber && (
-          <Text color="error">Claude in Chrome requires a claude.ai subscription.</Text>
+          <Text color="error">Claude in Chrome 需要 claude.ai 订阅。</Text>
         )}
 
         {!isDisabled && (
@@ -141,14 +139,14 @@ function ClaudeInChromeMenu({
             {!isHomespace && (
               <Box flexDirection="column">
                 <Text>
-                  Status: {isConnected ? <Text color="success">Enabled</Text> : <Text color="inactive">Disabled</Text>}
+                  状态：{isConnected ? <Text color="success">已启用</Text> : <Text color="inactive">已禁用</Text>}
                 </Text>
                 <Text>
-                  Extension:{' '}
+                  扩展：{' '}
                   {isExtensionInstalled ? (
-                    <Text color="success">Installed</Text>
+                    <Text color="success">已安装</Text>
                   ) : (
-                    <Text color="warning">Not detected</Text>
+                    <Text color="warning">未检测到</Text>
                   )}
                 </Text>
               </Box>
@@ -160,19 +158,18 @@ function ClaudeInChromeMenu({
             )}
 
             <Text>
-              <Text dimColor>Usage: </Text>
+              <Text dimColor>用法：</Text>
               <Text>claude --chrome</Text>
-              <Text dimColor> or </Text>
+              <Text dimColor> 或</Text>
               <Text>claude --no-chrome</Text>
             </Text>
 
             <Text dimColor>
-              Site-level permissions are inherited from the Chrome extension. Manage permissions in the Chrome extension
-              settings to control which sites Claude can browse, click, and type on.
+              站点级权限继承自 Chrome 扩展。如需控制 Claude 可以浏览、点击和输入的网站，请在 Chrome 扩展设置中管理权限。
             </Text>
           </>
         )}
-        <Text dimColor>Learn more: https://code.claude.com/docs/en/chrome</Text>
+        <Text dimColor>了解更多：https://code.claude.com/docs/en/chrome</Text>
       </Box>
     </Dialog>
   );

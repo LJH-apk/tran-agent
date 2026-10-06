@@ -36,14 +36,14 @@ export function SandboxDependenciesTab({ depCheck }: Props): React.ReactNode {
       {isMac && (
         <Box flexDirection="column">
           <Text>
-            seatbelt: <Text color="success">built-in (macOS)</Text>
+            seatbelt： <Text color="success">内置（macOS）</Text>
           </Text>
         </Box>
       )}
 
       <Box flexDirection="column">
         <Text>
-          ripgrep (rg): {rgMissing ? <Text color="error">not found</Text> : <Text color="success">found</Text>}
+          ripgrep (rg)： {rgMissing ? <Text color="error">未找到</Text> : <Text color="success">已找到</Text>}
         </Text>
         {rgMissing && (
           <Text dimColor>
@@ -56,30 +56,30 @@ export function SandboxDependenciesTab({ depCheck }: Props): React.ReactNode {
         <>
           <Box flexDirection="column">
             <Text>
-              bubblewrap (bwrap):{' '}
-              {bwrapMissing ? <Text color="error">not installed</Text> : <Text color="success">installed</Text>}
+              bubblewrap (bwrap)：{' '}
+              {bwrapMissing ? <Text color="error">未安装</Text> : <Text color="success">已安装</Text>}
             </Text>
             {bwrapMissing && <Text dimColor>{'  '}· apt install bubblewrap</Text>}
           </Box>
 
           <Box flexDirection="column">
             <Text>
-              socat: {socatMissing ? <Text color="error">not installed</Text> : <Text color="success">installed</Text>}
+              socat： {socatMissing ? <Text color="error">未安装</Text> : <Text color="success">已安装</Text>}
             </Text>
             {socatMissing && <Text dimColor>{'  '}· apt install socat</Text>}
           </Box>
 
           <Box flexDirection="column">
             <Text>
-              seccomp filter:{' '}
-              {seccompMissing ? <Text color="warning">not installed</Text> : <Text color="success">installed</Text>}
-              {seccompMissing && <Text dimColor> (required to block unix domain sockets)</Text>}
+              seccomp 过滤器：{' '}
+              {seccompMissing ? <Text color="warning">未安装</Text> : <Text color="success">已安装</Text>}
+              {seccompMissing && <Text dimColor> （阻止 unix 域套接字所必需）</Text>}
             </Text>
             {seccompMissing && (
               <Box flexDirection="column">
                 <Text dimColor>{'  '}· npm install -g @anthropic-ai/sandbox-runtime</Text>
-                <Text dimColor>{'  '}· or copy vendor/seccomp/* from sandbox-runtime and set</Text>
-                <Text dimColor>{'    '}sandbox.seccomp.bpfPath and applyPath in settings.json</Text>
+                <Text dimColor>{'  '}· 或者从 sandbox-runtime 复制 vendor/seccomp/*，并在 settings.json 中设置</Text>
+                <Text dimColor>{'    '}sandbox.seccomp.bpfPath 与 applyPath</Text>
               </Box>
             )}
           </Box>

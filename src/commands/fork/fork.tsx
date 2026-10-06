@@ -12,13 +12,13 @@ export async function call(
 ): Promise<React.ReactNode> {
   // Check feature flag
   if (!feature('FORK_SUBAGENT')) {
-    onDone('Fork subagent feature is not enabled. Set FEATURE_FORK_SUBAGENT=1 to enable.', { display: 'system' });
+    onDone('Fork 子智能体功能未启用。设置 FEATURE_FORK_SUBAGENT=1 以启用。', { display: 'system' });
     return null;
   }
 
   // Recursive fork guard
   if (isInForkChild(context.messages)) {
-    onDone('Fork is not available inside a forked worker. Complete your task directly using your tools.', {
+    onDone('在 fork 出的工作进程中无法使用 Fork。请直接用您的工具完成任务。', {
       display: 'system',
     });
     return null;
@@ -26,7 +26,7 @@ export async function call(
 
   const directive = args.trim();
   if (!directive) {
-    onDone('Usage: /fork <directive>\nExample: /fork Fix the null check in validate.ts', { display: 'system' });
+    onDone('用法：/fork <指令>\n示例：/fork 修复 validate.ts 中的空值检查', { display: 'system' });
     return null;
   }
 
@@ -48,7 +48,7 @@ export async function call(
       // description 只显示在底部 selector / BackgroundTasksDialog，保持简短标签
       // 即可；用户输入的 prompt 会作为第一条用户消息呈现在主视图里，这里不要
       // 重复显示。
-      description: 'forked from main',
+      description: '派生自主会话',
     };
 
     // Call AgentTool with proper parameters:
@@ -61,12 +61,12 @@ export async function call(
     });
 
     // Notify user that fork has been started
-    onDone(`Forked subagent started with directive: "${directive}"`, { display: 'system' });
+    onDone(`已启动 Fork 子智能体，指令："${directive}"`, { display: 'system' });
     return null;
   } catch (error) {
     // Catches synchronous setup errors only
     logForDebugging(`Fork command setup error: ${error}`, { level: 'error' });
-    onDone(`Fork failed: ${error instanceof Error ? error.message : String(error)}`, { display: 'system' });
+    onDone(`Fork 失败：${error instanceof Error ? error.message : String(error)}`, { display: 'system' });
     return null;
   }
 }

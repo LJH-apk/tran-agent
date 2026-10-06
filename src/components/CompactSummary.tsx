@@ -32,7 +32,7 @@ export function CompactSummary({ message, screen }: Props): React.ReactNode {
             <Text color="text">{BLACK_CIRCLE}</Text>
           </Box>
           <Box flexDirection="column">
-            <Text bold>Summarized conversation</Text>
+            <Text bold>对话已摘要</Text>
             {!isTranscriptMode && (
               <MessageResponse>
                 <Box flexDirection="column">
@@ -52,7 +52,7 @@ export function CompactSummary({ message, screen }: Props): React.ReactNode {
                       action="app:toggleTranscript"
                       context="Global"
                       fallback="ctrl+o"
-                      description="expand history"
+                      description="展开历史"
                       parens
                     />
                   </Text>
@@ -79,7 +79,7 @@ export function CompactSummary({ message, screen }: Props): React.ReactNode {
         </Box>
         <Box flexDirection="column">
           <Text bold>
-            Conversation summarized to free up context
+            对话已摘要，以释放上下文
             {!isTranscriptMode && (
               <Text dimColor>
                 {' '}
@@ -87,7 +87,7 @@ export function CompactSummary({ message, screen }: Props): React.ReactNode {
                   action="app:toggleTranscript"
                   context="Global"
                   fallback="ctrl+o"
-                  description="view summary"
+                  description="查看摘要"
                   parens
                 />
               </Text>

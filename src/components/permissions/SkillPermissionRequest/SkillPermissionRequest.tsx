@@ -52,7 +52,7 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
   const options = useMemo((): PermissionPromptOption<SkillOptionValue>[] => {
     const baseOptions: PermissionPromptOption<SkillOptionValue>[] = [
       {
-        label: 'Yes',
+        label: '是',
         value: 'yes',
         feedbackConfig: { type: 'accept' },
       },
@@ -88,7 +88,7 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
     }
 
     const noOption: PermissionPromptOption<SkillOptionValue> = {
-      label: 'No',
+      label: '否',
       value: 'no',
       feedbackConfig: { type: 'reject' },
     };
@@ -213,8 +213,8 @@ export function SkillPermissionRequest(props: PermissionRequestProps): React.Rea
   }, [toolUseConfirm, onDone, onReject]);
 
   return (
-    <PermissionDialog title={`Use skill "${skill}"?`} workerBadge={workerBadge}>
-      <Text>Claude may use instructions, code, or files from this Skill.</Text>
+    <PermissionDialog title={`使用 Skill "${skill}"？`} workerBadge={workerBadge}>
+      <Text>Claude 可能会使用此 Skill 中的指令、代码或文件。</Text>
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Text dimColor>{commandObj?.description}</Text>
       </Box>

@@ -235,7 +235,7 @@ const command = {
       : 'Initialize a new CLAUDE.md file with codebase documentation'
   },
   contentLength: 0, // Dynamic content
-  progressMessage: 'analyzing your codebase',
+  progressMessage: '正在分析你的代码库',
   source: 'builtin',
   async getPromptForCommand() {
     maybeMarkProjectOnboardingComplete()

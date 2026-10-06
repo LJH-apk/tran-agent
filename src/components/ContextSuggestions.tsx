@@ -13,7 +13,7 @@ export function ContextSuggestions({ suggestions }: Props): React.ReactNode {
 
   return (
     <Box flexDirection="column" marginTop={1}>
-      <Text bold>Suggestions</Text>
+      <Text bold>建议</Text>
       {suggestions.map((suggestion, i) => (
         <Box key={i} flexDirection="column" marginTop={i === 0 ? 0 : 1}>
           <Box>

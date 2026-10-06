@@ -30,13 +30,13 @@ export function powershellToolUseOptions({
       type: 'input',
       label: 'Yes',
       value: 'yes',
-      placeholder: 'and tell Claude what to do next',
+      placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
       allowEmptySubmitToCancel: true,
     });
   } else {
     options.push({
-      label: 'Yes',
+      label: '是',
       value: 'yes',
     });
   }
@@ -60,7 +60,7 @@ export function powershellToolUseOptions({
         type: 'input',
         label: 'Yes, and don\u2019t ask again for',
         value: 'yes-prefix-edited',
-        placeholder: 'command prefix (e.g., Get-Process:*)',
+        placeholder: '命令前缀（例如 Get-Process:*）',
         initialValue: editablePrefix,
         onChange: onEditablePrefixChange,
         allowEmptySubmitToCancel: true,
@@ -84,13 +84,13 @@ export function powershellToolUseOptions({
       type: 'input',
       label: 'No',
       value: 'no',
-      placeholder: 'and tell Claude what to do differently',
+      placeholder: '并告诉 Claude 换一种做法',
       onChange: onRejectFeedbackChange,
       allowEmptySubmitToCancel: true,
     });
   } else {
     options.push({
-      label: 'No',
+      label: '否',
       value: 'no',
     });
   }

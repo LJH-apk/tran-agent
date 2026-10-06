@@ -7,8 +7,8 @@ import { getCwd } from '../utils/cwd.js';
 import type { OptionWithDescription } from './CustomSelect/select.js';
 import { Select } from './CustomSelect/select.js';
 
-const DEFAULT_OUTPUT_STYLE_LABEL = 'Default';
-const DEFAULT_OUTPUT_STYLE_DESCRIPTION = 'Claude completes coding tasks efficiently and provides concise responses';
+const DEFAULT_OUTPUT_STYLE_LABEL = '默认';
+const DEFAULT_OUTPUT_STYLE_DESCRIPTION = 'Claude 高效完成编码任务并给出简洁回复';
 
 function mapConfigsToOptions(styles: { [styleName: string]: OutputStyleConfig | null }): OptionWithDescription[] {
   return Object.entries(styles).map(([style, config]) => ({
@@ -60,17 +60,17 @@ export function OutputStylePicker({
 
   return (
     <Dialog
-      title="Preferred output style"
+      title="偏好的输出风格"
       onCancel={onCancel}
       hideInputGuide={!isStandaloneCommand}
       hideBorder={!isStandaloneCommand}
     >
       <Box flexDirection="column" gap={1}>
         <Box marginTop={1}>
-          <Text dimColor>This changes how Claude Code communicates with you</Text>
+          <Text dimColor>这会改变 Claude Code 与你交流的方式</Text>
         </Box>
         {isLoading ? (
-          <Text dimColor>Loading output styles…</Text>
+          <Text dimColor>正在加载输出风格…</Text>
         ) : (
           <Select
             options={styleOptions}

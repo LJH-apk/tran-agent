@@ -58,7 +58,7 @@ function padTwo(n: number): string {
 }
 
 function formatCountdown(remainingMs: number): string {
-  if (remainingMs <= 0) return 'exp';
+  if (remainingMs <= 0) return '已过期';
   const mins = Math.floor(remainingMs / 60_000);
   const secs = Math.floor((remainingMs % 60_000) / 1000);
   return `${padTwo(mins)}:${padTwo(secs)}`;
@@ -123,7 +123,7 @@ function CachePill({ messages }: CachePillProps): React.ReactNode {
 
   // No data yet — show placeholder
   if (displayHitRate === null && lastResetAt === null) {
-    return <Text dimColor>{' Cache --% --:--'}</Text>;
+    return <Text dimColor>{' 缓存 --% --:--'}</Text>;
   }
 
   const countdownText = remaining !== null ? formatCountdown(remaining) : '--:--';
@@ -147,7 +147,7 @@ function CachePill({ messages }: CachePillProps): React.ReactNode {
 
   return (
     <Text>
-      <Text dimColor>{' Cache '}</Text>
+      <Text dimColor>{' 缓存 '}</Text>
       <Text color={hitRateColor}>{hitRateText}</Text>
       <Text color={timerColor} dimColor={inFlashZone && !isFlashOn}>
         {' '}
@@ -488,7 +488,7 @@ function StatusLineInner({ messagesRef, lastAssistantMessageId, vimMode }: Props
       if (!checkHasTrustDialogAccepted()) {
         addNotification({
           key: 'statusline-trust-blocked',
-          text: 'statusline skipped · restart to fix',
+          text: '状态栏已跳过 · 重启以修复',
           color: 'warning',
           priority: 'low',
         });

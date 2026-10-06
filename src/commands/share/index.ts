@@ -271,11 +271,11 @@ const share: Command = {
           value: [
             'Usage: /share [--public|--private] [--mask-secrets] [--summary-only] [--allow-public-fallback]',
             '',
-            '  --public               Create a public Gist (default: secret)',
-            '  --private              Create a secret Gist (default)',
-            '  --mask-secrets         Redact API keys, tokens, and secrets before uploading',
-            '  --summary-only         Upload a summary (first 200 chars per turn) instead of full log',
-            '  --allow-public-fallback  Fall back to 0x0.st if gh gist fails',
+            '  --public               创建公开 Gist（默认为私密）',
+            '  --private              创建私密 Gist（默认）',
+            '  --mask-secrets         上传前遮蔽 API 密钥、令牌等敏感信息',
+            '  --summary-only         只上传摘要（每轮前 200 字符），而非完整日志',
+            '  --allow-public-fallback  gh gist 失败时回退到 0x0.st',
           ].join('\n'),
         }
       }
@@ -305,10 +305,10 @@ const share: Command = {
           value: [
             '## Session log not found',
             '',
-            `Session: ${sessionId}`,
+            `会话：${sessionId}`,
             `Expected path: \`${logPath}\``,
             '',
-            'The session log may not have been written yet. Try sending at least one message first.',
+            '会话日志可能尚未写入。请先至少发送一条消息再试。',
           ].join('\n'),
         }
       }
@@ -324,19 +324,19 @@ const share: Command = {
           value: [
             '## Share session log',
             '',
-            `Session: ${sessionId}`,
+            `会话：${sessionId}`,
             `Log file: \`${logPath}\``,
             '',
-            'To upload to GitHub Gist automatically, install the `gh` CLI:',
+            '如需自动上传到 GitHub Gist，请安装 `gh` 命令行工具：',
             '  https://cli.github.com/',
             '',
-            'Then run:',
+            '然后运行：',
             `  \`gh gist create "${logPath}" --secret --filename claude-session.jsonl\``,
             '',
-            'Or use `--allow-public-fallback` to upload to 0x0.st instead.',
+            '或者使用 `--allow-public-fallback` 改为上传到 0x0.st。',
             '',
-            '_Privacy note: the JSONL contains everything typed in this session,_',
-            '_including tool outputs. Review before sharing._',
+            '_隐私提示：该 JSONL 包含本次会话中输入的全部内容，_',
+            '_包括工具输出。分享前请先检查。_',
           ].join('\n'),
         }
       }
@@ -371,7 +371,7 @@ const share: Command = {
         const msg = sanitizeErrorMessage(
           writeErr instanceof Error ? writeErr.message : String(writeErr),
         )
-        return { type: 'text', value: `Failed to prepare share file: ${msg}` }
+        return { type: 'text', value: `准备分享文件失败：${msg}` }
       }
 
       try {
@@ -406,14 +406,14 @@ const share: Command = {
           value: [
             '## Session shared',
             '',
-            `URL:        ${url}`,
-            `Session:    ${sessionId}`,
-            `Visibility: ${opts.isPublic ? 'public' : 'secret'}`,
-            `Method:     ${method}`,
-            opts.summaryOnly ? 'Content:    summary only (truncated)' : '',
-            opts.maskSecrets ? 'Secrets:    masked before upload' : '',
+            `链接：      ${url}`,
+            `会话：      ${sessionId}`,
+            `可见性：    ${opts.isPublic ? 'public' : 'secret'}`,
+            `方式：      ${method}`,
+            opts.summaryOnly ? '内容：      仅摘要（已截断）' : '',
+            opts.maskSecrets ? '敏感信息：  上传前已遮蔽' : '',
             '',
-            '_Privacy note: the JSONL contains everything typed in this session._',
+            '_隐私提示：该 JSONL 包含本次会话中输入的全部内容。_',
           ]
             .filter(l => l !== '')
             .join('\n'),
@@ -429,11 +429,11 @@ const share: Command = {
           value: [
             '## Failed to share session',
             '',
-            `Error: ${msg}`,
+            `错误：${msg}`,
             '',
             hasGh
-              ? 'Make sure you are logged in: `gh auth login`'
-              : 'Install the `gh` CLI: https://cli.github.com/',
+              ? '请确认已登录：`gh auth login`'
+              : '请安装 `gh` 命令行工具：https://cli.github.com/',
             `Log file: \`${logPath}\``,
           ].join('\n'),
         }

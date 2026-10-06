@@ -29,7 +29,7 @@ export const call: LocalCommandCall = async (args, context) => {
     if (!client) {
       return {
         type: 'text',
-        value: `Not attached to "${targetName}". Use /status to see connected sub sessions.`,
+        value: `未连接到“${targetName}”。可用 /status 查看已连接的子会话。`,
       }
     }
 
@@ -58,7 +58,7 @@ export const call: LocalCommandCall = async (args, context) => {
 
     return {
       type: 'text',
-      value: `Detached from "${targetName}".`,
+      value: `已与“${targetName}”分离。`,
     }
   }
 
@@ -90,6 +90,6 @@ export const call: LocalCommandCall = async (args, context) => {
 
   return {
     type: 'text',
-    value: `Detached from ${slaveNames.length} sub session(s): ${slaveNames.join(', ')}. Back to main mode.`,
+    value: `已与 ${slaveNames.length} 个子会话分离：${slaveNames.join(', ')}。已回到主模式。`,
   }
 }

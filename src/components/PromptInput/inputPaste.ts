@@ -55,7 +55,7 @@ export function maybeTruncateMessageForInput(
 }
 
 function formatTruncatedTextRef(id: number, numLines: number): string {
-  return `[...Truncated text #${id} +${numLines} lines...]`
+  return `[...已截断文本 #${id} 共 ${numLines} 行...]`
 }
 
 export function maybeTruncateInput(

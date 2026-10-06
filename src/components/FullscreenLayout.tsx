@@ -19,7 +19,6 @@ import { Box, ScrollBox, type ScrollBoxHandle, Text, instances } from '@anthropi
 import type { Message } from '../types/message.js';
 import { openBrowser, openPath } from '../utils/browser.js';
 import { isFullscreenEnvEnabled } from '../utils/fullscreen.js';
-import { plural } from '../utils/stringUtils.js';
 import { isNullRenderingAttachment } from './messages/nullRenderingAttachments.js';
 import PromptInputFooterSuggestions from './PromptInput/PromptInputFooterSuggestions.js';
 import type { StickyPrompt } from './VirtualMessageList.js';
@@ -473,7 +472,7 @@ function NewMessagesPill({ count, onClick }: { count: number; onClick?: () => vo
       <Box onClick={onClick} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
         <Text backgroundColor={hover ? 'userMessageBackgroundHover' : 'userMessageBackground'} dimColor>
           {' '}
-          {count > 0 ? `${count} new ${plural(count, 'message')}` : 'Jump to bottom'} {figures.arrowDown}{' '}
+          {count > 0 ? `${count} 条新消息` : '跳到末尾'} {figures.arrowDown}{' '}
         </Text>
       </Box>
     </Box>

@@ -27,22 +27,22 @@ function ModePicker({ onDone }: { onDone: LocalJSXCommandOnDone }) {
   function handleSelect(slug: string) {
     setCurrentMode(slug);
     const target = modes.find(m => m.slug === slug);
-    onDone(`${target?.icon} Mode switched to: ${target?.name} (${target?.slug}) — ${target?.description}`, {
+    onDone(`${target?.icon} 已切换到模式：${target?.name}（${target?.slug}）— ${target?.description}`, {
       display: 'system',
     });
   }
 
   function handleCancel() {
-    onDone('Mode selection cancelled.', { display: 'system' });
+    onDone('已取消模式选择。', { display: 'system' });
   }
 
   return (
     <Box flexDirection="column">
       <Box marginBottom={1} flexDirection="column">
         <Text color="remember" bold>
-          Select mode
+          选择模式
         </Text>
-        <Text dimColor>Arrow keys to navigate, Enter to select, Esc to cancel.</Text>
+        <Text dimColor>用方向键导航，回车选择，Esc 取消。</Text>
       </Box>
       <Select
         defaultValue={currentSlug}
@@ -63,13 +63,13 @@ export const call: LocalJSXCommandCall = async (onDone, _context, args) => {
     const target = modes.find(m => m.slug === slug);
     if (!target) {
       const available = modes.map(m => `${m.icon} ${m.slug} — ${m.description}`).join('\n');
-      onDone(`Unknown mode: "${slug}"\n\nAvailable modes:\n${available}`, {
+      onDone(`未知模式："${slug}"\n\n可用模式：\n${available}`, {
         display: 'system',
       });
       return;
     }
     setCurrentMode(slug);
-    onDone(`${target.icon} Mode switched to: ${target.name} (${target.slug}) — ${target.description}`, {
+    onDone(`${target.icon} 已切换到模式：${target.name}（${target.slug}）— ${target.description}`, {
       display: 'system',
     });
     return;

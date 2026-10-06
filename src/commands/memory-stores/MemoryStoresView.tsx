@@ -25,7 +25,7 @@ function StoreRow({ store }: { store: MemoryStore }): React.ReactNode {
       <Box>
         <Text bold>{store.memory_store_id}</Text>
         <Text dimColor> · </Text>
-        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : 'active'}</Text>
+        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '已启用'}</Text>
         {store.namespace ? (
           <>
             <Text dimColor> · ns: </Text>
@@ -88,7 +88,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Memory store created
+            记忆库已创建
           </Text>
         </Box>
         <Text>ID: {store.memory_store_id}</Text>
@@ -105,7 +105,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'warning' as keyof Theme}>
-            Memory store archived
+            记忆库已归档
           </Text>
         </Box>
         <Text>ID: {store.memory_store_id}</Text>
@@ -165,7 +165,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Memory created
+            记忆已创建
           </Text>
         </Box>
         <Text>ID: {memory.memory_id}</Text>
@@ -181,7 +181,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Memory updated
+            记忆已更新
           </Text>
         </Box>
         <Text>ID: {memory.memory_id}</Text>
@@ -226,7 +226,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
                 {isRedacted ? (
                   <>
                     <Text dimColor> · </Text>
-                    <Text color={'warning' as keyof Theme}>redacted</Text>
+                    <Text color={'warning' as keyof Theme}>已脱敏</Text>
                   </>
                 ) : null}
               </Box>
@@ -245,7 +245,7 @@ export function MemoryStoresView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'warning' as keyof Theme}>
-            Version redacted
+            版本已脱敏
           </Text>
         </Box>
         <Text>ID: {version.version_id}</Text>

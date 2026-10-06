@@ -71,7 +71,7 @@ async function parsePRArg(
     if (!detected) {
       return {
         error:
-          'Could not detect the GitHub repository for the current directory. Provide a full PR URL instead.',
+          '无法识别当前目录对应的 GitHub 仓库。请改为提供完整的 PR URL。',
       }
     }
     const repo = `${detected.owner}/${detected.name}`
@@ -79,7 +79,7 @@ async function parsePRArg(
   }
 
   return {
-    error: `Unrecognised PR reference: "${trimmed}". Expected a PR URL, owner/repo#123, or a PR number.`,
+    error: `无法识别的 PR 引用："${trimmed}"。应为 PR URL、owner/repo#123 或 PR 编号。`,
   }
 }
 
@@ -97,11 +97,11 @@ const call: LocalCommandCall = async (args, _context) => {
       }
     }
     const lines = subs.map(
-      s => `  ${s.repo}#${s.prNumber}  (since ${s.subscribedAt})`,
+      s => `  ${s.repo}#${s.prNumber}  （自 ${s.subscribedAt} 起）`,
     )
     return {
       type: 'text',
-      value: `Active PR subscriptions:\n${lines.join('\n')}`,
+      value: `活跃的 PR 订阅：\n${lines.join('\n')}`,
     }
   }
 
@@ -120,13 +120,13 @@ const call: LocalCommandCall = async (args, _context) => {
     if (after.length === before) {
       return {
         type: 'text',
-        value: `No subscription found for ${parsed.repo}#${parsed.prNumber}.`,
+        value: `未找到 ${parsed.repo}#${parsed.prNumber} 的订阅。`,
       }
     }
     writeSubscriptions(after)
     return {
       type: 'text',
-      value: `Unsubscribed from ${parsed.repo}#${parsed.prNumber}.`,
+      value: `已取消订阅 ${parsed.repo}#${parsed.prNumber}。`,
     }
   }
 
@@ -143,7 +143,7 @@ const call: LocalCommandCall = async (args, _context) => {
   if (existing) {
     return {
       type: 'text',
-      value: `Already subscribed to ${parsed.repo}#${parsed.prNumber} (since ${existing.subscribedAt}).`,
+      value: `已订阅 ${parsed.repo}#${parsed.prNumber}（自 ${existing.subscribedAt} 起）。`,
     }
   }
 
@@ -156,7 +156,7 @@ const call: LocalCommandCall = async (args, _context) => {
 
   return {
     type: 'text',
-    value: `Subscribed to ${parsed.repo}#${parsed.prNumber}. You will receive notifications for comments, CI status, and reviews.`,
+    value: `已订阅 ${parsed.repo}#${parsed.prNumber}。你将收到评论、CI 状态和评审的通知。`,
   }
 }
 

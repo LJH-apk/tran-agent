@@ -26,14 +26,14 @@ export function IdeAutoConnectDialog({ onComplete }: IdeAutoConnectDialogProps):
   );
 
   const options = [
-    { label: 'Yes', value: 'yes' },
-    { label: 'No', value: 'no' },
+    { label: '是', value: 'yes' },
+    { label: '否', value: 'no' },
   ];
 
   return (
-    <Dialog title="Do you wish to enable auto-connect to IDE?" color="ide" onCancel={onComplete}>
+    <Dialog title="是否启用自动连接 IDE？" color="ide" onCancel={onComplete}>
       <Select options={options} onChange={handleSelect} defaultValue={'yes'} />
-      <Text dimColor>You can also configure this in /config or with the --ide flag</Text>
+      <Text dimColor>也可以在 /config 中配置，或使用 --ide 参数</Text>
     </Dialog>
   );
 }
@@ -69,14 +69,14 @@ export function IdeDisableAutoConnectDialog({ onComplete }: IdeDisableAutoConnec
   }, [onComplete]);
 
   const options = [
-    { label: 'No', value: 'no' },
-    { label: 'Yes', value: 'yes' },
+    { label: '否', value: 'no' },
+    { label: '是', value: 'yes' },
   ];
 
   return (
     <Dialog
-      title="Do you wish to disable auto-connect to IDE?"
-      subtitle="You can also configure this in /config"
+      title="是否停用自动连接 IDE？"
+      subtitle="也可以在 /config 中配置"
       onCancel={handleCancel}
       color="ide"
     >

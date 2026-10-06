@@ -36,11 +36,11 @@ const proactive = {
 
         if (mod.isProactiveActive()) {
           mod.deactivateProactive()
-          onDone('Proactive mode disabled', { display: 'system' })
+          onDone('主动模式已关闭', { display: 'system' })
         } else {
           mod.activateProactive('slash_command')
           onDone(
-            'Proactive mode enabled — model will work autonomously between ticks',
+            '主动模式已开启 —— 模型将在各次 tick 之间自主工作',
             {
               display: 'system',
               metaMessages: [

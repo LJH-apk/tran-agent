@@ -126,7 +126,7 @@ function buildLogLabel(
   const sessionCountSuffix =
     isGroupHeader && forkCount > 0 ? ` (+${forkCount} other ${forkCount === 1 ? 'session' : 'sessions'})` : '';
 
-  const sidechainSuffix = log.isSidechain ? ' (sidechain)' : '';
+  const sidechainSuffix = log.isSidechain ? ' （侧链）' : '';
 
   const maxSummaryWidth = maxLabelWidth - prefixWidth - sidechainSuffix.length - sessionCountSuffix.length;
   const truncatedSummary = normalizeAndTruncateToWidth(getLogDisplayTitle(log), maxSummaryWidth);
@@ -510,7 +510,7 @@ export function LogSelector({
 
     return displayedLogs.map((log, index) => {
       const rawSummary = getLogDisplayTitle(log);
-      const summaryWithSidechain = rawSummary + (log.isSidechain ? ' (sidechain)' : '');
+      const summaryWithSidechain = rawSummary + (log.isSidechain ? ' （侧链）' : '');
       const summary = normalizeAndTruncateToWidth(summaryWithSidechain, maxLabelWidth);
 
       const baseDescription = formatLogMetadata(log);
@@ -546,10 +546,10 @@ export function LogSelector({
     const isChildNode = sessionLogs.indexOf(focusedLog) > 0;
 
     if (isChildNode) {
-      return '← to collapse';
+      return '← 折叠';
     }
 
-    return isExpanded ? '← to collapse' : '→ to expand';
+    return isExpanded ? '← 折叠' : '→ 展开';
   };
 
   const handleRenameSubmit = React.useCallback(async () => {
@@ -857,7 +857,7 @@ export function LogSelector({
     filterIndicators.push(currentBranch);
   }
   if (hasMultipleWorktrees && !showAllWorktrees) {
-    filterIndicators.push('current worktree');
+    filterIndicators.push('当前工作树');
   }
 
   const showAdditionalFilterLine = filterIndicators.length > 0 && viewMode !== 'search';
@@ -915,7 +915,7 @@ export function LogSelector({
       ) : (
         <Box flexShrink={0}>
           <Text bold color="suggestion">
-            Resume Session
+            恢复会话
             {viewMode === 'list' && displayedLogs.length > visibleCount && (
               <Text dimColor>
                 {' '}
@@ -946,7 +946,7 @@ export function LogSelector({
       {agenticSearchState.status === 'searching' && (
         <Box paddingLeft={1} flexShrink={0}>
           <Spinner />
-          <Text> Searching…</Text>
+          <Text> 正在搜索…</Text>
         </Box>
       )}
 
@@ -954,7 +954,7 @@ export function LogSelector({
       {agenticSearchState.status === 'results' && agenticSearchState.results.length > 0 && (
         <Box paddingLeft={1} marginBottom={1} flexShrink={0}>
           <Text dimColor italic>
-            Claude found these results:
+            Claude 找到了以下结果：
           </Text>
         </Box>
       )}
@@ -965,7 +965,7 @@ export function LogSelector({
         filteredLogs.length === 0 && (
           <Box paddingLeft={1} marginBottom={1} flexShrink={0}>
             <Text dimColor italic>
-              No matching sessions found.
+              未找到匹配的会话。
             </Text>
           </Box>
         )}
@@ -974,7 +974,7 @@ export function LogSelector({
       {agenticSearchState.status === 'error' && filteredLogs.length === 0 && (
         <Box paddingLeft={1} marginBottom={1} flexShrink={0}>
           <Text dimColor italic>
-            No matching sessions found.
+            未找到匹配的会话。
           </Text>
         </Box>
       )}
@@ -992,7 +992,7 @@ export function LogSelector({
                 {isAgenticSearchOptionFocused ? figures.pointer : ' '}
               </Text>
               <Text color={isAgenticSearchOptionFocused ? 'suggestion' : undefined} bold={isAgenticSearchOptionFocused}>
-                Search deeply using Claude →
+                使用 Claude 深度搜索 →
               </Text>
             </Box>
             <Box height={1} />
@@ -1002,13 +1002,13 @@ export function LogSelector({
       {/* Hide session list when agentic search is in progress */}
       {agenticSearchState.status === 'searching' ? null : viewMode === 'rename' && focusedLog ? (
         <Box paddingLeft={2} flexDirection="column">
-          <Text bold>Rename session:</Text>
+          <Text bold>重命名会话：</Text>
           <Box paddingTop={1}>
             <TextInput
               value={renameValue}
               onChange={setRenameValue}
               onSubmit={handleRenameSubmit}
-              placeholder={getLogDisplayTitle(focusedLog!, 'Enter new session name')}
+              placeholder={getLogDisplayTitle(focusedLog!, '输入新的会话名称')}
               columns={columns}
               cursorOffset={renameCursorOffset}
               onChangeCursorOffset={setRenameCursorOffset}
@@ -1083,46 +1083,46 @@ export function LogSelector({
         ) : viewMode === 'rename' ? (
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="save" />
+              <KeyboardShortcutHint shortcut="Enter" action="保存" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
                 fallback="Esc"
-                description="cancel"
+                description="取消"
               />
             </Byline>
           </Text>
         ) : agenticSearchState.status === 'searching' ? (
           <Text dimColor>
             <Byline>
-              <Text>Searching with Claude…</Text>
+              <Text>正在用 Claude 搜索…</Text>
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
                 fallback="Esc"
-                description="cancel"
+                description="取消"
               />
             </Byline>
           </Text>
         ) : isAgenticSearchOptionFocused ? (
           <Text dimColor>
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="search" />
-              <KeyboardShortcutHint shortcut="↓" action="skip" />
+              <KeyboardShortcutHint shortcut="Enter" action="搜索" />
+              <KeyboardShortcutHint shortcut="↓" action="跳过" />
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
                 fallback="Esc"
-                description="cancel"
+                description="取消"
               />
             </Byline>
           </Text>
         ) : viewMode === 'search' ? (
           <Text dimColor>
             <Byline>
-              <Text>{isSearching && isDeepSearchEnabled ? 'Searching…' : 'Type to Search'}</Text>
-              <KeyboardShortcutHint shortcut="Enter" action="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="clear" />
+              <Text>{isSearching && isDeepSearchEnabled ? '正在搜索…' : '输入以搜索'}</Text>
+              <KeyboardShortcutHint shortcut="Enter" action="选择" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="清空" />
             </Byline>
           </Text>
         ) : (
@@ -1134,21 +1134,21 @@ export function LogSelector({
                   action={`show ${showAllProjects ? 'current dir' : 'all projects'}`}
                 />
               )}
-              {currentBranch && <KeyboardShortcutHint shortcut="Ctrl+B" action="toggle branch" />}
+              {currentBranch && <KeyboardShortcutHint shortcut="Ctrl+B" action="切换分支筛选" />}
               {hasMultipleWorktrees && (
                 <KeyboardShortcutHint
                   shortcut="Ctrl+W"
                   action={`show ${showAllWorktrees ? 'current worktree' : 'all worktrees'}`}
                 />
               )}
-              <KeyboardShortcutHint shortcut="Ctrl+V" action="preview" />
-              <KeyboardShortcutHint shortcut="Ctrl+R" action="rename" />
-              <Text>Type to search</Text>
+              <KeyboardShortcutHint shortcut="Ctrl+V" action="预览" />
+              <KeyboardShortcutHint shortcut="Ctrl+R" action="重命名" />
+              <Text>输入以搜索</Text>
               <ConfigurableShortcutHint
                 action="confirm:no"
                 context="Confirmation"
                 fallback="Esc"
-                description="cancel"
+                description="取消"
               />
               {getExpandCollapseHint() && <Text>{getExpandCollapseHint()}</Text>}
             </Byline>

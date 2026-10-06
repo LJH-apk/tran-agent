@@ -91,7 +91,7 @@ export function launchCommand<TParsed, TViewProps>(
     const parsed = opts.parseArgs(args ?? '')
 
     if (isInvalid(parsed)) {
-      onDone(`Invalid args: ${parsed.reason}`, { display: 'system' })
+      onDone(`参数无效：${parsed.reason}`, { display: 'system' })
       return opts.errorView(parsed.reason)
     }
 
@@ -106,7 +106,7 @@ export function launchCommand<TParsed, TViewProps>(
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err)
       opts.onDispatchError?.(err)
-      onDone(`${opts.commandName} failed: ${msg}`, { display: 'system' })
+      onDone(`${opts.commandName} 执行失败：${msg}`, { display: 'system' })
       return opts.errorView(msg)
     }
   }

@@ -35,25 +35,25 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
   };
 
   const currentMode = getCurrentMode();
-  const currentIndicator = color('success', theme)(`(current)`);
+  const currentIndicator = color('success', theme)(`（当前）`);
 
   const options = [
     {
       label:
         currentMode === 'auto-allow'
-          ? `Sandbox BashTool, with auto-allow ${currentIndicator}`
-          : 'Sandbox BashTool, with auto-allow',
+          ? `沙箱运行 BashTool，自动放行 ${currentIndicator}`
+          : '沙箱运行 BashTool，自动放行',
       value: 'auto-allow',
     },
     {
       label:
         currentMode === 'regular'
-          ? `Sandbox BashTool, with regular permissions ${currentIndicator}`
-          : 'Sandbox BashTool, with regular permissions',
+          ? `沙箱运行 BashTool，常规权限 ${currentIndicator}`
+          : '沙箱运行 BashTool，常规权限',
       value: 'regular',
     },
     {
-      label: currentMode === 'disabled' ? `No Sandbox ${currentIndicator}` : 'No Sandbox',
+      label: currentMode === 'disabled' ? `不使用沙箱 ${currentIndicator}` : 'No Sandbox',
       value: 'disabled',
     },
   ];
@@ -67,21 +67,21 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
           enabled: true,
           autoAllowBashIfSandboxed: true,
         });
-        onComplete('✓ Sandbox enabled with auto-allow for bash commands');
+        onComplete('✓ 沙箱已启用，bash 命令自动放行');
         break;
       case 'regular':
         await SandboxManager.setSandboxSettings({
           enabled: true,
           autoAllowBashIfSandboxed: false,
         });
-        onComplete('✓ Sandbox enabled with regular bash permissions');
+        onComplete('✓ 沙箱已启用，bash 使用常规权限');
         break;
       case 'disabled':
         await SandboxManager.setSandboxSettings({
           enabled: false,
           autoAllowBashIfSandboxed: false,
         });
-        onComplete('○ Sandbox disabled');
+        onComplete('○ 沙箱已禁用');
         break;
     }
   }
@@ -94,7 +94,7 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
   );
 
   const modeTab = (
-    <Tab key="mode" title="Mode">
+    <Tab key="mode" title="模式">
       <SandboxModeTab
         showSocketWarning={showSocketWarning}
         options={options}
@@ -105,13 +105,13 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
   );
 
   const overridesTab = (
-    <Tab key="overrides" title="Overrides">
+    <Tab key="overrides" title="覆盖设置">
       <SandboxOverridesTab onComplete={onComplete} />
     </Tab>
   );
 
   const configTab = (
-    <Tab key="config" title="Config">
+    <Tab key="config" title="配置">
       <SandboxConfigTab />
     </Tab>
   );
@@ -122,7 +122,7 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
   // If only optional deps missing, show all tabs
   const tabs = hasErrors
     ? [
-        <Tab key="dependencies" title="Dependencies">
+        <Tab key="dependencies" title="依赖">
           <SandboxDependenciesTab depCheck={depCheck} />
         </Tab>,
       ]
@@ -130,7 +130,7 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
         modeTab,
         ...(hasWarnings
           ? [
-              <Tab key="dependencies" title="Dependencies">
+              <Tab key="dependencies" title="依赖">
                 <SandboxDependenciesTab depCheck={depCheck} />
               </Tab>,
             ]
@@ -141,7 +141,7 @@ export function SandboxSettings({ onComplete, depCheck }: Props): React.ReactNod
 
   return (
     <Pane color="permission">
-      <Tabs title="Sandbox:" color="permission" defaultTab="Mode">
+      <Tabs title="沙箱：" color="permission" defaultTab="Mode">
         {tabs}
       </Tabs>
     </Pane>
@@ -164,11 +164,11 @@ function SandboxModeTab({
     <Box flexDirection="column" paddingY={1}>
       {showSocketWarning && (
         <Box marginBottom={1}>
-          <Text color="warning">Cannot block unix domain sockets (see Dependencies tab)</Text>
+          <Text color="warning">无法阻止 unix 域套接字（见「依赖」标签页）</Text>
         </Box>
       )}
       <Box marginBottom={1}>
-        <Text bold>Configure Mode:</Text>
+        <Text bold>配置模式：</Text>
       </Box>
       <Select
         options={options}
@@ -180,13 +180,12 @@ function SandboxModeTab({
       <Box flexDirection="column" marginTop={1} gap={1}>
         <Text dimColor>
           <Text bold dimColor>
-            Auto-allow mode:
+            自动放行模式：
           </Text>{' '}
-          Commands will try to run in the sandbox automatically, and attempts to run outside of the sandbox fallback to
-          regular permissions. Explicit ask/deny rules are always respected.
+          命令将自动尝试在沙箱中运行；若尝试在沙箱外运行，则回退为常规权限。显式的询问/拒绝规则始终生效。
         </Text>
         <Text dimColor>
-          Learn more: <Link url="https://code.claude.com/docs/en/sandboxing">code.claude.com/docs/en/sandboxing</Link>
+          了解更多： <Link url="https://code.claude.com/docs/en/sandboxing">code.claude.com/docs/en/sandboxing</Link>
         </Text>
       </Box>
     </Box>

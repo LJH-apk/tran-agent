@@ -97,7 +97,7 @@ function makeErrorText(message: string, code: string): string {
     error_code:
       code as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
   })
-  return `Autofix PR failed: ${message}`
+  return `自动修复 PR 失败：${message}`
 }
 
 export const callAutofixPr: LocalJSXCommandCall = async (
@@ -112,7 +112,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     if (parsed.action === 'stop') {
       const m = getActiveMonitor()
       if (!m) {
-        onDone('No active autofix monitor.', { display: 'system' })
+        onDone('当前没有正在运行的自动修复监控。', { display: 'system' })
         return null
       }
       clearActiveMonitor()
@@ -121,7 +121,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
       // started running on the cloud will continue until it completes or is
       // cancelled from claude.ai/code.
       onDone(
-        `Stopped local monitoring of ${m.repo}#${m.prNumber}. Any already-running remote session continues until it finishes or is cancelled from claude.ai/code.`,
+        `已停止对 ${m.repo}#${m.prNumber} 的本地监控。已在运行的远程会话会继续执行，直到完成或在 claude.ai/code 中取消。`,
         { display: 'system' },
       )
       return null
@@ -130,7 +130,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     // 2. invalid
     if (parsed.action === 'invalid') {
       onDone(
-        `Invalid args: ${parsed.reason}. Use /autofix-pr <pr-number> | stop | <owner>/<repo>#<n>`,
+        `参数无效：${parsed.reason}。用法：/autofix-pr <PR 编号> | stop | <owner>/<repo>#<n>`,
         {
           display: 'system',
         },
@@ -141,7 +141,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     // 3. freeform — not yet supported
     if (parsed.action === 'freeform') {
       onDone(
-        'Freeform prompt mode not yet supported. Use /autofix-pr <pr-number>.',
+        '暂不支持自由文本提示模式。请使用 /autofix-pr <PR 编号>。',
         {
           display: 'system',
         },
@@ -170,7 +170,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     } catch {
       onDone(
         makeErrorText(
-          'Cannot detect GitHub repo from current directory.',
+          '无法从当前目录检测到 GitHub 仓库。',
           'session_create_failed',
         ),
         { display: 'system' },
@@ -180,7 +180,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     if (!detected || detected.host !== 'github.com') {
       onDone(
         makeErrorText(
-          'Cannot detect GitHub repo from current directory.',
+          '无法从当前目录检测到 GitHub 仓库。',
           'session_create_failed',
         ),
         { display: 'system' },
@@ -199,7 +199,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
     ) {
       onDone(
         makeErrorText(
-          `Cross-repo autofix is not supported from this directory. Run from ${detected.owner}/${detected.name} or pass only the PR number.`,
+          `不支持从当前目录对其他仓库执行自动修复。请在 ${detected.owner}/${detected.name} 目录下运行，或只传入 PR 编号。`,
           'repo_mismatch',
         ),
         { display: 'system' },
@@ -217,7 +217,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
         result:
           'success_rc' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       })
-      onDone(`Already monitoring ${repo}#${prNumber} in background.`, {
+      onDone(`已在后台监控 ${repo}#${prNumber}。`, {
         display: 'system',
       })
       return null
@@ -242,7 +242,7 @@ export const callAutofixPr: LocalJSXCommandCall = async (
         const reasons = blockers.map(formatPreconditionError).join('\n')
         onDone(
           makeErrorText(
-            `Remote agent not available:\n${reasons}`,
+            `远程智能体不可用：\n${reasons}`,
             'session_create_failed',
           ),
           { display: 'system' },
@@ -294,7 +294,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
       const existing = getActiveMonitor()
       onDone(
         makeErrorText(
-          `already monitoring ${existing?.repo}#${existing?.prNumber}. Run /autofix-pr stop first.`,
+          `正在监控 ${existing?.repo}#${existing?.prNumber}。请先运行 /autofix-pr stop。`,
           'rc_already_monitoring_other',
         ),
         { display: 'system' },
@@ -321,7 +321,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
         source: 'autofix_pr',
         branchName,
         skipBundle: true,
-        title: `Autofix PR: ${target}`,
+        title: `自动修复 PR：${target}`,
         useDefaultEnvironment: true,
         signal: teammate.abortController.signal,
         githubPr: { owner, repo, number: prNumber },
@@ -332,7 +332,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
       clearActiveMonitor(teammate.taskId)
       const teleMsg =
         teleErr instanceof Error ? teleErr.message : String(teleErr)
-      onDone(makeErrorText(`teleport failed: ${teleMsg}`, 'teleport_failed'), {
+      onDone(makeErrorText(`远程传送失败：${teleMsg}`, 'teleport_failed'), {
         display: 'system',
       })
       return null
@@ -342,7 +342,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
       clearActiveMonitor(teammate.taskId)
       onDone(
         makeErrorText(
-          teleportFailMsg ?? 'remote session creation failed.',
+          teleportFailMsg ?? '远程会话创建失败。',
           'session_create_failed',
         ),
         { display: 'system' },
@@ -384,7 +384,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
       const regMsg = regErr instanceof Error ? regErr.message : String(regErr)
       onDone(
         makeErrorText(
-          `task registration failed: ${regMsg}`,
+          `任务注册失败：${regMsg}`,
           'registration_failed',
         ),
         { display: 'system' },
@@ -404,7 +404,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
         'success_rc' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     })
     // Also call onDone so callers that listen to the callback get notified.
-    onDone(`Autofix launched for ${target}. Track: ${sessionUrl}`, {
+    onDone(`已为 ${target} 启动自动修复。跟踪链接：${sessionUrl}`, {
       display: 'system',
     })
     // Return a React progress UI showing the completed pipeline.
@@ -422,7 +422,7 @@ If no fix was needed, omit <commits-pushed> and <files-changed> and explain in <
       error_code:
         'exception' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     })
-    onDone(`Autofix PR failed: ${msg}`, { display: 'system' })
+    onDone(`自动修复 PR 失败：${msg}`, { display: 'system' })
     return null
   }
 }

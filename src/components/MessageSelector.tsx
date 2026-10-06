@@ -133,9 +133,9 @@ export function MessageSelector({
   function getRestoreOptions(canRestoreCode: boolean): OptionWithDescription<RestoreOption>[] {
     const baseOptions: OptionWithDescription<RestoreOption>[] = canRestoreCode
       ? [
-          { value: 'both', label: 'Restore code and conversation' },
-          { value: 'conversation', label: 'Restore conversation' },
-          { value: 'code', label: 'Restore code' },
+          { value: 'both', label: '恢复代码和对话' },
+          { value: 'conversation', label: '恢复对话' },
+          { value: 'code', label: '恢复代码' },
         ]
       : [{ value: 'conversation', label: 'Restore conversation' }];
 
@@ -149,20 +149,20 @@ export function MessageSelector({
     };
     baseOptions.push({
       value: 'summarize',
-      label: 'Summarize from here',
+      label: '从此处开始摘要',
       ...summarizeInputProps,
       onChange: setSummarizeFromFeedback,
     });
     if (process.env.USER_TYPE === 'ant') {
       baseOptions.push({
         value: 'summarize_up_to',
-        label: 'Summarize up to here',
+        label: '摘要到此为止',
         ...summarizeInputProps,
         onChange: setSummarizeUpToFeedback,
       });
     }
 
-    baseOptions.push({ value: 'nevermind', label: 'Never mind' });
+    baseOptions.push({ value: 'nevermind', label: '不用了' });
     return baseOptions;
   }
 
@@ -182,7 +182,7 @@ export function MessageSelector({
     } catch (error) {
       logError(error as Error);
       setIsRestoring(false);
-      setError(`Failed to restore the conversation:\n${error}`);
+      setError(`恢复对话失败：\n${error}`);
     }
   }
 
@@ -217,7 +217,7 @@ export function MessageSelector({
       option: option as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
     if (!messageToRestore) {
-      setError('Message not found.');
+      setError('未找到该消息。');
       return;
     }
     if (option === 'nevermind') {
@@ -244,7 +244,7 @@ export function MessageSelector({
         setIsRestoring(false);
         setRestoringOption(null);
         setMessageToRestore(undefined);
-        setError(`Failed to summarize:\n${error}`);
+        setError(`摘要失败：\n${error}`);
       }
       return;
     }
@@ -279,11 +279,11 @@ export function MessageSelector({
 
     // Handle errors
     if (conversationError && codeError) {
-      setError(`Failed to restore the conversation and code:\n${conversationError}\n${codeError}`);
+      setError(`恢复对话和代码失败：\n${conversationError}\n${codeError}`);
     } else if (conversationError) {
-      setError(`Failed to restore the conversation:\n${conversationError}`);
+      setError(`恢复对话失败：\n${conversationError}`);
     } else if (codeError) {
-      setError(`Failed to restore the code:\n${codeError}`);
+      setError(`恢复代码失败：\n${codeError}`);
     } else {
       // Success - close the selector
       onClose();
@@ -386,7 +386,7 @@ export function MessageSelector({
       <Divider color="suggestion" />
       <Box flexDirection="column" marginX={1} gap={1}>
         <Text bold color="suggestion">
-          Rewind
+          回溯
         </Text>
 
         {error && (
@@ -396,7 +396,7 @@ export function MessageSelector({
         )}
         {!hasMessagesToSelect && (
           <>
-            <Text>Nothing to rewind to yet.</Text>
+            <Text>暂时没有可回溯的内容。</Text>
           </>
         )}
         {!error && messageToRestore && hasMessagesToSelect && (
@@ -428,7 +428,7 @@ export function MessageSelector({
             {isRestoring && isSummarizeOption(restoringOption) ? (
               <Box flexDirection="row" gap={1}>
                 <Spinner />
-                <Text>Summarizing…</Text>
+                <Text>正在摘要…</Text>
               </Box>
             ) : (
               <Select
@@ -442,7 +442,7 @@ export function MessageSelector({
             )}
             {canRestoreCode && (
               <Box marginBottom={1}>
-                <Text dimColor>{figures.warning} Rewinding does not affect files edited manually or via bash.</Text>
+                <Text dimColor>{figures.warning} 回溯不会影响手动或通过 bash 编辑过的文件。</Text>
               </Box>
             )}
           </>
@@ -450,9 +450,9 @@ export function MessageSelector({
         {showPickList && (
           <>
             {isFileHistoryEnabled ? (
-              <Text>Restore the code and/or conversation to the point before…</Text>
+              <Text>将代码和/或对话恢复到以下时间点之前…</Text>
             ) : (
-              <Text>Restore and fork the conversation to the point before…</Text>
+              <Text>将对话恢复并分叉到以下时间点之前…</Text>
             )}
             <Box width="100%" flexDirection="column">
               {messageOptions
@@ -501,17 +501,17 @@ export function MessageSelector({
                                     <>
                                       {numFilesChanged === 1 && metadata.filesChanged![0]
                                         ? `${path.basename(metadata.filesChanged![0])} `
-                                        : `${numFilesChanged} files changed `}
+                                        : `已更改 ${numFilesChanged} 个文件 `}
                                       <DiffStatsText diffStats={metadata} />
                                     </>
                                   ) : (
-                                    <>No code changes</>
+                                    <>无代码改动</>
                                   )}
                                 </Text>
                               </>
                             ) : (
                               <Text dimColor color="warning">
-                                {figures.warning} No code restore
+                                {figures.warning} 无法恢复代码
                               </Text>
                             )}
                           </Box>
@@ -528,7 +528,7 @@ export function MessageSelector({
             {exitState.pending ? (
               <>Press {exitState.keyName} again to exit</>
             ) : (
-              <>{!error && hasMessagesToSelect && 'Enter to continue · '}Esc to exit</>
+              <>{!error && hasMessagesToSelect && 'Enter 继续 · '}Esc 退出</>
             )}
           </Text>
         )}
@@ -540,15 +540,15 @@ export function MessageSelector({
 function getRestoreOptionConversationText(option: RestoreOption): string {
   switch (option) {
     case 'summarize':
-      return 'Messages after this point will be summarized.';
+      return '此处之后的消息将被摘要。';
     case 'summarize_up_to':
-      return 'Preceding messages will be summarized. This and subsequent messages will remain unchanged — you will stay at the end of the conversation.';
+      return '前面的消息将被摘要。本条及之后的消息保持不变 —— 你将停留在对话末尾。';
     case 'both':
     case 'conversation':
-      return 'The conversation will be forked.';
+      return '对话将被分叉。';
     case 'code':
     case 'nevermind':
-      return 'The conversation will be unchanged.';
+      return '对话将保持不变。';
   }
 }
 
@@ -570,7 +570,7 @@ function RestoreOptionDescription({
         (showCodeRestore ? (
           <RestoreCodeConfirmation diffStatsForRestore={diffStatsForRestore} />
         ) : (
-          <Text dimColor>The code will be unchanged.</Text>
+          <Text dimColor>代码将保持不变。</Text>
         ))}
     </Box>
   );
@@ -585,7 +585,7 @@ function RestoreCodeConfirmation({
     return undefined;
   }
   if (!diffStatsForRestore.filesChanged || !diffStatsForRestore.filesChanged[0]) {
-    return <Text dimColor>The code has not changed (nothing will be restored).</Text>;
+    return <Text dimColor>代码没有改动（不会恢复任何内容）。</Text>;
   }
 
   const numFilesChanged = diffStatsForRestore.filesChanged.length;
@@ -596,10 +596,10 @@ function RestoreCodeConfirmation({
   } else if (numFilesChanged === 2) {
     const file1 = path.basename(diffStatsForRestore.filesChanged[0] || '');
     const file2 = path.basename(diffStatsForRestore.filesChanged[1] || '');
-    fileLabel = `${file1} and ${file2}`;
+    fileLabel = `${file1} 和 ${file2}`;
   } else {
     const file1 = path.basename(diffStatsForRestore.filesChanged[0] || '');
-    fileLabel = `${file1} and ${diffStatsForRestore.filesChanged.length - 1} other files`;
+    fileLabel = `${file1} 及另外 ${diffStatsForRestore.filesChanged.length - 1} 个文件`;
   }
 
   return (
@@ -641,7 +641,7 @@ function UserMessageOption({
     return (
       <Box width="100%">
         <Text italic color={color} dimColor={dimColor}>
-          (current)
+          （当前）
         </Text>
       </Box>
     );
@@ -654,7 +654,7 @@ function UserMessageOption({
       ? content.trim()
       : lastBlock && isTextBlock(lastBlock)
         ? lastBlock.text.trim()
-        : '(no prompt)';
+        : '（无提示词）';
 
   // Strip display-unfriendly tags (like <ide_opened_file>) before showing in the list
   const messageText = stripDisplayTags(rawMessageText);
@@ -663,7 +663,7 @@ function UserMessageOption({
     return (
       <Box flexDirection="row" width="100%">
         <Text italic color={color} dimColor={dimColor}>
-          ((empty message))
+          （（空消息））
         </Text>
       </Box>
     );

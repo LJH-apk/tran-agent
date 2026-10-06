@@ -13,7 +13,7 @@ const teleport: Command = {
   isEnabled: () => true,
   bridgeSafe: false,
   getBridgeInvocationError: (_args: string) =>
-    'teleport resumes the REPL and is not bridge-safe',
+    'teleport 会恢复 REPL，不支持桥接调用',
   load: async () => {
     const m = await import('./launchTeleport.js')
     return { call: m.callTeleport }

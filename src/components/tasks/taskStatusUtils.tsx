@@ -75,13 +75,13 @@ export function getTaskStatusColor(
  * recent-activity summary → last activity description → 'working'.
  */
 export function describeTeammateActivity(t: DeepImmutable<InProcessTeammateTaskState>): string {
-  if (t.shutdownRequested) return 'stopping';
-  if (t.awaitingPlanApproval) return 'awaiting approval';
-  if (t.isIdle) return 'idle';
+  if (t.shutdownRequested) return '正在停止';
+  if (t.awaitingPlanApproval) return '等待批准';
+  if (t.isIdle) return '空闲';
   return (
     (t.progress?.recentActivities && summarizeRecentActivities(t.progress.recentActivities)) ??
     t.progress?.lastActivity?.activityDescription ??
-    'working'
+    '工作中'
   );
 }
 

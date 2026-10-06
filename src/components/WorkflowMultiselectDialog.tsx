@@ -18,11 +18,11 @@ type Props = {
 const WORKFLOWS: WorkflowOption[] = [
   {
     value: 'claude' as const,
-    label: '@Claude Code - Tag @claude in issues and PR comments',
+    label: '@Claude Code - 在 issue 和 PR 评论中 @claude',
   },
   {
     value: 'claude-review' as const,
-    label: 'Claude Code Review - Automated code review on new PRs',
+    label: 'Claude Code Review - 对新的 PR 自动进行代码审查',
   },
 ];
 
@@ -32,10 +32,10 @@ function renderInputGuide(exitState: ExitState): React.ReactNode {
   }
   return (
     <Byline>
-      <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
-      <KeyboardShortcutHint shortcut="Space" action="toggle" />
-      <KeyboardShortcutHint shortcut="Enter" action="confirm" />
-      <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+      <KeyboardShortcutHint shortcut="↑↓" action="导航" />
+      <KeyboardShortcutHint shortcut="Space" action="切换" />
+      <KeyboardShortcutHint shortcut="Enter" action="确认" />
+      <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
     </Byline>
   );
 }
@@ -66,14 +66,14 @@ export function WorkflowMultiselectDialog({ onSubmit, defaultSelections }: Props
 
   return (
     <Dialog
-      title="Select GitHub workflows to install"
-      subtitle="We'll create a workflow file in your repository for each one you select."
+      title="选择要安装的 GitHub workflow"
+      subtitle="我们会为你选择的每个 workflow 在仓库中创建一个 workflow 文件。"
       onCancel={handleCancel}
       inputGuide={renderInputGuide}
     >
       <Box>
         <Text dimColor>
-          More workflow examples (issue triage, CI fixes, etc.) at:{' '}
+          更多 workflow 示例（issue 分类、CI 修复等）见：{' '}
           <Link url="https://github.com/anthropics/claude-code-action/blob/main/examples/">
             https://github.com/anthropics/claude-code-action/blob/main/examples/
           </Link>
@@ -94,7 +94,7 @@ export function WorkflowMultiselectDialog({ onSubmit, defaultSelections }: Props
 
       {showError && (
         <Box>
-          <Text color="error">You must select at least one workflow to continue</Text>
+          <Text color="error">必须至少选择一个 workflow 才能继续</Text>
         </Box>
       )}
     </Dialog>

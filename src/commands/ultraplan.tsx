@@ -127,9 +127,9 @@ function startDetachedPoll(
         setAppState(prev => (prev.ultraplanSessionUrl === url ? { ...prev, ultraplanSessionUrl: undefined } : prev));
         enqueuePendingNotification({
           value: [
-            `Ultraplan approved — executing in Claude Code on the web. Follow along at: ${url}`,
+            `Ultraplan 已批准——正在网页版 Claude Code 中执行。进度查看：${url}`,
             '',
-            'Results will land as a pull request when the remote session finishes. There is nothing to do here.',
+            '远程会话结束后结果会以 Pull Request 形式提交。此处无需操作。',
           ].join('\n'),
           mode: 'task-notification',
         });
@@ -162,7 +162,7 @@ function startDetachedPoll(
         reject_count: e instanceof UltraplanPollError ? e.rejectCount : undefined,
       });
       enqueuePendingNotification({
-        value: `Ultraplan failed: ${errorMessage(e)}\n\nSession: ${url}`,
+        value: `Ultraplan 失败：${errorMessage(e)}\n\n会话：${url}`,
         mode: 'task-notification',
       });
       // Error path owns cleanup; teleport path defers to the dialog; remote
@@ -193,17 +193,17 @@ function startDetachedPoll(
 // multi-second teleportToRemote round-trip.
 function buildLaunchMessage(disconnectedBridge?: boolean): string {
   const prefix = disconnectedBridge ? `${REMOTE_CONTROL_DISCONNECTED_MSG} ` : '';
-  return `${DIAMOND_OPEN} ultraplan\n${prefix}Starting Claude Code on the web…`;
+  return `${DIAMOND_OPEN} ultraplan\n${prefix}正在启动网页版 Claude Code…`;
 }
 
 function buildSessionReadyMessage(url: string): string {
-  return `${DIAMOND_OPEN} ultraplan · Monitor progress in Claude Code on the web ${url}\nYou can continue working — when the ${DIAMOND_OPEN} fills, press ↓ to view results`;
+  return `${DIAMOND_OPEN} ultraplan · 在网页版 Claude Code 中查看进度 ${url}\n你可以继续工作——当 ${DIAMOND_OPEN} 填满时，按 ↓ 查看结果`;
 }
 
 function buildAlreadyActiveMessage(url: string | undefined): string {
   return url
-    ? `ultraplan: already polling. Open ${url} to check status, or wait for the plan to land here.`
-    : 'ultraplan: already launching. Please wait for the session to start.';
+    ? `ultraplan：已在轮询中。打开 ${url} 查看状态，或等待方案返回此处。`
+    : 'ultraplan：正在启动中。请等待会话启动。';
 }
 
 /**
@@ -233,7 +233,7 @@ export async function stopUltraplan(
   );
   const url = getRemoteSessionUrl(sessionId, process.env.SESSION_INGRESS_URL);
   enqueuePendingNotification({
-    value: `Ultraplan stopped.\n\nSession: ${url}`,
+    value: `Ultraplan 已停止。\n\n会话：${url}`,
     mode: 'task-notification',
   });
   enqueuePendingNotification({
@@ -289,8 +289,8 @@ export async function launchUltraplan(opts: {
     return [
       // Rendered via <Markdown>; raw <message> is tokenized as HTML
       // and dropped. Backslash-escape the brackets.
-      'Usage: /ultraplan \\<prompt\\>, or include "ultraplan" anywhere',
-      'in your prompt',
+      '用法：/ultraplan \\<prompt\\>，或在提示词任意位置包含 "ultraplan"',
+      '即可',
       '',
       // 'Advanced multi-agent plan mode with our most powerful model',
       // '(Opus). Runs in Claude Code on the web. When the plan is ready,',
@@ -299,7 +299,7 @@ export async function launchUltraplan(opts: {
       // 'Requires /login.',
       ...getDialogConfig().usageBlurb,
       '',
-      `Terms: ${CCR_TERMS_URL}`,
+      `条款：${CCR_TERMS_URL}`,
     ].join('\n');
   }
 
@@ -350,7 +350,7 @@ async function launchDetached(opts: {
       });
       const reasons = eligibility.errors.map(formatPreconditionError).join('\n');
       enqueuePendingNotification({
-        value: `ultraplan: cannot launch remote session —\n${reasons}`,
+        value: `ultraplan：无法启动远程会话——\n${reasons}`,
         mode: 'task-notification',
       });
       return;
@@ -426,7 +426,7 @@ async function launchDetached(opts: {
       reason: 'unexpected_error' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
     enqueuePendingNotification({
-      value: `ultraplan: unexpected error — ${errorMessage(e)}`,
+      value: `ultraplan：发生意外错误——${errorMessage(e)}`,
       mode: 'task-notification',
     });
 

@@ -71,7 +71,7 @@ export function IdeOnboardingDialog({ onDone, installationStatus }: Props): Reac
       </Dialog>
       <Box paddingX={1}>
         <Text dimColor italic>
-          Press Enter to continue
+          按 Enter 继续
         </Text>
       </Box>
     </>

@@ -256,9 +256,9 @@ export function Feedback({
       setStep('done');
     } else {
       if (result.isZdrOrg) {
-        setError('Feedback collection is not available for organizations with custom data retention policies.');
+        setError('使用自定义数据留存策略的组织无法提交反馈。');
       } else {
-        setError('Could not submit feedback. Please try again later.');
+        setError('无法提交反馈，请稍后重试。');
       }
       // Stay on userInput step so user can retry with their content preserved
       setStep('userInput');
@@ -270,15 +270,15 @@ export function Feedback({
     // Don't cancel when done - let other keys close the dialog
     if (step === 'done') {
       if (error) {
-        onDone('Error submitting feedback / bug report', {
+        onDone('提交反馈 / 缺陷报告时出错', {
           display: 'system',
         });
       } else {
-        onDone('Feedback / bug report submitted', { display: 'system' });
+        onDone('反馈 / 缺陷报告已提交', { display: 'system' });
       }
       return;
     }
-    onDone('Feedback / bug report cancelled', { display: 'system' });
+    onDone('反馈 / 缺陷报告已取消', { display: 'system' });
   }, [step, error, onDone]);
 
   // During text input, use Settings context where only Escape (not 'n') triggers confirm:no.
@@ -297,11 +297,11 @@ export function Feedback({
         void openBrowser(issueUrl);
       }
       if (error) {
-        onDone('Error submitting feedback / bug report', {
+        onDone('提交反馈 / 缺陷报告时出错', {
           display: 'system',
         });
       } else {
-        onDone('Feedback / bug report submitted', { display: 'system' });
+        onDone('反馈 / 缺陷报告已提交', { display: 'system' });
       }
       return;
     }
@@ -309,7 +309,7 @@ export function Feedback({
     // When in userInput step with error, allow user to edit and retry
     // (don't close on any keypress - they can still press Esc to cancel)
     if (error && step !== 'userInput') {
-      onDone('Error submitting feedback / bug report', {
+      onDone('提交反馈 / 缺陷报告时出错', {
         display: 'system',
       });
       return;
@@ -322,7 +322,7 @@ export function Feedback({
 
   return (
     <Dialog
-      title="Submit Feedback / Bug Report"
+      title="提交反馈 / 缺陷报告"
       onCancel={handleCancel}
       isCancelActive={step !== 'userInput'}
       inputGuide={exitState =>
@@ -330,20 +330,20 @@ export function Feedback({
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : step === 'userInput' ? (
           <Byline>
-            <KeyboardShortcutHint shortcut="Enter" action="continue" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <KeyboardShortcutHint shortcut="Enter" action="继续" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         ) : step === 'consent' ? (
           <Byline>
-            <KeyboardShortcutHint shortcut="Enter" action="submit" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <KeyboardShortcutHint shortcut="Enter" action="提交" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         ) : null
       }
     >
       {step === 'userInput' && (
         <Box flexDirection="column" gap={1}>
-          <Text>Describe the issue below:</Text>
+          <Text>请在下方描述问题：</Text>
           <TextInput
             value={description}
             onChange={value => {
@@ -355,7 +355,7 @@ export function Feedback({
             }}
             columns={textInputColumns}
             onSubmit={() => setStep('consent')}
-            onExitMessage={() => onDone('Feedback cancelled', { display: 'system' })}
+            onExitMessage={() => onDone('反馈已取消', { display: 'system' })}
             cursorOffset={cursorOffset}
             onChangeCursorOffset={setCursorOffset}
             showCursor
@@ -363,7 +363,7 @@ export function Feedback({
           {error && (
             <Box flexDirection="column" gap={1}>
               <Text color="error">{error}</Text>
-              <Text dimColor>Edit and press Enter to retry, or Esc to cancel</Text>
+              <Text dimColor>编辑后按 Enter 重试，或按 Esc 取消</Text>
             </Box>
           )}
         </Box>
@@ -371,30 +371,30 @@ export function Feedback({
 
       {step === 'consent' && (
         <Box flexDirection="column">
-          <Text>This report will include:</Text>
+          <Text>本报告将包含：</Text>
           <Box marginLeft={2} flexDirection="column">
             <Text>
-              - Your feedback / bug description: <Text dimColor>{description}</Text>
+              - 你的反馈 / 缺陷描述： <Text dimColor>{description}</Text>
             </Text>
             <Text>
-              - Environment info:{' '}
+              - 环境信息：{' '}
               <Text dimColor>
                 {env.platform}, {env.terminal}, v{MACRO.VERSION}
               </Text>
             </Text>
             {envInfo.gitState && (
               <Text>
-                - Git repo metadata:{' '}
+                - Git 仓库元数据：{' '}
                 <Text dimColor>
                   {envInfo.gitState.branchName}
                   {envInfo.gitState.commitHash ? `, ${envInfo.gitState.commitHash.slice(0, 7)}` : ''}
                   {envInfo.gitState.remoteUrl ? ` @ ${envInfo.gitState.remoteUrl}` : ''}
-                  {!envInfo.gitState.isHeadOnRemote && ', not synced'}
-                  {!envInfo.gitState.isClean && ', has local changes'}
+                  {!envInfo.gitState.isHeadOnRemote && '，未同步'}
+                  {!envInfo.gitState.isClean && '，有本地改动'}
                 </Text>
               </Text>
             )}
-            <Text>- Current session transcript</Text>
+            <Text>- 当前会话记录</Text>
           </Box>
           <Box marginTop={1}>
             <Text wrap="wrap" dimColor>
@@ -412,13 +412,13 @@ export function Feedback({
 
       {step === 'submitting' && (
         <Box flexDirection="row" gap={1}>
-          <Text>Submitting report…</Text>
+          <Text>正在提交报告…</Text>
         </Box>
       )}
 
       {step === 'done' && (
         <Box flexDirection="column">
-          {error ? <Text color="error">{error}</Text> : <Text color="success">Thank you for your report!</Text>}
+          {error ? <Text color="error">{error}</Text> : <Text color="success">感谢你的报告！</Text>}
           {feedbackId && <Text dimColor>Feedback ID: {feedbackId}</Text>}
           <Box marginTop={1}>
             <Text>Press </Text>

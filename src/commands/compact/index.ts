@@ -8,7 +8,7 @@ const compact = {
     'Clear conversation history but keep a summary in context. Optional: /compact [instructions for summarization]',
   isEnabled: () => !isEnvTruthy(process.env.DISABLE_COMPACT),
   supportsNonInteractive: true,
-  argumentHint: '<optional custom summarization instructions>',
+  argumentHint: '<可选的自定义摘要指令>',
   load: () => import('./compact.js'),
 } satisfies Command
 

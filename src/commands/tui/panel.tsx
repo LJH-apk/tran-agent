@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Box, Dialog, Text, useInput } from '@anthropic/ink';
 import type { LocalJSXCommandOnDone } from '../../types/command.js';
 import { callTui } from './index.js';
+import { padEndWidth } from '../../utils/truncate.js';
 
 type TuiAction = {
   label: string;
@@ -24,23 +25,23 @@ function TuiPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.ReactNod
   const actions = useMemo<TuiAction[]>(
     () => [
       {
-        label: 'Status',
-        description: 'Show marker and environment override state',
+        label: '状态',
+        description: '显示标记文件和环境变量覆盖状态',
         run: () => void runTuiAction('status', onDone),
       },
       {
-        label: 'Toggle',
-        description: 'Flip persisted TUI mode for the next session',
+        label: '切换',
+        description: '切换下次会话持久化的 TUI 模式',
         run: () => void runTuiAction('toggle', onDone),
       },
       {
-        label: 'On',
-        description: 'Enable flicker-free alternate-screen mode',
+        label: '开启',
+        description: '启用无闪烁的备用屏幕模式',
         run: () => void runTuiAction('on', onDone),
       },
       {
-        label: 'Off',
-        description: 'Disable flicker-free alternate-screen mode',
+        label: '关闭',
+        description: '关闭无闪烁的备用屏幕模式',
         run: () => void runTuiAction('off', onDone),
       },
     ],
@@ -69,21 +70,21 @@ function TuiPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.ReactNod
 
   return (
     <Dialog
-      title="TUI Mode"
-      subtitle={`${actions.length} actions`}
-      onCancel={() => onDone('TUI mode panel dismissed', { display: 'system' })}
+      title="TUI 模式"
+      subtitle={`共 ${actions.length} 项操作`}
+      onCancel={() => onDone('TUI 模式面板已关闭', { display: 'system' })}
       color="background"
       hideInputGuide
     >
       <Box flexDirection="column">
         {actions.map((action, index) => (
           <Box key={action.label} flexDirection="row">
-            <Text>{`${index === selectedIndex ? '›' : ' '} ${action.label}`.padEnd(ACTION_LABEL_COLUMN_WIDTH)}</Text>
+            <Text>{padEndWidth(`${index === selectedIndex ? '›' : ' '} ${action.label}`, ACTION_LABEL_COLUMN_WIDTH)}</Text>
             <Text dimColor>{action.description}</Text>
           </Box>
         ))}
         <Box marginTop={1}>
-          <Text dimColor>↑/↓ select · Enter run · Esc close</Text>
+          <Text dimColor>↑/↓ 选择 · Enter 运行 · Esc 关闭</Text>
         </Box>
       </Box>
     </Dialog>

@@ -5,7 +5,6 @@ import type { BackgroundTaskState } from 'src/tasks/types.js';
 import type { DeepImmutable } from 'src/types/utils.js';
 import { truncate } from 'src/utils/format.js';
 
-import { plural } from 'src/utils/stringUtils.js';
 import { DIAMOND_FILLED, DIAMOND_OPEN } from '../../constants/figures.js';
 import { RemoteSessionProgress } from './RemoteSessionProgress.js';
 import { ShellProgress, TaskStatusText } from './ShellProgress.js';
@@ -52,8 +51,8 @@ export function BackgroundTask({ task, maxActivityWidth }: Props): React.ReactNo
           {truncate(task.description, activityLimit, true)}{' '}
           <TaskStatusText
             status={task.status}
-            label={task.status === 'completed' ? 'done' : undefined}
-            suffix={task.status === 'completed' && !task.notified ? ', unread' : undefined}
+            label={task.status === 'completed' ? '完成' : undefined}
+            suffix={task.status === 'completed' && !task.notified ? '，未读' : undefined}
           />
         </Text>
       );
@@ -79,12 +78,12 @@ export function BackgroundTask({ task, maxActivityWidth }: Props): React.ReactNo
             status={task.status}
             label={
               task.status === 'running'
-                ? `${_task.agentCount as number} ${plural(_task.agentCount as number, 'agent')}`
+                ? `${_task.agentCount as number} 个智能体`
                 : task.status === 'completed'
-                  ? 'done'
+                  ? '完成'
                   : undefined
             }
-            suffix={task.status === 'completed' && !task.notified ? ', unread' : undefined}
+            suffix={task.status === 'completed' && !task.notified ? '，未读' : undefined}
           />
         </Text>
       );
@@ -95,8 +94,8 @@ export function BackgroundTask({ task, maxActivityWidth }: Props): React.ReactNo
           {truncate(task.description, activityLimit, true)}{' '}
           <TaskStatusText
             status={task.status}
-            label={task.status === 'completed' ? 'done' : undefined}
-            suffix={task.status === 'completed' && !task.notified ? ', unread' : undefined}
+            label={task.status === 'completed' ? '完成' : undefined}
+            suffix={task.status === 'completed' && !task.notified ? '，未读' : undefined}
           />
         </Text>
       );
@@ -104,8 +103,8 @@ export function BackgroundTask({ task, maxActivityWidth }: Props): React.ReactNo
       const n = task.filesTouched.length;
       const detail =
         task.phase === 'updating' && n > 0
-          ? `${n} ${plural(n, 'file')}`
-          : `${task.sessionsReviewing} ${plural(task.sessionsReviewing, 'session')}`;
+          ? `${n} 个文件`
+          : `${task.sessionsReviewing} 个会话`;
       return (
         <Text>
           {task.description}{' '}
@@ -114,8 +113,8 @@ export function BackgroundTask({ task, maxActivityWidth }: Props): React.ReactNo
           </Text>{' '}
           <TaskStatusText
             status={task.status}
-            label={task.status === 'completed' ? 'done' : undefined}
-            suffix={task.status === 'completed' && !task.notified ? ', unread' : undefined}
+            label={task.status === 'completed' ? '完成' : undefined}
+            suffix={task.status === 'completed' && !task.notified ? '，未读' : undefined}
           />
         </Text>
       );

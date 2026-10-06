@@ -154,7 +154,7 @@ export function LogoV2(): React.ReactNode {
         {ChannelsNoticeModule && <ChannelsNoticeModule.ChannelsNotice />}
         {isDebugMode() && (
           <Box paddingLeft={2} flexDirection="column">
-            <Text color="warning">Debug mode enabled</Text>
+            <Text color="warning">调试模式已开启</Text>
             <Text dimColor>Logging to: {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
           </Box>
         )}
@@ -164,8 +164,8 @@ export function LogoV2(): React.ReactNode {
             <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
             <Text dimColor>
               {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
-                ? `Detach: ${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d (press prefix twice - Claude uses ${process.env.CLAUDE_CODE_TMUX_PREFIX})`
-                : `Detach: ${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
+                ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Claude 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
+                : `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
             </Text>
           </Box>
         )}
@@ -255,7 +255,7 @@ export function LogoV2(): React.ReactNode {
         {ChannelsNoticeModule && <ChannelsNoticeModule.ChannelsNotice />}
         {showSandboxStatus && (
           <Box marginTop={1} flexDirection="column">
-            <Text color="warning">Your bash commands will be sandboxed. Disable with /sandbox.</Text>
+            <Text color="warning">你的 bash 命令将在沙箱中运行。可用 /sandbox 禁用。</Text>
           </Box>
         )}
         {process.env.USER_TYPE === 'ant' && <GateOverridesWarning />}
@@ -354,7 +354,7 @@ export function LogoV2(): React.ReactNode {
       {ChannelsNoticeModule && <ChannelsNoticeModule.ChannelsNotice />}
       {isDebugMode() && (
         <Box paddingLeft={2} flexDirection="column">
-          <Text color="warning">Debug mode enabled</Text>
+          <Text color="warning">调试模式已开启</Text>
           <Text dimColor>Logging to: {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
         </Box>
       )}
@@ -364,8 +364,8 @@ export function LogoV2(): React.ReactNode {
           <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
           <Text dimColor>
             {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
-              ? `Detach: ${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d (press prefix twice - Claude uses ${process.env.CLAUDE_CODE_TMUX_PREFIX})`
-              : `Detach: ${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
+              ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Claude 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
+              : `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} d`}
           </Text>
         </Box>
       )}
@@ -379,7 +379,7 @@ export function LogoV2(): React.ReactNode {
       )}
       {showSandboxStatus && (
         <Box paddingLeft={2} flexDirection="column">
-          <Text color="warning">Your bash commands will be sandboxed. Disable with /sandbox.</Text>
+          <Text color="warning">你的 bash 命令将在沙箱中运行。可用 /sandbox 禁用。</Text>
         </Box>
       )}
       {process.env.USER_TYPE === 'ant' && !process.env.DEMO_VERSION && (

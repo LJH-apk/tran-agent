@@ -229,7 +229,7 @@ export function ResumeConversation({
     try {
       const result = await loadConversationForResume(log, undefined);
       if (!result) {
-        throw new Error('Failed to load conversation');
+        throw new Error('加载会话失败');
       }
 
       if (feature('COORDINATOR_MODE')) {
@@ -372,7 +372,7 @@ export function ResumeConversation({
     return (
       <Box>
         <Spinner />
-        <Text> Loading conversations…</Text>
+        <Text> 正在加载会话…</Text>
       </Box>
     );
   }
@@ -381,7 +381,7 @@ export function ResumeConversation({
     return (
       <Box>
         <Spinner />
-        <Text> Resuming conversation…</Text>
+        <Text> 正在恢复会话…</Text>
       </Box>
     );
   }
@@ -418,8 +418,8 @@ function NoConversationsMessage(): React.ReactNode {
 
   return (
     <Box flexDirection="column">
-      <Text>No conversations found to resume.</Text>
-      <Text dimColor>Press Ctrl+C to exit and start a new conversation.</Text>
+      <Text>没有可恢复的会话。</Text>
+      <Text dimColor>按 Ctrl+C 退出并开始新会话。</Text>
     </Box>
   );
 }
@@ -435,12 +435,12 @@ function CrossProjectMessage({ command }: { command: string }): React.ReactNode 
 
   return (
     <Box flexDirection="column" gap={1}>
-      <Text>This conversation is from a different directory.</Text>
+      <Text>该会话来自其他目录。</Text>
       <Box flexDirection="column">
-        <Text>To resume, run:</Text>
+        <Text>要恢复，请运行：</Text>
         <Text> {command}</Text>
       </Box>
-      <Text dimColor>(Command copied to clipboard)</Text>
+      <Text dimColor>（命令已复制到剪贴板）</Text>
     </Box>
   );
 }

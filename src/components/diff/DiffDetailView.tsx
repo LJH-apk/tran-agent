@@ -52,12 +52,12 @@ export function DiffDetailView({
       <Box flexDirection="column" width="100%">
         <Box>
           <Text bold>{filePath}</Text>
-          <Text dimColor> (untracked)</Text>
+          <Text dimColor> （未跟踪）</Text>
         </Box>
         <Divider padding={4} />
         <Box flexDirection="column">
           <Text dimColor italic>
-            New file not yet staged.
+            新文件尚未暂存。
           </Text>
           <Text dimColor italic>
             Run `git add {filePath}` to see line counts.
@@ -77,7 +77,7 @@ export function DiffDetailView({
         <Divider padding={4} />
         <Box flexDirection="column">
           <Text dimColor italic>
-            Binary file - cannot display diff
+            二进制文件 —— 无法显示差异
           </Text>
         </Box>
       </Box>
@@ -94,7 +94,7 @@ export function DiffDetailView({
         <Divider padding={4} />
         <Box flexDirection="column">
           <Text dimColor italic>
-            Large file - diff exceeds 1 MB limit
+            大文件 —— 差异超过 1 MB 限制
           </Text>
         </Box>
       </Box>
@@ -108,13 +108,13 @@ export function DiffDetailView({
     <Box flexDirection="column" width="100%">
       <Box>
         <Text bold>{filePath}</Text>
-        {isTruncated && <Text dimColor> (truncated)</Text>}
+        {isTruncated && <Text dimColor> （已截断）</Text>}
       </Box>
 
       <Divider padding={4} />
       <Box flexDirection="column">
         {hunks.length === 0 ? (
-          <Text dimColor>No diff content</Text>
+          <Text dimColor>没有差异内容</Text>
         ) : (
           hunks.map((hunk, index) => (
             <StructuredDiff
@@ -132,7 +132,7 @@ export function DiffDetailView({
 
       {isTruncated && (
         <Text dimColor italic>
-          … diff truncated (exceeded 400 line limit)
+          … 差异已截断（超过 400 行限制）
         </Text>
       )}
     </Box>

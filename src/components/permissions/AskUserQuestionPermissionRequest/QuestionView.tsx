@@ -175,7 +175,7 @@ export function QuestionView({
     type: 'input' as const,
     value: '__other__',
     label: 'Other',
-    placeholder: question.multiSelect ? 'Type something' : 'Type something.',
+    placeholder: question.multiSelect ? '输入内容' : '输入内容。',
     initialValue: questionState?.textInputValue ?? '',
     onChange: (value: string) => {
       onUpdateQuestionState(questionText, { textInputValue: value }, question.multiSelect ?? false);
@@ -218,7 +218,7 @@ export function QuestionView({
         <Box flexDirection="column" gap={0}>
           <Divider color="inactive" />
           <Text color="inactive">
-            Planning: <FilePathLink filePath={planFilePath} />
+            计划中： <FilePathLink filePath={planFilePath} />
           </Text>
         </Box>
       )}
@@ -251,7 +251,7 @@ export function QuestionView({
                 }}
                 onFocus={handleFocus}
                 onCancel={onCancel}
-                submitButtonText={currentQuestionIndex === questions.length - 1 ? 'Submit' : 'Next'}
+                submitButtonText={currentQuestionIndex === questions.length - 1 ? '提交' : '下一步'}
                 onSubmit={onSubmit}
                 onDownFromLastItem={handleDownFromLastItem}
                 isDisabled={isFooterFocused}
@@ -292,7 +292,7 @@ export function QuestionView({
                 <Text> </Text>
               )}
               <Text color={isFooterFocused && footerIndex === 0 ? 'suggestion' : undefined}>
-                {options.length + 1}. Chat about this
+                {options.length + 1}. 就此聊一聊
               </Text>
             </Box>
             {isInPlanMode && (
@@ -303,22 +303,22 @@ export function QuestionView({
                   <Text> </Text>
                 )}
                 <Text color={isFooterFocused && footerIndex === 1 ? 'suggestion' : undefined}>
-                  {options.length + 2}. Skip interview and plan immediately
+                  {options.length + 2}. 跳过访谈，立即制定计划
                 </Text>
               </Box>
             )}
           </Box>
           <Box marginTop={1}>
             <Text color="inactive" dimColor>
-              Enter to select ·{' '}
+              按 Enter 选择 ·{' '}
               {questions.length === 1 ? (
                 <>
-                  {figures.arrowUp}/{figures.arrowDown} to navigate
+                  {figures.arrowUp}/{figures.arrowDown} 导航
                 </>
               ) : (
-                'Tab/Arrow keys to navigate'
+                'Tab/方向键导航'
               )}
-              {isOtherFocused && editorName && <> · ctrl+g to edit in {editorName}</>} · Esc to cancel
+              {isOtherFocused && editorName && <> · ctrl+g to edit in {editorName}</>} · 按 Esc 取消
             </Text>
           </Box>
         </Box>

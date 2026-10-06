@@ -48,7 +48,7 @@ function CollapseLabel({ upgradeMessage }: { upgradeMessage: string | null }): R
 
   // Show error indicator when ctx-agent is failing silently
   if (errors > 0 || idleWarn) {
-    const problem = errors > 0 ? `collapse errors: ${errors}` : `collapse idle (${emptySpawns} empty runs)`;
+    const problem = errors > 0 ? `折叠错误：${errors}` : `折叠空闲（${emptySpawns} 次空运行）`;
     return (
       <Text color="warning" wrap="truncate">
         {total > 0 ? `${collapsed} / ${total} summarized \u00b7 ${problem}` : problem}
@@ -58,7 +58,7 @@ function CollapseLabel({ upgradeMessage }: { upgradeMessage: string | null }): R
 
   if (total === 0) return null;
 
-  const label = `${collapsed} / ${total} summarized`;
+  const label = `已总结 ${collapsed} / ${total}`;
   return (
     <Text dimColor wrap="truncate">
       {upgradeMessage ? `${label} \u00b7 ${upgradeMessage}` : label}
@@ -120,8 +120,8 @@ export function TokenWarning({ tokenUsage, model }: Props): React.ReactNode {
   }
 
   const autocompactLabel = reactiveOnlyMode
-    ? `${100 - displayPercentLeft}% context used`
-    : `${displayPercentLeft}% until auto-compact`;
+    ? `已使用 ${100 - displayPercentLeft}% 上下文`
+    : `距自动压缩还剩 ${displayPercentLeft}%`;
 
   return (
     <Box flexDirection="row">

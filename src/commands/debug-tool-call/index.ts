@@ -142,7 +142,7 @@ const debugToolCall: Command = {
             '',
             `Log file not found: \`${logPath}\``,
             '',
-            'No tool calls to show — the session log has not been created yet.',
+            '没有可显示的工具调用——会话日志尚未创建。',
           ].join('\n'),
         }
       }
@@ -158,24 +158,24 @@ const debugToolCall: Command = {
             '',
             `No tool call pairs found in session log: \`${logPath}\``,
             '',
-            'Tool calls appear after the model invokes a tool and receives a result.',
+            '工具调用会在模型调用工具并收到结果后出现。',
           ].join('\n'),
         }
       }
 
       const lines: string[] = [
-        `## Last ${recent.length} Tool Call${recent.length === 1 ? '' : 's'} (of ${pairs.length} total)`,
+        `## 最近 ${recent.length} 次工具调用（共 ${pairs.length} 次）`,
         '',
       ]
 
       for (let i = 0; i < recent.length; i++) {
         const pair = recent[i]
         lines.push(`### [${pairs.length - recent.length + i + 1}] ${pair.name}`)
-        lines.push(`**Input:**`)
+        lines.push(`**输入：**`)
         lines.push('```')
         lines.push(pair.input)
         lines.push('```')
-        lines.push(`**Output:**`)
+        lines.push(`**输出：**`)
         lines.push('```')
         lines.push(pair.output)
         lines.push('```')

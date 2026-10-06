@@ -26,37 +26,37 @@ export function SnapshotUpdateDialog({
     React.createElement(
       Text,
       { dimColor: true, key: 'timestamp' },
-      `Snapshot timestamp: ${snapshotTimestamp}`,
+      `快照时间戳：${snapshotTimestamp}`,
     ),
     React.createElement(Select, {
       key: 'select',
       defaultFocusValue: 'merge',
       options: [
         {
-          label: 'Merge snapshot into current memory',
+          label: '将快照合并到当前记忆',
           value: 'merge',
           description:
-            'Keep current memory and ask Claude to merge in the snapshot changes.',
+            '保留当前记忆，并请 Claude 合并快照中的变更。',
         },
         {
-          label: 'Keep current memory',
+          label: '保留当前记忆',
           value: 'keep',
           description:
-            'Ignore this snapshot update and continue with current memory.',
+            '忽略本次快照更新，继续使用当前记忆。',
         },
         {
-          label: 'Replace with snapshot',
+          label: '用快照替换',
           value: 'replace',
           description:
-            'Overwrite current memory files with the snapshot contents.',
+            '用快照内容覆盖当前记忆文件。',
         },
       ],
       onChange: onComplete as (value: unknown) => void,
     }),
   ]
   return React.createElement(Dialog, {
-    title: 'Agent memory snapshot update',
-    subtitle: `A newer ${scope} memory snapshot is available for ${agentType}.`,
+    title: '智能体记忆快照更新',
+    subtitle: `有更新的 ${scope} 记忆快照可用于 ${agentType}。`,
     onCancel,
     color: 'warning' as const,
     children,

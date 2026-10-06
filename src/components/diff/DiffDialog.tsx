@@ -155,7 +155,7 @@ export function DiffDialog({ messages, onDone }: Props): React.ReactNode {
   ) : null;
 
   // Build header based on current source
-  const headerTitle = currentTurn ? `Turn ${currentTurn.turnIndex}` : 'Uncommitted changes';
+  const headerTitle = currentTurn ? `第 ${currentTurn.turnIndex} 轮` : '未提交的更改';
   const headerSubtitle = currentTurn
     ? currentTurn.userPromptPreview
       ? `"${currentTurn.userPromptPreview}"`
@@ -185,16 +185,16 @@ export function DiffDialog({ messages, onDone }: Props): React.ReactNode {
   // Determine the appropriate message when no files are shown
   const emptyMessage = (() => {
     if (diffData.loading) {
-      return 'Loading diff…';
+      return '加载中…';
     }
     if (currentTurn) {
-      return 'No file changes in this turn';
+      return '本轮没有文件变更';
     }
     // Check if we have stats but no files (too many files case)
     if (diffData.stats && diffData.stats.filesCount > 0 && diffData.files.length === 0) {
-      return 'Too many files to display details';
+      return '文件太多，无法显示详情';
     }
-    return 'Working tree is clean';
+    return '工作区是干净的';
   })();
 
   // Build title with header subtitle inline
@@ -210,7 +210,7 @@ export function DiffDialog({ messages, onDone }: Props): React.ReactNode {
     if (viewMode === 'detail') {
       setViewMode('list');
     } else {
-      onDone('Diff dialog dismissed', { display: 'system' });
+      onDone('差异对话框已关闭', { display: 'system' });
     }
   }
 
@@ -224,14 +224,14 @@ export function DiffDialog({ messages, onDone }: Props): React.ReactNode {
           <Text>Press {exitState.keyName} again to exit</Text>
         ) : viewMode === 'list' ? (
           <Byline>
-            {sources.length > 1 && <Text>←/→ source</Text>}
-            <Text>↑/↓ select</Text>
-            <Text>Enter view</Text>
+            {sources.length > 1 && <Text>←/→ 切换来源</Text>}
+            <Text>↑/↓ 选择</Text>
+            <Text>Enter 查看</Text>
             <Text>{dismissShortcut} close</Text>
           </Byline>
         ) : (
           <Byline>
-            <Text>← back</Text>
+            <Text>← 返回</Text>
             <Text>{dismissShortcut} close</Text>
           </Byline>
         )

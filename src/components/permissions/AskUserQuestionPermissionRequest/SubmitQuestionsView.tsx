@@ -33,11 +33,11 @@ export function SubmitQuestionsView({
       <Divider color="inactive" />
       <Box flexDirection="column" borderTop borderColor="inactive" paddingTop={0}>
         <QuestionNavigationBar questions={questions} currentQuestionIndex={currentQuestionIndex} answers={answers} />
-        <PermissionRequestTitle title="Review your answers" color="text" />
+        <PermissionRequestTitle title="检查你的回答" color="text" />
         <Box flexDirection="column" marginTop={1} minHeight={minContentHeight}>
           {!allQuestionsAnswered && (
             <Box marginBottom={1}>
-              <Text color="warning">{figures.warning} You have not answered all questions</Text>
+              <Text color="warning">{figures.warning} 你还有问题未回答</Text>
             </Box>
           )}
           {Object.keys(answers).length > 0 && (
@@ -50,7 +50,7 @@ export function SubmitQuestionsView({
                   return (
                     <Box key={q?.question || 'answer'} flexDirection="column" marginLeft={1}>
                       <Text>
-                        {figures.bullet} {q?.question || 'Question'}
+                        {figures.bullet} {q?.question || '问题'}
                       </Text>
                       <Box marginLeft={2}>
                         <Text color="success">
@@ -64,7 +64,7 @@ export function SubmitQuestionsView({
           )}
 
           <PermissionRuleExplanation permissionResult={permissionResult} toolType="tool" />
-          <Text color="inactive">Ready to submit your answers?</Text>
+          <Text color="inactive">准备好提交回答了吗？</Text>
           <Box marginTop={1}>
             <Select
               options={[

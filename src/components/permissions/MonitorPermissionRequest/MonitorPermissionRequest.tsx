@@ -36,7 +36,7 @@ export function MonitorPermissionRequest({
   const options: PermissionPromptOption<OptionValue>[] = useMemo(() => {
     const opts: PermissionPromptOption<OptionValue>[] = [
       {
-        label: 'Yes',
+        label: '是',
         value: 'yes',
         feedbackConfig: { type: 'accept' as const },
       },
@@ -52,7 +52,7 @@ export function MonitorPermissionRequest({
       });
     }
     opts.push({
-      label: 'No',
+      label: '否',
       value: 'no',
       feedbackConfig: { type: 'reject' as const },
     });

@@ -22,7 +22,7 @@ export const call: LocalCommandCall = async (_, context) => {
 
   const status = newState ? 'ON' : 'OFF'
   const details = newState
-    ? 'extract_memories and prompt_suggestion are disabled'
-    : 'extract_memories and prompt_suggestion are restored'
-  return { type: 'text', value: `Poor mode ${status} — ${details}` }
+    ? 'extract_memories 与 prompt_suggestion 已禁用'
+    : 'extract_memories 与 prompt_suggestion 已恢复'
+  return { type: 'text', value: `省电模式 ${status} —— ${details}` }
 }

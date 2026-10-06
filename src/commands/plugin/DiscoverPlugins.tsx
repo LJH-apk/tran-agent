@@ -202,7 +202,7 @@ export function DiscoverPlugins({
         const errorResult = formatMarketplaceLoadingErrors(failures, successCount);
         if (errorResult) {
           if (errorResult.type === 'warning') {
-            setWarning(errorResult.message + '. Showing available plugins.');
+            setWarning(errorResult.message + '。以下显示可用插件。');
           } else {
             throw new Error(errorResult.message);
           }
@@ -216,18 +216,18 @@ export function DiscoverPlugins({
           if (foundPlugin) {
             if (foundPlugin.isInstalled) {
               setError(
-                `Plugin '${foundPlugin.pluginId}' is already installed. Use '/plugin' to manage existing plugins.`,
+                `插件 '${foundPlugin.pluginId}' 已安装。使用 '/plugin' 管理已有插件。`,
               );
             } else {
               setSelectedPlugin(foundPlugin);
               setViewState('plugin-details');
             }
           } else {
-            setError(`Plugin "${targetPlugin}" not found in any marketplace`);
+            setError(`在任何市场中均未找到插件 "${targetPlugin}"`);
           }
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load plugins');
+        setError(err instanceof Error ? err.message : '加载插件失败');
       } finally {
         setLoading(false);
       }
@@ -276,7 +276,7 @@ export function DiscoverPlugins({
         `✓ Installed ${successCount} ${plural(successCount, 'plugin')}. ` + `Run /reload-plugins to activate.`;
       setResult(message);
     } else if (successCount === 0) {
-      setError(`Failed to install: ${formatFailureDetails(newFailedPlugins, true)}`);
+      setError(`安装失败：${formatFailureDetails(newFailedPlugins, true)}`);
     } else {
       const message =
         `✓ Installed ${successCount} of ${successCount + failureCount} plugins. ` +
@@ -520,13 +520,13 @@ export function DiscoverPlugins({
         onDone={(outcome, detail) => {
           switch (outcome) {
             case 'configured':
-              finish(`✓ Installed and configured ${plugin.name}. Run /reload-plugins to apply.`);
+              finish(`✓ 已安装并配置 ${plugin.name}。运行 /reload-plugins 以生效。`);
               break;
             case 'skipped':
-              finish(`✓ Installed ${plugin.name}. Run /reload-plugins to apply.`);
+              finish(`✓ 已安装 ${plugin.name}。运行 /reload-plugins 以生效。`);
               break;
             case 'error':
-              finish(`Installed but failed to save config: ${detail}`);
+              finish(`已安装，但保存配置失败：${detail}`);
               break;
           }
         }}
@@ -536,7 +536,7 @@ export function DiscoverPlugins({
 
   // Loading state
   if (loading) {
-    return <Text>Loading…</Text>;
+    return <Text>正在加载…</Text>;
   }
 
   // Error state
@@ -554,7 +554,7 @@ export function DiscoverPlugins({
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Plugin details</Text>
+          <Text bold>插件详情</Text>
         </Box>
 
         <Box flexDirection="column" marginBottom={1}>
@@ -569,7 +569,7 @@ export function DiscoverPlugins({
           {selectedPlugin.entry.author && (
             <Box marginTop={1}>
               <Text dimColor>
-                By:{' '}
+                作者： {' '}
                 {typeof selectedPlugin.entry.author === 'string'
                   ? selectedPlugin.entry.author
                   : selectedPlugin.entry.author.name}
@@ -592,7 +592,7 @@ export function DiscoverPlugins({
               {detailsMenuIndex === index && <Text>{'> '}</Text>}
               {detailsMenuIndex !== index && <Text>{'  '}</Text>}
               <Text bold={detailsMenuIndex === index}>
-                {isInstalling && option.action.startsWith('install-') ? 'Installing…' : option.label}
+                {isInstalling && option.action.startsWith('install-') ? '正在安装…' : option.label}
               </Text>
             </Box>
           ))}
@@ -601,8 +601,8 @@ export function DiscoverPlugins({
         <Box marginTop={1}>
           <Text dimColor>
             <Byline>
-              <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="select" />
-              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+              <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="选择" />
+              <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
             </Byline>
           </Text>
         </Box>
@@ -615,12 +615,12 @@ export function DiscoverPlugins({
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Discover plugins</Text>
+          <Text bold>发现插件</Text>
         </Box>
         <EmptyStateMessage reason={emptyReason} />
         <Box marginTop={1}>
           <Text dimColor italic>
-            Esc to go back
+            按 Esc 返回
           </Text>
         </Box>
       </Box>
@@ -633,7 +633,7 @@ export function DiscoverPlugins({
   return (
     <Box flexDirection="column">
       <Box>
-        <Text bold>Discover plugins</Text>
+        <Text bold>发现插件</Text>
         {pagination.needsPagination && (
           <Text dimColor>
             {' '}
@@ -672,7 +672,7 @@ export function DiscoverPlugins({
       {/* Scroll up indicator */}
       {pagination.scrollPosition.canScrollUp && (
         <Box>
-          <Text dimColor> {figures.arrowUp} more above</Text>
+          <Text dimColor> {figures.arrowUp} 上方还有更多</Text>
         </Box>
       )}
 
@@ -698,11 +698,11 @@ export function DiscoverPlugins({
                 {isInstallingThis ? figures.ellipsis : isSelectedForInstall ? figures.radioOn : figures.radioOff}{' '}
                 {plugin.entry.name}
                 <Text dimColor> · {plugin.marketplaceName}</Text>
-                {plugin.entry.tags?.includes('community-managed') && <Text dimColor> [Community Managed]</Text>}
+                {plugin.entry.tags?.includes('community-managed') && <Text dimColor> [社区维护]</Text>}
                 {installCounts && plugin.marketplaceName === OFFICIAL_MARKETPLACE_NAME && (
                   <Text dimColor>
                     {' · '}
-                    {formatInstallCount(installCounts.get(plugin.pluginId) ?? 0)} installs
+                    {formatInstallCount(installCounts.get(plugin.pluginId) ?? 0)} 次安装
                   </Text>
                 )}
               </Text>
@@ -719,7 +719,7 @@ export function DiscoverPlugins({
       {/* Scroll down indicator */}
       {pagination.scrollPosition.canScrollDown && (
         <Box>
-          <Text dimColor> {figures.arrowDown} more below</Text>
+          <Text dimColor> {figures.arrowDown} 下方还有更多</Text>
         </Box>
       )}
 
@@ -753,19 +753,19 @@ function DiscoverPluginsKeyHint({
         <Byline>
           {hasSelection && (
             <ConfigurableShortcutHint
-              action="plugin:install"
+              action="plugin:安装"
               context="Plugin"
               fallback="i"
               description="install"
               bold
             />
           )}
-          <Text>type to search</Text>
+          <Text>输入以搜索</Text>
           {canToggle && (
-            <ConfigurableShortcutHint action="plugin:toggle" context="Plugin" fallback="Space" description="toggle" />
+            <ConfigurableShortcutHint action="plugin:切换" context="Plugin" fallback="Space" description="toggle" />
           )}
-          <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="details" />
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="back" />
+          <ConfigurableShortcutHint action="select:accept" context="Select" fallback="Enter" description="详情" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
         </Byline>
       </Text>
     </Box>
@@ -780,44 +780,44 @@ function EmptyStateMessage({ reason }: { reason: EmptyMarketplaceReason | null }
     case 'git-not-installed':
       return (
         <>
-          <Text dimColor>Git is required to install marketplaces.</Text>
-          <Text dimColor>Please install git and restart Claude Code.</Text>
+          <Text dimColor>安装插件市场需要 Git。</Text>
+          <Text dimColor>请先安装 git，然后重启 Claude Code。</Text>
         </>
       );
     case 'all-blocked-by-policy':
       return (
         <>
-          <Text dimColor>Your organization policy does not allow any external marketplaces.</Text>
-          <Text dimColor>Contact your administrator.</Text>
+          <Text dimColor>你的组织策略不允许使用任何外部插件市场。</Text>
+          <Text dimColor>请联系你的管理员。</Text>
         </>
       );
     case 'policy-restricts-sources':
       return (
         <>
-          <Text dimColor>Your organization restricts which marketplaces can be added.</Text>
-          <Text dimColor>Switch to the Marketplaces tab to view allowed sources.</Text>
+          <Text dimColor>你的组织限制了可添加的插件市场。</Text>
+          <Text dimColor>切换到「市场」标签页查看允许的来源。</Text>
         </>
       );
     case 'all-marketplaces-failed':
       return (
         <>
-          <Text dimColor>Failed to load marketplace data.</Text>
-          <Text dimColor>Check your network connection.</Text>
+          <Text dimColor>加载市场数据失败。</Text>
+          <Text dimColor>请检查网络连接。</Text>
         </>
       );
     case 'all-plugins-installed':
       return (
         <>
-          <Text dimColor>All available plugins are already installed.</Text>
-          <Text dimColor>Check for new plugins later or add more marketplaces.</Text>
+          <Text dimColor>所有可用插件都已安装。</Text>
+          <Text dimColor>可稍后查看新插件，或添加更多插件市场。</Text>
         </>
       );
     case 'no-marketplaces-configured':
     default:
       return (
         <>
-          <Text dimColor>No plugins available.</Text>
-          <Text dimColor>Add a marketplace first using the Marketplaces tab.</Text>
+          <Text dimColor>暂无可用插件。</Text>
+          <Text dimColor>请先通过「市场」标签页添加一个插件市场。</Text>
         </>
       );
   }

@@ -57,13 +57,13 @@ function maskKeyInput(value: string): string {
 function validateKey(value: string): string | null {
   if (value.length === 0) return null; // no input yet — no error shown
   if (!value.startsWith(PREFIX)) {
-    return `Key must start with "${PREFIX}"`;
+    return `密钥必须以 "${PREFIX}" 开头`;
   }
   if (value.length < MIN_KEY_LENGTH) {
-    return `Key too short (${value.length}/${MIN_KEY_LENGTH} chars minimum)`;
+    return `密钥过短（当前 ${value.length}/${MIN_KEY_LENGTH} 字符，至少需  字符）`;
   }
   if (value.length > MAX_KEY_LENGTH) {
-    return `Key too long (${value.length}/${MAX_KEY_LENGTH} chars maximum)`;
+    return `密钥过长（当前 ${value.length}/${MAX_KEY_LENGTH} 字符，最多  字符）`;
   }
   return null;
 }
@@ -141,16 +141,16 @@ export function WorkspaceKeyInput({
   return (
     <Box flexDirection="column" marginTop={1}>
       <Box marginBottom={0}>
-        <Text bold>Enter workspace API key (sk-ant-api03-*):</Text>
+        <Text bold>请输入工作区 API 密钥（sk-ant-api03-*）：</Text>
       </Box>
 
       <Box marginTop={0} marginBottom={0}>
-        <Text dimColor>{'  Obtain from: https://console.anthropic.com/settings/keys'}</Text>
+        <Text dimColor>{'  获取地址：https://console.anthropic.com/settings/keys'}</Text>
       </Box>
 
       <Box marginTop={1} marginBottom={0}>
         <Text>{'  > '}</Text>
-        {value.length > 0 ? <Text>{masked}</Text> : <Text dimColor>{'[paste key here]'}</Text>}
+        {value.length > 0 ? <Text>{masked}</Text> : <Text dimColor>{'[在此粘贴密钥]'}</Text>}
       </Box>
 
       {displayError !== null && (
@@ -164,15 +164,15 @@ export function WorkspaceKeyInput({
 
       {saving && (
         <Box marginTop={0}>
-          <Text dimColor>{'  Saving...'}</Text>
+          <Text dimColor>{'  保存中...'}</Text>
         </Box>
       )}
 
       <Box marginTop={1}>
         <Text dimColor>
           {canSubmit
-            ? 'Press Enter to save · Esc to cancel'
-            : 'Esc to cancel' + (value.length === 0 ? ' · start typing your key' : '')}
+            ? '按 Enter 保存 · 按 Esc 取消'
+            : '按 Esc 取消' + (value.length === 0 ? ' · 请开始输入你的密钥' : '')}
         </Text>
       </Box>
     </Box>
@@ -202,7 +202,7 @@ export function WorkspaceKeyInputContainer({ onSaved, onCancel }: WorkspaceKeyIn
         await saveWorkspaceKey(key);
         onSaved();
       } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Failed to save key — unknown error';
+        const msg = err instanceof Error ? err.message : '保存密钥失败 —— 未知错误';
         setSaveError(msg);
         setSaving(false);
       }

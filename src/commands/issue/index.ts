@@ -239,7 +239,7 @@ function parseIssueArgs(args: string): IssueOptions {
           labels: [],
           assignees: [],
           valid: false,
-          parseError: `--label requires a value`,
+          parseError: `--label 需要一个值`,
         }
       }
       labels.push(next)
@@ -252,7 +252,7 @@ function parseIssueArgs(args: string): IssueOptions {
           labels: [],
           assignees: [],
           valid: false,
-          parseError: `--assignee requires a value`,
+          parseError: `--assignee 需要一个值`,
         }
       }
       assignees.push(next)
@@ -263,7 +263,7 @@ function parseIssueArgs(args: string): IssueOptions {
         labels: [],
         assignees: [],
         valid: false,
-        parseError: `Unknown flag: ${parts[i]}`,
+        parseError: `未知参数：${parts[i]}`,
       }
     } else {
       titleParts.push(parts[i])
@@ -296,11 +296,11 @@ const issue: Command = {
         return {
           type: 'text',
           value: [
-            `Error: ${opts.parseError}`,
+            `错误：${opts.parseError}`,
             '',
-            'Usage: /issue [--label <label>] [--assignee <user>] <title>',
+            '用法：/issue [--label <标签>] [--assignee <用户>] <标题>',
             '',
-            '  Example: /issue --label bug --assignee alice Fix login when token expires',
+            '  示例：/issue --label bug --assignee alice 修复令牌过期时登录失败的问题',
           ].join('\n'),
         }
       }
@@ -321,16 +321,16 @@ const issue: Command = {
           value: [
             'Usage: /issue [--label <label>] [--assignee <user>] <title>',
             '',
-            `  Example: /issue Fix login bug when token expires`,
-            `  Example: /issue --label bug --assignee alice Fix crash on startup`,
+            `  示例：/issue 修复令牌过期时登录失败的问题`,
+            `  示例：/issue --label bug --assignee alice 修复启动时崩溃的问题`,
             '',
             parsed
-              ? `Repo: ${parsed.owner}/${parsed.repo}`
-              : 'No GitHub remote detected.',
-            `New issue URL: ${urlHint}`,
+              ? `仓库：${parsed.owner}/${parsed.repo}`
+              : '未检测到 GitHub 远程仓库。',
+            `新建 Issue 链接：${urlHint}`,
             hasGh
-              ? '\n`gh` CLI is available — run /issue <title> to create immediately.'
-              : '\nInstall `gh` CLI (https://cli.github.com/) for one-command issue creation.',
+              ? '\n`gh` CLI 可用——运行 /issue <标题> 可立即创建。'
+              : '\n安装 `gh` CLI（https://cli.github.com/）即可一条命令创建 Issue。',
           ].join('\n'),
         }
       }
@@ -385,23 +385,23 @@ const issue: Command = {
         const url = parsed
           ? `https://github.com/${parsed.owner}/${parsed.repo}/issues/new?title=${encodedTitle}&body=${body}${labelQuery ? '&' + labelQuery : ''}`
           : null
-        const lines: string[] = ['## File a GitHub issue', '']
+        const lines: string[] = ['## 提交 GitHub Issue', '']
         if (url) {
-          lines.push(`Open in browser:\n${url}`)
+          lines.push(`在浏览器中打开：\n${url}`)
           if (draftPath) {
             lines.push('')
-            lines.push(`Full issue body saved to:\n  \`${draftPath}\``)
+            lines.push(`完整 Issue 正文已保存至：\n  \`${draftPath}\``)
           }
         } else {
-          lines.push('No GitHub remote detected in this directory.')
+          lines.push('当前目录未检测到 GitHub 远程仓库。')
           lines.push(
-            'Run from a directory with a GitHub git remote to get a pre-filled URL.',
+            '请在有 GitHub 远程仓库的目录下运行，以获取预填好的链接。',
           )
         }
         if (!hasGh) {
           lines.push('')
           lines.push(
-            'Install `gh` CLI (https://cli.github.com/) to create issues without a browser.',
+            '安装 `gh` CLI（https://cli.github.com/）即可无需浏览器创建 Issue。',
           )
         }
         logEvent('tengu_issue_fallback', {
@@ -423,12 +423,12 @@ const issue: Command = {
         return {
           type: 'text',
           value: [
-            `## Issues are disabled for ${parsed.owner}/${parsed.repo}`,
+            `## ${parsed.owner}/${parsed.repo} 的 Issues 功能已关闭`,
             '',
-            'The repository has Issues disabled. You can open a Discussion instead:',
+            '该仓库已关闭 Issues。你可以改为发起 Discussion：',
             `  ${discussionUrl}`,
             '',
-            '`gh` does not support creating Discussions from the CLI without an extension.',
+            '在不安装扩展的情况下，`gh` 不支持从命令行创建 Discussion。',
           ].join('\n'),
         }
       }
@@ -484,10 +484,10 @@ const issue: Command = {
           value: [
             '## Issue created',
             '',
-            `Title: ${title}`,
-            `URL:   ${issueUrl}`,
-            labels.length > 0 ? `Labels: ${labels.join(', ')}` : '',
-            assignees.length > 0 ? `Assignees: ${assignees.join(', ')}` : '',
+            `标题：${title}`,
+            `链接：${issueUrl}`,
+            labels.length > 0 ? `标签：${labels.join(', ')}` : '',
+            assignees.length > 0 ? `指派给：${assignees.join(', ')}` : '',
           ]
             .filter(l => l !== '')
             .join('\n'),
@@ -505,9 +505,9 @@ const issue: Command = {
           value: [
             '## Failed to create issue',
             '',
-            `Error: ${msg}`,
+            `错误：${msg}`,
             '',
-            'Make sure you are logged in: `gh auth login`',
+            '请确认已登录：`gh auth login`',
           ].join('\n'),
         }
       }

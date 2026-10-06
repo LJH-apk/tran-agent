@@ -35,7 +35,7 @@ export function Passes({ onDone }: Props): React.ReactNode {
   const [referrerReward, setReferrerReward] = useState<ReferrerRewardInfo | null | undefined>(undefined);
 
   const exitState = useExitOnCtrlCDWithKeybindings(() =>
-    onDone('Guest passes dialog dismissed', { display: 'system' }),
+    onDone('嘉宾通行证对话框已关闭', { display: 'system' }),
   );
 
   const handleCancel = useCallback(() => {
@@ -49,7 +49,7 @@ export function Passes({ onDone }: Props): React.ReactNode {
       void setClipboard(referralLink).then(raw => {
         if (raw) process.stdout.write(raw);
         logEvent('tengu_guest_passes_link_copied', {});
-        onDone(`Referral link copied to clipboard!`);
+        onDone(`推荐链接已复制到剪贴板！`);
       });
     }
   });
@@ -120,9 +120,9 @@ export function Passes({ onDone }: Props): React.ReactNode {
     return (
       <Pane>
         <Box flexDirection="column" gap={1}>
-          <Text dimColor>Loading guest pass information…</Text>
+          <Text dimColor>正在加载嘉宾通行证信息…</Text>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc to cancel</>}
+            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc 取消</>}
           </Text>
         </Box>
       </Pane>
@@ -133,9 +133,9 @@ export function Passes({ onDone }: Props): React.ReactNode {
     return (
       <Pane>
         <Box flexDirection="column" gap={1}>
-          <Text>Guest passes are not currently available.</Text>
+          <Text>嘉宾通行证当前不可用。</Text>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc to cancel</>}
+            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Esc 取消</>}
           </Text>
         </Box>
       </Pane>
@@ -193,8 +193,8 @@ export function Passes({ onDone }: Props): React.ReactNode {
         <Box flexDirection="column" marginLeft={2}>
           <Text dimColor>
             {referrerReward
-              ? `Share a free week of Claude Code with friends. If they love it and subscribe, you'll get ${formatCreditAmount(referrerReward)} of extra usage to keep building. `
-              : 'Share a free week of Claude Code with friends. '}
+              ? `把免费一周的 Claude Code 分享给朋友。如果他们喜欢并订阅，你将获得 ${formatCreditAmount(referrerReward)} 的额外用量继续开发。 `
+              : '把免费一周的 Claude Code 分享给朋友。 '}
             <Link
               url={
                 referrerReward
@@ -202,14 +202,14 @@ export function Passes({ onDone }: Props): React.ReactNode {
                   : 'https://support.claude.com/en/articles/12875061-claude-code-guest-passes'
               }
             >
-              Terms apply.
+              适用相关条款。
             </Link>
           </Text>
         </Box>
 
         <Box>
           <Text dimColor italic>
-            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter to copy link · Esc to cancel</>}
+            {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 复制链接 · Esc 取消</>}
           </Text>
         </Box>
       </Box>

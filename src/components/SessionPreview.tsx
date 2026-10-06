@@ -49,10 +49,10 @@ export function SessionPreview({ log, onExit, onSelect }: Props): React.ReactNod
   if (isLoading) {
     return (
       <Box flexDirection="column" padding={1}>
-        <LoadingState message="Loading session…" />
+        <LoadingState message="正在加载会话…" />
         <Text dimColor>
           <Byline>
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         </Text>
       </Box>
@@ -92,8 +92,8 @@ export function SessionPreview({ log, onExit, onSelect }: Props): React.ReactNod
         </Text>
         <Text dimColor>
           <Byline>
-            <KeyboardShortcutHint shortcut="Enter" action="resume" />
-            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+            <KeyboardShortcutHint shortcut="Enter" action="恢复" />
+            <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
           </Byline>
         </Text>
       </Box>

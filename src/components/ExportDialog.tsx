@@ -36,7 +36,7 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
       // Copy to clipboard immediately
       const raw = await setClipboard(content);
       if (raw) process.stdout.write(raw);
-      onDone({ success: true, message: 'Conversation copied to clipboard' });
+      onDone({ success: true, message: '会话已复制到剪贴板' });
     } else if (value === 'file') {
       setSelectedOption('file');
       setShowFilenameInput(true);
@@ -54,12 +54,12 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
       });
       onDone({
         success: true,
-        message: `Conversation exported to: ${filepath}`,
+        message: `会话已导出到：${filepath}`,
       });
     } catch (error) {
       onDone({
         success: false,
-        message: `Failed to export conversation: ${error instanceof Error ? error.message : 'Unknown error'}`,
+        message: `导出会话失败：${error instanceof Error ? error.message : 'Unknown error'}`,
       });
     }
   };
@@ -70,20 +70,20 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
     if (showFilenameInput) {
       handleGoBack();
     } else {
-      onDone({ success: false, message: 'Export cancelled' });
+      onDone({ success: false, message: '已取消导出' });
     }
   }, [showFilenameInput, handleGoBack, onDone]);
 
   const options = [
     {
-      label: 'Copy to clipboard',
+      label: '复制到剪贴板',
       value: 'clipboard',
-      description: 'Copy the conversation to your system clipboard',
+      description: '将会话复制到系统剪贴板',
     },
     {
-      label: 'Save to file',
+      label: '保存到文件',
       value: 'file',
-      description: 'Save the conversation to a file in the current directory',
+      description: '将会话保存到当前目录下的文件',
     },
   ];
 
@@ -92,8 +92,8 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
     if (showFilenameInput) {
       return (
         <Byline>
-          <KeyboardShortcutHint shortcut="Enter" action="save" />
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="go back" />
+          <KeyboardShortcutHint shortcut="Enter" action="保存" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
         </Byline>
       );
     }
@@ -102,7 +102,7 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
       return <Text>Press {exitState.keyName} again to exit</Text>;
     }
 
-    return <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />;
+    return <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />;
   }
 
   // Use Settings context so 'n' key doesn't cancel (allows typing 'n' in filename input)
@@ -113,8 +113,8 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
 
   return (
     <Dialog
-      title="Export Conversation"
-      subtitle="Select export method:"
+      title="导出会话"
+      subtitle="选择导出方式："
       color="permission"
       onCancel={handleCancel}
       inputGuide={renderInputGuide}
@@ -124,7 +124,7 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
         <Select options={options} onChange={handleSelectOption} onCancel={handleCancel} />
       ) : (
         <Box flexDirection="column">
-          <Text>Enter filename:</Text>
+          <Text>输入文件名：</Text>
           <Box flexDirection="row" gap={1} marginTop={1}>
             <Text>&gt;</Text>
             <TextInput

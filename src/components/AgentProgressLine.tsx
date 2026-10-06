@@ -44,12 +44,12 @@ export function AgentProgressLine({
   // Determine the status text
   const getStatusText = (): string => {
     if (!isResolved) {
-      return lastToolInfo || 'Initializing…';
+      return lastToolInfo || '初始化中…';
     }
     if (isBackgrounded) {
-      return taskDescription ?? 'Running in the background';
+      return taskDescription ?? '在后台运行';
     }
-    return 'Done';
+    return '完成';
   };
 
   return (

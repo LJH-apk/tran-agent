@@ -59,7 +59,7 @@ export function FileEditToolUseRejectedMessage({
       <MessageResponse>
         <Box flexDirection="column">
           {text}
-          <HighlightedCode code={truncatedContent || '(No content)'} filePath={file_path} width={columns - 12} dim />
+          <HighlightedCode code={truncatedContent || '（无内容）'} filePath={file_path} width={columns - 12} dim />
           {!verbose && plusLines > 0 && <Text dimColor>… +{plusLines} lines</Text>}
         </Box>
       </MessageResponse>

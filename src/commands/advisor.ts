@@ -31,12 +31,12 @@ const call: LocalCommandCall = async (args, context) => {
     if (!modelSupportsAdvisor(baseModel)) {
       return {
         type: 'text',
-        value: `Advisor: ${current} (inactive)\nThe current model (${baseModel}) does not support advisors.`,
+        value: `顾问模型：${current}（未启用）\n当前模型（${baseModel}）不支持顾问。`,
       }
     }
     return {
       type: 'text',
-      value: `Advisor: ${current}\nUse "/advisor unset" to disable or "/advisor <model>" to change.`,
+      value: `顾问模型：${current}\n使用 "/advisor unset" 关闭，或用 "/advisor <模型>" 更换。`,
     }
   }
 
@@ -50,8 +50,8 @@ const call: LocalCommandCall = async (args, context) => {
     return {
       type: 'text',
       value: prev
-        ? `Advisor disabled (was ${prev}).`
-        : 'Advisor already unset.',
+        ? `已关闭顾问模型（原为 ${prev}）。`
+        : '顾问模型本就未设置。',
     }
   }
 
@@ -62,15 +62,15 @@ const call: LocalCommandCall = async (args, context) => {
     return {
       type: 'text',
       value: error
-        ? `Invalid advisor model: ${error}`
-        : `Unknown model: ${arg} (${resolvedModel})`,
+        ? `顾问模型无效：${error}`
+        : `未知模型：${arg}（${resolvedModel}）`,
     }
   }
 
   if (!isValidAdvisorModel(resolvedModel)) {
     return {
       type: 'text',
-      value: `The model ${arg} (${resolvedModel}) cannot be used as an advisor`,
+      value: `模型 ${arg}（${resolvedModel}）不能用作顾问`,
     }
   }
 
@@ -83,13 +83,13 @@ const call: LocalCommandCall = async (args, context) => {
   if (!modelSupportsAdvisor(baseModel)) {
     return {
       type: 'text',
-      value: `Advisor set to ${normalizedModel}.\nNote: Your current model (${baseModel}) does not support advisors. Switch to a supported model to use the advisor.`,
+      value: `顾问模型已设为 ${normalizedModel}。\n注意：当前模型（${baseModel}）不支持顾问。请先切换到受支持的模型再使用顾问。`,
     }
   }
 
   return {
     type: 'text',
-    value: `Advisor set to ${normalizedModel}.`,
+    value: `顾问模型已设为 ${normalizedModel}。`,
   }
 }
 

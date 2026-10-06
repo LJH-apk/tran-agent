@@ -56,13 +56,13 @@ async function checkLoginState(): Promise<CheckResult> {
 function errorMessage(err: ImportTokenError, codeUrl: string): string {
   switch (err.kind) {
     case 'not_signed_in':
-      return `Login failed. Please visit ${codeUrl} and login using the GitHub App`;
+      return `登录失败。请访问 ${codeUrl} 并使用 GitHub App 登录`;
     case 'invalid_token':
-      return 'GitHub rejected that token. Run `gh auth login` and try again.';
+      return 'GitHub 拒绝了该令牌。请运行 `gh auth login` 后重试。';
     case 'server':
-      return `Server error (${err.status}). Try again in a moment.`;
+      return `服务器错误（${err.status}）。请稍后重试。`;
     case 'network':
-      return "Couldn't reach the server. Check your connection.";
+      return "无法连接服务器。请检查网络连接。";
   }
 }
 
@@ -79,7 +79,7 @@ function Web({ onDone }: { onDone: LocalJSXCommandOnDone }) {
           logEvent('tengu_remote_setup_result', {
             result: 'not_signed_in' as SafeString,
           });
-          onDone('Not signed in to Claude. Run /login first.');
+          onDone('尚未登录 Claude。请先运行 /login。');
           return;
         case 'gh_not_installed':
         case 'gh_not_authenticated': {
@@ -135,28 +135,28 @@ function Web({ onDone }: { onDone: LocalJSXCommandOnDone }) {
     logEvent('tengu_remote_setup_result', {
       result: 'success' as SafeString,
     });
-    onDone(`Connected as ${result.result.github_username}. Opened ${url}`);
+    onDone(`已以 ${result.result.github_username} 身份连接，并打开 ${url}`);
   };
 
   if (step.name === 'checking') {
-    return <LoadingState message="Checking login status…" />;
+    return <LoadingState message="正在检查登录状态…" />;
   }
 
   if (step.name === 'uploading') {
-    return <LoadingState message="Connecting GitHub to Claude…" />;
+    return <LoadingState message="正在将 GitHub 连接到 Claude…" />;
   }
 
   const token = step.token;
   return (
-    <Dialog title="Connect Claude on the web to GitHub?" onCancel={handleCancel} hideInputGuide>
+    <Dialog title="要将网页版 Claude 连接到 GitHub 吗？" onCancel={handleCancel} hideInputGuide>
       <Box flexDirection="column">
-        <Text>Claude on the web requires connecting to your GitHub account to clone and push code on your behalf.</Text>
-        <Text dimColor>Your local credentials are used to authenticate with GitHub</Text>
+        <Text>网页版 Claude 需要连接你的 GitHub 账号，以便代你克隆和推送代码。</Text>
+        <Text dimColor>将使用你的本地凭据向 GitHub 进行认证</Text>
       </Box>
       <Select
         options={[
-          { label: 'Continue', value: 'send' },
-          { label: 'Cancel', value: 'cancel' },
+          { label: '继续', value: 'send' },
+          { label: '取消', value: 'cancel' },
         ]}
         onChange={value => {
           if (value === 'send') {

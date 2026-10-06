@@ -100,7 +100,7 @@ export function HooksConfigMenu({ toolNames, onExit }: Props): React.ReactNode {
 
   // Handler for exiting the dialog
   const handleExit = useCallback(() => {
-    onExit('Hooks dialog dismissed', { display: 'system' });
+    onExit('钩子对话框已关闭', { display: 'system' });
   }, [onExit]);
 
   // Escape handling for select-event mode - exit the menu
@@ -181,20 +181,20 @@ export function HooksConfigMenu({ toolNames, onExit }: Props): React.ReactNode {
   // users can edit settings.json or ask Claude instead.
   if (hooksDisabled) {
     return (
-      <Dialog title="Hook Configuration - Disabled" onCancel={handleExit} inputGuide={() => <Text>Esc to close</Text>}>
+      <Dialog title="钩子配置 - 已禁用" onCancel={handleExit} inputGuide={() => <Text>Esc 关闭</Text>}>
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="column">
             <Text>
               All hooks are currently <Text bold>disabled</Text>
-              {disabledByPolicy && ' by a managed settings file'}. You have <Text bold>{totalHooksCount}</Text>{' '}
+              {disabledByPolicy && ' 由托管设置文件禁用'}. You have <Text bold>{totalHooksCount}</Text>{' '}
               configured {plural(totalHooksCount, 'hook')} that {plural(totalHooksCount, 'is', 'are')} not running.
             </Text>
             <Box marginTop={1}>
-              <Text dimColor>When hooks are disabled:</Text>
+              <Text dimColor>当钩子被禁用时：</Text>
             </Box>
-            <Text dimColor>· No hook commands will execute</Text>
-            <Text dimColor>· StatusLine will not be displayed</Text>
-            <Text dimColor>· Tool operations will proceed without hook validation</Text>
+            <Text dimColor>· 不会执行任何钩子命令</Text>
+            <Text dimColor>· 不显示状态栏</Text>
+            <Text dimColor>· 工具操作将不经钩子校验直接执行</Text>
           </Box>
           {!disabledByPolicy && (
             <Text dimColor>

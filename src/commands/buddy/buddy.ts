@@ -38,29 +38,29 @@ const SPECIES_NAMES: Record<string, string> = {
 }
 
 const SPECIES_PERSONALITY: Record<string, string> = {
-  duck: 'Quirky and easily amused. Leaves rubber duck debugging tips everywhere.',
-  goose: 'Assertive and honks at bad code. Takes no prisoners in code reviews.',
-  blob: 'Adaptable and goes with the flow. Sometimes splits into two when confused.',
-  cat: 'Independent and judgmental. Watches you type with mild disdain.',
+  duck: '古灵精怪，很容易被逗乐。到处留下橡皮鸭调试小贴士。',
+  goose: '强势，见到烂代码就嚷嚷。代码评审时绝不留情面。',
+  blob: '适应力强，随遇而安。困惑时偶尔会分裂成两个。',
+  cat: '独立又挑剔。带着几分不屑看你敲代码。',
   dragon:
-    'Fiery and passionate about architecture. Hoards good variable names.',
+    '热情似火，痴迷架构设计。喜欢囤积好变量名。',
   octopus:
-    'Multitasker extraordinaire. Wraps tentacles around every problem at once.',
-  owl: 'Wise but verbose. Always says "let me think about that" for exactly 3 seconds.',
-  penguin: 'Cool under pressure. Slides gracefully through merge conflicts.',
-  turtle: 'Patient and thorough. Believes slow and steady wins the deploy.',
-  snail: 'Methodical and leaves a trail of useful comments. Never rushes.',
+    '多任务大师。同时用触手缠住所有问题。',
+  owl: '睿智但啰嗦。每次说"让我想想"都恰好用 3 秒。',
+  penguin: '压力之下依然沉着。优雅地滑过合并冲突。',
+  turtle: '耐心细致。相信稳扎稳打才能顺利部署。',
+  snail: '有条不紊，一路留下有用的注释。从不着急。',
   ghost:
-    'Ethereal and appears at the worst possible moments with spooky insights.',
-  axolotl: 'Regenerative and cheerful. Recovers from any bug with a smile.',
-  capybara: 'Zen master. Remains calm while everything around is on fire.',
+    '飘忽不定，总在最糟糕的时刻带着诡异的洞见现身。',
+  axolotl: '能自我再生，性格开朗。笑着从任何 bug 中恢复过来。',
+  capybara: '禅修大师。周围天塌地陷也依旧淡定。',
   cactus:
-    'Prickly on the outside but full of good intentions. Thrives on neglect.',
-  robot: 'Efficient and literal. Processes feedback in binary.',
-  rabbit: 'Energetic and hops between tasks. Finishes before you start.',
-  mushroom: 'Quietly insightful. Grows on you over time.',
+    '外表带刺，内心善良。越是没人管越活得好。',
+  robot: '高效又较真。用二进制处理反馈。',
+  rabbit: '精力充沛，在任务间跳来跳去。你还没开始它就已经做完。',
+  mushroom: '默默洞察一切。时间越久越让人喜欢。',
   chonk:
-    'Big, warm, and takes up the whole couch. Prioritizes comfort over elegance.',
+    '又大又暖，占满整张沙发。舒适比优雅更重要。',
 }
 
 function speciesLabel(species: string): string {
@@ -78,14 +78,14 @@ export async function call(
   // ── /buddy off — mute companion ──
   if (sub === 'off') {
     saveGlobalConfig(cfg => ({ ...cfg, companionMuted: true }))
-    onDone('companion muted', { display: 'system' })
+    onDone('伙伴已静音', { display: 'system' })
     return null
   }
 
   // ── /buddy on — unmute companion ──
   if (sub === 'on') {
     saveGlobalConfig(cfg => ({ ...cfg, companionMuted: false }))
-    onDone('companion unmuted', { display: 'system' })
+    onDone('伙伴已取消静音', { display: 'system' })
     return null
   }
 
@@ -110,7 +110,7 @@ export async function call(
       ),
     )
 
-    onDone(`petted ${companion.name}`, { display: 'system' })
+    onDone(`摸了摸 ${companion.name}`, { display: 'system' })
     return null
   }
 
@@ -139,7 +139,7 @@ export async function call(
   const r = rollWithSeed(seed)
   const name = SPECIES_NAMES[r.bones.species] ?? 'Buddy'
   const personality =
-    SPECIES_PERSONALITY[r.bones.species] ?? 'Mysterious and code-savvy.'
+    SPECIES_PERSONALITY[r.bones.species] ?? '神秘莫测，精通代码。'
 
   const stored: StoredCompanion = {
     name,
@@ -155,15 +155,15 @@ export async function call(
   const shiny = r.bones.shiny ? ' \u2728 Shiny!' : ''
 
   const lines = [
-    'A wild companion appeared!',
+    '一只野生伙伴出现了！',
     '',
     ...sprite,
     '',
-    `${name} the ${speciesLabel(r.bones.species)}${shiny}`,
-    `Rarity: ${stars} (${r.bones.rarity})`,
+    `${name}，一只 ${speciesLabel(r.bones.species)}${shiny}`,
+    `稀有度：${stars}（${r.bones.rarity}）`,
     `"${personality}"`,
     '',
-    'Your companion will now appear beside your input box!',
+    '你的伙伴现在会出现在输入框旁边！',
     'Say its name to get its take \u00b7 /buddy pet \u00b7 /buddy off',
   ]
   onDone(lines.join('\n'), { display: 'system' })

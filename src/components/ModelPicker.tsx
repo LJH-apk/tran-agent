@@ -118,7 +118,7 @@ export function ModelPicker({
         {
           value: initial,
           label: modelDisplayString(initial),
-          description: 'Current model',
+          description: '当前模型',
         },
       ];
     }
@@ -236,11 +236,11 @@ export function ModelPicker({
       <Box flexDirection="column">
         <Box marginBottom={1} flexDirection="column">
           <Text color="remember" bold>
-            Select model
+            选择模型
           </Text>
           <Text dimColor>
             {headerText ??
-              'Choose a model for this and future sessions. Use ← → to adjust effort, Space to toggle 1M context.'}
+              '为本次及后续会话选择模型。用 ← → 调整投入级别，按 Space 切换 1M 上下文。'}
           </Text>
           {sessionModel && (
             <Text dimColor>
@@ -273,24 +273,24 @@ export function ModelPicker({
           {focusedSupportsEffort ? (
             <Text dimColor>
               <EffortLevelIndicator effort={displayEffort} /> {capitalize(displayEffort)} effort
-              {displayEffort === focusedDefaultEffort ? ` (default)` : ``} <Text color="subtle">← → to adjust</Text>
+              {displayEffort === focusedDefaultEffort ? ` （默认）` : ``} <Text color="subtle">← → 调整</Text>
             </Text>
           ) : (
             <Text color="subtle">
-              <EffortLevelIndicator effort={undefined} /> Effort not supported
-              {focusedModelName ? ` for ${focusedModelName}` : ''}
+              <EffortLevelIndicator effort={undefined} /> 不支持调整投入级别
+              {focusedModelName ? ` （${focusedModelName}）` : ''}
             </Text>
           )}
           {is1MMarked ? (
             <Text dimColor>
-              <EffortLevelIndicator effort={'high'} /> 1M context on
-              <Text color="subtle"> · Space to toggle</Text>
+              <EffortLevelIndicator effort={'high'} /> 1M 上下文已开启
+              <Text color="subtle"> · 按 Space 切换</Text>
             </Text>
           ) : (
             <Text color="subtle">
-              <EffortLevelIndicator effort={undefined} /> 1M context off
-              {focusedModelName ? ` for ${focusedModelName}` : ''}
-              <Text color="subtle"> · Space to toggle</Text>
+              <EffortLevelIndicator effort={undefined} /> 1M 上下文已关闭
+              {focusedModelName ? ` （${focusedModelName}）` : ''}
+              <Text color="subtle"> · 按 Space 切换</Text>
             </Text>
           )}
         </Box>
@@ -316,10 +316,10 @@ export function ModelPicker({
       {isStandaloneCommand && (
         <Text dimColor italic>
           {exitState.pending ? (
-            <>Press {exitState.keyName} again to exit</>
+            <>Press {exitState.keyName} again to 退出</>
           ) : (
             <Byline>
-              <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+              <KeyboardShortcutHint shortcut="Enter" action="确认" />
               <ConfigurableShortcutHint action="select:cancel" context="Select" fallback="Esc" description="exit" />
             </Byline>
           )}

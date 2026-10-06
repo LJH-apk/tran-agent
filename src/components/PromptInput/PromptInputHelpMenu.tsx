@@ -48,28 +48,28 @@ export function PromptInputHelpMenu(props: Props): React.ReactNode {
     <Box paddingX={paddingX} flexDirection="row" gap={gap}>
       <Box flexDirection="column" width={fixedWidth ? 24 : undefined}>
         <Box>
-          <Text dimColor={dimColor}>! for bash mode</Text>
+          <Text dimColor={dimColor}>! 进入 bash 模式</Text>
         </Box>
         <Box>
-          <Text dimColor={dimColor}>/ for commands</Text>
+          <Text dimColor={dimColor}>/ 查看命令</Text>
         </Box>
         <Box>
-          <Text dimColor={dimColor}>@ for file paths</Text>
+          <Text dimColor={dimColor}>@ 引用文件路径</Text>
         </Box>
         <Box>
-          <Text dimColor={dimColor}>& for background</Text>
+          <Text dimColor={dimColor}>& 后台运行</Text>
         </Box>
         <Box>
-          <Text dimColor={dimColor}>/btw for side question</Text>
+          <Text dimColor={dimColor}>/btw 追问一句</Text>
         </Box>
       </Box>
       <Box flexDirection="column" width={fixedWidth ? 35 : undefined}>
         <Box>
-          <Text dimColor={dimColor}>double tap esc to clear input</Text>
+          <Text dimColor={dimColor}>连按两次 esc 清空输入</Text>
         </Box>
         <Box>
           <Text dimColor={dimColor}>
-            {cycleModeShortcut} {process.env.USER_TYPE === 'ant' ? 'to cycle modes' : 'to auto-accept edits'}
+            {cycleModeShortcut} {process.env.USER_TYPE === 'ant' ? 'to cycle modes' : '自动接受编辑'}
           </Text>
         </Box>
         <Box>
@@ -89,7 +89,7 @@ export function PromptInputHelpMenu(props: Props): React.ReactNode {
         </Box>
         {getPlatform() !== 'windows' && (
           <Box>
-            <Text dimColor={dimColor}>ctrl + z to suspend</Text>
+            <Text dimColor={dimColor}>ctrl + z 挂起</Text>
           </Box>
         )}
         <Box>
@@ -111,7 +111,7 @@ export function PromptInputHelpMenu(props: Props): React.ReactNode {
         </Box>
         {isKeybindingCustomizationEnabled() && (
           <Box>
-            <Text dimColor={dimColor}>/keybindings to customize</Text>
+            <Text dimColor={dimColor}>/keybindings 自定义快捷键</Text>
           </Box>
         )}
       </Box>

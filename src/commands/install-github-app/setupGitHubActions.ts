@@ -86,7 +86,7 @@ async function createWorkflowFile(
         ...context,
       })
       throw new Error(
-        `Failed to create workflow file ${workflowPath}: A Claude workflow file already exists in this repository. Please remove it first or update it manually.`,
+        `创建 workflow 文件 ${workflowPath} 失败：该仓库中已存在 Claude workflow 文件。请先将其删除，或手动更新。`,
       )
     }
 
@@ -98,13 +98,13 @@ async function createWorkflowFile(
     })
 
     const helpText =
-      '\n\nNeed help? Common issues:\n' +
-      '· Permission denied → Run: gh auth refresh -h github.com -s repo,workflow\n' +
-      '· Not authorized → Ensure you have admin access to the repository\n' +
-      '· For manual setup → Visit: https://github.com/anthropics/claude-code-action'
+      '\n\n需要帮助？常见问题：\n' +
+      '· 权限被拒 → 运行：gh auth refresh -h github.com -s repo,workflow\n' +
+      '· 未获授权 → 请确认你对本仓库拥有管理员权限\n' +
+      '· 手动配置 → 访问：https://github.com/anthropics/claude-code-action'
 
     throw new Error(
-      `Failed to create workflow file ${workflowPath}: ${createFileResult.stderr}${helpText}`,
+      `创建 workflow 文件 ${workflowPath} 失败：${createFileResult.stderr}${helpText}`,
     )
   }
 }
@@ -149,7 +149,7 @@ export async function setupGitHubActions(
         ...context,
       })
       throw new Error(
-        `Failed to access repository ${repoName}: ${repoCheckResult.stderr}`,
+        `无法访问仓库 ${repoName}：${repoCheckResult.stderr}`,
       )
     }
 
@@ -168,7 +168,7 @@ export async function setupGitHubActions(
         ...context,
       })
       throw new Error(
-        `Failed to get default branch: ${defaultBranchResult.stderr}`,
+        `获取默认分支失败：${defaultBranchResult.stderr}`,
       )
     }
     const defaultBranch = defaultBranchResult.stdout.trim()
@@ -187,7 +187,7 @@ export async function setupGitHubActions(
         exit_code: shaResult.code,
         ...context,
       })
-      throw new Error(`Failed to get branch SHA: ${shaResult.stderr}`)
+      throw new Error(`获取分支 SHA 失败：${shaResult.stderr}`)
     }
     const sha = shaResult.stdout.trim()
 
@@ -214,7 +214,7 @@ export async function setupGitHubActions(
           exit_code: createBranchResult.code,
           ...context,
         })
-        throw new Error(`Failed to create branch: ${createBranchResult.stderr}`)
+        throw new Error(`创建分支失败：${createBranchResult.stderr}`)
       }
 
       updateProgress()
@@ -271,13 +271,13 @@ export async function setupGitHubActions(
         })
 
         const helpText =
-          '\n\nNeed help? Common issues:\n' +
-          '· Permission denied → Run: gh auth refresh -h github.com -s repo\n' +
-          '· Not authorized → Ensure you have admin access to the repository\n' +
-          '· For manual setup → Visit: https://github.com/anthropics/claude-code-action'
+          '\n\n需要帮助？常见问题：\n' +
+          '· 权限被拒 → 运行：gh auth refresh -h github.com -s repo\n' +
+          '· 未获授权 → 请确认你对本仓库拥有管理员权限\n' +
+          '· 手动配置 → 访问：https://github.com/anthropics/claude-code-action'
 
         throw new Error(
-          `Failed to set API key secret: ${setSecretResult.stderr || 'Unknown error'}${helpText}`,
+          `设置 API key secret 失败：${setSecretResult.stderr || 'Unknown error'}${helpText}`,
         )
       }
     }

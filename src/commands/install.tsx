@@ -53,7 +53,7 @@ function SetupNotes({ messages }: { messages: string[] }): React.ReactNode {
       <Box>
         <Text color="warning">
           <StatusIcon status="warning" withSpace />
-          Setup notes:
+          配置提示：
         </Text>
       </Box>
       {messages.map((message, index) => (
@@ -89,7 +89,7 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
         // Check specifically for lock failure
         if (result.lockFailed) {
           throw new Error(
-            'Could not install - another process is currently installing Claude. Please try again in a moment.',
+            '无法安装 —— 另一个进程正在安装 Claude。请稍后重试。',
           );
         }
 
@@ -185,12 +185,12 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
   useEffect(() => {
     if (state.type === 'success') {
       // Give success message time to render before exiting
-      setTimeout(onDone, 2000, 'Claude Code installation completed successfully', {
+      setTimeout(onDone, 2000, 'Claude Code 安装成功', {
         display: 'system' as const,
       });
     } else if (state.type === 'error') {
       // Give error message time to render before exiting
-      setTimeout(onDone, 3000, 'Claude Code installation failed', {
+      setTimeout(onDone, 3000, 'Claude Code 安装失败', {
         display: 'system' as const,
       });
     }
@@ -198,15 +198,15 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
 
   return (
     <Box flexDirection="column" marginTop={1}>
-      {state.type === 'checking' && <Text color="claude">Checking installation status...</Text>}
+      {state.type === 'checking' && <Text color="claude">正在检查安装状态...</Text>}
 
-      {state.type === 'cleaning-npm' && <Text color="warning">Cleaning up old npm installations...</Text>}
+      {state.type === 'cleaning-npm' && <Text color="warning">正在清理旧的 npm 安装...</Text>}
 
       {state.type === 'installing' && (
         <Text color="claude">Installing Claude Code native build {state.version}...</Text>
       )}
 
-      {state.type === 'setting-up' && <Text color="claude">Setting up launcher and shell integration...</Text>}
+      {state.type === 'setting-up' && <Text color="claude">正在配置启动器和 shell 集成...</Text>}
 
       {state.type === 'set-up' && <SetupNotes messages={state.messages} />}
 
@@ -215,28 +215,28 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
           <Box>
             <StatusIcon status="success" withSpace />
             <Text color="success" bold>
-              Claude Code successfully installed!
+              Claude Code 安装成功！
             </Text>
           </Box>
           <Box marginLeft={2} flexDirection="column" gap={1}>
             {state.version !== 'current' && (
               <Box>
-                <Text dimColor>Version: </Text>
+                <Text dimColor>版本：</Text>
                 <Text color="claude">{state.version}</Text>
               </Box>
             )}
             <Box>
-              <Text dimColor>Location: </Text>
+              <Text dimColor>位置：</Text>
               <Text color="text">{getInstallationPath()}</Text>
             </Box>
           </Box>
           <Box marginLeft={2} flexDirection="column" gap={1}>
             <Box marginTop={1}>
-              <Text dimColor>Next: Run </Text>
+              <Text dimColor>下一步：运行 </Text>
               <Text color="claude" bold>
                 claude --help
               </Text>
-              <Text dimColor> to get started</Text>
+              <Text dimColor>  即可开始使用</Text>
             </Box>
           </Box>
           {state.setupMessages && <SetupNotes messages={state.setupMessages} />}
@@ -247,11 +247,11 @@ function Install({ onDone, force, target }: InstallProps): React.ReactNode {
         <Box flexDirection="column" gap={1}>
           <Box>
             <StatusIcon status="error" withSpace />
-            <Text color="error">Installation failed</Text>
+            <Text color="error">安装失败</Text>
           </Box>
           <Text color="error">{state.message}</Text>
           <Box marginTop={1}>
-            <Text dimColor>Try running with --force to override checks</Text>
+            <Text dimColor>可尝试加 --force 跳过检查</Text>
           </Box>
         </Box>
       )}

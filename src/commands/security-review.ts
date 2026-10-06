@@ -199,7 +199,7 @@ export default createMovedToPluginCommand({
   name: 'security-review',
   description:
     'Complete a security review of the pending changes on the current branch',
-  progressMessage: 'analyzing code changes for security risks',
+  progressMessage: '正在分析代码变更的安全风险',
   pluginName: 'security-review',
   pluginCommand: 'security-review',
   async getPromptWhileMarketplaceIsPrivate(_args, context) {

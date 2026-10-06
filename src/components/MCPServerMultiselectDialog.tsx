@@ -63,8 +63,8 @@ export function MCPServerMultiselectDialog({ serverNames, onDone }: Props): Reac
   return (
     <>
       <Dialog
-        title={`${serverNames.length} new MCP servers found in .mcp.json`}
-        subtitle="Select any you wish to enable."
+        title={`在 .mcp.json 中发现 ${serverNames.length} 个新 MCP 服务器`}
+        subtitle="选择你希望启用的服务器。"
         color="warning"
         onCancel={handleEscRejectAll}
         hideInputGuide
@@ -85,13 +85,13 @@ export function MCPServerMultiselectDialog({ serverNames, onDone }: Props): Reac
       <Box paddingX={1}>
         <Text dimColor italic>
           <Byline>
-            <KeyboardShortcutHint shortcut="Space" action="select" />
-            <KeyboardShortcutHint shortcut="Enter" action="confirm" />
+            <KeyboardShortcutHint shortcut="Space" action="选择" />
+            <KeyboardShortcutHint shortcut="Enter" action="确认" />
             <ConfigurableShortcutHint
               action="confirm:no"
               context="Confirmation"
               fallback="Esc"
-              description="reject all"
+              description="全部拒绝"
             />
           </Byline>
         </Text>

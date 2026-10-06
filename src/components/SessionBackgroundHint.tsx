@@ -76,7 +76,7 @@ export function SessionBackgroundHint({ onBackgroundSession, isLoading }: Props)
   return (
     <Box paddingLeft={2}>
       <Text dimColor>
-        <KeyboardShortcutHint shortcut={shortcut} action="background" />
+        <KeyboardShortcutHint shortcut={shortcut} action="转入后台" />
       </Text>
     </Box>
   );

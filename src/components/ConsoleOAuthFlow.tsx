@@ -83,7 +83,7 @@ type OAuthStatus =
       toRetry?: OAuthStatus;
     };
 
-const PASTE_HERE_MSG = 'Paste code here if prompted > ';
+const PASTE_HERE_MSG = '若提示，请在此粘贴验证码 > ';
 export function ConsoleOAuthFlow({
   onDone,
   startingMessage,
@@ -95,9 +95,9 @@ export function ConsoleOAuthFlow({
   const orgUUID = settings.forceLoginOrgUUID;
   const forcedMethodMessage =
     forceLoginMethod === 'claudeai'
-      ? 'Login method pre-selected: Subscription Plan (Claude Pro/Max)'
+      ? '已预选登录方式：订阅套餐（Claude Pro/Max）'
       : forceLoginMethod === 'console'
-        ? 'Login method pre-selected: API Usage Billing (Anthropic Console)'
+        ? '已预选登录方式：API 用量计费（Anthropic Console）'
         : null;
 
   const terminal = useTerminalNotification();
@@ -206,7 +206,7 @@ export function ConsoleOAuthFlow({
       if (!authorizationCode || !state) {
         setOAuthStatus({
           state: 'error',
-          message: 'Invalid code. Please make sure the full code was copied',
+          message: '验证码无效。请确认已复制完整验证码',
           toRetry: { state: 'waiting_for_login', url },
         });
         return;
@@ -256,7 +256,7 @@ export function ConsoleOAuthFlow({
             message:
               sslHint ??
               (isTokenExchangeError
-                ? 'Failed to exchange authorization code for access token. Please try again.'
+                ? '无法用授权码换取访问令牌，请重试。'
                 : err.message),
             toRetry: mode === 'setup-token' ? { state: 'ready_to_start' } : { state: 'idle' },
           });
@@ -286,7 +286,7 @@ export function ConsoleOAuthFlow({
         setOAuthStatus({ state: 'success' });
         void sendNotification(
           {
-            message: 'Claude Code login successful',
+            message: 'Claude Code 登录成功',
             notificationType: 'auth_success',
           },
           terminal,
@@ -353,7 +353,7 @@ export function ConsoleOAuthFlow({
           <Box paddingX={1}>
             <Text dimColor>Browser didn&apos;t open? Use the url below to sign in </Text>
             {urlCopied ? (
-              <Text color="success">(Copied!)</Text>
+              <Text color="success">（已复制！）</Text>
             ) : (
               <Text dimColor>
                 <KeyboardShortcutHint shortcut="c" action="copy" parens />
@@ -367,9 +367,9 @@ export function ConsoleOAuthFlow({
       )}
       {mode === 'setup-token' && oauthStatus.state === 'success' && oauthStatus.token && (
         <Box key="tokenOutput" flexDirection="column" gap={1} paddingTop={1}>
-          <Text color="success">✓ Long-lived authentication token created successfully!</Text>
+          <Text color="success">✓ 长期有效的身份验证 token 创建成功！</Text>
           <Box flexDirection="column" gap={1}>
-            <Text>Your OAuth token (valid for 1 year):</Text>
+            <Text>你的 OAuth token（有效期 1 年）：</Text>
             <Text color="warning">{oauthStatus.token}</Text>
             <Text dimColor>Store this token securely. You won&apos;t be able to see it again.</Text>
             <Text dimColor>Use this token by setting: export CLAUDE_CODE_OAUTH_TOKEN=&lt;token&gt;</Text>
@@ -438,10 +438,10 @@ function OAuthStatusMessage({
           <Text bold>
             {startingMessage
               ? startingMessage
-              : `Claude Code can be used with your Claude subscription or billed based on API usage through your Console account.`}
+              : `你可以使用 Claude 订阅来使用 Claude Code，也可以通过 Console 账号按 API 用量计费。`}
           </Text>
 
-          <Text>Select login method:</Text>
+          <Text>选择登录方式：</Text>
 
           <Box>
             <Select
@@ -449,7 +449,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      Anthropic Compatible · <Text dimColor>Configure your own API endpoint</Text>
+                      Anthropic 兼容 · <Text dimColor>配置你自己的 API 端点</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -458,7 +458,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      OpenAI Compatible · <Text dimColor>Ollama, DeepSeek, vLLM, One API, etc.</Text>
+                      OpenAI 兼容 · <Text dimColor>Ollama, DeepSeek, vLLM, One API, etc.</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -467,7 +467,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      China LLM Providers · <Text dimColor>DeepSeek, Zhipu GLM, Qwen, MiMo</Text>
+                      中国大模型服务商 · <Text dimColor>DeepSeek, Zhipu GLM, Qwen, MiMo</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -476,7 +476,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      ChatGPT account with subscription · <Text dimColor>Plus, Pro, Business, Edu, or Enterprise</Text>
+                      带订阅的 ChatGPT 账号 · <Text dimColor>Plus, Pro, Business, Edu, or Enterprise</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -485,7 +485,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      Gemini API · <Text dimColor>Google Gemini native REST/SSE</Text>
+                      Gemini API · <Text dimColor>Google Gemini 原生 REST/SSE</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -494,14 +494,13 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      Claude account with subscription · <Text dimColor>Pro, Max, Team, or Enterprise</Text>
+                      带订阅的 Claude 账号 · <Text dimColor>Pro, Max, Team, or Enterprise</Text>
                       {process.env.USER_TYPE === 'ant' && (
                         <Text>
                           {'\n'}
                           <Text color="warning">[ANT-ONLY]</Text>{' '}
                           <Text dimColor>
-                            Please use this option unless you need to login to a special org for accessing sensitive
-                            data (e.g. customer data, HIPI data) with the Console option
+                            除非你需要使用 Console 选项登录到可访问敏感数据（如客户数据、HIPI 数据）的特殊组织，否则请使用此选项
                           </Text>
                         </Text>
                       )}
@@ -513,7 +512,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      Anthropic Console account · <Text dimColor>API usage billing</Text>
+                      Anthropic Console 账号 · <Text dimColor>API 用量计费</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -522,7 +521,7 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      3rd-party platform · <Text dimColor>Amazon Bedrock, Microsoft Foundry, or Vertex AI</Text>
+                      第三方平台 · <Text dimColor>Amazon Bedrock, Microsoft Foundry, or Vertex AI</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -662,7 +661,7 @@ function OAuthStatusMessage({
           } catch {
             setOAuthStatus({
               state: 'error',
-              message: 'Invalid base URL: please enter a full URL including protocol (e.g., https://api.example.com)',
+              message: 'Base URL 无效：请输入包含协议的完整 URL（例如 https://api.example.com）',
               toRetry: {
                 state: 'custom_platform',
                 baseUrl: '',
@@ -689,7 +688,7 @@ function OAuthStatusMessage({
         if (error) {
           setOAuthStatus({
             state: 'error',
-            message: 'Failed to save settings. Please try again.',
+            message: '保存设置失败，请重试。',
             toRetry: {
               state: 'custom_platform',
               baseUrl: finalVals.base_url ?? '',
@@ -785,15 +784,15 @@ function OAuthStatusMessage({
 
       return (
         <Box flexDirection="column" gap={1}>
-          <Text bold>Anthropic Compatible Setup</Text>
+          <Text bold>Anthropic 兼容配置</Text>
           <Box flexDirection="column" gap={1}>
-            {renderRow('base_url', 'Base URL ')}
-            {renderRow('api_key', 'API Key  ', { mask: true })}
+            {renderRow('base_url', '基础 URL ')}
+            {renderRow('api_key', 'API 密钥  ', { mask: true })}
             {renderRow('haiku_model', 'Haiku    ')}
             {renderRow('sonnet_model', 'Sonnet   ')}
             {renderRow('opus_model', 'Opus     ')}
           </Box>
-          <Text dimColor>↑↓/Tab to switch · Enter on last field to save · Esc to go back</Text>
+          <Text dimColor>↑↓/Tab 切换 · 在最后一个字段按 Enter 保存 · Esc 返回</Text>
         </Box>
       );
     }
@@ -864,7 +863,7 @@ function OAuthStatusMessage({
           } catch {
             setOAuthStatus({
               state: 'error',
-              message: 'Invalid base URL: please enter a full URL including protocol (e.g., https://api.example.com)',
+              message: 'Base URL 无效：请输入包含协议的完整 URL（例如 https://api.example.com）',
               toRetry: {
                 state: 'openai_chat_api',
                 baseUrl: '',
@@ -892,7 +891,7 @@ function OAuthStatusMessage({
         if (error) {
           setOAuthStatus({
             state: 'error',
-            message: 'Failed to save settings. Please try again.',
+            message: '保存设置失败，请重试。',
             toRetry: {
               state: 'openai_chat_api',
               baseUrl: finalVals.base_url ?? '',
@@ -999,16 +998,16 @@ function OAuthStatusMessage({
 
       return (
         <Box flexDirection="column" gap={1}>
-          <Text bold>OpenAI Compatible API Setup</Text>
-          <Text dimColor>Configure an OpenAI Chat Completions compatible endpoint (e.g. Ollama, DeepSeek, vLLM).</Text>
+          <Text bold>OpenAI 兼容 API 配置</Text>
+          <Text dimColor>配置兼容 OpenAI Chat Completions 的端点（例如 Ollama、DeepSeek、vLLM）。</Text>
           <Box flexDirection="column" gap={1}>
-            {renderOpenAIRow('base_url', 'Base URL ')}
-            {renderOpenAIRow('api_key', 'API Key  ', { mask: true })}
+            {renderOpenAIRow('base_url', '基础 URL ')}
+            {renderOpenAIRow('api_key', 'API 密钥  ', { mask: true })}
             {renderOpenAIRow('haiku_model', 'Haiku    ')}
             {renderOpenAIRow('sonnet_model', 'Sonnet   ')}
             {renderOpenAIRow('opus_model', 'Opus     ')}
           </Box>
-          <Text dimColor>↑↓/Tab to switch · Enter on last field to save · Esc to go back</Text>
+          <Text dimColor>↑↓/Tab 切换 · 在最后一个字段按 Enter 保存 · Esc 返回</Text>
         </Box>
       );
     }
@@ -1047,7 +1046,7 @@ function OAuthStatusMessage({
             };
             const { error } = updateSettingsForSource('userSettings', settingsUpdate);
             if (error) {
-              throw new Error('Failed to save settings. Please try again.');
+              throw new Error('保存设置失败，请重试。');
             }
             for (const [k, v] of Object.entries(env)) process.env[k] = v;
             // Drop any cached OpenAI client built from prior OpenAI Compatible
@@ -1078,29 +1077,29 @@ function OAuthStatusMessage({
 
       return (
         <Box flexDirection="column" gap={1}>
-          <Text bold>ChatGPT Account Setup</Text>
+          <Text bold>ChatGPT 账号配置</Text>
           {status.phase === 'requesting' && (
             <Box>
               <Spinner />
-              <Text>Requesting sign-in code…</Text>
+              <Text>正在请求登录码…</Text>
             </Box>
           )}
           {status.phase === 'waiting' && status.deviceCode && (
             <Box flexDirection="column" gap={1}>
-              <Text>Open this link and sign in with your ChatGPT account:</Text>
+              <Text>打开此链接并使用你的 ChatGPT 账号登录：</Text>
               <Link url={status.deviceCode.verificationUrl}>
                 <Text dimColor>{status.deviceCode.verificationUrl}</Text>
               </Link>
               <Text>
-                Enter code: <Text bold>{status.deviceCode.userCode}</Text>
+                输入代码： <Text bold>{status.deviceCode.userCode}</Text>
               </Text>
               <Box>
                 <Spinner />
-                <Text>Waiting for ChatGPT authorization…</Text>
+                <Text>正在等待 ChatGPT 授权…</Text>
               </Box>
             </Box>
           )}
-          <Text dimColor>Esc to go back. Device codes expire after 15 minutes.</Text>
+          <Text dimColor>Esc 返回。设备码 15 分钟后失效。</Text>
         </Box>
       );
     }
@@ -1163,7 +1162,7 @@ function OAuthStatusMessage({
         if (!finalVals.haiku_model || !finalVals.sonnet_model || !finalVals.opus_model) {
           setOAuthStatus({
             state: 'error',
-            message: 'Gemini setup requires Haiku, Sonnet, and Opus model names.',
+            message: 'Gemini 配置需要填写 Haiku、Sonnet 和 Opus 模型名称。',
             toRetry: {
               state: 'gemini_api',
               baseUrl: finalVals.base_url,
@@ -1190,7 +1189,7 @@ function OAuthStatusMessage({
         if (error) {
           setOAuthStatus({
             state: 'error',
-            message: `Failed to save: ${error.message}`,
+            message: `保存失败：${error.message}`,
             toRetry: {
               state: 'gemini_api',
               baseUrl: '',
@@ -1286,19 +1285,19 @@ function OAuthStatusMessage({
 
       return (
         <Box flexDirection="column" gap={1}>
-          <Text bold>Gemini API Setup</Text>
+          <Text bold>Gemini API 配置</Text>
           <Text dimColor>
-            Configure a Gemini Generate Content compatible endpoint. Base URL is optional and defaults to Google&apos;s
+            Configure a Gemini Generate Content compatible endpoint. 基础 URL is optional and defaults to Google&apos;s
             v1beta API.
           </Text>
           <Box flexDirection="column" gap={1}>
             {renderGeminiRow('base_url', 'Base URL ')}
-            {renderGeminiRow('api_key', 'API Key  ', { mask: true })}
+            {renderGeminiRow('api_key', 'API 密钥  ', { mask: true })}
             {renderGeminiRow('haiku_model', 'Haiku    ')}
             {renderGeminiRow('sonnet_model', 'Sonnet   ')}
             {renderGeminiRow('opus_model', 'Opus     ')}
           </Box>
-          <Text dimColor>↑↓/Tab to switch · Enter on last field to save · Esc to go back</Text>
+          <Text dimColor>↑↓/Tab 切换 · 在最后一个字段按 Enter 保存 · Esc 返回</Text>
         </Box>
       );
     }
@@ -1306,8 +1305,8 @@ function OAuthStatusMessage({
     case 'china_provider_select': {
       return (
         <Box flexDirection="column" gap={1} marginTop={1}>
-          <Text bold>Select China LLM Provider</Text>
-          <Text dimColor>Direct connection, no proxy needed. All providers are OpenAI-compatible.</Text>
+          <Text bold>选择中国大模型服务商</Text>
+          <Text dimColor>直连，无需代理。所有服务商均兼容 OpenAI。</Text>
           <Box>
             <Select
               options={CHINA_LLM_PROVIDERS.map(p => ({
@@ -1338,13 +1337,13 @@ function OAuthStatusMessage({
     case 'china_mode_select': {
       const { provider } = oauthStatus;
       const modeOptions = [
-        { id: 'api' as const, label: 'Pay-as-you-go (API)', desc: 'Top up freely, pay per use' },
-        { id: 'coding-plan' as const, label: 'Coding Plan', desc: 'Fixed monthly fee, high usage' },
+        { id: 'api' as const, label: '按量付费（API）', desc: '自由充值，按用量付费' },
+        { id: 'coding-plan' as const, label: '编程套餐', desc: '固定月费，高用量' },
       ];
       return (
         <Box flexDirection="column" gap={1} marginTop={1}>
           <Text bold>
-            {provider.icon} {provider.label} — Select Access Mode
+            {provider.icon} {provider.label} — 选择接入方式
           </Text>
           <Box>
             <Select
@@ -1369,8 +1368,8 @@ function OAuthStatusMessage({
             />
           </Box>
           <Text dimColor>
-            No plan? Select "Pay-as-you-go"
-            {provider.id === 'zhipu' ? ' · GLM-4.7-Flash is free forever' : ''}
+            没有套餐？请选择“按量付费”
+            {provider.id === 'zhipu' ? ' · GLM-4.7-Flash 永久免费' : ''}
           </Text>
         </Box>
       );
@@ -1382,7 +1381,7 @@ function OAuthStatusMessage({
       return (
         <Box flexDirection="column" gap={1} marginTop={1}>
           <Text bold>
-            {provider.icon} {provider.label} — Select Model
+            {provider.icon} {provider.label} — 选择模型
           </Text>
           <Box>
             <Select
@@ -1390,7 +1389,7 @@ function OAuthStatusMessage({
                 ...models.map(m => {
                   const priceLabel =
                     m.inputPricePerMTok === 0 && m.outputPricePerMTok === 0
-                      ? 'Free'
+                      ? '免费'
                       : `¥${m.inputPricePerMTok}/¥${m.outputPricePerMTok}`;
                   const tagLabel = m.tags?.length ? ` [${m.tags.join(', ')}]` : '';
                   return {
@@ -1410,8 +1409,8 @@ function OAuthStatusMessage({
                 {
                   label: (
                     <Text>
-                      ✏️ Custom model
-                      <Text dimColor> · enter model name manually</Text>
+                      ✏️ 自定义模型
+                      <Text dimColor> · 手动输入模型名称</Text>
                       {'\n'}
                     </Text>
                   ),
@@ -1438,7 +1437,7 @@ function OAuthStatusMessage({
       const doChinaSave = useCallback(() => {
         const effectiveModelId = modelId === '__custom__' ? chinaKeyValue.trim() : modelId;
         if (!effectiveModelId) {
-          setChinaKeyError(modelId === '__custom__' ? 'Please enter a model name' : 'Please enter an API key');
+          setChinaKeyError(modelId === '__custom__' ? '请输入模型名称' : '请输入 API 密钥');
           return;
         }
         if (modelId === '__custom__') {
@@ -1449,7 +1448,7 @@ function OAuthStatusMessage({
           return;
         }
         if (!chinaKeyValue.trim()) {
-          setChinaKeyError('Please enter an API key');
+          setChinaKeyError('请输入 API 密钥');
           return;
         }
         const baseUrl = resolveChinaProviderBaseURL(provider.id, accessMode);
@@ -1469,7 +1468,7 @@ function OAuthStatusMessage({
         if (error) {
           setOAuthStatus({
             state: 'error',
-            message: 'Failed to save settings. Please try again.',
+            message: '保存设置失败，请重试。',
             toRetry: { state: 'china_apikey', provider, mode: accessMode, modelId, apiKey: chinaKeyValue },
           });
         } else {
@@ -1521,24 +1520,24 @@ function OAuthStatusMessage({
       return (
         <Box flexDirection="column" gap={1} marginTop={1}>
           <Text bold>
-            {provider.icon} {provider.label} {isCustomModelEntry ? '— Custom Model' : 'API Key'}
+            {provider.icon} {provider.label} {isCustomModelEntry ? '— 自定义模型' : 'API 密钥'}
           </Text>
           <Box flexDirection="column" gap={0}>
             {isCustomModelEntry ? (
-              <Text dimColor> Enter any model ID supported by this provider. Browse models: {provider.modelsPage}</Text>
+              <Text dimColor> 输入该服务商支持的任何模型 ID。浏览模型： {provider.modelsPage}</Text>
             ) : (
               <>
-                <Text dimColor> Get your key: {keyPage}</Text>
+                <Text dimColor> 获取你的密钥： {keyPage}</Text>
                 <Text dimColor>
                   {' '}
-                  {accessMode === 'coding-plan' ? 'Use your Coding Plan credential here' : provider.freeTier}
+                  {accessMode === 'coding-plan' ? '在此使用你的编程套餐凭据' : provider.freeTier}
                 </Text>
-                <Text dimColor> Key format: {keyFormat}</Text>
+                <Text dimColor> 密钥格式： {keyFormat}</Text>
               </>
             )}
           </Box>
           <Box>
-            <Text>{isCustomModelEntry ? 'Model name: ' : 'API Key: '}</Text>
+            <Text>{isCustomModelEntry ? '模型名称： ' : 'API 密钥： '}</Text>
             <TextInput
               value={chinaKeyValue}
               onChange={v => {
@@ -1556,7 +1555,7 @@ function OAuthStatusMessage({
           {chinaKeyError ? <Text color="error">{chinaKeyError}</Text> : null}
           {isCustomModelEntry && modelSuggestions.length > 0 && (
             <Box flexDirection="column" gap={0}>
-              <Text dimColor>{chinaKeyValue.trim() ? 'Matching models:' : 'Known models:'}</Text>
+              <Text dimColor>{chinaKeyValue.trim() ? '匹配的模型：' : '已知模型：'}</Text>
               {modelSuggestions.map(m => (
                 <Text key={m.id} dimColor>
                   {' '}
@@ -1569,7 +1568,7 @@ function OAuthStatusMessage({
             </Box>
           )}
           <Text dimColor>
-            {isCustomModelEntry ? 'Enter to continue · Esc to go back' : 'Enter to confirm · Esc to go back'}
+            {isCustomModelEntry ? '按 Enter 继续 · Esc 返回' : '按 Enter 确认 · Esc 返回'}
           </Text>
         </Box>
       );
@@ -1578,20 +1577,19 @@ function OAuthStatusMessage({
     case 'platform_setup':
       return (
         <Box flexDirection="column" gap={1} marginTop={1}>
-          <Text bold>Using 3rd-party platforms</Text>
+          <Text bold>使用第三方平台</Text>
 
           <Box flexDirection="column" gap={1}>
             <Text>
-              Claude Code supports Amazon Bedrock, Microsoft Foundry, and Vertex AI. Set the required environment
-              variables, then restart Claude Code.
+              Claude Code 支持 Amazon Bedrock、Microsoft Foundry 和 Vertex AI。请设置所需的环境变量，然后重启 Claude Code。
             </Text>
 
             <Text>
-              If you are part of an enterprise organization, contact your administrator for setup instructions.
+              如果你属于企业组织，请联系管理员获取配置说明。
             </Text>
 
             <Box flexDirection="column" marginTop={1}>
-              <Text bold>Documentation:</Text>
+              <Text bold>文档：</Text>
               <Text>
                 · Amazon Bedrock:{' '}
                 <Link url="https://code.claude.com/docs/en/amazon-bedrock">
@@ -1633,7 +1631,7 @@ function OAuthStatusMessage({
           {!showPastePrompt && (
             <Box>
               <Spinner />
-              <Text>Opening browser to sign in…</Text>
+              <Text>正在打开浏览器登录…</Text>
             </Box>
           )}
 
@@ -1659,7 +1657,7 @@ function OAuthStatusMessage({
         <Box flexDirection="column" gap={1}>
           <Box>
             <Spinner />
-            <Text>Creating API key for Claude Code…</Text>
+            <Text>正在为 Claude Code 创建 API 密钥…</Text>
           </Box>
         </Box>
       );
@@ -1667,7 +1665,7 @@ function OAuthStatusMessage({
     case 'about_to_retry':
       return (
         <Box flexDirection="column" gap={1}>
-          <Text color="permission">Retrying…</Text>
+          <Text color="permission">正在重试…</Text>
         </Box>
       );
 
@@ -1678,7 +1676,7 @@ function OAuthStatusMessage({
             <>
               {getOauthAccountInfo()?.emailAddress ? (
                 <Text dimColor>
-                  Logged in as <Text>{getOauthAccountInfo()?.emailAddress}</Text>
+                  已登录为 <Text>{getOauthAccountInfo()?.emailAddress}</Text>
                 </Text>
               ) : null}
               <Text color="success">
@@ -1692,7 +1690,7 @@ function OAuthStatusMessage({
     case 'error':
       return (
         <Box flexDirection="column" gap={1}>
-          <Text color="error">OAuth error: {oauthStatus.message}</Text>
+          <Text color="error">OAuth 错误： {oauthStatus.message}</Text>
 
           {oauthStatus.toRetry && (
             <Box marginTop={1}>

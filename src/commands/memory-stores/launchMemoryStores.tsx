@@ -31,7 +31,7 @@ async function dispatchMemoryStores(
     logEvent('tengu_memory_stores_list', {});
     try {
       const stores = await listStores();
-      onDone(stores.length === 0 ? 'No memory stores found.' : `${stores.length} memory store(s).`, {
+      onDone(stores.length === 0 ? '未找到记忆库。' : `共 ${stores.length} 个记忆库。`, {
         display: 'system',
       });
       return { mode: 'list', stores };
@@ -40,7 +40,7 @@ async function dispatchMemoryStores(
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list memory stores: ${msg}`, { display: 'system' });
+      onDone(`列出记忆库失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -52,14 +52,14 @@ async function dispatchMemoryStores(
     });
     try {
       const store = await getStore(id);
-      onDone(`Memory store ${id} fetched.`, { display: 'system' });
+      onDone(`已获取记忆库 ${id}。`, { display: 'system' });
       return { mode: 'detail', store };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to get memory store ${id}: ${msg}`, { display: 'system' });
+      onDone(`获取记忆库 ${id} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -71,14 +71,14 @@ async function dispatchMemoryStores(
     });
     try {
       const store = await createStore(name);
-      onDone(`Memory store created: ${store.memory_store_id}`, { display: 'system' });
+      onDone(`已创建记忆库：${store.memory_store_id}`, { display: 'system' });
       return { mode: 'created', store };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to create memory store: ${msg}`, { display: 'system' });
+      onDone(`创建记忆库失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -90,14 +90,14 @@ async function dispatchMemoryStores(
     });
     try {
       const store = await archiveStore(id);
-      onDone(`Memory store ${id} archived.`, { display: 'system' });
+      onDone(`记忆库 ${id} 已归档。`, { display: 'system' });
       return { mode: 'archived', store };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to archive memory store ${id}: ${msg}`, { display: 'system' });
+      onDone(`归档记忆库 ${id} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -111,8 +111,8 @@ async function dispatchMemoryStores(
       const memories = await listMemories(storeId);
       onDone(
         memories.length === 0
-          ? `No memories in store ${storeId}.`
-          : `${memories.length} memory(ies) in store ${storeId}.`,
+          ? `记忆库 ${storeId} 中没有记忆。`
+          : `记忆库 ${memories.length} 中有 ${storeId} 条记忆。`,
         { display: 'system' },
       );
       return { mode: 'memory-list', storeId, memories };
@@ -121,7 +121,7 @@ async function dispatchMemoryStores(
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list memories in store ${storeId}: ${msg}`, { display: 'system' });
+      onDone(`列出记忆库 ${storeId} 中的记忆失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -133,14 +133,14 @@ async function dispatchMemoryStores(
     });
     try {
       const memory = await createMemory(storeId, content);
-      onDone(`Memory created: ${memory.memory_id}`, { display: 'system' });
+      onDone(`已创建记忆：${memory.memory_id}`, { display: 'system' });
       return { mode: 'memory-created', memory };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to create memory in store ${storeId}: ${msg}`, { display: 'system' });
+      onDone(`在记忆库 ${storeId} 中创建记忆失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -152,14 +152,14 @@ async function dispatchMemoryStores(
     });
     try {
       const memory = await getMemory(storeId, memoryId);
-      onDone(`Memory ${memoryId} fetched.`, { display: 'system' });
+      onDone(`已获取记忆 ${memoryId}。`, { display: 'system' });
       return { mode: 'memory-detail', memory };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to get memory ${memoryId}: ${msg}`, { display: 'system' });
+      onDone(`获取记忆 ${memoryId} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -171,14 +171,14 @@ async function dispatchMemoryStores(
     });
     try {
       const memory = await updateMemory(storeId, memoryId, content);
-      onDone(`Memory ${memoryId} updated.`, { display: 'system' });
+      onDone(`记忆 ${memoryId} 已更新。`, { display: 'system' });
       return { mode: 'memory-updated', memory };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to update memory ${memoryId}: ${msg}`, { display: 'system' });
+      onDone(`更新记忆 ${memoryId} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -190,14 +190,14 @@ async function dispatchMemoryStores(
     });
     try {
       await deleteMemory(storeId, memoryId);
-      onDone(`Memory ${memoryId} deleted.`, { display: 'system' });
+      onDone(`记忆 ${memoryId} 已删除。`, { display: 'system' });
       return { mode: 'memory-deleted', storeId, memoryId };
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to delete memory ${memoryId}: ${msg}`, { display: 'system' });
+      onDone(`删除记忆 ${memoryId} 失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -211,8 +211,8 @@ async function dispatchMemoryStores(
       const versions = await listVersions(storeId);
       onDone(
         versions.length === 0
-          ? `No memory versions found for store ${storeId}.`
-          : `${versions.length} version(s) in store ${storeId}.`,
+          ? `未找到记忆库 ${storeId} 的版本。`
+          : `记忆库 ${versions.length} 中有 ${storeId} 个版本。`,
         { display: 'system' },
       );
       return { mode: 'versions', storeId, versions };
@@ -221,7 +221,7 @@ async function dispatchMemoryStores(
       logEvent('tengu_memory_stores_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list versions for store ${storeId}: ${msg}`, { display: 'system' });
+      onDone(`列出记忆库 ${storeId} 的版本失败：${msg}`, { display: 'system' });
       return { mode: 'error', message: msg };
     }
   }
@@ -234,20 +234,20 @@ async function dispatchMemoryStores(
   });
   try {
     const version = await redactVersion(storeId, versionId);
-    onDone(`Version ${versionId} redacted.`, { display: 'system' });
+    onDone(`版本 ${versionId} 已遮蔽。`, { display: 'system' });
     return { mode: 'redacted', version };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logEvent('tengu_memory_stores_failed', {
       reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
-    onDone(`Failed to redact version ${versionId}: ${msg}`, { display: 'system' });
+    onDone(`遮蔽版本 ${versionId} 失败：${msg}`, { display: 'system' });
     return { mode: 'error', message: msg };
   }
 }
 
 const USAGE_MS =
-  'Usage: /memory-stores list | get ID | create NAME | archive ID | memories STORE_ID | create-memory STORE_ID CONTENT | get-memory STORE_ID MEMORY_ID | update-memory STORE_ID MEMORY_ID CONTENT | delete-memory STORE_ID MEMORY_ID | versions STORE_ID | redact STORE_ID VERSION_ID';
+  '用法：/memory-stores list | get ID | create NAME | archive ID | memories STORE_ID | create-memory STORE_ID CONTENT | get-memory STORE_ID MEMORY_ID | update-memory STORE_ID MEMORY_ID CONTENT | delete-memory STORE_ID MEMORY_ID | versions STORE_ID | redact STORE_ID VERSION_ID';
 
 export const callMemoryStores: LocalJSXCommandCall = launchCommand<
   ReturnType<typeof parseMemoryStoresArgs>,

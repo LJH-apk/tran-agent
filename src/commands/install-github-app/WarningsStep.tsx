@@ -17,8 +17,8 @@ export function WarningsStep({ warnings, onContinue }: WarningsStepProps) {
     <>
       <Box flexDirection="column" borderStyle="round" paddingX={1}>
         <Box flexDirection="column" marginBottom={1}>
-          <Text bold>{figures.warning} Setup Warnings</Text>
-          <Text dimColor>We found some potential issues, but you can continue anyway</Text>
+          <Text bold>{figures.warning}  安装警告</Text>
+          <Text dimColor>我们发现了一些潜在问题，但你仍可以继续</Text>
         </Box>
 
         {warnings.map((warning, index) => (
@@ -41,12 +41,12 @@ export function WarningsStep({ warnings, onContinue }: WarningsStepProps) {
 
         <Box marginTop={1}>
           <Text bold color="permission">
-            Press Enter to continue anyway, or Ctrl+C to exit and fix issues
+            按 Enter 仍然继续，或按 Ctrl+C 退出并修复问题
           </Text>
         </Box>
         <Box marginTop={1}>
           <Text dimColor>
-            You can also try the manual setup steps if needed:{' '}
+            如有需要，你也可以尝试手动设置步骤：{' '}
             <Text color="claude">{GITHUB_ACTION_SETUP_DOCS_URL}</Text>
           </Text>
         </Box>

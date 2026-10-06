@@ -13,7 +13,6 @@ import { getAnthropicApiKey, isAnthropicAuthEnabled } from '../../utils/auth.js'
 import { openBrowser } from '../../utils/browser.js';
 import { execFileNoThrow } from '../../utils/execFileNoThrow.js';
 import { getGithubRepo } from '../../utils/git.js';
-import { plural } from '../../utils/stringUtils.js';
 import { ApiKeyStep } from './ApiKeyStep.js';
 import { CheckExistingSecretStep } from './CheckExistingSecretStep.js';
 import { CheckGitHubStep } from './CheckGitHubStep.js';
@@ -72,13 +71,13 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
     });
     if (ghVersionResult.exitCode !== 0) {
       warnings.push({
-        title: 'GitHub CLI not found',
-        message: 'GitHub CLI (gh) does not appear to be installed or accessible.',
+        title: '未找到 GitHub CLI',
+        message: '似乎没有安装 GitHub CLI（gh），或无法访问它。',
         instructions: [
-          'Install GitHub CLI from https://cli.github.com/',
-          'macOS: brew install gh',
-          'Windows: winget install --id GitHub.cli',
-          'Linux: See installation instructions at https://github.com/cli/cli#installation',
+          '请从 https://cli.github.com/ 安装 GitHub CLI',
+          'macOS：brew install gh',
+          'Windows：winget install --id GitHub.cli',
+          'Linux：安装说明见 https://github.com/cli/cli#installation',
         ],
       });
     }
@@ -90,12 +89,12 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
     });
     if (authResult.exitCode !== 0) {
       warnings.push({
-        title: 'GitHub CLI not authenticated',
-        message: 'GitHub CLI does not appear to be authenticated.',
+        title: 'GitHub CLI 未认证',
+        message: 'GitHub CLI 似乎尚未认证。',
         instructions: [
-          'Run: gh auth login',
-          'Follow the prompts to authenticate with GitHub',
-          'Or set up authentication using environment variables or other methods',
+          '请运行：gh auth login',
+          '按提示完成 GitHub 认证',
+          '或使用环境变量等方式配置认证',
         ],
       });
     } else {
@@ -117,15 +116,15 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
           setState(prev => ({
             ...prev,
             step: 'error',
-            error: `GitHub CLI is missing required permissions: ${missingScopes.join(', ')}.`,
-            errorReason: 'Missing required scopes',
+            error: `GitHub CLI 缺少必需的权限：${missingScopes.join(', ')}。`,
+            errorReason: '缺少必需的权限范围',
             errorInstructions: [
-              `Your GitHub CLI authentication is missing the "${missingScopes.join('" and "')}" ${plural(missingScopes.length, 'scope')} needed to manage GitHub Actions and secrets.`,
+              `你的 GitHub CLI 认证缺少管理 GitHub Actions 和密钥所需的 "${missingScopes.join('" and "')}" 权限范围（共 ${missingScopes.length} 个）。`,
               '',
-              'To fix this, run:',
+              '要修复此问题，请运行：',
               '  gh auth refresh -h github.com -s repo,workflow',
               '',
-              'This will add the necessary permissions to manage workflows and secrets.',
+              '这会添加管理工作流和密钥所需的权限。',
             ],
           }));
           return;
@@ -189,7 +188,7 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
         });
         setState(prev => ({ ...prev, step: 'success' }));
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Failed to set up GitHub Actions';
+        const errorMessage = error instanceof Error ? error.message : 'GitHub Actions 配置失败';
 
         if (errorMessage.includes('workflow file already exists')) {
           logEvent('tengu_install_github_app_error', {
@@ -198,13 +197,13 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
           setState(prev => ({
             ...prev,
             step: 'error',
-            error: 'A Claude workflow file already exists in this repository.',
-            errorReason: 'Workflow file conflict',
+            error: '该仓库中已存在 Claude 工作流文件。',
+            errorReason: '工作流文件冲突',
             errorInstructions: [
-              'The file .github/workflows/claude.yml already exists',
-              'You can either:',
-              '  1. Delete the existing file and run this command again',
-              '  2. Update the existing file manually using the template from:',
+              '     文件 .github/workflows/claude.yml 已存在',
+              '你可以选择：',
+              '  1. 删除已有文件，然后重新运行此命令',
+              '  2. 使用以下位置的模板手动更新已有文件：',
               `     ${GITHUB_ACTION_SETUP_DOCS_URL}`,
             ],
           }));
@@ -217,7 +216,7 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
             ...prev,
             step: 'error',
             error: errorMessage,
-            errorReason: 'GitHub Actions setup failed',
+            errorReason: 'GitHub Actions 配置失败',
             errorInstructions: [],
           }));
         }
@@ -346,9 +345,9 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
         const match = repoName.match(/github\.com[:/]([^/]+\/[^/]+)(\.git)?$/);
         if (!match) {
           repoWarnings.push({
-            title: 'Invalid GitHub URL format',
-            message: 'The repository URL format appears to be invalid.',
-            instructions: ['Use format: owner/repo or https://github.com/owner/repo', 'Example: anthropics/claude-cli'],
+            title: 'GitHub URL 格式无效',
+            message: '仓库 URL 格式似乎无效。',
+            instructions: ['格式：owner/repo 或 https://github.com/owner/repo', '示例：anthropics/claude-cli'],
           });
         } else {
           repoName = match[1]?.replace(/\.git$/, '') || '';
@@ -357,9 +356,9 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
 
       if (!repoName.includes('/')) {
         repoWarnings.push({
-          title: 'Repository format warning',
-          message: 'Repository should be in format "owner/repo"',
-          instructions: ['Use format: owner/repo', 'Example: anthropics/claude-cli'],
+          title: '仓库格式警告',
+          message: '仓库应为 "owner/repo" 格式',
+          instructions: ['格式：owner/repo', '示例：anthropics/claude-cli'],
         });
       }
 
@@ -367,23 +366,23 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
 
       if (permissionCheck.error === 'repository_not_found') {
         repoWarnings.push({
-          title: 'Repository not found',
-          message: `Repository ${repoName} was not found or you don't have access.`,
+          title: '未找到仓库',
+          message: `未找到仓库 ${repoName}，或你没有访问权限。`,
           instructions: [
-            `Check that the repository name is correct: ${repoName}`,
-            'Ensure you have access to this repository',
-            'For private repositories, make sure your GitHub token has the "repo" scope',
-            'You can add the repo scope with: gh auth refresh -h github.com -s repo,workflow',
+            `请检查仓库名是否正确：${repoName}`,
+            '确保你有该仓库的访问权限',
+            '对于私有仓库，请确保你的 GitHub token 具有 "repo" 权限范围',
+            '可用以下命令添加 repo 权限范围：gh auth refresh -h github.com -s repo,workflow',
           ],
         });
       } else if (!permissionCheck.hasAccess) {
         repoWarnings.push({
-          title: 'Admin permissions required',
-          message: `You might need admin permissions on ${repoName} to set up GitHub Actions.`,
+          title: '需要管理员权限',
+          message: `配置 GitHub Actions 可能需要 ${repoName} 的管理员权限。`,
           instructions: [
-            'Repository admins can install GitHub Apps and set secrets',
-            'Ask a repository admin to run this command if setup fails',
-            'Alternatively, you can use the manual setup instructions',
+            '仓库管理员可以安装 GitHub App 并设置密钥',
+            '如果配置失败，请让仓库管理员运行此命令',
+            '或者，你也可以参考手动配置说明',
           ],
         });
       }
@@ -453,7 +452,7 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
         setState(prev => ({
           ...prev,
           step: 'error',
-          error: 'API key is required',
+          error: '需要 API 密钥',
         }));
         return;
       }
@@ -574,7 +573,7 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
 
   const handleWorkflowAction = async (action: 'update' | 'skip' | 'exit') => {
     if (action === 'exit') {
-      props.onDone('Installation cancelled by user');
+      props.onDone('安装已被用户取消');
       return;
     }
 
@@ -602,10 +601,10 @@ function InstallGitHubApp(props: { onDone: (message: string) => void }): React.R
     }
     props.onDone(
       state.step === 'success'
-        ? 'GitHub Actions setup complete!'
+        ? 'GitHub Actions 配置完成！'
         : state.error
-          ? `Couldn't install GitHub App: ${state.error}\nFor manual setup instructions, see: ${GITHUB_ACTION_SETUP_DOCS_URL}`
-          : `GitHub App installation failed\nFor manual setup instructions, see: ${GITHUB_ACTION_SETUP_DOCS_URL}`,
+          ? `无法安装 GitHub App：${state.error}\n手动配置说明请参见：${GITHUB_ACTION_SETUP_DOCS_URL}`
+          : `GitHub App 安装失败\n手动配置说明请参见：${GITHUB_ACTION_SETUP_DOCS_URL}`,
     );
   }
 

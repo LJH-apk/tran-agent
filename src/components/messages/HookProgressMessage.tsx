@@ -47,11 +47,11 @@ export function HookProgressMessage({ hookEvent, lookups, toolUseID, isTranscrip
   return (
     <MessageResponse>
       <Box flexDirection="row">
-        <Text dimColor>Running </Text>
+        <Text dimColor>正在运行 </Text>
         <Text dimColor bold>
           {hookEvent}
         </Text>
-        <Text dimColor>{inProgressHookCount === 1 ? ' hook…' : ' hooks…'}</Text>
+        <Text dimColor>{inProgressHookCount === 1 ? ' 个 hook…' : ' 个 hook…'}</Text>
       </Box>
     </MessageResponse>
   );

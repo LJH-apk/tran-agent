@@ -4,6 +4,7 @@ import { Dialog } from '@anthropic/ink';
 import { useRegisterOverlay } from '../../context/overlayContext.js';
 import type { LocalJSXCommandOnDone } from '../../types/command.js';
 import { isSkillSearchEnabled } from '../../services/skillSearch/featureCheck.js';
+import { padEndWidth } from '../../utils/truncate.js';
 
 type SkillSearchAction = {
   label: string;
@@ -36,27 +37,27 @@ Skill Search 控制对话中的自动技能匹配功能。
 function getStatusText(): string {
   return [
     'Skill Search (自动技能匹配)',
-    `Status: ${isSkillSearchEnabled() ? 'enabled' : 'disabled'}`,
+    `状态：${isSkillSearchEnabled() ? 'enabled' : 'disabled'}`,
     '',
-    'When enabled, relevant skills are automatically matched and',
-    'injected into conversation context each turn.',
+    '启用后，每轮对话会自动匹配相关技能，并',
+    '将其注入对话上下文中。',
   ].join('\n');
 }
 
 async function startSkillSearch(): Promise<string> {
   if (isSkillSearchEnabled() && process.env.SKILL_SEARCH_ENABLED !== '0') {
-    return 'Skill Search: already enabled';
+    return 'Skill Search：已启用';
   }
 
   process.env.SKILL_SEARCH_ENABLED = '1';
-  const lines = ['Skill Search: enabled (SKILL_SEARCH_ENABLED=1)'];
+  const lines = ['Skill Search：已启用（SKILL_SEARCH_ENABLED=1）'];
 
   try {
     const { clearSkillIndexCache } = await import('../../services/skillSearch/localSearch.js');
     clearSkillIndexCache();
-    lines.push('Skill index cache: cleared (will rebuild on next search)');
+    lines.push('技能索引缓存：已清除（将在下次搜索时重建）');
   } catch {
-    lines.push('Skill index cache: clear skipped');
+    lines.push('技能索引缓存：已跳过清除');
   }
 
   return lines.join('\n');
@@ -64,10 +65,10 @@ async function startSkillSearch(): Promise<string> {
 
 async function stopSkillSearch(): Promise<string> {
   if (!isSkillSearchEnabled()) {
-    return 'Skill Search: already disabled';
+    return 'Skill Search：已禁用';
   }
   process.env.SKILL_SEARCH_ENABLED = '0';
-  return 'Skill Search: disabled (SKILL_SEARCH_ENABLED=0)';
+  return 'Skill Search：已禁用（SKILL_SEARCH_ENABLED=0）';
 }
 
 function SkillSearchPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.ReactNode {
@@ -77,23 +78,23 @@ function SkillSearchPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.
   const actions = useMemo<SkillSearchAction[]>(
     () => [
       {
-        label: 'Status',
-        description: 'Show whether automatic skill matching is active',
+        label: '状态',
+        description: '显示自动技能匹配是否处于启用状态',
         run: () => Promise.resolve(getStatusText()),
       },
       {
-        label: 'Start',
-        description: 'Enable automatic skill matching for this session',
+        label: '启用',
+        description: '为本次会话启用自动技能匹配',
         run: startSkillSearch,
       },
       {
-        label: 'Stop',
-        description: 'Disable automatic skill matching for this session',
+        label: '禁用',
+        description: '为本次会话禁用自动技能匹配',
         run: stopSkillSearch,
       },
       {
-        label: 'About',
-        description: 'How automatic skill matching works',
+        label: '关于',
+        description: '自动技能匹配的工作原理',
         run: () => Promise.resolve(ABOUT_TEXT),
       },
     ],
@@ -125,20 +126,20 @@ function SkillSearchPanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.
   return (
     <Dialog
       title="Skill Search"
-      subtitle={`${actions.length} actions`}
-      onCancel={() => onDone('Skill search panel dismissed', { display: 'system' })}
+      subtitle={`${actions.length} 个操作`}
+      onCancel={() => onDone('技能搜索面板已关闭', { display: 'system' })}
       color="background"
       hideInputGuide
     >
       <Box flexDirection="column">
         {actions.map((action, index) => (
           <Box key={action.label} flexDirection="row">
-            <Text>{`${index === selectedIndex ? '›' : ' '} ${action.label}`.padEnd(ACTION_LABEL_COLUMN_WIDTH)}</Text>
+            <Text>{padEndWidth(`${index === selectedIndex ? '›' : ' '} ${action.label}`, ACTION_LABEL_COLUMN_WIDTH)}</Text>
             <Text dimColor>{action.description}</Text>
           </Box>
         ))}
         <Box marginTop={1}>
-          <Text dimColor>↑/↓ select · Enter run · Esc close</Text>
+          <Text dimColor>↑/↓ 选择 · Enter 执行 · Esc 关闭</Text>
         </Box>
       </Box>
     </Dialog>

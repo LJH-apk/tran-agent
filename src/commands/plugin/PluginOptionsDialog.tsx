@@ -169,9 +169,9 @@ export function PluginOptionsDialog({
           Field {currentFieldIndex + 1} of {fields.length}
         </Text>
         {currentFieldIndex < fields.length - 1 && (
-          <Text dimColor={true}>Tab: Next field · Enter: Save and continue</Text>
+          <Text dimColor={true}>Tab：下一个字段 · 回车：保存并继续</Text>
         )}
-        {currentFieldIndex === fields.length - 1 && <Text dimColor={true}>Enter: Save configuration</Text>}
+        {currentFieldIndex === fields.length - 1 && <Text dimColor={true}>回车：保存配置</Text>}
       </Box>
     </Dialog>
   );

@@ -15,10 +15,10 @@ export function InstallAppStep({ repoUrl, onSubmit }: InstallAppStepProps) {
   return (
     <Box flexDirection="column" borderStyle="round" borderDimColor paddingX={1}>
       <Box flexDirection="column" marginBottom={1}>
-        <Text bold>Install the Claude GitHub App</Text>
+        <Text bold>安装 Claude GitHub App</Text>
       </Box>
       <Box marginBottom={1}>
-        <Text>Opening browser to install the Claude GitHub App…</Text>
+        <Text>正在打开浏览器以安装 Claude GitHub App…</Text>
       </Box>
       <Box marginBottom={1}>
         <Text>If your browser doesn&apos;t open automatically, visit:</Text>
@@ -28,11 +28,11 @@ export function InstallAppStep({ repoUrl, onSubmit }: InstallAppStepProps) {
       </Box>
       <Box marginBottom={1}>
         <Text>
-          Please install the app for repository: <Text bold>{repoUrl}</Text>
+          请为以下仓库安装该 App：<Text bold>{repoUrl}</Text>
         </Text>
       </Box>
       <Box marginBottom={1}>
-        <Text dimColor>Important: Make sure to grant access to this specific repository</Text>
+        <Text dimColor>重要：请务必授予对该特定仓库的访问权限</Text>
       </Box>
       <Box>
         <Text bold color="permission">
@@ -41,7 +41,7 @@ export function InstallAppStep({ repoUrl, onSubmit }: InstallAppStepProps) {
       </Box>
       <Box marginTop={1}>
         <Text dimColor>
-          Having trouble? See manual setup instructions at: <Text color="claude">{GITHUB_ACTION_SETUP_DOCS_URL}</Text>
+          遇到问题？请查看手动设置说明： <Text color="claude">{GITHUB_ACTION_SETUP_DOCS_URL}</Text>
         </Text>
       </Box>
     </Box>

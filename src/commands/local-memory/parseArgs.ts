@@ -25,7 +25,7 @@ export type LocalMemoryArgs =
 // they were HTML tags. Use uppercase placeholders so users see the
 // full usage line. (Same fix as src/commands/local-vault/parseArgs.ts.)
 const USAGE =
-  'Usage: /local-memory list | create STORE | store STORE KEY VALUE | fetch STORE KEY | entries STORE | archive STORE'
+  '用法：/local-memory list | create STORE | store STORE KEY VALUE | fetch STORE KEY | entries STORE | archive STORE'
 
 export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
   const trimmed = args.trim()
@@ -48,7 +48,7 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
     if (!store) {
       return {
         action: 'invalid',
-        reason: `create requires a store name. ${USAGE}`,
+        reason: `create 需要一个存储名称。${USAGE}`,
       }
     }
     return { action: 'create', store }
@@ -61,16 +61,16 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
     if (!store) {
       return {
         action: 'invalid',
-        reason: `store requires a store name. ${USAGE}`,
+        reason: `store 需要一个存储名称。${USAGE}`,
       }
     }
     if (!key) {
-      return { action: 'invalid', reason: `store requires a key. ${USAGE}` }
+      return { action: 'invalid', reason: `store 需要一个键名。${USAGE}` }
     }
     // D6: value is tokens[3..] joined, not substring math (handles store/key with repeated substrings)
     const rest = tokens.slice(3).join(' ')
     if (!rest) {
-      return { action: 'invalid', reason: `store requires a value. ${USAGE}` }
+      return { action: 'invalid', reason: `store 需要一个值。${USAGE}` }
     }
     return { action: 'store', store, key, value: rest }
   }
@@ -82,11 +82,11 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
     if (!store) {
       return {
         action: 'invalid',
-        reason: `fetch requires a store name. ${USAGE}`,
+        reason: `fetch 需要一个存储名称。${USAGE}`,
       }
     }
     if (!key) {
-      return { action: 'invalid', reason: `fetch requires a key. ${USAGE}` }
+      return { action: 'invalid', reason: `fetch 需要一个键名。${USAGE}` }
     }
     return { action: 'fetch', store, key }
   }
@@ -97,7 +97,7 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
     if (!store) {
       return {
         action: 'invalid',
-        reason: `entries requires a store name. ${USAGE}`,
+        reason: `entries 需要一个存储名称。${USAGE}`,
       }
     }
     return { action: 'entries', store }
@@ -109,7 +109,7 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
     if (!store) {
       return {
         action: 'invalid',
-        reason: `archive requires a store name. ${USAGE}`,
+        reason: `archive 需要一个存储名称。${USAGE}`,
       }
     }
     return { action: 'archive', store }
@@ -117,6 +117,6 @@ export function parseLocalMemoryArgs(args: string): LocalMemoryArgs {
 
   return {
     action: 'invalid',
-    reason: `Unknown sub-command "${subCmd}". ${USAGE}`,
+    reason: `未知子命令“${subCmd}”。${USAGE}`,
   }
 }

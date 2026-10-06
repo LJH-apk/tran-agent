@@ -6,7 +6,7 @@ const command = {
   description:
     'Create verifier skill(s) for automated verification of code changes',
   contentLength: 0, // Dynamic content
-  progressMessage: 'analyzing your project and creating verifier skills',
+  progressMessage: '正在分析你的项目并创建验证技能',
   source: 'builtin',
   async getPromptForCommand() {
     return [

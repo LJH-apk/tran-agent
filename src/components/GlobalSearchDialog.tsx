@@ -88,7 +88,7 @@ export function GlobalSearchDialog({ onDone, onInsert }: Props): React.ReactNode
         setPreview({
           file: focused.file,
           line: focused.line,
-          content: '(preview unavailable)',
+          content: '（预览不可用）',
         });
       });
     return () => controller.abort();
@@ -213,12 +213,12 @@ export function GlobalSearchDialog({ onDone, onInsert }: Props): React.ReactNode
   // Always pass a non-empty string so the line is reserved — prevents the
   // searchBox from bouncing when the count appears/disappears.
   const matchLabel =
-    matches.length > 0 ? `${matches.length}${truncated ? '+' : ''} matches${isSearching ? '…' : ''}` : ' ';
+    matches.length > 0 ? `${matches.length}${truncated ? '+' : ''} 个匹配${isSearching ? '…' : ''}` : ' ';
 
   return (
     <FuzzyPicker
-      title="Global Search"
-      placeholder="Type to search…"
+      title="全局搜索"
+      placeholder="输入以搜索…"
       items={matches}
       getKey={matchKey}
       visibleCount={visibleResults}
@@ -227,15 +227,15 @@ export function GlobalSearchDialog({ onDone, onInsert }: Props): React.ReactNode
       onQueryChange={handleQueryChange}
       onFocus={m => setFocused(m)}
       onSelect={handleOpen}
-      onTab={{ action: 'mention', handler: m => handleInsert(m, true) }}
+      onTab={{ action: '提及', handler: m => handleInsert(m, true) }}
       onShiftTab={{
-        action: 'insert path',
+        action: '插入路径',
         handler: m => handleInsert(m, false),
       }}
       onCancel={onDone}
-      emptyMessage={q => (isSearching ? 'Searching…' : q ? 'No matches' : 'Type to search…')}
+      emptyMessage={q => (isSearching ? '搜索中…' : q ? '无匹配结果' : '输入以搜索…')}
       matchLabel={matchLabel}
-      selectAction="open in editor"
+      selectAction="在编辑器中打开"
       renderItem={(m, isFocused) => (
         <Text color={isFocused ? 'suggestion' : undefined}>
           <Text dimColor>
@@ -255,7 +255,7 @@ export function GlobalSearchDialog({ onDone, onInsert }: Props): React.ReactNode
             ))}
           </>
         ) : (
-          <LoadingState message="Loading…" dimColor />
+          <LoadingState message="加载中…" dimColor />
         )
       }
     />

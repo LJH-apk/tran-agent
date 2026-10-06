@@ -55,7 +55,7 @@ export function LspRecommendationMenu({
       value: 'yes',
     },
     {
-      label: 'No, not now',
+      label: '否，暂时不要',
       value: 'no',
     },
     {
@@ -67,19 +67,19 @@ export function LspRecommendationMenu({
       value: 'never',
     },
     {
-      label: 'Disable all LSP recommendations',
+      label: '禁用所有 LSP 推荐',
       value: 'disable',
     },
   ];
 
   return (
-    <PermissionDialog title="LSP Plugin Recommendation">
+    <PermissionDialog title="LSP 插件推荐">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1}>
-          <Text dimColor>LSP provides code intelligence like go-to-definition and error checking</Text>
+          <Text dimColor>LSP 提供代码智能，例如跳转到定义和错误检查</Text>
         </Box>
         <Box>
-          <Text dimColor>Plugin:</Text>
+          <Text dimColor>插件：</Text>
           <Text> {pluginName}</Text>
         </Box>
         {pluginDescription && (
@@ -88,11 +88,11 @@ export function LspRecommendationMenu({
           </Box>
         )}
         <Box>
-          <Text dimColor>Triggered by:</Text>
+          <Text dimColor>触发方式：</Text>
           <Text> {fileExtension} files</Text>
         </Box>
         <Box marginTop={1}>
-          <Text>Would you like to install this LSP plugin?</Text>
+          <Text>要安装这个 LSP 插件吗？</Text>
         </Box>
         <Box>
           <Select options={options} onChange={onSelect} onCancel={() => onResponse('no')} />

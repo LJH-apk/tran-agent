@@ -185,9 +185,9 @@ export function SpinnerAnimationRow({
   // === Thinking text (may shrink to fit) ===
   let thinkingText =
     thinkingStatus === 'thinking'
-      ? `thinking${effortSuffix}`
+      ? `思考中${effortSuffix}`
       : typeof thinkingStatus === 'number'
-        ? `thought for ${Math.max(1, Math.round(thinkingStatus / 1000))}s`
+        ? `思考了 ${Math.max(1, Math.round(thinkingStatus / 1000))} 秒`
         : null;
   let thinkingWidthValue = thinkingText ? stringWidth(thinkingText) : 0;
 
@@ -246,7 +246,7 @@ export function SpinnerAnimationRow({
       : []),
     ...(showTokens
       ? [
-          <Box flexDirection="row" key="tokens">
+          <Box flexDirection="row" key=" tokens">
             {!hasRunningTeammates && <SpinnerModeGlyph mode={mode} />}
             <Text dimColor>{tokenCount} tokens</Text>
           </Box>,
@@ -270,7 +270,7 @@ export function SpinnerAnimationRow({
   const status =
     foregroundedTeammate && !foregroundedTeammate.isIdle ? (
       <>
-        <Text dimColor>(esc to interrupt </Text>
+        <Text dimColor>（esc 中断 </Text>
         <Text color={toInkColor(foregroundedTeammate.identity.color)}>{foregroundedTeammate.identity.agentName}</Text>
         <Text dimColor>)</Text>
       </>

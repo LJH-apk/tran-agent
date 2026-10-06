@@ -51,7 +51,7 @@ export function ClaudeMdExternalIncludesDialog({
 
   return (
     <Dialog
-      title="Allow external CLAUDE.md file imports?"
+      title="允许导入外部 CLAUDE.md 文件？"
       color="warning"
       onCancel={handleEscape}
       hideBorder={!isStandaloneDialog}
@@ -64,7 +64,7 @@ export function ClaudeMdExternalIncludesDialog({
 
       {externalIncludes && externalIncludes.length > 0 && (
         <Box flexDirection="column">
-          <Text dimColor>External imports:</Text>
+          <Text dimColor>外部导入：</Text>
           {externalIncludes.map((include, i) => (
             <Text key={i} dimColor>
               {'  '}
@@ -81,8 +81,8 @@ export function ClaudeMdExternalIncludesDialog({
 
       <Select
         options={[
-          { label: 'Yes, allow external imports', value: 'yes' },
-          { label: 'No, disable external imports', value: 'no' },
+          { label: '是，允许外部导入', value: 'yes' },
+          { label: '否，禁用外部导入', value: 'no' },
         ]}
         onChange={value => handleSelection(value as 'yes' | 'no')}
       />

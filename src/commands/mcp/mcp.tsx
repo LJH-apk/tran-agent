@@ -35,8 +35,8 @@ function MCPToggle({
     if (toToggle.length === 0) {
       onComplete(
         target === 'all'
-          ? `All MCP servers are already ${isEnabling ? 'enabled' : 'disabled'}`
-          : `MCP server "${target}" not found`,
+          ? `所有 MCP 服务器均已${isEnabling ? 'enabled' : 'disabled'}`
+          : `未找到 MCP 服务器 "${target}"`,
       );
       return;
     }
@@ -47,8 +47,8 @@ function MCPToggle({
 
     onComplete(
       target === 'all'
-        ? `${isEnabling ? 'Enabled' : 'Disabled'} ${toToggle.length} MCP server(s)`
-        : `MCP server "${target}" ${isEnabling ? 'enabled' : 'disabled'}`,
+        ? `已${isEnabling ? 'Enabled' : 'Disabled'} ${toToggle.length} 个 MCP 服务器`
+        : `MCP 服务器 "${target}" 已${isEnabling ? 'enabled' : 'disabled'}`,
     );
   }, [action, target, mcpClients, toggleMcpServer, onComplete]);
 

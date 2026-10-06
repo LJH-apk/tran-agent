@@ -44,7 +44,7 @@ export function SandboxPermissionRequest({
   const managedDomainsOnly = shouldAllowManagedSandboxDomainsOnly();
 
   const options = [
-    { label: 'Yes', value: 'yes' },
+    { label: '是', value: 'yes' },
     ...(!managedDomainsOnly
       ? [
           {
@@ -68,14 +68,14 @@ export function SandboxPermissionRequest({
   ];
 
   return (
-    <PermissionDialog title="Network request outside of sandbox">
+    <PermissionDialog title="沙箱之外的网络请求">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box>
-          <Text dimColor>Host:</Text>
+          <Text dimColor>主机：</Text>
           <Text> {host}</Text>
         </Box>
         <Box marginTop={1}>
-          <Text>Do you want to allow this connection?</Text>
+          <Text>是否允许此连接？</Text>
         </Box>
         <Box>
           <Select

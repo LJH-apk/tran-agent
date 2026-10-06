@@ -86,13 +86,13 @@ export function registerMcpAddCommand(mcp: Command): void {
       // If no name is provided, error
       if (!name) {
         cliError(
-          'Error: Server name is required.\n' +
-            'Usage: claude mcp add <name> <command> [args...]',
+          '错误：必须提供服务器名称。\n' +
+            '用法：claude mcp add <name> <command> [args...]',
         )
       } else if (!actualCommand) {
         cliError(
-          'Error: Command is required when server name is provided.\n' +
-            'Usage: claude mcp add <name> <command> [args...]',
+          '错误：提供服务器名称后必须提供命令。\n' +
+            '用法：claude mcp add <name> <command> [args...]',
         )
       }
 
@@ -103,7 +103,7 @@ export function registerMcpAddCommand(mcp: Command): void {
         // XAA fail-fast: validate at add-time, not auth-time.
         if (options.xaa && !isXaaEnabled()) {
           cliError(
-            'Error: --xaa requires CLAUDE_CODE_ENABLE_XAA=1 in your environment',
+            '错误：使用 --xaa 需要在环境中设置 CLAUDE_CODE_ENABLE_XAA=1',
           )
         }
         const xaa = Boolean(options.xaa)
@@ -117,7 +117,7 @@ export function registerMcpAddCommand(mcp: Command): void {
             )
           }
           if (missing.length) {
-            cliError(`Error: --xaa requires: ${missing.join(', ')}`)
+            cliError(`错误：--xaa 还需要：${missing.join(', ')}`)
           }
         }
 
@@ -146,7 +146,7 @@ export function registerMcpAddCommand(mcp: Command): void {
 
         if (transport === 'sse') {
           if (!actualCommand) {
-            cliError('Error: URL is required for SSE transport.')
+            cliError('错误：SSE 传输方式必须提供 URL。')
           }
 
           const headers = options.header
@@ -183,16 +183,16 @@ export function registerMcpAddCommand(mcp: Command): void {
           }
 
           process.stdout.write(
-            `Added SSE MCP server ${name} with URL: ${actualCommand} to ${scope} config\n`,
+            `已将 SSE MCP 服务器 ${name}（URL：${actualCommand}）添加到 ${scope} 配置\n`,
           )
           if (headers) {
             process.stdout.write(
-              `Headers: ${jsonStringify(headers, null, 2)}\n`,
+              `请求头：${jsonStringify(headers, null, 2)}\n`,
             )
           }
         } else if (transport === 'http') {
           if (!actualCommand) {
-            cliError('Error: URL is required for HTTP transport.')
+            cliError('错误：HTTP 传输方式必须提供 URL。')
           }
 
           const headers = options.header
@@ -229,11 +229,11 @@ export function registerMcpAddCommand(mcp: Command): void {
           }
 
           process.stdout.write(
-            `Added HTTP MCP server ${name} with URL: ${actualCommand} to ${scope} config\n`,
+            `已将 HTTP MCP 服务器 ${name}（URL：${actualCommand}）添加到 ${scope} 配置\n`,
           )
           if (headers) {
             process.stdout.write(
-              `Headers: ${jsonStringify(headers, null, 2)}\n`,
+              `请求头：${jsonStringify(headers, null, 2)}\n`,
             )
           }
         } else {
@@ -244,20 +244,20 @@ export function registerMcpAddCommand(mcp: Command): void {
             options.xaa
           ) {
             process.stderr.write(
-              `Warning: --client-id, --client-secret, --callback-port, and --xaa are only supported for HTTP/SSE transports and will be ignored for stdio.\n`,
+              `警告：--client-id、--client-secret、--callback-port 和 --xaa 仅支持 HTTP/SSE 传输方式，对 stdio 将被忽略。\n`,
             )
           }
 
           // Warn if this looks like a URL but transport wasn't explicitly specified
           if (!transportExplicit && looksLikeUrl) {
             process.stderr.write(
-              `\nWarning: The command "${actualCommand}" looks like a URL, but is being interpreted as a stdio server as --transport was not specified.\n`,
+              `\n警告：命令“${actualCommand}”看起来像 URL，但由于未指定 --transport，将被当作 stdio 服务器处理。\n`,
             )
             process.stderr.write(
-              `If this is an HTTP server, use: claude mcp add --transport http ${name} ${actualCommand}\n`,
+              `如果这是 HTTP 服务器，请使用：claude mcp add --transport http ${name} ${actualCommand}\n`,
             )
             process.stderr.write(
-              `If this is an SSE server, use: claude mcp add --transport sse ${name} ${actualCommand}\n`,
+              `如果这是 SSE 服务器，请使用：claude mcp add --transport sse ${name} ${actualCommand}\n`,
             )
           }
 
@@ -269,10 +269,10 @@ export function registerMcpAddCommand(mcp: Command): void {
           )
 
           process.stdout.write(
-            `Added stdio MCP server ${name} with command: ${actualCommand} ${actualArgs.join(' ')} to ${scope} config\n`,
+            `已将 stdio MCP 服务器 ${name}（命令：${actualCommand} ${actualArgs.join(' ')}）添加到 ${scope} 配置\n`,
           )
         }
-        cliOk(`File modified: ${describeMcpConfigFilePath(scope)}`)
+        cliOk(`已修改文件：${describeMcpConfigFilePath(scope)}`)
       } catch (error) {
         cliError((error as Error).message)
       }

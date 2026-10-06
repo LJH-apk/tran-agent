@@ -34,7 +34,7 @@ const review: Command = {
   type: 'prompt',
   name: 'review',
   description: 'Review a pull request',
-  progressMessage: 'reviewing pull request',
+  progressMessage: '正在评审拉取请求',
   contentLength: 0,
   source: 'builtin',
   async getPromptForCommand(args): Promise<ContentBlockParam[]> {

@@ -141,9 +141,9 @@ export async function createDefaultEnvironment(): Promise<boolean> {
     const response = await axios.post(
       url,
       {
-        name: 'Default',
+        name: '默认',
         kind: 'anthropic_cloud',
-        description: 'Default - trusted network access',
+        description: '默认 - 可信网络访问',
         config: {
           environment_type: 'anthropic',
           cwd: '/home/user',

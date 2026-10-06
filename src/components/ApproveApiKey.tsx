@@ -37,17 +37,17 @@ export function ApproveApiKey({ customApiKeyTruncated, onDone }: Props): React.R
   }
 
   return (
-    <Dialog title="Detected a custom API key in your environment" color="warning" onCancel={() => onChange('no')}>
+    <Dialog title="在你的环境中检测到自定义 API 密钥" color="warning" onCancel={() => onChange('no')}>
       <Text>
         <Text bold>ANTHROPIC_API_KEY</Text>
         <Text>: sk-ant-...{customApiKeyTruncated}</Text>
       </Text>
-      <Text>Do you want to use this API key?</Text>
+      <Text>是否要使用这个 API 密钥？</Text>
       <Select
         defaultValue="no"
         defaultFocusValue="no"
         options={[
-          { label: 'Yes', value: 'yes' },
+          { label: '是', value: 'yes' },
           {
             label: (
               <Text>

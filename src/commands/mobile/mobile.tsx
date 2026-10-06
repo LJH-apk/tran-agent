@@ -93,7 +93,7 @@ function MobileQRCode({ onDone }: Props): React.ReactNode {
               Android
             </Text>
           </Text>
-          <Text dimColor>(tab to switch, esc to close)</Text>
+          <Text dimColor>（Tab 切换，Esc 关闭）</Text>
         </Box>
         <Text dimColor>{url}</Text>
       </Box>

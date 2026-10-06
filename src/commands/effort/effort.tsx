@@ -32,7 +32,7 @@ function setEffortValue(effortValue: EffortValue): EffortCommandResult {
     });
     if (result.error) {
       return {
-        message: `Failed to set effort level: ${result.error.message}`,
+        message: `设置推理投入级别失败：${result.error.message}`,
       };
     }
   }
@@ -48,12 +48,12 @@ function setEffortValue(effortValue: EffortValue): EffortCommandResult {
     const envRaw = process.env.CLAUDE_CODE_EFFORT_LEVEL;
     if (persistable === undefined) {
       return {
-        message: `Not applied: CLAUDE_CODE_EFFORT_LEVEL=${envRaw} overrides effort this session, and ${effortValue} is session-only (nothing saved)`,
+        message: `未生效：本会话由 CLAUDE_CODE_EFFORT_LEVEL=${envRaw} 覆盖，且 ${effortValue} 仅对当前会话有效（未保存）`,
         effortUpdate: { value: effortValue },
       };
     }
     return {
-      message: `CLAUDE_CODE_EFFORT_LEVEL=${envRaw} overrides this session — clear it and ${effortValue} takes over`,
+      message: `本会话由 CLAUDE_CODE_EFFORT_LEVEL=${envRaw} 覆盖——清除该变量后 ${effortValue} 才会生效`,
       effortUpdate: { value: effortValue },
     };
   }
@@ -61,7 +61,7 @@ function setEffortValue(effortValue: EffortValue): EffortCommandResult {
   const description = getEffortValueDescription(effortValue);
   const suffix = persistable !== undefined ? '' : ' (this session only)';
   return {
-    message: `Set effort level to ${effortValue}${suffix}: ${description}`,
+    message: `已将推理投入级别设为 ${effortValue}${suffix}：${description}`,
     effortUpdate: { value: effortValue },
   };
 }
@@ -71,11 +71,11 @@ export function showCurrentEffort(appStateEffort: EffortValue | undefined, model
   const effectiveValue = envOverride === null ? undefined : (envOverride ?? appStateEffort);
   if (effectiveValue === undefined) {
     const level = getDisplayedEffortLevel(model, appStateEffort);
-    return { message: `Effort level: auto (currently ${level})` };
+    return { message: `推理投入级别：auto（当前为 ${level}）` };
   }
   const description = getEffortValueDescription(effectiveValue);
   return {
-    message: `Current effort level: ${effectiveValue} (${description})`,
+    message: `当前推理投入级别：${effectiveValue}（${description}）`,
   };
 }
 
@@ -85,7 +85,7 @@ function unsetEffortLevel(): EffortCommandResult {
   });
   if (result.error) {
     return {
-      message: `Failed to set effort level: ${result.error.message}`,
+      message: `设置推理投入级别失败：${result.error.message}`,
     };
   }
   logEvent('tengu_effort_command', {
@@ -97,12 +97,12 @@ function unsetEffortLevel(): EffortCommandResult {
   if (envOverride !== undefined && envOverride !== null) {
     const envRaw = process.env.CLAUDE_CODE_EFFORT_LEVEL;
     return {
-      message: `Cleared effort from settings, but CLAUDE_CODE_EFFORT_LEVEL=${envRaw} still controls this session`,
+      message: `已从设置中清除推理投入级别，但本会话仍由 CLAUDE_CODE_EFFORT_LEVEL=${envRaw} 控制`,
       effortUpdate: { value: undefined },
     };
   }
   return {
-    message: 'Effort level set to auto',
+    message: '推理投入级别已设为 auto',
     effortUpdate: { value: undefined },
   };
 }
@@ -115,7 +115,7 @@ export function executeEffort(args: string): EffortCommandResult {
 
   if (!isEffortLevel(normalized)) {
     return {
-      message: `Invalid argument: ${args}. Valid options are: low, medium, high, max, auto`,
+      message: `参数无效：${args}。可选值：low、medium、high、max、auto`,
     };
   }
 
@@ -156,7 +156,7 @@ export async function call(onDone: LocalJSXCommandOnDone, _context: unknown, arg
 
   if (COMMON_HELP_ARGS.includes(args)) {
     onDone(
-      'Usage: /effort [low|medium|high|xhigh|max|auto]\n\nEffort levels:\n- low: Quick, straightforward implementation\n- medium: Balanced approach with standard testing\n- high: Comprehensive implementation with extensive testing\n- xhigh: Extended reasoning beyond high, short of max; including ChatGPT Codex models\n- max: Maximum capability with deepest reasoning\n- auto: Use the default effort level for your model',
+      '用法：/effort [low|medium|high|xhigh|max|auto]\n\n推理投入级别：\n- low：快速、直接的实现\n- medium：均衡方案，常规测试\n- high：完整实现，充分测试\n- xhigh：比 high 更深、但未达 max 的扩展推理；包含 ChatGPT Codex 模型\n- max：最强能力，最深推理\n- auto：使用该模型的默认推理投入级别',
     );
     return;
   }

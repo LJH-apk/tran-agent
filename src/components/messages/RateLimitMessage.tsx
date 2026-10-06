@@ -30,7 +30,7 @@ export function getUpsellMessage({
     if (isExtraUsageCommandEnabled) {
       return '/extra-usage to finish what you\u2019re working on.';
     }
-    return '/login to switch to an API usage-billed account.';
+    return '/login 切换到按 API 用量计费的账号。';
   }
 
   if (shouldAutoOpenRateLimitOptionsMenu) {
@@ -38,7 +38,7 @@ export function getUpsellMessage({
   }
 
   if (!isTeamOrEnterprise && !isExtraUsageCommandEnabled) {
-    return '/upgrade to increase your usage limit.';
+    return '/upgrade 提高用量上限。';
   }
 
   if (isTeamOrEnterprise) {
@@ -48,7 +48,7 @@ export function getUpsellMessage({
       return '/extra-usage to finish what you\u2019re working on.';
     }
 
-    return '/extra-usage to request more usage from your admin.';
+    return '/extra-usage 向管理员申请更多用量。';
   }
 
   return '/upgrade or /extra-usage to finish what you\u2019re working on.';

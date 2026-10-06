@@ -438,7 +438,7 @@ function BashPermissionRequestInner({
   const classifierSubtitle = feature('BASH_CLASSIFIER') ? (
     toolUseConfirm.classifierAutoApproved ? (
       <Text>
-        <Text color="success">{figures.tick} Auto-approved</Text>
+        <Text color="success">{figures.tick} 已自动批准</Text>
         {toolUseConfirm.classifierMatchedRule && (
           <Text dimColor>
             {' \u00b7 matched "'}
@@ -450,14 +450,14 @@ function BashPermissionRequestInner({
     ) : toolUseConfirm.classifierCheckInProgress ? (
       <ClassifierCheckingSubtitle />
     ) : classifierWasChecking ? (
-      <Text dimColor>Requires manual approval</Text>
+      <Text dimColor>需要人工批准</Text>
     ) : undefined
   ) : undefined;
 
   return (
     <PermissionDialog
       workerBadge={workerBadge}
-      title={sandboxingEnabled && !isSandboxed ? 'Bash command (unsandboxed)' : 'Bash command'}
+      title={sandboxingEnabled && !isSandboxed ? 'Bash 命令（无沙箱）' : 'Bash 命令'}
       subtitle={classifierSubtitle}
     >
       <Box flexDirection="column" paddingX={2} paddingY={1}>
@@ -475,7 +475,7 @@ function BashPermissionRequestInner({
           <PermissionDecisionDebugInfo permissionResult={toolUseConfirm.permissionResult} toolName="Bash" />
           {toolUseContext.options.debug && (
             <Box justifyContent="flex-end" marginTop={1}>
-              <Text dimColor>Ctrl-D to hide debug info</Text>
+              <Text dimColor>按 Ctrl-D 隐藏调试信息</Text>
             </Box>
           )}
         </>
@@ -514,12 +514,12 @@ function BashPermissionRequestInner({
           </Box>
           <Box justifyContent="space-between" marginTop={1}>
             <Text dimColor>
-              Esc to reject
+              按 Esc 拒绝
               {((focusedOption === 'yes' && !yesInputMode) || (focusedOption === 'no' && !noInputMode)) &&
-                ' · Tab to add feedback'}
+                ' · 按 Tab 补充说明'}
               {explainerState.enabled && ` · ctrl+e to ${explainerState.visible ? 'hide' : 'explain'}`}
             </Text>
-            {toolUseContext.options.debug && <Text dimColor>Ctrl+d to show debug info</Text>}
+            {toolUseContext.options.debug && <Text dimColor>按 Ctrl+d 显示调试信息</Text>}
           </Box>
         </>
       )}

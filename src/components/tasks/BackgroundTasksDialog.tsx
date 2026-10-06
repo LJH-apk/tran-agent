@@ -245,7 +245,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
         if (current) {
           if (current.type === 'leader') {
             exitTeammateView(setAppState);
-            onDone('Viewing leader', { display: 'system' });
+            onDone('正在查看主控', { display: 'system' });
           } else {
             setViewState({ mode: 'detail', itemId: current.id });
           }
@@ -263,7 +263,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
 
     if (e.key === 'left') {
       e.preventDefault();
-      onDone('Background tasks dialog dismissed', { display: 'system' });
+      onDone('后台任务对话框已关闭', { display: 'system' });
       return;
     }
 
@@ -302,11 +302,11 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
       if (currentSelection.type === 'in_process_teammate' && currentSelection.status === 'running') {
         e.preventDefault();
         enterTeammateView(currentSelection.id, setAppState);
-        onDone('Viewing teammate', { display: 'system' });
+        onDone('正在查看队友', { display: 'system' });
       } else if (currentSelection.type === 'leader') {
         e.preventDefault();
         exitTeammateView(setAppState);
-        onDone('Viewing leader', { display: 'system' });
+        onDone('正在查看主控', { display: 'system' });
       }
     }
   };
@@ -344,7 +344,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
         // Task was removed or is no longer a background task (e.g. killed).
         // If we skipped the list on mount, close the dialog entirely.
         if (skippedListOnMount.current) {
-          onDoneEvent('Background tasks dialog dismissed', {
+          onDoneEvent('后台任务对话框已关闭', {
             display: 'system',
           });
         } else {
@@ -365,7 +365,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
   // then a second task started, 'back' should show the list — not close.
   const goBackToList = () => {
     if (skippedListOnMount.current && allSelectableItems.length <= 1) {
-      onDone('Background tasks dialog dismissed', { display: 'system' });
+      onDone('后台任务对话框已关闭', { display: 'system' });
     } else {
       skippedListOnMount.current = false;
       setViewState({ mode: 'list' });
@@ -429,7 +429,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
               task.status === 'running'
                 ? () => {
                     enterTeammateView(task.id, setAppState);
-                    onDone('Viewing teammate', { display: 'system' });
+                    onDone('正在查看队友', { display: 'system' });
                   }
                 : undefined
             }
@@ -471,8 +471,8 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
               inputGuide={() => (
                 <Byline>
                   <KeyboardShortcutHint shortcut="←" action="go back" />
-                  <KeyboardShortcutHint shortcut="Esc" action="close" />
-                  {onKill && <KeyboardShortcutHint shortcut="x" action="stop" />}
+                  <KeyboardShortcutHint shortcut="Esc" action="关闭" />
+                  {onKill && <KeyboardShortcutHint shortcut="x" action="停止" />}
                 </Byline>
               )}
             >
@@ -505,7 +505,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
           <DreamDetailDialog
             task={task}
             onDone={() =>
-              onDone('Background tasks dialog dismissed', {
+              onDone('后台任务对话框已关闭', {
                 display: 'system',
               })
             }
@@ -527,21 +527,21 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
       ...(runningTeammateCount > 0
         ? [
             <Text key="teammates">
-              {runningTeammateCount} {runningTeammateCount !== 1 ? 'agents' : 'agent'}
+              {runningTeammateCount} {runningTeammateCount !== 1 ? '智能体' : '智能体'}
             </Text>,
           ]
         : []),
       ...(runningBashCount > 0
         ? [
             <Text key="shells">
-              {runningBashCount} {runningBashCount !== 1 ? 'active shells' : 'active shell'}
+              {runningBashCount} {runningBashCount !== 1 ? '活动 Shell' : '活动 Shell'}
             </Text>,
           ]
         : []),
       ...(runningAgentCount > 0
         ? [
             <Text key="agents">
-              {runningAgentCount} {runningAgentCount !== 1 ? 'active agents' : 'active agent'}
+              {runningAgentCount} {runningAgentCount !== 1 ? '活动智能体' : '活动智能体'}
             </Text>,
           ]
         : []),
@@ -550,10 +550,10 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
   );
 
   const actions = [
-    <KeyboardShortcutHint key="upDown" shortcut="↑/↓" action="select" />,
-    <KeyboardShortcutHint key="enter" shortcut="Enter" action="view" />,
+    <KeyboardShortcutHint key="upDown" shortcut="↑/↓" action="选择" />,
+    <KeyboardShortcutHint key="enter" shortcut="Enter" action="查看" />,
     ...(currentSelection?.type === 'in_process_teammate' && currentSelection.status === 'running'
-      ? [<KeyboardShortcutHint key="foreground" shortcut="f" action="foreground" />]
+      ? [<KeyboardShortcutHint key="切换到前台" shortcut="f" action="foreground" />]
       : []),
     ...((currentSelection?.type === 'local_bash' ||
       currentSelection?.type === 'local_agent' ||
@@ -563,15 +563,15 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
       currentSelection?.type === 'dream' ||
       currentSelection?.type === 'remote_agent') &&
     currentSelection.status === 'running'
-      ? [<KeyboardShortcutHint key="kill" shortcut="x" action="stop" />]
+      ? [<KeyboardShortcutHint key="kill" shortcut="x" action="停止" />]
       : []),
     ...(agentTasks.some(t => t.status === 'running')
-      ? [<KeyboardShortcutHint key="kill-all" shortcut={killAgentsShortcut} action="stop all agents" />]
+      ? [<KeyboardShortcutHint key="kill-all" shortcut={killAgentsShortcut} action="停止所有智能体" />]
       : []),
-    <KeyboardShortcutHint key="esc" shortcut="←/Esc" action="close" />,
+    <KeyboardShortcutHint key="esc" shortcut="←/Esc" action="关闭" />,
   ];
 
-  const handleCancel = () => onDone('Background tasks dialog dismissed', { display: 'system' });
+  const handleCancel = () => onDone('后台任务对话框已关闭', { display: 'system' });
 
   function renderInputGuide(exitState: ExitState): React.ReactNode {
     if (exitState.pending) {
@@ -583,21 +583,21 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
   return (
     <Box flexDirection="column" tabIndex={0} autoFocus onKeyDown={handleKeyDown}>
       <Dialog
-        title="Background tasks"
+        title="后台任务"
         subtitle={<>{subtitle}</>}
         onCancel={handleCancel}
         color="background"
         inputGuide={renderInputGuide}
       >
         {allSelectableItems.length === 0 ? (
-          <Text dimColor>No tasks currently running</Text>
+          <Text dimColor>当前没有正在运行的任务</Text>
         ) : (
           <Box flexDirection="column">
             {teammateTasks.length > 0 && (
               <Box flexDirection="column">
                 {(bashTasks.length > 0 || remoteSessions.length > 0 || agentTasks.length > 0) && (
                   <Text dimColor>
-                    <Text bold>{'  '}Agents</Text> ({count(teammateTasks, i => i.type !== 'leader')})
+                    <Text bold>{'  '}智能体</Text> ({count(teammateTasks, i => i.type !== 'leader')})
                   </Text>
                 )}
                 <Box flexDirection="column">
@@ -610,7 +610,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
               <Box flexDirection="column" marginTop={teammateTasks.length > 0 ? 1 : 0}>
                 {(teammateTasks.length > 0 || remoteSessions.length > 0 || agentTasks.length > 0) && (
                   <Text dimColor>
-                    <Text bold>{'  '}Shells</Text> ({bashTasks.length})
+                    <Text bold>{'  '}Shell</Text> ({bashTasks.length})
                   </Text>
                 )}
                 <Box flexDirection="column">
@@ -624,7 +624,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
             {mcpMonitors.length > 0 && (
               <Box flexDirection="column" marginTop={teammateTasks.length > 0 || bashTasks.length > 0 ? 1 : 0}>
                 <Text dimColor>
-                  <Text bold>{'  '}Monitors</Text> ({mcpMonitors.length})
+                  <Text bold>{'  '}监控</Text> ({mcpMonitors.length})
                 </Text>
                 <Box flexDirection="column">
                   {mcpMonitors.map(item => (
@@ -640,7 +640,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
                 marginTop={teammateTasks.length > 0 || bashTasks.length > 0 || mcpMonitors.length > 0 ? 1 : 0}
               >
                 <Text dimColor>
-                  <Text bold>{'  '}Remote agents</Text> ({remoteSessions.length})
+                  <Text bold>{'  '}远程智能体</Text> ({remoteSessions.length})
                 </Text>
                 <Box flexDirection="column">
                   {remoteSessions.map(item => (
@@ -663,7 +663,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
                 }
               >
                 <Text dimColor>
-                  <Text bold>{'  '}Local agents</Text> ({agentTasks.length})
+                  <Text bold>{'  '}本地智能体</Text> ({agentTasks.length})
                 </Text>
                 <Box flexDirection="column">
                   {agentTasks.map(item => (
@@ -687,7 +687,7 @@ export function BackgroundTasksDialog({ onDone, toolUseContext, initialDetailTas
                 }
               >
                 <Text dimColor>
-                  <Text bold>{'  '}Workflows</Text> ({workflowTasks.length})
+                  <Text bold>{'  '}工作流</Text> ({workflowTasks.length})
                 </Text>
                 <Box flexDirection="column">
                   {workflowTasks.map(item => (

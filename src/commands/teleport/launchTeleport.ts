@@ -51,11 +51,11 @@ function formatSessionsPicker(
     return `  ${idx}. ${title}  ${status}  ${created}  id=${s.id}`
   })
   return [
-    '## Available sessions (most recent first)',
+    '## 可用会话（最新在前）',
     '',
     ...rows,
     '',
-    'Run `/teleport <session-id>` to resume a session.',
+    '运行 `/teleport <session-id>` 恢复某个会话。',
   ].join('\n')
 }
 
@@ -122,7 +122,7 @@ export const callTeleport: LocalJSXCommandCall = async (
       const raw = await fetchCodeSessionsFromSessionsAPI()
       sessions = raw.map(s => ({
         id: s.id,
-        title: s.title ?? 'Untitled',
+        title: s.title ?? '未命名',
         status: (s.status ?? 'unknown') as string,
         created_at: s.created_at ?? '',
       }))
@@ -135,7 +135,7 @@ export const callTeleport: LocalJSXCommandCall = async (
           error: meta(msg.slice(0, 200)),
         })
         onDone(
-          'Teleport: permission denied fetching sessions. Check your OAuth token (`claude auth status`).',
+          'Teleport：获取会话被拒绝。请检查你的 OAuth 令牌（`claude auth status`）。',
           { display: 'system' },
         )
         return null
@@ -145,7 +145,7 @@ export const callTeleport: LocalJSXCommandCall = async (
           error: meta(msg.slice(0, 200)),
         })
         onDone(
-          'Teleport: sessions endpoint returned 404. The Sessions API may not be available for your account.',
+          'Teleport：会话接口返回 404。你的账号可能无法使用 Sessions API。',
           { display: 'system' },
         )
         return null
@@ -165,7 +165,7 @@ export const callTeleport: LocalJSXCommandCall = async (
         error: meta(msg.slice(0, 200)),
       })
       onDone(
-        `Teleport: failed to fetch sessions — ${msg}.\nUsage: /teleport SESSION_ID`,
+        `Teleport：获取会话失败 —— ${msg}。\n用法：/teleport SESSION_ID`,
         { display: 'system' },
       )
       return null
@@ -174,7 +174,7 @@ export const callTeleport: LocalJSXCommandCall = async (
     if (sessions.length === 0) {
       logEvent('tengu_teleport_null', {})
       onDone(
-        'No active sessions found on claude.ai/code.\nStart a new session at https://claude.ai/code',
+        '在 claude.ai/code 上未找到活跃会话。\n在 https://claude.ai/code 开始一个新会话',
         { display: 'system' },
       )
       return null
@@ -209,7 +209,7 @@ export const callTeleport: LocalJSXCommandCall = async (
       error: meta(`invalid_session_id: ${sessionId.slice(0, 40)}`),
     })
     onDone(
-      `Invalid session id "${sessionId}". Expected a UUID-like string (e.g. 12345678-abcd-...).`,
+      `会话 ID "${sessionId}" 无效。应为类似 UUID 的字符串（例如 12345678-abcd-...）。`,
       { display: 'system' },
     )
     return null
@@ -232,7 +232,7 @@ export const callTeleport: LocalJSXCommandCall = async (
     logEvent('tengu_teleport_errors_detected', {
       error: meta(msg.slice(0, 200)),
     })
-    onDone(`Cannot teleport: ${msg}`, { display: 'system' })
+    onDone(`无法 teleport：${msg}`, { display: 'system' })
     return null
   }
 
@@ -255,13 +255,13 @@ export const callTeleport: LocalJSXCommandCall = async (
       logEvent('tengu_teleport_null', {})
       // resume callback unavailable (e.g. non-interactive context)
       if (isPrintMode) {
-        onDone(`Session ${sessionId} fetched successfully.`, {
+        onDone(`已成功获取会话 ${sessionId}。`, {
           display: 'system',
         })
         return null
       }
       onDone(
-        `Teleport resume succeeded for ${sessionId}, but the REPL did not provide a resume callback.`,
+        `${sessionId} 的 Teleport 恢复成功，但 REPL 未提供恢复回调。`,
         { display: 'system' },
       )
       return null
@@ -275,7 +275,7 @@ export const callTeleport: LocalJSXCommandCall = async (
         error: meta('log_not_found_after_resume'),
       })
       onDone(
-        `Teleport fetched session ${sessionId} but the local log was not found. Try /resume ${sessionId} manually.`,
+        `Teleport 已获取会话 ${sessionId}，但未找到本地日志。请手动运行 /resume ${sessionId}。`,
         { display: 'system' },
       )
       return null
@@ -308,7 +308,7 @@ export const callTeleport: LocalJSXCommandCall = async (
     logEvent('tengu_teleport_first_message_error', {
       error: meta(msg.slice(0, 200)),
     })
-    onDone(`Teleport failed: ${msg}`, { display: 'system' })
+    onDone(`Teleport 失败：${msg}`, { display: 'system' })
     return null
   }
 }

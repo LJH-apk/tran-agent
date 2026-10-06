@@ -45,7 +45,7 @@ export const call: LocalCommandCall = async (_args, context) => {
     })
     return {
       type: 'text',
-      value: `Selected ${pipeName} — messages will be broadcast to this pipe.`,
+      value: `已选择 ${pipeName} —— 消息将广播到该管道。`,
     }
   }
 
@@ -64,7 +64,7 @@ export const call: LocalCommandCall = async (_args, context) => {
       )
       return { ...prev, pipeIpc: { ...pipeIpc, selectedPipes: selected } }
     })
-    return { type: 'text', value: `Deselected ${pipeName}.` }
+    return { type: 'text', value: `已取消选择 ${pipeName}。` }
   }
 
   if (args === 'select-all' || args === 'all') {
@@ -77,7 +77,7 @@ export const call: LocalCommandCall = async (_args, context) => {
     }))
     return {
       type: 'text',
-      value: `Selected all ${slaveNames.length} connected pipes.`,
+      value: `已选择全部 ${slaveNames.length} 个已连接管道。`,
     }
   }
 
@@ -103,15 +103,15 @@ export const call: LocalCommandCall = async (_args, context) => {
 
   const lines: string[] = []
 
-  lines.push(`Your pipe:   ${myName ?? '(not started)'}`)
-  lines.push(`Role:        ${displayRole}`)
+  lines.push(`你的管道：   ${myName ?? '(not started)'}`)
+  lines.push(`角色：       ${displayRole}`)
   if (pipeState.machineId)
-    lines.push(`Machine ID:  ${pipeState.machineId.slice(0, 8)}...`)
-  if (pipeState.localIp) lines.push(`IP:          ${pipeState.localIp}`)
-  if (pipeState.hostname) lines.push(`Host:        ${pipeState.hostname}`)
+    lines.push(`机器 ID：    ${pipeState.machineId.slice(0, 8)}...`)
+  if (pipeState.localIp) lines.push(`IP：         ${pipeState.localIp}`)
+  if (pipeState.hostname) lines.push(`主机：       ${pipeState.hostname}`)
 
   if (isPipeControlled(pipeState)) {
-    lines.push(`Controlled by: ${pipeState.attachedBy}`)
+    lines.push(`控制方：${pipeState.attachedBy}`)
   }
 
   lines.push('')
@@ -119,7 +119,7 @@ export const call: LocalCommandCall = async (_args, context) => {
   if (registry.mainMachineId) {
     const isMyMachine = isMainMachine(pipeState.machineId ?? '', registry)
     lines.push(
-      `Main machine: ${registry.mainMachineId.slice(0, 8)}...${isMyMachine ? ' (this machine)' : ''}`,
+      `主机器：${registry.mainMachineId.slice(0, 8)}...${isMyMachine ? ' (this machine)' : ''}`,
     )
   }
 
@@ -129,7 +129,7 @@ export const call: LocalCommandCall = async (_args, context) => {
     const alive = await isPipeAlive(m.pipeName, 1000)
     const isSelf = m.pipeName === myName
     lines.push(
-      `  [main] ${m.pipeName}  ${m.hostname}/${m.ip}  [${alive ? 'alive' : 'stale'}]${isSelf ? ' (you)' : ''}`,
+      `  [主] ${m.pipeName}  ${m.hostname}/${m.ip}  [${alive ? 'alive' : 'stale'}]${isSelf ? ' (you)' : ''}`,
     )
   }
 
@@ -149,9 +149,9 @@ export const call: LocalCommandCall = async (_args, context) => {
     const isSelf = sub.pipeName === myName
     const isSelected = selected.includes(sub.pipeName)
     const checkbox = isSelected ? '☑' : '☐'
-    const isAttached = pipeState.slaves[sub.pipeName] ? ' [connected]' : ''
+    const isAttached = pipeState.slaves[sub.pipeName] ? ' [已连接]' : ''
     lines.push(
-      `  ${checkbox} [sub-${sub.subIndex}] ${sub.pipeName}  ${sub.hostname}/${sub.ip}  [${alive ? 'alive' : 'stale'}]${isAttached}${isSelf ? ' (you)' : ''}`,
+      `  ${checkbox} [子-${sub.subIndex}] ${sub.pipeName}  ${sub.hostname}/${sub.ip}  [${alive ? 'alive' : 'stale'}]${isAttached}${isSelf ? ' (you)' : ''}`,
     )
     if (alive) {
       discoveredPipes.push({
@@ -167,7 +167,7 @@ export const call: LocalCommandCall = async (_args, context) => {
   }
 
   if (!registry.main && registry.subs.length === 0) {
-    lines.push('No other pipes in registry.')
+    lines.push('注册表中没有其他管道。')
   }
 
   // Show LAN peers (if LAN_PIPES enabled)
@@ -181,7 +181,7 @@ export const call: LocalCommandCall = async (_args, context) => {
       const lanOnly = merged.filter(e => e.source === 'lan')
       if (lanOnly.length > 0) {
         lines.push('')
-        lines.push('LAN Peers:')
+        lines.push('局域网对等节点：')
         for (const peer of lanOnly) {
           const isSelected = selected.includes(peer.pipeName)
           const checkbox = isSelected ? '☑' : '☐'
@@ -189,7 +189,7 @@ export const call: LocalCommandCall = async (_args, context) => {
             ? `tcp:${peer.tcpEndpoint.host}:${peer.tcpEndpoint.port}`
             : ''
           lines.push(
-            `  ${checkbox} [${peer.role}] ${peer.pipeName}  ${peer.hostname}/${peer.ip}  ${ep}  [LAN]`,
+            `  ${checkbox} [${peer.role}] ${peer.pipeName}  ${peer.hostname}/${peer.ip}  ${ep}  [局域网]`,
           )
           discoveredPipes.push({
             id: peer.id,
@@ -203,7 +203,7 @@ export const call: LocalCommandCall = async (_args, context) => {
         }
       } else {
         lines.push('')
-        lines.push('LAN Peers: (none discovered)')
+        lines.push('局域网对等节点：（未发现）')
       }
     }
   }
@@ -216,16 +216,16 @@ export const call: LocalCommandCall = async (_args, context) => {
 
   lines.push('')
   lines.push(
-    `Selected: ${selected.length > 0 ? selected.join(', ') : '(none — messages run locally only)'}`,
+    `已选择：${selected.length > 0 ? selected.join(', ') : '(none — messages run locally only)'}`,
   )
   lines.push('')
-  lines.push('Commands:')
-  lines.push('  /pipes select <name>    — select pipe for broadcast')
-  lines.push('  /pipes deselect <name>  — deselect pipe')
-  lines.push('  /pipes all              — select all connected')
-  lines.push('  /pipes none             — deselect all')
-  lines.push('  /send <name> <msg>      — send to specific pipe')
-  lines.push('  /claim-main             — claim this machine as main')
+  lines.push('命令：')
+  lines.push('  /pipes select <name>    — 选择要广播的管道')
+  lines.push('  /pipes deselect <name>  — 取消选择管道')
+  lines.push('  /pipes all              — 选择所有已连接的管道')
+  lines.push('  /pipes none             — 取消选择全部')
+  lines.push('  /send <name> <msg>      — 发送到指定管道')
+  lines.push('  /claim-main             — 将本机设为主机')
 
   return { type: 'text', value: lines.join('\n') }
 }

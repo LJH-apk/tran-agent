@@ -120,26 +120,26 @@ function classifyError(err: unknown): SkillsApiError {
     const status = err.response?.status ?? 0
     if (status === 401) {
       return new SkillsApiError(
-        'Authentication failed. Please run /login to re-authenticate.',
+        '认证失败。请运行 /login 重新认证。',
         401,
       )
     }
     if (status === 403) {
       return new SkillsApiError(
-        'Subscription required. Skill store requires a Claude Pro/Max/Team subscription.',
+        '需要订阅。技能商店需要 Claude Pro/Max/Team 订阅。',
         403,
       )
     }
     if (status === 404) {
-      return new SkillsApiError('Skill or version not found.', 404)
+      return new SkillsApiError('未找到该技能或版本。', 404)
     }
     if (status === 429) {
       const retryAfter =
         (err.response?.headers as Record<string, string> | undefined)?.[
           'retry-after'
         ] ?? ''
-      const detail = retryAfter ? ` Retry after ${retryAfter}s.` : ''
-      return new SkillsApiError(`Rate limit exceeded.${detail}`, 429)
+      const detail = retryAfter ? ` 请在 ${retryAfter} 秒后重试。` : ''
+      return new SkillsApiError(`已超出速率限制。${detail}`, 429)
     }
     const msg =
       (err.response?.data as { error?: { message?: string } } | undefined)
@@ -189,7 +189,7 @@ async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
       throw classified
     }
   }
-  throw lastErr ?? new SkillsApiError('Request failed after retries', 0)
+  throw lastErr ?? new SkillsApiError('重试后请求仍然失败', 0)
 }
 
 // ── Skills CRUD ─────────────────────────────────────────────────────────────

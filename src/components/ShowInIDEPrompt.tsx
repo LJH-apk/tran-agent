@@ -49,11 +49,11 @@ export function ShowInIDEPrompt<A>({
         {symlinkTarget && (
           <Text color="warning">
             {relative(getCwd(), symlinkTarget).startsWith('..')
-              ? `This will modify ${symlinkTarget} (outside working directory) via a symlink`
-              : `Symlink target: ${symlinkTarget}`}
+              ? `这将通过符号链接修改 ${symlinkTarget}（位于工作目录之外）`
+              : `符号链接目标：${symlinkTarget}`}
           </Text>
         )}
-        {isSupportedVSCodeTerminal() && <Text dimColor>Save file to continue…</Text>}
+        {isSupportedVSCodeTerminal() && <Text dimColor>保存文件以继续…</Text>}
         <Box flexDirection="column">
           <Text>
             Do you want to make this edit to <Text bold>{basename(filePath)}</Text>?
@@ -86,9 +86,9 @@ export function ShowInIDEPrompt<A>({
         </Box>
         <Box marginTop={1}>
           <Text dimColor>
-            Esc to cancel
+            Esc 取消
             {((focusedOption === 'yes' && !yesInputMode) || (focusedOption === 'no' && !noInputMode)) &&
-              ' · Tab to amend'}
+              ' · Tab 修改'}
           </Text>
         </Box>
       </Box>

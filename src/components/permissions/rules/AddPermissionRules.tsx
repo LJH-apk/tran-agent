@@ -14,7 +14,6 @@ import { detectUnreachableRules, type UnreachableRule } from '../../../utils/per
 import { SandboxManager } from '../../../utils/sandbox/sandbox-adapter.js';
 import { type EditableSettingSource, SOURCES } from '../../../utils/settings/constants.js';
 import { getRelativeSettingsFilePathForSource } from '../../../utils/settings/settings.js';
-import { plural } from '../../../utils/stringUtils.js';
 import type { OptionWithDescription } from '../../CustomSelect/select.js';
 import { PermissionRuleDescription } from './PermissionRuleDescription.js';
 
@@ -22,20 +21,20 @@ export function optionForPermissionSaveDestination(saveDestination: EditableSett
   switch (saveDestination) {
     case 'localSettings':
       return {
-        label: 'Project settings (local)',
-        description: `Saved in ${getRelativeSettingsFilePathForSource('localSettings')}`,
+        label: '项目设置（本地）',
+        description: `保存于 ${getRelativeSettingsFilePathForSource('localSettings')}`,
         value: saveDestination,
       };
     case 'projectSettings':
       return {
-        label: 'Project settings',
-        description: `Checked in at ${getRelativeSettingsFilePathForSource('projectSettings')}`,
+        label: '项目设置',
+        description: `已提交至 ${getRelativeSettingsFilePathForSource('projectSettings')}`,
         value: saveDestination,
       };
     case 'userSettings':
       return {
-        label: 'User settings',
-        description: `Saved in at ~/.claude/settings.json`,
+        label: '用户设置',
+        description: `保存于 ~/.claude/settings.json`,
         value: saveDestination,
       };
   }
@@ -111,7 +110,7 @@ export function AddPermissionRules({
     [onAddRules, onCancel, ruleValues, ruleBehavior, initialContext, setToolPermissionContext],
   );
 
-  const title = `Add ${ruleBehavior} permission ${plural(ruleValues.length, 'rule')}`;
+  const title = `添加 ${ruleValues.length} 条 ${ruleBehavior} 权限规则`;
 
   return (
     <Dialog title={title} onCancel={onCancel} color="permission">
@@ -126,7 +125,7 @@ export function AddPermissionRules({
 
       <Box flexDirection="column" marginY={1}>
         <Text>
-          {ruleValues.length === 1 ? 'Where should this rule be saved?' : 'Where should these rules be saved?'}
+          {ruleValues.length === 1 ? '此规则应保存到哪里？' : '这些规则应保存到哪里？'}
         </Text>
         <Select options={allOptions} onChange={onSelect} />
       </Box>

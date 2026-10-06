@@ -24,7 +24,7 @@ function SkillRow({ skill }: { skill: Skill }): React.ReactNode {
         {skill.deprecated ? (
           <>
             <Text dimColor> · </Text>
-            <Text color={'warning' as keyof Theme}>deprecated</Text>
+            <Text color={'warning' as keyof Theme}>已弃用</Text>
           </>
         ) : null}
       </Box>
@@ -72,9 +72,9 @@ export function SkillStoreView(props: Props): React.ReactNode {
           {skill.owner_symbol ? ` (${skill.owner_symbol})` : ''}
         </Text>
         <Text>
-          Status:{' '}
+          状态： {' '}
           <Text color={(skill.deprecated ? 'warning' : 'success') as keyof Theme}>
-            {skill.deprecated ? 'deprecated' : 'active'}
+            {skill.deprecated ? '已弃用' : '启用中'}
           </Text>
         </Text>
         {skill.allowed_tools && skill.allowed_tools.length > 0 ? (
@@ -139,7 +139,7 @@ export function SkillStoreView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Skill created
+            技能已创建
           </Text>
         </Box>
         <Text>ID: {skill.skill_id}</Text>
@@ -161,7 +161,7 @@ export function SkillStoreView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Skill installed
+            技能已安装
           </Text>
         </Box>
         <Text>Name: {props.skillName}</Text>

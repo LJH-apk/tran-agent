@@ -42,7 +42,7 @@ const call: LocalCommandCall = async (args, _context) => {
   // No argument: show current provider
   if (!arg) {
     const current = getAPIProvider()
-    return { type: 'text', value: `Current API provider: ${current}` }
+    return { type: 'text', value: `当前 API 提供方：${current}` }
   }
 
   // unset - clear settings, fallback to env vars
@@ -74,7 +74,7 @@ const call: LocalCommandCall = async (args, _context) => {
   if (!validProviders.includes(arg)) {
     return {
       type: 'text',
-      value: `Invalid provider: ${arg}\nValid: ${validProviders.join(', ')}`,
+      value: `提供方无效：${arg}\n可选值：${validProviders.join(', ')}`,
     }
   }
 
@@ -91,7 +91,7 @@ const call: LocalCommandCall = async (args, _context) => {
       if (!hasUrl) missing.push('OPENAI_BASE_URL')
       return {
         type: 'text',
-        value: `Switched to OpenAI provider.\nWarning: Missing env vars: ${missing.join(', ')}\nConfigure them via /login or set manually.`,
+        value: `已切换到 OpenAI 提供方。\n警告：缺少环境变量：${missing.join(', ')}\n请通过 /login 配置，或手动设置。`,
       }
     }
   }
@@ -104,7 +104,7 @@ const call: LocalCommandCall = async (args, _context) => {
       updateSettingsForSource('userSettings', { modelType: 'grok' })
       return {
         type: 'text',
-        value: `Switched to Grok provider.\nWarning: Missing env var: GROK_API_KEY (or XAI_API_KEY)\nConfigure it via settings.json env or set manually.`,
+        value: `已切换到 Grok 提供方。\n警告：缺少环境变量：GROK_API_KEY（或 XAI_API_KEY）\n请在 settings.json 的 env 中配置，或手动设置。`,
       }
     }
   }
@@ -118,7 +118,7 @@ const call: LocalCommandCall = async (args, _context) => {
       updateSettingsForSource('userSettings', { modelType: 'gemini' })
       return {
         type: 'text',
-        value: `Switched to Gemini provider.\nWarning: Missing env var: GEMINI_API_KEY\nConfigure it via /login or set manually.`,
+        value: `已切换到 Gemini 提供方。\n警告：缺少环境变量：GEMINI_API_KEY\n请通过 /login 配置，或手动设置。`,
       }
     }
   }
@@ -143,7 +143,7 @@ const call: LocalCommandCall = async (args, _context) => {
     updateSettingsForSource('userSettings', { modelType: arg })
     // Ensure settings.env gets applied to process.env
     applyConfigEnvironmentVariables()
-    return { type: 'text', value: `API provider set to ${arg}.` }
+    return { type: 'text', value: `API 提供方已设置为 ${arg}。` }
   } else {
     // Cloud providers: set env vars only, do NOT touch settings.json
     delete process.env.CLAUDE_CODE_USE_OPENAI
@@ -156,7 +156,7 @@ const call: LocalCommandCall = async (args, _context) => {
     applyConfigEnvironmentVariables()
     return {
       type: 'text',
-      value: `API provider set to ${arg} (via environment variable).`,
+      value: `API 提供方已设置为 ${arg}（通过环境变量）。`,
     }
   }
 }

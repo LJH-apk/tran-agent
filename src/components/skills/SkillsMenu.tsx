@@ -96,15 +96,15 @@ export function SkillsMenu({ onExit, commands }: Props): React.ReactNode {
   }, [filteredSkills]);
 
   const handleCancel = (): void => {
-    onExit('Skills dialog dismissed', { display: 'system' });
+    onExit('技能对话框已关闭', { display: 'system' });
   };
 
   if (skills.length === 0) {
     return (
-      <Dialog title="Skills" subtitle="No skills found" onCancel={handleCancel} hideInputGuide>
-        <Text dimColor>Create skills in .claude/skills/ or ~/.claude/skills/</Text>
+      <Dialog title="技能" subtitle="未找到技能" onCancel={handleCancel} hideInputGuide>
+        <Text dimColor>在 .claude/skills/ 或 ~/.claude/skills/ 中创建技能</Text>
         <Text dimColor italic>
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="close" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="关闭" />
         </Text>
       </Dialog>
     );
@@ -114,11 +114,11 @@ export function SkillsMenu({ onExit, commands }: Props): React.ReactNode {
     switch (source) {
       case 'projectSettings':
       case 'localSettings':
-        return { label: 'local', color: 'yellow' };
+        return { label: '本地', color: 'yellow' };
       case 'userSettings':
-        return { label: 'global', color: 'cyan' };
+        return { label: '全局', color: 'cyan' };
       case 'policySettings':
-        return { label: 'managed', color: 'magenta' };
+        return { label: '托管', color: 'magenta' };
       default:
         return undefined;
     }
@@ -156,8 +156,8 @@ export function SkillsMenu({ onExit, commands }: Props): React.ReactNode {
   // boundary changes.
   return (
     <FuzzyPicker
-      title="Skills"
-      placeholder="Type to filter skills…"
+      title="技能"
+      placeholder="输入以筛选技能…"
       items={orderedFilteredSkills}
       getKey={s => `${s.name}-${s.source}`}
       visibleCount={12}
@@ -167,9 +167,9 @@ export function SkillsMenu({ onExit, commands }: Props): React.ReactNode {
         onExit(`/${getCommandName(skill)}`, { display: 'user' });
       }}
       onCancel={handleCancel}
-      emptyMessage={q => (q.trim() ? `No skills matching "${q.trim()}"` : 'No skills found')}
+      emptyMessage={q => (q.trim() ? `没有匹配 "${q.trim()}" 的技能` : '未找到技能')}
       matchLabel={subtitle}
-      selectAction="invoke skill"
+      selectAction="调用技能"
       renderItem={(skill, isFocused) => renderSkillItem(skill, isFocused)}
     />
   );

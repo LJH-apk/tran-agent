@@ -45,7 +45,7 @@ function VoiceModeNoticeInner(): React.ReactNode {
   return (
     <Box paddingLeft={2}>
       <AnimatedAsterisk />
-      <Text dimColor> Voice mode is now available · /voice to enable</Text>
+      <Text dimColor> 语音模式已可用 · 用 /voice 开启</Text>
     </Box>
   );
 }

@@ -350,64 +350,64 @@ function formatReportMarkdown(
     )
 
   return [
-    '# Claude Code Performance Snapshot',
+    '# Claude Code 性能快照',
     '',
-    `- timestamp: ${new Date().toISOString()}`,
-    `- session:   ${sessionId}`,
-    `- pid:       ${process.pid}`,
-    `- platform:  ${process.platform} ${process.arch}`,
-    `- bun:       ${typeof Bun !== 'undefined' ? Bun.version : 'n/a'}`,
-    `- node:      ${process.version}`,
+    `- 时间戳:      ${new Date().toISOString()}`,
+    `- 会话:        ${sessionId}`,
+    `- 进程 ID:     ${process.pid}`,
+    `- 平台:        ${process.platform} ${process.arch}`,
+    `- bun:         ${typeof Bun !== 'undefined' ? Bun.version : 'n/a'}`,
+    `- node:        ${process.version}`,
     `- uptime:    ${process.uptime().toFixed(1)}s`,
     '',
-    '## Memory',
-    `- rss:           ${m.rss}`,
-    `- heap used:     ${m.heapUsed}`,
-    `- heap total:    ${m.heapTotal}`,
-    `- external:      ${m.external}`,
-    `- array buffers: ${m.arrayBuffers ?? 0}`,
+    '## 内存',
+    `- rss:          ${m.rss}`,
+    `- 堆已用:       ${m.heapUsed}`,
+    `- 堆总量:       ${m.heapTotal}`,
+    `- 外部内存:     ${m.external}`,
+    `- ArrayBuffer:  ${m.arrayBuffers ?? 0}`,
     '',
-    '## CPU (process.cpuUsage, microseconds)',
-    `- user:   ${cpu.user}`,
-    `- system: ${cpu.system}`,
+    '## CPU（process.cpuUsage，微秒）',
+    `- 用户:   ${cpu.user}`,
+    `- 系统:   ${cpu.system}`,
     '',
-    '## Session Token Usage',
+    '## 会话 Token 用量',
     `- total_tokens:          ${totalTokens.toLocaleString()}`,
     `- input_tokens:          ${usage.input_tokens.toLocaleString()}`,
     `- output_tokens:         ${usage.output_tokens.toLocaleString()}`,
     `- cache_creation:        ${usage.cache_creation_input_tokens.toLocaleString()}`,
     `- cache_read:            ${usage.cache_read_input_tokens.toLocaleString()}`,
-    `- turns (user messages): ${turnCount}`,
-    `- total log entries:     ${messageCount}`,
+    `- 轮次（用户消息数）: ${turnCount}`,
+    `- 日志条目总数:   ${messageCount}`,
     wallClockSeconds !== null
-      ? `- wall_clock_seconds:    ${wallClockSeconds.toFixed(1)}`
+      ? `- 墙钟秒数:     ${wallClockSeconds.toFixed(1)}`
       : '',
     '',
-    '## Cost Estimate (approximate)',
+    '## 成本估算（近似）',
     detectedModel
-      ? `- model: ${detectedModel}`
-      : '- model: (unknown — not present in log)',
+      ? `- 模型: ${detectedModel}`
+      : '- 模型:（未知 —— 日志中不存在）',
     estimatedCostUsd !== null
       ? `- estimated_usd: $${estimatedCostUsd.toFixed(4)}`
-      : '- estimated_usd: ~$ unknown (unrecognized model)',
-    `- cache_hit_rate: ${(cacheHitRate * 100).toFixed(1)}%`,
+      : '- estimated_usd: ~$ 未知（无法识别的模型）',
+    `- 缓存命中率: ${(cacheHitRate * 100).toFixed(1)}%`,
     '',
-    '## Tool Call Counts (top 10)',
-    toolLines.length > 0 ? toolLines.join('\n') : '  (no tool calls)',
+    '## 工具调用次数（前 10）',
+    toolLines.length > 0 ? toolLines.join('\n') : '  （无工具调用）',
     '',
-    '## Tool Average Execution Time (top 10 by call count)',
+    '## 工具平均执行时间（按调用次数前 10）',
     toolAvgLines.length > 0
       ? toolAvgLines.join('\n')
-      : '  (no timing data — tool_result/tool_use pairs not found)',
+      : '  （无计时数据 —— 未找到 tool_result/tool_use 配对）',
     '',
-    '## Notes',
+    '## 备注',
     '',
-    'Add a description of what you were doing when the perf issue surfaced:',
+    '请补充说明性能问题出现时你正在做什么：',
     '',
     '- ___',
     '',
-    "_(File this report in your repo's issue tracker. No network call was made._",
-    '_The fork does not transmit perf reports to Anthropic.)_',
+    "_（把这份报告提交到你的仓库 issue 跟踪系统中。整个过程未发起任何网络请求。_",
+    '_本分支不会把性能报告发送给 Anthropic。）_',
   ]
     .filter(line => line !== '')
     .join('\n')
@@ -561,7 +561,7 @@ const perfIssue: Command = {
         const msg = sanitizeErrorMessage(
           err instanceof Error ? err.message : String(err),
         )
-        return { type: 'text', value: `Failed to write perf report: ${msg}` }
+        return { type: 'text', value: `写入性能报告失败：${msg}` }
       }
     },
   }),

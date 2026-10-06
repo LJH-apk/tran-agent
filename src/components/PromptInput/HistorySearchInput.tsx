@@ -11,7 +11,7 @@ type Props = {
 function HistorySearchInput({ value, onChange, historyFailedMatch }: Props): React.ReactNode {
   return (
     <Box gap={1}>
-      <Text dimColor>{historyFailedMatch ? 'no matching prompt:' : 'search prompts:'}</Text>
+      <Text dimColor>{historyFailedMatch ? '没有匹配的提示词：' : '搜索提示词：'}</Text>
       <TextInput
         value={value}
         onChange={onChange}

@@ -57,7 +57,7 @@ export function AgentsPlatformView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Agent created
+            智能体已创建
           </Text>
         </Box>
         <Text>ID: {props.agent.id}</Text>

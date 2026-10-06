@@ -62,7 +62,7 @@ export function ShellDetailDialog({ shell, onDone, onKillShell, onBack }: Props)
   }, [shell.id, shell.status]);
 
   // Handle standard close action
-  const handleClose = () => onDone('Shell details dismissed', { display: 'system' });
+  const handleClose = () => onDone('Shell 详情已关闭', { display: 'system' });
 
   // Handle additional close actions beyond Dialog's built-in Esc handler
   useKeybindings(
@@ -76,7 +76,7 @@ export function ShellDetailDialog({ shell, onDone, onKillShell, onBack }: Props)
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === ' ') {
       e.preventDefault();
-      onDone('Shell details dismissed', { display: 'system' });
+      onDone('Shell 详情已关闭', { display: 'system' });
     } else if (e.key === 'left' && onBack) {
       e.preventDefault();
       onBack();
@@ -93,7 +93,7 @@ export function ShellDetailDialog({ shell, onDone, onKillShell, onBack }: Props)
   return (
     <Box flexDirection="column" tabIndex={0} autoFocus onKeyDown={handleKeyDown}>
       <Dialog
-        title={isMonitor ? 'Monitor details' : 'Shell details'}
+        title={isMonitor ? '监控详情' : 'Shell 详情'}
         onCancel={handleClose}
         color="background"
         inputGuide={exitState =>
@@ -101,9 +101,9 @@ export function ShellDetailDialog({ shell, onDone, onKillShell, onBack }: Props)
             <Text>Press {exitState.keyName} again to exit</Text>
           ) : (
             <Byline>
-              {onBack && <KeyboardShortcutHint shortcut="←" action="go back" />}
-              <KeyboardShortcutHint shortcut="Esc/Enter/Space" action="close" />
-              {shell.status === 'running' && onKillShell && <KeyboardShortcutHint shortcut="x" action="stop" />}
+              {onBack && <KeyboardShortcutHint shortcut="←" action="返回" />}
+              <KeyboardShortcutHint shortcut="Esc/Enter/Space" action="关闭" />
+              {shell.status === 'running' && onKillShell && <KeyboardShortcutHint shortcut="x" action="停止" />}
             </Byline>
           )
         }
@@ -114,31 +114,31 @@ export function ShellDetailDialog({ shell, onDone, onKillShell, onBack }: Props)
             {shell.status === 'running' ? (
               <Text color="background">
                 {shell.status}
-                {shell.result?.code !== undefined && ` (exit code: ${shell.result.code})`}
+                {shell.result?.code !== undefined && ` （退出码：${shell.result.code}）`}
               </Text>
             ) : shell.status === 'completed' ? (
               <Text color="success">
                 {shell.status}
-                {shell.result?.code !== undefined && ` (exit code: ${shell.result.code})`}
+                {shell.result?.code !== undefined && ` （退出码：${shell.result.code}）`}
               </Text>
             ) : (
               <Text color="error">
                 {shell.status}
-                {shell.result?.code !== undefined && ` (exit code: ${shell.result.code})`}
+                {shell.result?.code !== undefined && ` （退出码：${shell.result.code}）`}
               </Text>
             )}
           </Text>
           <Text>
-            <Text bold>Runtime:</Text> {formatDuration((shell.endTime ?? Date.now()) - shell.startTime)}
+            <Text bold>运行时长：</Text> {formatDuration((shell.endTime ?? Date.now()) - shell.startTime)}
           </Text>
           <Text wrap="wrap">
-            <Text bold>{isMonitor ? 'Script:' : 'Command:'}</Text> {displayCommand}
+            <Text bold>{isMonitor ? '脚本：' : '命令：'}</Text> {displayCommand}
           </Text>
         </Box>
 
         <Box flexDirection="column">
-          <Text bold>Output:</Text>
-          <Suspense fallback={<Text dimColor>Loading output…</Text>}>
+          <Text bold>输出：</Text>
+          <Suspense fallback={<Text dimColor>正在加载输出……</Text>}>
             <ShellOutputContent outputPromise={deferredOutputPromise} columns={columns} />
           </Suspense>
         </Box>
@@ -156,7 +156,7 @@ function ShellOutputContent({ outputPromise, columns }: ShellOutputContentProps)
   const { content, bytesTotal } = use(outputPromise);
 
   if (!content) {
-    return <Text dimColor>No output available</Text>;
+    return <Text dimColor>无可用输出</Text>;
   }
 
   // Find last 10 line boundaries via lastIndexOf
@@ -189,8 +189,8 @@ function ShellOutputContent({ outputPromise, columns }: ShellOutputContentProps)
         ))}
       </Box>
       <Text dimColor italic>
-        {`Showing ${rendered.length} lines`}
-        {isIncomplete ? ` of ${formatFileSize(bytesTotal)}` : ''}
+        {`显示 ${rendered.length} 行`}
+        {isIncomplete ? ` ，共 ${formatFileSize(bytesTotal)}` : ''}
       </Text>
     </>
   );

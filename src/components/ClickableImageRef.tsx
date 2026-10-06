@@ -20,7 +20,7 @@ type Props = {
  */
 export function ClickableImageRef({ imageId, backgroundColor, isSelected = false }: Props): React.ReactNode {
   const imagePath = getStoredImagePath(imageId);
-  const displayText = `[Image #${imageId}]`;
+  const displayText = `[图片 #${imageId}]`;
 
   // If we have a stored image and terminal supports hyperlinks, make it clickable
   if (imagePath && supportsHyperlinks()) {

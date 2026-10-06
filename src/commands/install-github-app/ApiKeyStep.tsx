@@ -84,14 +84,14 @@ export function ApiKeyStep({
     <>
       <Box flexDirection="column" borderStyle="round" paddingX={1}>
         <Box flexDirection="column" marginBottom={1}>
-          <Text bold>Install GitHub App</Text>
-          <Text dimColor>Choose API key</Text>
+          <Text bold>安装 GitHub App</Text>
+          <Text dimColor>选择 API 密钥</Text>
         </Box>
         {existingApiKey && (
           <Box marginBottom={1}>
             <Text>
               {selectedOption === 'existing' ? color('success', theme)('> ') : '  '}
-              Use your existing Claude Code API key
+              使用现有的 Claude Code API 密钥
             </Text>
           </Box>
         )}
@@ -99,14 +99,14 @@ export function ApiKeyStep({
           <Box marginBottom={1}>
             <Text>
               {selectedOption === 'oauth' ? color('success', theme)('> ') : '  '}
-              Create a long-lived token with your Claude subscription
+              使用你的 Claude 订阅创建长期有效的令牌
             </Text>
           </Box>
         )}
         <Box marginBottom={1}>
           <Text>
             {selectedOption === 'new' ? color('success', theme)('> ') : '  '}
-            Enter a new API key
+            输入新的 API 密钥
           </Text>
         </Box>
         {selectedOption === 'new' && (
@@ -116,7 +116,7 @@ export function ApiKeyStep({
             onSubmit={onSubmit}
             onPaste={onApiKeyChange}
             focus={true}
-            placeholder="sk-ant… (Create a new key at https://platform.claude.com/settings/keys)"
+            placeholder="sk-ant…（在 https://platform.claude.com/settings/keys 创建新密钥）"
             mask="*"
             columns={terminalSize.columns}
             cursorOffset={cursorOffset}
@@ -126,7 +126,7 @@ export function ApiKeyStep({
         )}
       </Box>
       <Box marginLeft={3}>
-        <Text dimColor>↑/↓ to select · Enter to continue</Text>
+        <Text dimColor>↑/↓ 选择 · Enter 继续</Text>
       </Box>
     </>
   );

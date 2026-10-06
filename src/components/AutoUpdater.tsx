@@ -212,7 +212,7 @@ export function AutoUpdater({
         <>
           <Box>
             <Text color="text" dimColor wrap="truncate">
-              Auto-updating…
+              正在自动更新…
             </Text>
           </Box>
         </>
@@ -221,7 +221,7 @@ export function AutoUpdater({
         showSuccessMessage &&
         updateSemver && (
           <Text color="success" wrap="truncate">
-            ✓ Update installed · Restart to apply
+            ✓ 更新已安装 · 重启后生效
           </Text>
         )
       )}

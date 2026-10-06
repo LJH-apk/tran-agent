@@ -94,7 +94,7 @@ export function PlanApprovalResponseDisplay({ response, senderName }: PlanApprov
           </Box>
         )}
         <Box marginTop={1}>
-          <Text dimColor>Please revise your plan based on the feedback and call ExitPlanMode again.</Text>
+          <Text dimColor>请根据反馈修改计划，并再次调用 ExitPlanMode。</Text>
         </Box>
       </Box>
     </Box>
@@ -127,15 +127,15 @@ export function tryRenderPlanApprovalMessage(content: string, senderName: string
 function getPlanApprovalSummary(content: string): string | null {
   const request = isPlanApprovalRequest(content);
   if (request) {
-    return `[Plan Approval Request from ${request.from}]`;
+    return `[计划审批请求：来自 ${request.from}]`;
   }
 
   const response = isPlanApprovalResponse(content);
   if (response) {
     if (response.approved) {
-      return '[Plan Approved] You can now proceed with implementation';
+      return '[计划已批准] 现在可以开始实施';
     } else {
-      return `[Plan Rejected] ${response.feedback || 'Please revise your plan'}`;
+      return `[计划被拒绝] ${response.feedback || '请修改你的计划'}`;
     }
   }
 
@@ -146,13 +146,13 @@ function getPlanApprovalSummary(content: string): string | null {
  * Get a brief summary text for an idle notification.
  */
 function getIdleNotificationSummary(msg: IdleNotificationMessage): string {
-  const parts: string[] = ['Agent idle'];
+  const parts: string[] = ['智能体空闲'];
   if (msg.completedTaskId) {
     const status = msg.completedStatus || 'completed';
-    parts.push(`Task ${msg.completedTaskId} ${status}`);
+    parts.push(`任务 ${msg.completedTaskId} ${status}`);
   }
   if (msg.summary) {
-    parts.push(`Last DM: ${msg.summary}`);
+    parts.push(`最近私信：${msg.summary}`);
   }
   return parts.join(' · ');
 }

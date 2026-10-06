@@ -14,8 +14,8 @@ import { ConfigurableShortcutHint } from './ConfigurableShortcutHint.js';
 import { Select } from './CustomSelect/select.js';
 import { Byline, Dialog, KeyboardShortcutHint, LoadingState } from '@anthropic/ink';
 
-const DIALOG_TITLE = 'Select Remote Environment';
-const SETUP_HINT = `Configure environments at: https://claude.ai/code`;
+const DIALOG_TITLE = '选择远程环境';
+const SETUP_HINT = `在此配置环境：https://claude.ai/code`;
 
 type Props = {
   onDone: (message?: string) => void;
@@ -65,7 +65,7 @@ export function RemoteEnvironmentDialog({ onDone }: Props): React.ReactNode {
     const selectedEnv = environments.find(env => env.environment_id === value);
 
     if (!selectedEnv) {
-      onDone('Error: Selected environment not found');
+      onDone('错误：未找到所选环境');
       return;
     }
 
@@ -75,14 +75,14 @@ export function RemoteEnvironmentDialog({ onDone }: Props): React.ReactNode {
       },
     });
 
-    onDone(`Set default remote environment to ${chalk.bold(selectedEnv.name)} (${selectedEnv.environment_id})`);
+    onDone(`已将默认远程环境设为 ${chalk.bold(selectedEnv.name)}（${selectedEnv.environment_id}）`);
   }
 
   // Loading state
   if (loadingState === 'loading') {
     return (
       <Dialog title={DIALOG_TITLE} onCancel={onDone} hideInputGuide>
-        <LoadingState message="Loading environments…" />
+        <LoadingState message="正在加载环境…" />
       </Dialog>
     );
   }
@@ -100,7 +100,7 @@ export function RemoteEnvironmentDialog({ onDone }: Props): React.ReactNode {
   if (!selectedEnvironment) {
     return (
       <Dialog title={DIALOG_TITLE} subtitle={SETUP_HINT} onCancel={onDone}>
-        <Text>No remote environments available.</Text>
+        <Text>没有可用的远程环境。</Text>
       </Dialog>
     );
   }
@@ -165,7 +165,7 @@ function MultipleEnvironmentsContent({
 }): React.ReactNode {
   const sourceSuffix =
     selectedEnvironmentSource && selectedEnvironmentSource !== 'localSettings'
-      ? ` (from ${getSettingSourceName(selectedEnvironmentSource)} settings)`
+      ? ` （来自 ${getSettingSourceName(selectedEnvironmentSource)} 设置）`
       : '';
 
   const subtitle = (
@@ -179,7 +179,7 @@ function MultipleEnvironmentsContent({
     <Dialog title={DIALOG_TITLE} subtitle={subtitle} onCancel={onCancel} hideInputGuide>
       <Text dimColor>{SETUP_HINT}</Text>
       {loadingState === 'updating' ? (
-        <LoadingState message="Updating…" />
+        <LoadingState message="正在更新…" />
       ) : (
         <Select
           options={environments.map(env => ({
@@ -198,8 +198,8 @@ function MultipleEnvironmentsContent({
       )}
       <Text dimColor>
         <Byline>
-          <KeyboardShortcutHint shortcut="Enter" action="select" />
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+          <KeyboardShortcutHint shortcut="Enter" action="选择" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
         </Byline>
       </Text>
     </Dialog>

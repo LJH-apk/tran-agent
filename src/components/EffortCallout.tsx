@@ -64,11 +64,11 @@ export function EffortCallout({ model, onDone }: Props): React.ReactNode {
 
   const options: OptionWithDescription<EffortLevel>[] = [
     {
-      label: <EffortOptionLabel level="medium" text="Medium (recommended)" />,
+      label: <EffortOptionLabel level="medium" text="中（推荐）" />,
       value: 'medium',
     },
-    { label: <EffortOptionLabel level="high" text="High" />, value: 'high' },
-    { label: <EffortOptionLabel level="low" text="Low" />, value: 'low' },
+    { label: <EffortOptionLabel level="high" text="高" />, value: 'high' },
+    { label: <EffortOptionLabel level="low" text="低" />, value: 'low' },
   ];
 
   return (

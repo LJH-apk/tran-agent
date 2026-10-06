@@ -64,12 +64,12 @@ const call: LocalCommandCall = async args => {
     case 'close': {
       const code = Number(a)
       if (!Number.isFinite(code)) {
-        return { type: 'text', value: `close: need a numeric code\n${USAGE}` }
+        return { type: 'text', value: `close：需要一个数字代码\n${USAGE}` }
       }
       h.fireClose(code)
       return {
         type: 'text',
-        value: `Fired transport close(${code}). Watch debug.log for [bridge:repl] recovery.`,
+        value: `已触发传输层 close(${code})。请查看 debug.log 中的 [bridge:repl] 恢复日志。`,
       }
     }
 
@@ -92,7 +92,7 @@ const call: LocalCommandCall = async args => {
       if (!Number.isFinite(status)) {
         return {
           type: 'text',
-          value: `poll: need 'transient' or a status code\n${USAGE}`,
+          value: `poll：需要 'transient' 或一个状态码\n${USAGE}`,
         }
       }
       // Default to what the server ACTUALLY sends for 404 (BQ-verified),
@@ -109,7 +109,7 @@ const call: LocalCommandCall = async args => {
       h.wakePollLoop()
       return {
         type: 'text',
-        value: `Next poll will throw BridgeFatalError(${status}, ${errorType}). Poll loop woken.`,
+        value: `下一次 poll 将抛出 BridgeFatalError(${status}, ${errorType})。已唤醒轮询循环。`,
       }
     }
 
@@ -137,7 +137,7 @@ const call: LocalCommandCall = async args => {
       })
       return {
         type: 'text',
-        value: `Next ${n} registerBridgeEnvironment call(s) will transient-fail. Trigger with close/reconnect.`,
+        value: `接下来 ${n} 次 registerBridgeEnvironment 调用将暂时性失败。用 close/reconnect 触发。`,
       }
     }
 
@@ -167,7 +167,7 @@ const call: LocalCommandCall = async args => {
       })
       return {
         type: 'text',
-        value: `Next heartbeat will ${status}. Watch for onHeartbeatFatal → work-state teardown.`,
+        value: `下一次心跳将返回 ${status}。请留意 onHeartbeatFatal → 工作状态拆除。`,
       }
     }
 

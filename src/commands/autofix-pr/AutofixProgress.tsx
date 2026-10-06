@@ -19,13 +19,13 @@ interface AutofixProgressProps {
 }
 
 const PHASE_LABELS: Record<AutofixPhase, string> = {
-  detecting: 'Detecting repository...',
-  checking_eligibility: 'Checking remote agent eligibility...',
-  acquiring_lock: 'Acquiring monitor lock...',
-  launching: 'Launching remote session...',
-  registered: 'Session registered',
-  done: 'Autofix launched',
-  error: 'Error',
+  detecting: '正在检测代码仓库…',
+  checking_eligibility: '正在检查远程智能体使用资格…',
+  acquiring_lock: '正在获取监控锁…',
+  launching: '正在启动远程会话…',
+  registered: '会话已注册',
+  done: '自动修复已启动',
+  error: '错误',
 };
 
 const PHASE_ORDER: AutofixPhase[] = [
@@ -52,7 +52,7 @@ export function AutofixProgress({ phase, target, sessionUrl, errorMessage }: Aut
   return (
     <Box flexDirection="column" marginTop={1} marginBottom={1}>
       <Box>
-        <Text bold>Autofix PR </Text>
+        <Text bold>自动修复 PR </Text>
         <Text color={'claude' as keyof Theme}>{target}</Text>
       </Box>
       {PHASE_ORDER.map((p, i) => {
@@ -75,7 +75,7 @@ export function AutofixProgress({ phase, target, sessionUrl, errorMessage }: Aut
       )}
       {sessionUrl && (
         <Box marginTop={1} marginLeft={2}>
-          <Text color={'subtle' as keyof Theme}>Track: </Text>
+          <Text color={'subtle' as keyof Theme}>跟踪：</Text>
           <Text color={'claude' as keyof Theme}>{sessionUrl}</Text>
         </Box>
       )}

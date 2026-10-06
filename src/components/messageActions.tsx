@@ -95,16 +95,16 @@ type PrimaryInput = {
 };
 const str = (k: string) => (i: Record<string, unknown>) => (typeof i[k] === 'string' ? i[k] : undefined);
 const PRIMARY_INPUT: Record<string, PrimaryInput> = {
-  Read: { label: 'path', extract: str('file_path') },
+  Read: { label: '路径', extract: str('file_path') },
   Edit: { label: 'path', extract: str('file_path') },
   Write: { label: 'path', extract: str('file_path') },
   NotebookEdit: { label: 'path', extract: str('notebook_path') },
-  Bash: { label: 'command', extract: str('command') },
-  Grep: { label: 'pattern', extract: str('pattern') },
+  Bash: { label: '命令', extract: str('command') },
+  Grep: { label: '模式', extract: str('pattern') },
   Glob: { label: 'pattern', extract: str('pattern') },
-  WebFetch: { label: 'url', extract: str('url') },
-  WebSearch: { label: 'query', extract: str('query') },
-  Task: { label: 'prompt', extract: str('prompt') },
+  WebFetch: { label: 'URL', extract: str('url') },
+  WebSearch: { label: '查询', extract: str('query') },
+  Task: { label: '提示词', extract: str('prompt') },
   Agent: { label: 'prompt', extract: str('prompt') },
   Tmux: {
     label: 'command',
@@ -145,7 +145,7 @@ function action<const T extends NavigableType, const K extends string>(a: {
 export const MESSAGE_ACTIONS = [
   action({
     key: 'enter',
-    label: s => (s.expanded ? 'collapse' : 'expand'),
+    label: s => (s.expanded ? '收起' : '展开'),
     types: ['grouped_tool_use', 'collapsed_read_search', 'attachment', 'system'],
     stays: true,
     // Empty — `stays` handled inline by dispatch.
@@ -153,13 +153,13 @@ export const MESSAGE_ACTIONS = [
   }),
   action({
     key: 'enter',
-    label: 'edit',
+    label: '编辑',
     types: ['user'],
     run: (m, c) => void c.edit(m),
   }),
   action({
     key: 'c',
-    label: 'copy',
+    label: '复制',
     types: NAVIGABLE_TYPES,
     run: (m, c) => c.copy(copyTextOf(m)),
   }),
@@ -302,11 +302,11 @@ export function MessageActionsBar({ cursor }: { cursor: MessageActionsState }): 
           {figures.arrowUp}
           {figures.arrowDown}
         </Text>
-        <Text dimColor> navigate · </Text>
+        <Text dimColor> 导航 · </Text>
         <Text bold dimColor={false}>
           esc
         </Text>
-        <Text dimColor> back</Text>
+        <Text dimColor> 返回</Text>
       </Box>
     </Box>
   );

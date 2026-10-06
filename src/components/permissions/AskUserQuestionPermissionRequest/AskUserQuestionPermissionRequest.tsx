@@ -152,7 +152,7 @@ function AskUserQuestionPermissionRequestBody({
       type: 'image',
       content: base64Image,
       mediaType: mediaType || 'image/png',
-      filename: filename || 'Pasted image',
+      filename: filename || '粘贴的图片',
       dimensions,
     };
     cacheImagePath(newContent);

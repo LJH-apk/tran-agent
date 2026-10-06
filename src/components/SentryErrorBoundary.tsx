@@ -49,7 +49,7 @@ export class SentryErrorBoundary extends React.Component<Props, State> {
       return (
         <Box flexDirection="column" paddingX={1} paddingY={1}>
           <Text color="error" bold>
-            React Rendering Error
+            React 渲染错误
           </Text>
           <Text color="error">{this.state.error?.message}</Text>
           {this.props.name && <Text dimColor>Boundary: {this.props.name}</Text>}

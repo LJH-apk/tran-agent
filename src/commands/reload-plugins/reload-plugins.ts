@@ -37,20 +37,20 @@ export const call: LocalCommandCall = async (_args, context) => {
   const r = await refreshActivePlugins(context.setAppState)
 
   const parts = [
-    n(r.enabled_count, 'plugin'),
-    n(r.command_count, 'skill'),
-    n(r.agent_count, 'agent'),
-    n(r.hook_count, 'hook'),
+    n(r.enabled_count, '插件'),
+    n(r.command_count, '技能'),
+    n(r.agent_count, '智能体'),
+    n(r.hook_count, '钩子'),
     // "plugin MCP/LSP" disambiguates from user-config/built-in servers,
     // which /reload-plugins doesn't touch. Commands/hooks are plugin-only;
     // agent_count is total agents (incl. built-ins). (gh-31321)
-    n(r.mcp_count, 'plugin MCP server'),
-    n(r.lsp_count, 'plugin LSP server'),
+    n(r.mcp_count, '插件 MCP 服务器'),
+    n(r.lsp_count, '插件 LSP 服务器'),
   ]
-  let msg = `Reloaded: ${parts.join(' · ')}`
+  let msg = `已重新加载：${parts.join(' · ')}`
 
   if (r.error_count > 0) {
-    msg += `\n${n(r.error_count, 'error')} during load. Run /doctor for details.`
+    msg += `\n加载时出现 ${n(r.error_count, 'error')}。运行 /doctor 查看详情。`
   }
 
   return { type: 'text', value: msg }

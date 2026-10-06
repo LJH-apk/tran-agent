@@ -72,7 +72,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
       <ThemePicker
         onThemeSelect={handleThemeSelection}
         showIntroText={true}
-        helpText="To change this later, run /theme"
+        helpText="以后要更改，可运行 /theme"
         hideEscToCancel={true}
         skipExitHandling={true} // Skip exit handling as Onboarding already handles it
       />
@@ -81,7 +81,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
 
   const securityStep = (
     <Box flexDirection="column" gap={1} paddingLeft={1}>
-      <Text bold>Before you start, keep in mind:</Text>
+      <Text bold>开始之前，请记住：</Text>
       <Box flexDirection="column" width={70}>
         {/**
          * OrderedList misnumbers items when rendering conditionally,
@@ -89,7 +89,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
          */}
         <OrderedList>
           <OrderedList.Item>
-            <Text>Always review changes before accepting</Text>
+            <Text>接受改动前务必先审阅</Text>
             <Text dimColor wrap="wrap">
               Claude can make mistakes — especially when running commands
               <Newline />
@@ -98,9 +98,9 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
             </Text>
           </OrderedList.Item>
           <OrderedList.Item>
-            <Text>Only use Claude Code on projects you trust</Text>
+            <Text>只在信任的项目中使用 Claude Code</Text>
             <Text dimColor wrap="wrap">
-              Untrusted code could contain prompt injection attacks.
+              不受信任的代码可能包含提示注入攻击。
               <Newline />
               <Link url="https://code.claude.com/docs/en/security" />
             </Text>
@@ -174,11 +174,11 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
             <Select
               options={[
                 {
-                  label: 'Yes, use recommended settings',
+                  label: '是，使用推荐设置',
                   value: 'install',
                 },
                 {
-                  label: 'No, maybe later with /terminal-setup',
+                  label: '否，以后用 /terminal-setup',
                   value: 'no',
                 },
               ]}
@@ -195,7 +195,7 @@ export function Onboarding({ onDone }: Props): React.ReactNode {
               onCancel={() => goToNextStep()}
             />
             <Text dimColor>
-              {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter to confirm · Esc to skip</>}
+              {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 确认 · Esc 跳过</>}
             </Text>
           </Box>
         </Box>

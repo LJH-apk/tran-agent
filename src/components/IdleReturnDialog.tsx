@@ -18,25 +18,25 @@ export function IdleReturnDialog({ idleMinutes, totalInputTokens, onDone }: Prop
 
   return (
     <Dialog
-      title={`You've been away ${formattedIdle} and this conversation is ${formattedTokens} tokens.`}
+      title={`你已离开 ${formattedIdle}，本会话已使用 ${formattedTokens} tokens。`}
       onCancel={() => onDone('dismiss')}
     >
       <Box flexDirection="column">
-        <Text>If this is a new task, clearing context will save usage and be faster.</Text>
+        <Text>如果是新任务，清除上下文可减少用量并更快。</Text>
       </Box>
       <Select
         options={[
           {
             value: 'continue' as const,
-            label: 'Continue this conversation',
+            label: '继续此会话',
           },
           {
             value: 'clear' as const,
-            label: 'Send message as a new conversation',
+            label: '作为新会话发送消息',
           },
           {
             value: 'never' as const,
-            label: "Don't ask me again",
+            label: "不再询问",
           },
         ]}
         onChange={(value: IdleReturnAction) => onDone(value)}

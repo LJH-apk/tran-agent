@@ -27,7 +27,7 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
   // footer since Tabs won't shrink to fit. Let the modal slot handle sizing.
   const insideModal = useIsInsideModal();
 
-  const close = () => onClose('Help dialog dismissed', { display: 'system' });
+  const close = () => onClose('帮助面板已关闭', { display: 'system' });
   useKeybinding('help:dismiss', close, { context: 'Help' });
   const exitState = useExitOnCtrlCDWithKeybindings(close);
   const dismissShortcut = useShortcutDisplay('help:dismiss', 'Help', 'esc');
@@ -46,31 +46,31 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
   const customCommands = commands.filter(cmd => !builtinNames.has(cmd.name) && !cmd.isHidden);
 
   const tabs = [
-    <Tab key="general" title="general">
+    <Tab key="常规" title="general">
       <General />
     </Tab>,
   ];
 
   tabs.push(
-    <Tab key="commands" title="commands">
+    <Tab key="命令" title="commands">
       <Commands
         commands={builtinCommands}
         maxHeight={maxHeight}
         columns={columns}
-        title="Browse default commands:"
+        title="浏览内置命令："
         onCancel={close}
       />
     </Tab>,
   );
 
   tabs.push(
-    <Tab key="custom" title="custom-commands">
+    <Tab key="custom" title="自定义命令">
       <Commands
         commands={customCommands}
         maxHeight={maxHeight}
         columns={columns}
-        title="Browse custom commands:"
-        emptyMessage="No custom commands found"
+        title="浏览自定义命令："
+        emptyMessage="未找到自定义命令"
         onCancel={close}
       />
     </Tab>,
@@ -102,7 +102,7 @@ export function HelpV2({ onClose, commands }: Props): React.ReactNode {
         </Tabs>
         <Box marginTop={1}>
           <Text>
-            For more help: <Link url="https://code.claude.com/docs/en/overview" />
+            更多帮助： <Link url="https://code.claude.com/docs/en/overview" />
           </Text>
         </Box>
         <Box marginTop={1}>

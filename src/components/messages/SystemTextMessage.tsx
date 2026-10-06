@@ -70,7 +70,7 @@ export function SystemTextMessage({ message, addMargin, verbose, isTranscriptMod
         <Box minWidth={2}>
           <Text color="error">{BLACK_CIRCLE}</Text>
         </Box>
-        <Text dimColor>All background agents stopped</Text>
+        <Text dimColor>所有后台智能体已停止</Text>
       </Box>
     );
   }
@@ -101,7 +101,7 @@ export function SystemTextMessage({ message, addMargin, verbose, isTranscriptMod
     return (
       <Box marginTop={addMargin ? 1 : 0} backgroundColor={bg} width="100%">
         <Text dimColor>{TEARDROP_ASTERISK} </Text>
-        <Text>Allowed </Text>
+        <Text>已允许 </Text>
         <Text bold>{(message.commands as string[]).join(', ')}</Text>
       </Box>
     );
@@ -195,7 +195,7 @@ function StopHookSummaryMessage({
             return (
               <Text key={`cmd-${idx}`} dimColor>
                 {'     ⎿ '}
-                {info.command === 'prompt' ? `prompt: ${info.promptText || ''}` : info.command}
+                {info.command === 'prompt' ? `提示词： ${info.promptText || ''}` : info.command}
                 {durationStr}
               </Text>
             );
@@ -228,7 +228,7 @@ function StopHookSummaryMessage({
             return (
               <Text key={`cmd-${idx}`} dimColor>
                 ⎿ &nbsp;
-                {info.command === 'prompt' ? `prompt: ${info.promptText || ''}` : info.command}
+                {info.command === 'prompt' ? `提示词： ${info.promptText || ''}` : info.command}
                 {durationStr}
               </Text>
             );
@@ -243,7 +243,7 @@ function StopHookSummaryMessage({
           hookErrors.map((err, idx) => (
             <Text key={idx}>
               <Text dimColor>⎿ &nbsp;</Text>
-              {message.hookLabel ?? 'Stop'} hook error: {err}
+              {message.hookLabel ?? 'Stop'} hook 出错： {err}
             </Text>
           ))}
       </Box>
@@ -293,7 +293,7 @@ function TurnDurationMessage({
   addMargin: boolean;
 }): React.ReactNode {
   const bg = useSelectedMessageBg();
-  const [verb] = useState(() => sample(TURN_COMPLETION_VERBS) ?? 'Worked');
+  const [verb] = useState(() => sample(TURN_COMPLETION_VERBS) ?? '已完成');
   const store = useAppStateStore();
   const [backgroundTaskSummary] = useState(() => {
     const tasks = store.getState().tasks;
@@ -311,7 +311,7 @@ function TurnDurationMessage({
     const limit = message.budgetLimit as number;
     const usage =
       tokens >= limit
-        ? `${formatNumber(tokens)} used (${formatNumber(limit)} min ${figures.tick})`
+        ? `已用 ${formatNumber(tokens)}（上限 ${formatNumber(limit)} 分钟 ${figures.tick}）`
         : `${formatNumber(tokens)} / ${formatNumber(limit)} (${Math.round((tokens / limit) * 100)}%)`;
     const nudges =
       (message.budgetNudges as number) > 0
@@ -330,7 +330,7 @@ function TurnDurationMessage({
         <Text dimColor>{TEARDROP_ASTERISK}</Text>
       </Box>
       <Text dimColor>
-        {showTurnDuration && `${verb} for ${duration}`}
+        {showTurnDuration && `${verb}，用时 ${duration}`}
         {budgetSuffix}
         {backgroundTaskSummary && ` \u00B7 ${backgroundTaskSummary} still running`}
       </Text>
@@ -350,7 +350,7 @@ function MemorySavedMessage({
   const team = feature('TEAMMEM') ? teamMemSaved!.teamMemSavedPart(message) : null;
   const privateCount = writtenPaths.length - (team?.count ?? 0);
   const parts = [
-    privateCount > 0 ? `${privateCount} ${privateCount === 1 ? 'memory' : 'memories'}` : null,
+    privateCount > 0 ? `${privateCount} ${privateCount === 1 ? ' 条记忆' : ' 条记忆'}` : null,
     team?.segment as React.ReactNode,
   ].filter(Boolean);
   return (
@@ -360,7 +360,7 @@ function MemorySavedMessage({
           <Text dimColor>{BLACK_CIRCLE}</Text>
         </Box>
         <Text>
-          {(message.verb as string) ?? 'Saved'} {parts.join(' \u00B7 ')}
+          {(message.verb as string) ?? '已保存'} {parts.join(' \u00B7 ')}
         </Text>
       </Box>
       {writtenPaths.map(p => (

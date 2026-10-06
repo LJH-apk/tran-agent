@@ -14,13 +14,13 @@ function commandListDisplay(commands: string[]): ReactNode {
     case 2:
       return (
         <Text>
-          <Text bold>{commands[0]}</Text> and <Text bold>{commands[1]}</Text>
+          <Text bold>{commands[0]}</Text> 和 <Text bold>{commands[1]}</Text>
         </Text>
       );
     default:
       return (
         <Text>
-          <Text bold>{commands.slice(0, -1).join(', ')}</Text>, and <Text bold>{commands.slice(-1)[0]}</Text>
+          <Text bold>{commands.slice(0, -1).join(', ')}</Text>、以及 <Text bold>{commands.slice(-1)[0]}</Text>
         </Text>
       );
   }
@@ -30,7 +30,7 @@ function commandListDisplayTruncated(commands: string[]): ReactNode {
   // Check if the plain text representation would be too long
   const plainText = commands.join(', ');
   if (plainText.length > 50) {
-    return 'similar';
+    return '类似命令';
   }
   return commandListDisplay(commands);
 }
@@ -53,7 +53,7 @@ function formatPathList(paths: string[]): ReactNode {
     return (
       <Text>
         <Text bold>{names[0]}</Text>
-        {sep} and <Text bold>{names[1]}</Text>
+        {sep} 和 <Text bold>{names[1]}</Text>
         {sep}
       </Text>
     );
@@ -64,7 +64,7 @@ function formatPathList(paths: string[]): ReactNode {
     <Text>
       <Text bold>{names[0]}</Text>
       {sep}, <Text bold>{names[1]}</Text>
-      {sep} and {paths.length - 2} more
+      {sep} 和 {paths.length - 2} 更多
     </Text>
   );
 }
@@ -117,8 +117,8 @@ export function generateShellSuggestionsLabel(
       const dirName = basename(firstPath) || firstPath;
       return (
         <Text>
-          Yes, allow reading from <Text bold>{dirName}</Text>
-          {sep} from this project
+          是，允许读取 <Text bold>{dirName}</Text>
+          {sep} （本项目内）
         </Text>
       );
     }
@@ -134,8 +134,8 @@ export function generateShellSuggestionsLabel(
       const dirName = basename(firstDir) || firstDir;
       return (
         <Text>
-          Yes, and always allow access to <Text bold>{dirName}</Text>
-          {sep} from this project
+          是，并始终允许访问 <Text bold>{dirName}</Text>
+          {sep} （本项目内）
         </Text>
       );
     }
@@ -148,8 +148,8 @@ export function generateShellSuggestionsLabel(
     // Only shell command permissions
     return (
       <Text>
-        {"Yes, and don't ask again for "}
-        {commandListDisplayTruncated(shellCommands)} commands in <Text bold>{getOriginalCwd()}</Text>
+        {"是，且不再询问以下内容 "}
+        {commandListDisplayTruncated(shellCommands)} 命令，位于 <Text bold>{getOriginalCwd()}</Text>
       </Text>
     );
   }

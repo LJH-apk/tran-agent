@@ -69,7 +69,7 @@ export function TeleportResumeWrapper({
       <Box flexDirection="column" padding={1}>
         <Box flexDirection="row">
           <Spinner />
-          <Text bold>Resuming session…</Text>
+          <Text bold>正在恢复会话…</Text>
         </Box>
         <Text dimColor>Loading &quot;{selectedSession.title}&quot;…</Text>
       </Box>
@@ -81,7 +81,7 @@ export function TeleportResumeWrapper({
     return (
       <Box flexDirection="column" padding={1}>
         <Text bold color="error">
-          Failed to resume session
+          恢复会话失败
         </Text>
         <Text dimColor>{error.message}</Text>
         <Box marginTop={1}>

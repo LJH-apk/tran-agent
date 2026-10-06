@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text, useTheme } from '@anthropic/ink';
 import { PRODUCT_NAME } from '../../constants/product.js';
 import { env } from '../../utils/env.js';
+import { padEndWidth } from '../../utils/truncate.js';
 
 const WELCOME_V2_WIDTH = 58;
 
@@ -12,7 +13,7 @@ const WELCOME_LABEL_WIDTH = 23;
 
 export function WelcomeV2(): React.ReactNode {
   const [theme] = useTheme();
-  const welcomeMessage = `Welcome to ${PRODUCT_NAME}`.padEnd(WELCOME_LABEL_WIDTH);
+  const welcomeMessage = padEndWidth(`欢迎使用 ${PRODUCT_NAME}`, WELCOME_LABEL_WIDTH);
 
   if (env.terminal === 'Apple_Terminal') {
     return <AppleTerminalWelcomeV2 theme={theme} welcomeMessage={welcomeMessage} />;

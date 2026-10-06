@@ -87,8 +87,8 @@ export async function runExtraUsage(): Promise<ExtraUsageResult> {
       return {
         type: 'message',
         value: extraUsage?.is_enabled
-          ? 'Request sent to your admin to increase extra usage.'
-          : 'Request sent to your admin to enable extra usage.',
+          ? '已向管理员发送增加额外用量的申请。'
+          : '已向管理员发送启用额外用量的申请。',
       }
     } catch (error) {
       logError(error as Error)
@@ -112,7 +112,7 @@ export async function runExtraUsage(): Promise<ExtraUsageResult> {
     logError(error as Error)
     return {
       type: 'message',
-      value: `Failed to open browser. Please visit ${url} to manage extra usage.`,
+      value: `打开浏览器失败。请访问 ${url} 管理额外用量。`,
     }
   }
 }

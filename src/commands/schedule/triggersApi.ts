@@ -82,7 +82,7 @@ async function buildHeaders(): Promise<Record<string, string>> {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     throw new TriggersApiError(
-      `Not authenticated: ${msg}. Run /login to re-authenticate.`,
+      `未认证：${msg}。请运行 /login 重新认证。`,
       401,
     )
   }
@@ -104,26 +104,26 @@ function classifyError(err: unknown): TriggersApiError {
     const status = err.response?.status ?? 0
     if (status === 401) {
       return new TriggersApiError(
-        'Authentication failed. Please run /login to re-authenticate.',
+        '认证失败。请运行 /login 重新认证。',
         401,
       )
     }
     if (status === 403) {
       return new TriggersApiError(
-        'Subscription required. Scheduled triggers require a Claude Pro/Max/Team subscription.',
+        '需要订阅。定时触发器需要 Claude Pro/Max/Team 订阅。',
         403,
       )
     }
     if (status === 404) {
-      return new TriggersApiError('Trigger not found.', 404)
+      return new TriggersApiError('未找到触发器。', 404)
     }
     if (status === 429) {
       const retryAfter =
         (err.response?.headers as Record<string, string> | undefined)?.[
           'retry-after'
         ] ?? ''
-      const detail = retryAfter ? ` Retry after ${retryAfter}s.` : ''
-      return new TriggersApiError(`Rate limit exceeded.${detail}`, 429)
+      const detail = retryAfter ? ` 请在 ${retryAfter} 秒后重试。` : ''
+      return new TriggersApiError(`已超出速率限制。${detail}`, 429)
     }
     const msg =
       (err.response?.data as { error?: { message?: string } } | undefined)
@@ -176,7 +176,7 @@ async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
       throw classified
     }
   }
-  throw lastErr ?? new TriggersApiError('Request failed after retries', 0)
+  throw lastErr ?? new TriggersApiError('重试后请求仍然失败', 0)
 }
 
 export async function listTriggers(): Promise<Trigger[]> {

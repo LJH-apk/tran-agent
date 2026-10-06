@@ -4,7 +4,6 @@ import type { DiffFile } from '../../hooks/useDiffData.js';
 import { useTerminalSize } from '../../hooks/useTerminalSize.js';
 import { Box, Text } from '@anthropic/ink';
 import { truncateStartToWidth } from '../../utils/format.js';
-import { plural } from '../../utils/stringUtils.js';
 
 const MAX_VISIBLE_FILES = 5;
 
@@ -36,7 +35,7 @@ export function DiffFileList({ files, selectedIndex }: Props): React.ReactNode {
   }, [files.length, selectedIndex]);
 
   if (files.length === 0) {
-    return <Text dimColor>No changed files</Text>;
+    return <Text dimColor>没有变更的文件</Text>;
   }
 
   const visibleFiles = files.slice(startIndex, endIndex);
@@ -51,7 +50,7 @@ export function DiffFileList({ files, selectedIndex }: Props): React.ReactNode {
   return (
     <Box flexDirection="column">
       {needsPagination && (
-        <Text dimColor>{hasMoreAbove ? ` ↑ ${startIndex} more ${plural(startIndex, 'file')}` : ' '}</Text>
+        <Text dimColor>{hasMoreAbove ? ` ↑ 上方还有 ${startIndex} 个文件` : ' '}</Text>
       )}
       {visibleFiles.map((file, index) => (
         <FileItem
@@ -63,7 +62,7 @@ export function DiffFileList({ files, selectedIndex }: Props): React.ReactNode {
       ))}
       {needsPagination && (
         <Text dimColor>
-          {hasMoreBelow ? ` ↓ ${files.length - endIndex} more ${plural(files.length - endIndex, 'file')}` : ' '}
+          {hasMoreBelow ? ` ↓ 下方还有 ${files.length - endIndex} 个文件` : ' '}
         </Text>
       )}
     </Box>
@@ -99,21 +98,21 @@ function FileStats({ file, isSelected }: { file: DiffFile; isSelected: boolean }
   if (file.isUntracked) {
     return (
       <Text dimColor={!isSelected} italic>
-        untracked
+        未跟踪
       </Text>
     );
   }
   if (file.isBinary) {
     return (
       <Text dimColor={!isSelected} italic>
-        Binary file
+        二进制文件
       </Text>
     );
   }
   if (file.isLargeFile) {
     return (
       <Text dimColor={!isSelected} italic>
-        Large file modified
+        大文件已修改
       </Text>
     );
   }
@@ -131,7 +130,7 @@ function FileStats({ file, isSelected }: { file: DiffFile; isSelected: boolean }
           -{file.linesRemoved}
         </Text>
       )}
-      {file.isTruncated && <Text dimColor={!isSelected}> (truncated)</Text>}
+      {file.isTruncated && <Text dimColor={!isSelected}> （已截断）</Text>}
     </Text>
   );
 }

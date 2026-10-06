@@ -12,7 +12,7 @@ import { SkillStoreView } from './SkillStoreView.js';
 import { parseSkillStoreArgs } from './parseArgs.js';
 
 const USAGE =
-  'Usage: /skill-store list | get ID | versions ID | version ID VER | create NAME MARKDOWN | delete ID | install ID[@VERSION]';
+  '用法：/skill-store list | get ID | versions ID | version ID VER | create NAME MARKDOWN | delete ID | install ID[@VERSION]';
 
 export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args) => {
   logEvent('tengu_skill_store_started', {
@@ -35,7 +35,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     logEvent('tengu_skill_store_list', {});
     try {
       const skills = await listSkills();
-      onDone(skills.length === 0 ? 'No skills found in the marketplace.' : `${skills.length} skill(s) available.`, {
+      onDone(skills.length === 0 ? '插件市场中没有找到技能。' : `共有 ${skills.length} 个可用技能。`, {
         display: 'system',
       });
       return React.createElement(SkillStoreView, { mode: 'list', skills });
@@ -44,7 +44,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list skills: ${msg}`, { display: 'system' });
+      onDone(`获取技能列表失败：${msg}`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
     }
   }
@@ -57,14 +57,14 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     });
     try {
       const skill = await getSkill(id);
-      onDone(`Skill ${id} fetched.`, { display: 'system' });
+      onDone(`已获取技能 ${id}。`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'detail', skill });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to get skill ${id}: ${msg}`, { display: 'system' });
+      onDone(`获取技能 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
     }
   }
@@ -78,7 +78,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     try {
       const versions = await getSkillVersions(id);
       onDone(
-        versions.length === 0 ? `No versions found for skill ${id}.` : `${versions.length} version(s) for skill ${id}.`,
+        versions.length === 0 ? `技能 ${id} 没有找到任何版本。` : `技能 ${versions.length} 共有 ${id} 个版本。`,
         { display: 'system' },
       );
       return React.createElement(SkillStoreView, {
@@ -91,7 +91,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to list versions for skill ${id}: ${msg}`, {
+      onDone(`获取技能 ${id} 的版本列表失败：${msg}`, {
         display: 'system',
       });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
@@ -106,7 +106,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     });
     try {
       const ver = await getSkillVersion(id, version);
-      onDone(`Skill ${id}@${version} fetched.`, { display: 'system' });
+      onDone(`已获取技能 ${id}@${version}。`, { display: 'system' });
       return React.createElement(SkillStoreView, {
         mode: 'version-detail',
         version: ver,
@@ -116,7 +116,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to get version ${version} for skill ${id}: ${msg}`, {
+      onDone(`获取技能 ${version} 的版本 ${id} 失败：${msg}`, {
         display: 'system',
       });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
@@ -131,14 +131,14 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     });
     try {
       const skill = await createSkill(name, markdown);
-      onDone(`Skill created: ${skill.skill_id}`, { display: 'system' });
+      onDone(`技能已创建：${skill.skill_id}`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'created', skill });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to create skill: ${msg}`, { display: 'system' });
+      onDone(`创建技能失败：${msg}`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
     }
   }
@@ -151,14 +151,14 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     });
     try {
       await deleteSkill(id);
-      onDone(`Skill ${id} deleted.`, { display: 'system' });
+      onDone(`技能 ${id} 已删除。`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'deleted', id });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       logEvent('tengu_skill_store_failed', {
         reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
       });
-      onDone(`Failed to delete skill ${id}: ${msg}`, { display: 'system' });
+      onDone(`删除技能 ${id} 失败：${msg}`, { display: 'system' });
       return React.createElement(SkillStoreView, { mode: 'error', message: msg });
     }
   }
@@ -183,12 +183,12 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
       // To get the body we need to fetch the latest version
       const versions = await getSkillVersions(id);
       if (versions.length === 0) {
-        onDone(`Skill ${id} has no published versions to install.`, {
+        onDone(`技能 ${id} 没有可安装的已发布版本。`, {
           display: 'system',
         });
         return React.createElement(SkillStoreView, {
           mode: 'error',
-          message: `Skill ${id} has no published versions to install.`,
+          message: `技能 ${id} 没有可安装的已发布版本。`,
         });
       }
       // Sort by created_at descending and pick latest
@@ -199,12 +199,12 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
       });
       const latest = sorted[0];
       if (!latest) {
-        onDone(`Skill ${id} has no published versions to install.`, {
+        onDone(`技能 ${id} 没有可安装的已发布版本。`, {
           display: 'system',
         });
         return React.createElement(SkillStoreView, {
           mode: 'error',
-          message: `Skill ${id} has no published versions to install.`,
+          message: `技能 ${id} 没有可安装的已发布版本。`,
         });
       }
       body = latest.body;
@@ -220,7 +220,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     await mkdir(skillDir, { recursive: true });
     await writeFile(skillPath, body, 'utf-8');
 
-    onDone(`Skill installed to ${skillPath}`, { display: 'system' });
+    onDone(`技能已安装到 ${skillPath}`, { display: 'system' });
     return React.createElement(SkillStoreView, {
       mode: 'installed',
       skillName: safeName,
@@ -231,7 +231,7 @@ export const callSkillStore: LocalJSXCommandCall = async (onDone, _context, args
     logEvent('tengu_skill_store_failed', {
       reason: msg as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
     });
-    onDone(`Failed to install skill ${id}: ${msg}`, { display: 'system' });
+    onDone(`安装技能 ${id} 失败：${msg}`, { display: 'system' });
     return React.createElement(SkillStoreView, { mode: 'error', message: msg });
   }
 };

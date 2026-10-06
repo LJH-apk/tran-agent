@@ -59,7 +59,7 @@ export function ShutdownRejectedDisplay({ response }: ShutdownRejectedProps): Re
           <Text>Reason: {response.reason}</Text>
         </Box>
         <Box marginTop={1}>
-          <Text dimColor>Teammate is continuing to work. You may request shutdown again later.</Text>
+          <Text dimColor>队友仍在继续工作。你可以稍后再次请求关闭。</Text>
         </Box>
       </Box>
     </Box>
@@ -97,17 +97,17 @@ export function tryRenderShutdownMessage(content: string): React.ReactNode | nul
 export function getShutdownMessageSummary(content: string): string | null {
   const request = isShutdownRequest(content);
   if (request) {
-    return `[Shutdown Request from ${request.from}]${request.reason ? ` ${request.reason}` : ''}`;
+    return `[关闭请求：来自 ${request.from}]${request.reason ? ` ${request.reason}` : ''}`;
   }
 
   const approved = isShutdownApproved(content);
   if (approved) {
-    return `[Shutdown Approved] ${approved.from} is now exiting`;
+    return `[关闭已批准] ${approved.from} 正在退出`;
   }
 
   const rejected = isShutdownRejected(content);
   if (rejected) {
-    return `[Shutdown Rejected] ${rejected.from}: ${rejected.reason}`;
+    return `[关闭被拒绝] ${rejected.from}：${rejected.reason}`;
   }
 
   return null;

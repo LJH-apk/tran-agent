@@ -35,22 +35,22 @@ export function TranscriptSharePrompt({ onSelect, inputValue, setInputValue }: P
     <Box flexDirection="column" marginTop={1}>
       <Box>
         <Text color="ansi:cyan">{BLACK_CIRCLE} </Text>
-        <Text bold>Can Anthropic look at your session transcript to help us improve Claude Code?</Text>
+        <Text bold>Anthropic 可以查看你的会话记录，以帮助我们改进 Claude Code 吗？</Text>
       </Box>
 
       <Box marginLeft={2}>
-        <Text dimColor>Learn more: https://code.claude.com/docs/en/data-usage#session-quality-surveys</Text>
+        <Text dimColor>了解更多：https://code.claude.com/docs/en/data-usage#session-quality-surveys</Text>
       </Box>
 
       <Box marginLeft={2}>
         <Box width={10}>
           <Text>
-            <Text color="ansi:cyan">1</Text>: Yes
+            <Text color="ansi:cyan">1</Text>：是
           </Text>
         </Box>
         <Box width={10}>
           <Text>
-            <Text color="ansi:cyan">2</Text>: No
+            <Text color="ansi:cyan">2</Text>：否
           </Text>
         </Box>
         <Box>

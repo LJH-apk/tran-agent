@@ -60,7 +60,7 @@ export function TeammateSpinnerTree({
             {isLeaderHighlighted ? '╒═' : '┌─'}{' '}
           </Text>
           <Text bold={isLeaderHighlighted} color={isLeaderSelected ? 'suggestion' : leaderColor}>
-            team-lead
+            团队负责人
           </Text>
           {/* When backgrounded and active: show spinner + verb */}
           {!isLeaderForegrounded && leaderVerb && <Text dimColor>: {leaderVerb}…</Text>}
@@ -72,7 +72,7 @@ export function TeammateSpinnerTree({
           )}
           {/* Hints - select hint when highlighted, view hint when selected but not foregrounded */}
           {isLeaderHighlighted && <Text dimColor> · {TEAMMATE_SELECT_HINT}</Text>}
-          {isLeaderSelected && !isLeaderForegrounded && <Text dimColor> · enter to view</Text>}
+          {isLeaderSelected && !isLeaderForegrounded && <Text dimColor> · enter 查看</Text>}
         </Box>
       }
       {teammateTasks.map((teammate, index) => (
@@ -102,9 +102,9 @@ function HideRow({ isSelected }: { isSelected: boolean }): React.ReactNode {
         {isSelected ? '╘═' : '└─'}{' '}
       </Text>
       <Text dimColor={!isSelected} bold={isSelected}>
-        hide
+        隐藏
       </Text>
-      {isSelected && <Text dimColor> · enter to collapse</Text>}
+      {isSelected && <Text dimColor> · enter 折叠</Text>}
     </Box>
   );
 }

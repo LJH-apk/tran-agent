@@ -46,7 +46,7 @@ export function WebFetchPermissionRequest({
   const options = useMemo((): OptionWithDescription<string>[] => {
     const result: OptionWithDescription<string>[] = [
       {
-        label: 'Yes',
+        label: '是',
         value: 'yes',
       },
     ];
@@ -111,7 +111,7 @@ export function WebFetchPermissionRequest({
   }
 
   return (
-    <PermissionDialog title="Fetch" workerBadge={workerBadge}>
+    <PermissionDialog title="抓取网页" workerBadge={workerBadge}>
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Text>
           {WebFetchTool.renderToolUseMessage(toolUseConfirm.input as { url: string; prompt: string }, {
@@ -124,7 +124,7 @@ export function WebFetchPermissionRequest({
 
       <Box flexDirection="column">
         <PermissionRuleExplanation permissionResult={toolUseConfirm.permissionResult} toolType="tool" />
-        <Text>Do you want to allow Claude to fetch this content?</Text>
+        <Text>是否允许 Claude 抓取此内容？</Text>
         <Select options={options} onChange={onChange} onCancel={() => onChange('no')} />
       </Box>
     </PermissionDialog>

@@ -36,22 +36,21 @@ export function SelectEventMode({
   const subtitle = `${totalHooksCount} ${plural(totalHooksCount, 'hook')} configured`;
 
   return (
-    <Dialog title="Hooks" subtitle={subtitle} onCancel={onCancel}>
+    <Dialog title="钩子" subtitle={subtitle} onCancel={onCancel}>
       <Box flexDirection="column" gap={1}>
         {restrictedByPolicy && (
           <Box flexDirection="column">
-            <Text color="suggestion">{figures.info} Hooks Restricted by Policy</Text>
+            <Text color="suggestion">{figures.info} 钩子受策略限制</Text>
             <Text dimColor>
-              Only hooks from managed settings can run. User-defined hooks from ~/.claude/settings.json,
-              .claude/settings.json, and .claude/settings.local.json are blocked.
+              只有来自托管设置的钩子可以运行。来自 ~/.claude/settings.json、.claude/settings.json 和 .claude/settings.local.json 的用户自定义钩子均被阻止。
             </Text>
           </Box>
         )}
 
         <Box flexDirection="column">
           <Text dimColor>
-            {figures.info} This menu is read-only. To add or modify hooks, edit settings.json directly or ask Claude.{' '}
-            <Link url="https://code.claude.com/docs/en/hooks">Learn more</Link>
+            {figures.info} 此菜单为只读。如需添加或修改钩子，请直接编辑 settings.json，或询问 Claude。{' '}
+            <Link url="https://code.claude.com/docs/en/hooks">了解更多</Link>
           </Text>
         </Box>
 

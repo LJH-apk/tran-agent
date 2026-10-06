@@ -21,7 +21,7 @@ function VaultRow({ vault }: { vault: Vault }): React.ReactNode {
       <Box>
         <Text bold>{vault.vault_id}</Text>
         <Text dimColor> · </Text>
-        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : 'active'}</Text>
+        <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '启用中'}</Text>
       </Box>
       <Text>Name: {vault.name}</Text>
       <Text dimColor>Created: {createdAt}</Text>
@@ -62,8 +62,8 @@ export function VaultView(props: Props): React.ReactNode {
         </Box>
         <Text>Name: {vault.name}</Text>
         <Text>
-          Status:{' '}
-          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : 'active'}</Text>
+          状态： {' '}
+          <Text color={(isArchived ? 'warning' : 'success') as keyof Theme}>{isArchived ? 'archived' : '启用中'}</Text>
         </Text>
         <Text dimColor>Created: {createdAt}</Text>
         {archivedAt ? <Text dimColor>Archived: {archivedAt}</Text> : null}
@@ -77,7 +77,7 @@ export function VaultView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Vault created
+            保险库已创建
           </Text>
         </Box>
         <Text>ID: {vault.vault_id}</Text>
@@ -93,7 +93,7 @@ export function VaultView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'warning' as keyof Theme}>
-            Vault archived
+            保险库已归档
           </Text>
         </Box>
         <Text>ID: {vault.vault_id}</Text>
@@ -131,12 +131,12 @@ export function VaultView(props: Props): React.ReactNode {
                 {isArchived ? (
                   <>
                     <Text dimColor> · </Text>
-                    <Text color={'warning' as keyof Theme}>archived</Text>
+                    <Text color={'warning' as keyof Theme}>已归档</Text>
                   </>
                 ) : null}
               </Box>
               {/* SECURITY: credential value is never displayed */}
-              <Text dimColor>Value: ***mask***</Text>
+              <Text dimColor>值：***已遮蔽***</Text>
             </Box>
           );
         })}
@@ -150,13 +150,13 @@ export function VaultView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Credential added
+            凭据已添加
           </Text>
         </Box>
         <Text>ID: {credentialId}</Text>
         <Text>Vault: {vaultId}</Text>
         {/* SECURITY: credential value is never echoed back */}
-        <Text dimColor>Value: ***mask***</Text>
+        <Text dimColor>值：***已遮蔽***</Text>
       </Box>
     );
   }
@@ -167,7 +167,7 @@ export function VaultView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'warning' as keyof Theme}>
-            Credential archived
+            凭据已归档
           </Text>
         </Box>
         <Text>ID: {credentialId}</Text>

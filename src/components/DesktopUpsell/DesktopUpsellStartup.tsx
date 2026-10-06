@@ -77,16 +77,16 @@ export function DesktopUpsellStartup({ onDone }: Props): React.ReactNode {
   }
 
   const options = [
-    { label: 'Open in Claude Code Desktop', value: 'try' as const },
-    { label: 'Not now', value: 'not-now' as const },
-    { label: "Don't ask again", value: 'never' as const },
+    { label: '在 Claude Code 桌面版中打开', value: 'try' as const },
+    { label: '暂不', value: 'not-now' as const },
+    { label: "不再询问", value: 'never' as const },
   ];
 
   return (
-    <PermissionDialog title="Try Claude Code Desktop">
+    <PermissionDialog title="试试 Claude Code 桌面版">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1}>
-          <Text>Same Claude Code with visual diffs, live app preview, parallel sessions, and more.</Text>
+          <Text>同样的 Claude Code，另有可视化差异、应用实时预览、并行会话等。</Text>
         </Box>
         <Select options={options} onChange={handleSelect} onCancel={() => handleSelect('not-now')} />
       </Box>

@@ -36,7 +36,7 @@ const coordinator = {
         if (mod.isCoordinatorMode()) {
           // Disable: clear the env var
           delete process.env.CLAUDE_CODE_COORDINATOR_MODE
-          onDone('Coordinator mode disabled — back to normal mode', {
+          onDone('已关闭协调者模式 —— 恢复为普通模式', {
             display: 'system',
             metaMessages: [
               '<system-reminder>\nCoordinator mode is now disabled. You have access to all standard tools again. Work directly instead of dispatching to workers.\n</system-reminder>',
@@ -46,7 +46,7 @@ const coordinator = {
           // Enable: set the env var
           process.env.CLAUDE_CODE_COORDINATOR_MODE = '1'
           onDone(
-            'Coordinator mode enabled — use Agent(subagent_type: "worker") to dispatch tasks',
+            '已开启协调者模式 —— 使用 Agent(subagent_type: "worker") 派发任务',
             {
               display: 'system',
               metaMessages: [

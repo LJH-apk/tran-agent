@@ -25,7 +25,7 @@ export type SkillStoreArgs =
   | { action: 'invalid'; reason: string }
 
 const USAGE =
-  'Usage: /skill-store list | get ID | versions ID | version ID VER | create NAME MARKDOWN | delete ID | install ID[@VERSION]'
+  '用法：/skill-store list | get ID | versions ID | version ID VER | create NAME MARKDOWN | delete ID | install ID[@VERSION]'
 
 export function parseSkillStoreArgs(args: string): SkillStoreArgs {
   const trimmed = args.trim()
@@ -41,11 +41,11 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
   // ── get ───────────────────────────────────────────────────────────────────
   if (subCmd === 'get') {
     if (!rest) {
-      return { action: 'invalid', reason: 'get requires a skill id' }
+      return { action: 'invalid', reason: 'get 需要提供技能 ID' }
     }
     const id = rest.split(/\s+/)[0]
     if (!id) {
-      return { action: 'invalid', reason: 'get requires a skill id' }
+      return { action: 'invalid', reason: 'get 需要提供技能 ID' }
     }
     return { action: 'get', id }
   }
@@ -53,11 +53,11 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
   // ── versions ──────────────────────────────────────────────────────────────
   if (subCmd === 'versions') {
     if (!rest) {
-      return { action: 'invalid', reason: 'versions requires a skill id' }
+      return { action: 'invalid', reason: 'versions 需要提供技能 ID' }
     }
     const id = rest.split(/\s+/)[0]
     if (!id) {
-      return { action: 'invalid', reason: 'versions requires a skill id' }
+      return { action: 'invalid', reason: 'versions 需要提供技能 ID' }
     }
     return { action: 'versions', id }
   }
@@ -69,7 +69,7 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
       return {
         action: 'invalid',
         reason:
-          'version requires a skill id and version, e.g. version sk_123 v1',
+          'version 需要提供技能 ID 和版本号，例如 version sk_123 v1',
       }
     }
     return { action: 'version', id: parts[0], version: parts[1] }
@@ -82,7 +82,7 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
       return {
         action: 'invalid',
         reason:
-          'create requires a skill name and markdown body, e.g. create my-skill "# My Skill\\nContent"',
+          'create 需要提供技能名称和 Markdown 内容，例如 create my-skill "# My Skill\\nContent"',
       }
     }
     const name = rest.slice(0, spaceInRest).trim()
@@ -90,13 +90,13 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
     if (!name) {
       return {
         action: 'invalid',
-        reason: 'create requires a non-empty skill name',
+        reason: 'create 需要提供非空的技能名称',
       }
     }
     if (!markdown) {
       return {
         action: 'invalid',
-        reason: 'create requires a non-empty markdown body',
+        reason: 'create 需要提供非空的 Markdown 内容',
       }
     }
     return { action: 'create', name, markdown }
@@ -105,11 +105,11 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
   // ── delete ────────────────────────────────────────────────────────────────
   if (subCmd === 'delete') {
     if (!rest) {
-      return { action: 'invalid', reason: 'delete requires a skill id' }
+      return { action: 'invalid', reason: 'delete 需要提供技能 ID' }
     }
     const id = rest.split(/\s+/)[0]
     if (!id) {
-      return { action: 'invalid', reason: 'delete requires a skill id' }
+      return { action: 'invalid', reason: 'delete 需要提供技能 ID' }
     }
     return { action: 'delete', id }
   }
@@ -120,12 +120,12 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
       return {
         action: 'invalid',
         reason:
-          'install requires a skill id (optionally with @version), e.g. install sk_123 or install sk_123@v2',
+          'install 需要提供技能 ID（可选 @version），例如 install sk_123 或 install sk_123@v2',
       }
     }
     const token = rest.split(/\s+/)[0]
     if (!token) {
-      return { action: 'invalid', reason: 'install requires a skill id' }
+      return { action: 'invalid', reason: 'install 需要提供技能 ID' }
     }
     const atIdx = token.indexOf('@')
     if (atIdx === -1) {
@@ -136,13 +136,13 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
     if (!id) {
       return {
         action: 'invalid',
-        reason: 'install requires a non-empty skill id before @',
+        reason: 'install 需要在 @ 前提供非空的技能 ID',
       }
     }
     if (!version) {
       return {
         action: 'invalid',
-        reason: 'install requires a non-empty version after @',
+        reason: 'install 需要在 @ 后提供非空的版本号',
       }
     }
     return { action: 'install', id, version }
@@ -150,6 +150,6 @@ export function parseSkillStoreArgs(args: string): SkillStoreArgs {
 
   return {
     action: 'invalid',
-    reason: `Unknown sub-command "${subCmd}". ${USAGE}`,
+    reason: `未知子命令 "${subCmd}"。${USAGE}`,
   }
 }

@@ -21,7 +21,7 @@ export function SandboxConfigTab(): React.ReactNode {
   if (!isEnabled) {
     return (
       <Box flexDirection="column" paddingY={1}>
-        <Text color="subtle">Sandbox is not enabled</Text>
+        <Text color="subtle">沙箱未启用</Text>
         {warningsNote}
       </Box>
     );
@@ -39,20 +39,20 @@ export function SandboxConfigTab(): React.ReactNode {
       {/* Excluded Commands */}
       <Box flexDirection="column">
         <Text bold color="permission">
-          Excluded Commands:
+          排除的命令：
         </Text>
-        <Text dimColor>{excludedCommands.length > 0 ? excludedCommands.join(', ') : 'None'}</Text>
+        <Text dimColor>{excludedCommands.length > 0 ? excludedCommands.join(', ') : '无'}</Text>
       </Box>
 
       {/* Filesystem Read Restrictions */}
       {fsReadConfig.denyOnly.length > 0 && (
         <Box marginTop={1} flexDirection="column">
           <Text bold color="permission">
-            Filesystem Read Restrictions:
+            文件系统读取限制：
           </Text>
-          <Text dimColor>Denied: {fsReadConfig.denyOnly.join(', ')}</Text>
+          <Text dimColor>拒绝： {fsReadConfig.denyOnly.join(', ')}</Text>
           {fsReadConfig.allowWithinDeny && fsReadConfig.allowWithinDeny.length > 0 && (
-            <Text dimColor>Allowed within denied: {fsReadConfig.allowWithinDeny.join(', ')}</Text>
+            <Text dimColor>拒绝范围内允许： {fsReadConfig.allowWithinDeny.join(', ')}</Text>
           )}
         </Box>
       )}
@@ -61,11 +61,11 @@ export function SandboxConfigTab(): React.ReactNode {
       {fsWriteConfig.allowOnly.length > 0 && (
         <Box marginTop={1} flexDirection="column">
           <Text bold color="permission">
-            Filesystem Write Restrictions:
+            文件系统写入限制：
           </Text>
-          <Text dimColor>Allowed: {fsWriteConfig.allowOnly.join(', ')}</Text>
+          <Text dimColor>允许： {fsWriteConfig.allowOnly.join(', ')}</Text>
           {fsWriteConfig.denyWithinAllow.length > 0 && (
-            <Text dimColor>Denied within allowed: {fsWriteConfig.denyWithinAllow.join(', ')}</Text>
+            <Text dimColor>允许范围内拒绝： {fsWriteConfig.denyWithinAllow.join(', ')}</Text>
           )}
         </Box>
       )}
@@ -75,14 +75,14 @@ export function SandboxConfigTab(): React.ReactNode {
         (networkConfig.deniedHosts && networkConfig.deniedHosts.length > 0)) && (
         <Box marginTop={1} flexDirection="column">
           <Text bold color="permission">
-            Network Restrictions
-            {shouldAllowManagedSandboxDomainsOnly() ? ' (Managed)' : ''}:
+            网络限制
+            {shouldAllowManagedSandboxDomainsOnly() ? ' （托管）' : ''}:
           </Text>
           {networkConfig.allowedHosts && networkConfig.allowedHosts.length > 0 && (
-            <Text dimColor>Allowed: {networkConfig.allowedHosts.join(', ')}</Text>
+            <Text dimColor>允许： {networkConfig.allowedHosts.join(', ')}</Text>
           )}
           {networkConfig.deniedHosts && networkConfig.deniedHosts.length > 0 && (
-            <Text dimColor>Denied: {networkConfig.deniedHosts.join(', ')}</Text>
+            <Text dimColor>拒绝： {networkConfig.deniedHosts.join(', ')}</Text>
           )}
         </Box>
       )}
@@ -91,7 +91,7 @@ export function SandboxConfigTab(): React.ReactNode {
       {allowUnixSockets && allowUnixSockets.length > 0 && (
         <Box marginTop={1} flexDirection="column">
           <Text bold color="permission">
-            Allowed Unix Sockets:
+            允许的 Unix 套接字：
           </Text>
           <Text dimColor>{allowUnixSockets.join(', ')}</Text>
         </Box>
@@ -101,11 +101,11 @@ export function SandboxConfigTab(): React.ReactNode {
       {globPatternWarnings.length > 0 && (
         <Box marginTop={1} flexDirection="column">
           <Text bold color="warning">
-            ⚠ Warning: Glob patterns not fully supported on Linux
+            ⚠ 警告：Linux 上对通配符模式的支持不完整
           </Text>
           <Text dimColor>
-            The following patterns will be ignored: {globPatternWarnings.slice(0, 3).join(', ')}
-            {globPatternWarnings.length > 3 && ` (${globPatternWarnings.length - 3} more)`}
+            以下模式将被忽略： {globPatternWarnings.slice(0, 3).join(', ')}
+            {globPatternWarnings.length > 3 && ` （另有 ${globPatternWarnings.length - 3} 个）`}
           </Text>
         </Box>
       )}

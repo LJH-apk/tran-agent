@@ -12,7 +12,7 @@ describe('plan bridge invocation safety', () => {
 
   test('blocks /plan open over Remote Control', () => {
     expect(plan.getBridgeInvocationError?.('open')).toBe(
-      "Opening the local editor via /plan open isn't available over Remote Control.",
+      "通过 /plan open 打开本地编辑器在远程控制模式下不可用。",
     )
   })
 })

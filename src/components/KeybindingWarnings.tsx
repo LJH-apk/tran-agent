@@ -31,10 +31,10 @@ export function KeybindingWarnings(): React.ReactNode {
   return (
     <Box flexDirection="column" marginTop={1} marginBottom={1}>
       <Text bold color={errors.length > 0 ? 'error' : 'warning'}>
-        Keybinding Configuration Issues
+        快捷键配置问题
       </Text>
       <Box>
-        <Text dimColor>Location: </Text>
+        <Text dimColor>位置： </Text>
         <Text dimColor>{getKeybindingsPath()}</Text>
       </Box>
       <Box marginLeft={1} flexDirection="column" marginTop={1}>
@@ -42,7 +42,7 @@ export function KeybindingWarnings(): React.ReactNode {
           <Box key={`error-${i}`} flexDirection="column">
             <Box>
               <Text dimColor>└ </Text>
-              <Text color="error">[Error]</Text>
+              <Text color="error">[错误]</Text>
               <Text dimColor> {error.message}</Text>
             </Box>
             {error.suggestion && (
@@ -56,7 +56,7 @@ export function KeybindingWarnings(): React.ReactNode {
           <Box key={`warning-${i}`} flexDirection="column">
             <Box>
               <Text dimColor>└ </Text>
-              <Text color="warning">[Warning]</Text>
+              <Text color="warning">[警告]</Text>
               <Text dimColor> {warning.message}</Text>
             </Box>
             {warning.suggestion && (

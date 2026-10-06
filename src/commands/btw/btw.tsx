@@ -71,12 +71,12 @@ function BtwSideQuestion({ question, context, onDone }: BtwComponentProps): Reac
           if (result.response) {
             setResponse(result.response);
           } else {
-            setError('No response received');
+            setError('未收到响应');
           }
         }
       } catch (err) {
         if (!abortController.signal.aborted) {
-          setError(errorMessage(err) || 'Failed to get response');
+          setError(errorMessage(err) || '获取响应失败');
         }
       }
     }
@@ -107,7 +107,7 @@ function BtwSideQuestion({ question, context, onDone }: BtwComponentProps): Reac
           ) : (
             <Box>
               <SpinnerGlyph frame={frame} messageColor="warning" />
-              <Text color="warning">Answering...</Text>
+              <Text color="warning">正在回答…</Text>
             </Box>
           )}
         </ScrollBox>
@@ -180,7 +180,7 @@ export async function call(
   const question = args?.trim();
 
   if (!question) {
-    onDone('Usage: /btw <your question>', { display: 'system' });
+    onDone('用法：/btw <你的问题>', { display: 'system' });
     return null;
   }
 

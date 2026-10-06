@@ -188,13 +188,13 @@ export function TeamsDialog({ initialTeams, onDone }: Props): React.ReactNode {
         void sendShutdownRequestToMailbox(
           teammate.name,
           dialogLevel.teamName,
-          'Graceful shutdown requested by team lead',
+          '团队负责人请求优雅关闭',
         );
       } else if (dialogLevel.type === 'teammateDetail' && currentTeammate) {
         void sendShutdownRequestToMailbox(
           currentTeammate.name,
           dialogLevel.teamName,
-          'Graceful shutdown requested by team lead',
+          '团队负责人请求优雅关闭',
         );
         goBackToList();
       }
@@ -301,7 +301,7 @@ type TeamDetailViewProps = {
 };
 
 function TeamDetailView({ teamName, teammates, selectedIndex, onCancel }: TeamDetailViewProps): React.ReactNode {
-  const subtitle = `${teammates.length} ${teammates.length === 1 ? 'teammate' : 'teammates'}`;
+  const subtitle = `${teammates.length} ${teammates.length === 1 ? '队友' : '队友'}`;
   // Check if the backend supports hide/show
   const supportsHideShow = getCachedBackend()?.supportsHideShow ?? false;
   // Get the display text for the cycle mode shortcut
@@ -309,9 +309,9 @@ function TeamDetailView({ teamName, teammates, selectedIndex, onCancel }: TeamDe
 
   return (
     <>
-      <Dialog title={`Team ${teamName}`} subtitle={subtitle} onCancel={onCancel} color="background" hideInputGuide>
+      <Dialog title={`团队 ${teamName}`} subtitle={subtitle} onCancel={onCancel} color="background" hideInputGuide>
         {teammates.length === 0 ? (
-          <Text dimColor>No teammates</Text>
+          <Text dimColor>暂无队友</Text>
         ) : (
           <Box flexDirection="column">
             {teammates.map((teammate, index) => (
@@ -322,10 +322,10 @@ function TeamDetailView({ teamName, teammates, selectedIndex, onCancel }: TeamDe
       </Dialog>
       <Box marginLeft={1}>
         <Text dimColor>
-          {figures.arrowUp}/{figures.arrowDown} select · Enter view · k kill · s shutdown · p prune idle
-          {supportsHideShow && ' · h hide/show · H hide/show all'}
+          {figures.arrowUp}/{figures.arrowDown} 选择 · Enter 查看 · k 终止 · s 关闭 · p 清理空闲
+          {supportsHideShow && ' · h 隐藏/显示 · H 隐藏/显示全部'}
           {' · '}
-          {cycleModeShortcut} sync cycle modes for all · Esc close
+          {cycleModeShortcut} 同步循环切换所有模式 · Esc 关闭
         </Text>
       </Box>
     </>
@@ -350,8 +350,8 @@ function TeammateListItem({ teammate, isSelected }: TeammateListItemProps): Reac
   return (
     <Text color={isSelected ? 'suggestion' : undefined} dimColor={shouldDim}>
       {isSelected ? figures.pointer + ' ' : '  '}
-      {teammate.isHidden && <Text dimColor>[hidden] </Text>}
-      {isIdle && <Text dimColor>[idle] </Text>}
+      {teammate.isHidden && <Text dimColor>[已隐藏] </Text>}
+      {isIdle && <Text dimColor>[空闲] </Text>}
       {modeSymbol && <Text color={modeColor}>{modeSymbol} </Text>}@{teammate.name}
       {teammate.model && <Text dimColor> ({teammate.model})</Text>}
     </Text>
@@ -423,7 +423,7 @@ function TeammateDetailView({ teammate, teamName, onCancel }: TeammateDetailView
         {/* Tasks section */}
         {teammateTasks.length > 0 && (
           <Box flexDirection="column">
-            <Text bold>Tasks</Text>
+            <Text bold>任务</Text>
             {teammateTasks.map(task => (
               <Text key={task.id} color={task.status === 'completed' ? 'success' : undefined}>
                 {task.status === 'completed' ? figures.tick : '◼'} {task.subject}
@@ -435,20 +435,20 @@ function TeammateDetailView({ teammate, teamName, onCancel }: TeammateDetailView
         {/* Prompt section */}
         {teammate.prompt && (
           <Box flexDirection="column">
-            <Text bold>Prompt</Text>
+            <Text bold>提示词</Text>
             <Text>
               {promptExpanded ? teammate.prompt : truncateToWidth(teammate.prompt, 80)}
-              {stringWidth(teammate.prompt) > 80 && !promptExpanded && <Text dimColor> (p to expand)</Text>}
+              {stringWidth(teammate.prompt) > 80 && !promptExpanded && <Text dimColor> （按 p 展开）</Text>}
             </Text>
           </Box>
         )}
       </Dialog>
       <Box marginLeft={1}>
         <Text dimColor>
-          {figures.arrowLeft} back · Esc close · k kill · s shutdown
-          {getCachedBackend()?.supportsHideShow && ' · h hide/show'}
+          {figures.arrowLeft} 返回 · Esc 关闭 · k 终止 · s 关闭
+          {getCachedBackend()?.supportsHideShow && ' · h 隐藏/显示'}
           {' · '}
-          {cycleModeShortcut} cycle mode
+          {cycleModeShortcut} 循环切换模式
         </Text>
       </Box>
     </>

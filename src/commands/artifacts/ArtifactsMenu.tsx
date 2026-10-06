@@ -49,14 +49,14 @@ export function ArtifactsMenu({ artifacts, onExit }: Props): React.ReactElement 
       </Box>
 
       {artifacts.length === 0 ? (
-        <Text color="subtle">No artifacts uploaded this session. Run /use-artifacts to learn how.</Text>
+        <Text color="subtle">本次会话尚未上传任何产物。运行 /use-artifacts 了解用法。</Text>
       ) : (
         <Box flexDirection="column">
           {artifacts.map((a, idx) => (
             <ArtifactRow key={a.toolUseId} artifact={a} isSelected={idx === selected} />
           ))}
           <Box marginTop={1}>
-            <Text color="subtle">{'↑/↓ select · Enter open · c copy URL · Esc exit'}</Text>
+            <Text color="subtle">{'↑/↓ 选择 · Enter 打开 · c 复制链接 · Esc 退出'}</Text>
           </Box>
         </Box>
       )}

@@ -27,20 +27,20 @@ export function formatReviewStageCounts(
   refuted: number,
 ): string {
   // Pre-stage orchestrator images don't write the stage field.
-  if (!stage) return `${found} found · ${verified} verified`;
+  if (!stage) return `${found} 项已发现 · ${verified} 项已验证`;
   if (stage === 'synthesizing') {
-    const parts = [`${verified} verified`];
-    if (refuted > 0) parts.push(`${refuted} refuted`);
-    parts.push('deduping');
+    const parts = [`${verified} 项已验证`];
+    if (refuted > 0) parts.push(`${refuted} 项已驳回`);
+    parts.push('去重中');
     return parts.join(' · ');
   }
   if (stage === 'verifying') {
-    const parts = [`${found} found`, `${verified} verified`];
+    const parts = [`${found} 项已发现`, `${verified} 项已验证`];
     if (refuted > 0) parts.push(`${refuted} refuted`);
     return parts.join(' · ');
   }
   // stage === 'finding'
-  return found > 0 ? `${found} found` : 'finding';
+  return found > 0 ? `${found} found` : '查找中';
 }
 
 // Per-character rainbow gradient, same treatment as the ultraplan keyword.
@@ -115,7 +115,7 @@ function ReviewRainbowLine({ session }: { session: DeepImmutable<RemoteAgentTask
       <>
         <Text color="background">{DIAMOND_FILLED} </Text>
         <RainbowText text="ultrareview" phase={0} />
-        <Text dimColor> ready · shift+↓ to view</Text>
+        <Text dimColor> 就绪 · shift+↓ 查看</Text>
       </>
     );
   }
@@ -126,7 +126,7 @@ function ReviewRainbowLine({ session }: { session: DeepImmutable<RemoteAgentTask
         <RainbowText text="ultrareview" phase={0} />
         <Text color="error" dimColor>
           {' · '}
-          error
+          错误
         </Text>
       </>
     );
@@ -135,7 +135,7 @@ function ReviewRainbowLine({ session }: { session: DeepImmutable<RemoteAgentTask
   // The !p branch ("setting up") covers the window before the orchestrator
   // writes its first progress snapshot — container boot + repo clone can
   // take 1-3 min, during which "0 found" looked hung.
-  const tail = !p ? 'setting up' : formatReviewStageCounts(p.stage, found, verified, refuted);
+  const tail = !p ? '正在准备' : formatReviewStageCounts(p.stage, found, verified, refuted);
   return (
     <>
       <Text color="background">{DIAMOND_OPEN} </Text>
@@ -156,7 +156,7 @@ export function RemoteSessionProgress({ session }: { session: DeepImmutable<Remo
   if (session.status === 'completed') {
     return (
       <Text bold color="success" dimColor>
-        done
+        完成
       </Text>
     );
   }
@@ -164,7 +164,7 @@ export function RemoteSessionProgress({ session }: { session: DeepImmutable<Remo
   if (session.status === 'failed') {
     return (
       <Text bold color="error" dimColor>
-        error
+        错误
       </Text>
     );
   }

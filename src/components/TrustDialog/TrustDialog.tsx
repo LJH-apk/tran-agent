@@ -195,30 +195,30 @@ export function TrustDialog({ onDone, commands }: Props): React.ReactNode {
   }
 
   return (
-    <PermissionDialog color="warning" titleColor="warning" title="Accessing workspace:">
+    <PermissionDialog color="warning" titleColor="warning" title="正在访问工作区：">
       <Box flexDirection="column" gap={1} paddingTop={1}>
         <Text bold>{getFsImplementation().cwd()}</Text>
 
         <Text>
-          Is this a project you trust? (Your own code, a well-known open source project, or work from your team).
+          这是你信任的项目吗？（你自己的代码、知名的开源项目，或来自你团队的工作）。
         </Text>
-        <Text>Once trusted, Claude Code can read, edit, and run commands in this folder.</Text>
+        <Text>信任后，Claude Code 可以读取、编辑，并在这个文件夹中运行命令。</Text>
 
         <Text dimColor>
-          <Link url="https://code.claude.com/docs/en/security">Security guide</Link>
+          <Link url="https://code.claude.com/docs/en/security">安全指南</Link>
         </Text>
 
         <Select
           options={[
-            { label: 'Yes, I trust this folder', value: 'enable_all' },
-            { label: 'No, exit', value: 'exit' },
+            { label: '是，我信任这个文件夹', value: 'enable_all' },
+            { label: '否，退出', value: 'exit' },
           ]}
           onChange={value => onChange(value as 'enable_all' | 'exit')}
           onCancel={() => onChange('exit')}
         />
 
         <Text dimColor>
-          {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter to confirm · Esc to cancel</>}
+          {exitState.pending ? <>Press {exitState.keyName} again to exit</> : <>Enter 确认 · Esc 取消</>}
         </Text>
       </Box>
     </PermissionDialog>

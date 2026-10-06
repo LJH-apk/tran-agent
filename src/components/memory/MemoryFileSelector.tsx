@@ -89,7 +89,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
   // Create options for the select component
   const memoryOptions = allMemoryFiles.map(file => {
     const displayPath = getDisplayPath(file.path);
-    const existsLabel = file.exists ? '' : ' (new)';
+    const existsLabel = file.exists ? '' : ' （新建）';
 
     // Calculate depth based on parent
     const depth = file.parent ? (depths.get(file.parent) ?? 0) + 1 : 0;
@@ -99,9 +99,9 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
     // Format label based on type
     let label: string;
     if (file.type === 'User' && !file.isNested && file.path === userMemoryPath) {
-      label = `User memory`;
+      label = `用户记忆`;
     } else if (file.type === 'Project' && !file.isNested && file.path === projectMemoryPath) {
-      label = `Project memory`;
+      label = `项目记忆`;
     } else if (depth > 0) {
       // For child nodes (imported files), show indented with L
       label = `${indent}L ${displayPath}${existsLabel}`;
@@ -120,10 +120,10 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
       description = `${isGit ? 'Checked in at' : 'Saved in'} ./CLAUDE.md`;
     } else if (file.parent) {
       // For imported files (with @-import)
-      description = '@-imported';
+      description = '通过 @ 导入';
     } else if (file.isNested) {
       // For nested files (dynamically loaded)
-      description = 'dynamically loaded';
+      description = '动态加载';
     } else {
       description = '';
     }
@@ -146,7 +146,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
   if (isAutoMemoryEnabled()) {
     // Always show auto-memory folder option
     folderOptions.push({
-      label: 'Open auto-memory folder',
+      label: '打开自动记忆文件夹',
       value: `${OPEN_FOLDER_PREFIX}${getAutoMemPath()}`,
       description: '',
     });
@@ -154,7 +154,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
     // Team memory directly below auto-memory (team dir is a subdir of auto dir)
     if (feature('TEAMMEM') && teamMemPaths!.isTeamMemoryEnabled()) {
       folderOptions.push({
-        label: 'Open team memory folder',
+        label: '打开团队记忆文件夹',
         value: `${OPEN_FOLDER_PREFIX}${teamMemPaths!.getTeamMemPath()}`,
         description: '',
       });
@@ -165,9 +165,9 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
       if (agent.memory) {
         const agentDir = getAgentMemoryDir(agent.agentType, agent.memory);
         folderOptions.push({
-          label: `Open ${chalk.bold(agent.agentType)} agent memory`,
+          label: `打开 ${chalk.bold(agent.agentType)} 智能体记忆`,
           value: `${OPEN_FOLDER_PREFIX}${agentDir}`,
-          description: `${agent.memory} scope`,
+          description: `${agent.memory} 作用域`,
         });
       }
     }
@@ -206,8 +206,8 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
     : lastDreamAt === null
       ? '' // stat in flight
       : lastDreamAt === 0
-        ? 'never'
-        : `last ran ${formatRelativeTimeAgo(new Date(lastDreamAt))}`;
+        ? '从未运行'
+        : `上次运行于 ${formatRelativeTimeAgo(new Date(lastDreamAt))}`;
 
   // null = Select has focus, 0 = auto-memory, 1 = auto-dream (if showDreamRow)
   const [focusedToggle, setFocusedToggle] = useState<number | null>(null);
@@ -266,7 +266,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
             <Text color={focusedToggle === 1 ? 'suggestion' : undefined}>
               Auto-dream: {autoDreamOn ? 'on' : 'off'}
               {dreamStatus && <Text dimColor> · {dreamStatus}</Text>}
-              {!isDreamRunning && autoDreamOn && <Text dimColor> · /dream to run</Text>}
+              {!isDreamRunning && autoDreamOn && <Text dimColor> · /dream 运行</Text>}
             </Text>
           </ListItem>
         )}

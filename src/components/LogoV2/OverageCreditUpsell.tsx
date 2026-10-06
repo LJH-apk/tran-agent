@@ -75,15 +75,15 @@ export function incrementOverageCreditUpsellSeenCount(): void {
 
 // Copy from "OC & Bulk Overages copy" doc (#6 — CLI /usage)
 function getUsageText(amount: string): string {
-  return `${amount} in extra usage for third-party apps · /extra-usage`;
+  return `第三方应用可用的 ${amount} 额外用量 · /extra-usage`;
 }
 
 // Copy from "OC & Bulk Overages copy" doc (#4 — CLI Welcome screen).
 // Char budgets: title ≤19, subtitle ≤48.
-const FEED_SUBTITLE = 'On us. Works on third-party apps · /extra-usage';
+const FEED_SUBTITLE = '我们买单。可用于第三方应用 · /extra-usage';
 
 function getFeedTitle(amount: string): string {
-  return `${amount} in extra usage`;
+  return `${amount} 额外用量`;
 }
 
 type Props = { maxWidth?: number; twoLine?: boolean };
@@ -126,7 +126,7 @@ export function OverageCreditUpsell({ maxWidth, twoLine }: Props): React.ReactNo
 export function createOverageCreditFeed(): FeedConfig {
   const info = getCachedOverageCreditGrant();
   const amount = info ? formatGrantAmount(info) : null;
-  const title = amount ? getFeedTitle(amount) : 'extra usage credit';
+  const title = amount ? getFeedTitle(amount) : '额外用量额度';
   return {
     title,
     lines: [],

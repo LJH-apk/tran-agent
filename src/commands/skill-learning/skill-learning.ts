@@ -39,9 +39,9 @@ export const call: LocalCommandCall = async (
       return {
         type: 'text',
         value: [
-          `Skill Learning status for ${project.projectName} (${project.projectId})`,
-          `Observations: ${observations.length}`,
-          `Instincts: ${instincts.length}`,
+          `技能学习状态：${project.projectName} (${project.projectId})`,
+          `观察记录：${observations.length}`,
+          `本能规则：${instincts.length}`,
         ].join('\n'),
       }
     }
@@ -63,7 +63,7 @@ export const call: LocalCommandCall = async (
       if (observations.length < minSessionLength) {
         return {
           type: 'text',
-          value: `Session too short for learning (${observations.length} < min=${minSessionLength}). Skipping instinct extraction.`,
+          value: `会话过短，无法学习（${observations.length} < min=${minSessionLength}）。跳过本能规则提取。`,
         }
       }
       const instincts = analyzeObservations(observations)
@@ -73,7 +73,7 @@ export const call: LocalCommandCall = async (
       }
       return {
         type: 'text',
-        value: `Ingested ${observations.length} observations and saved ${saved.length} instincts.`,
+        value: `已导入 ${observations.length} 条观察记录，保存 ${saved.length} 条本能规则。`,
       }
     }
     case 'evolve': {
@@ -98,8 +98,8 @@ export const call: LocalCommandCall = async (
       return {
         type: 'text',
         value: generate
-          ? `Generated ${written.length} learned skill(s):\n${written.join('\n')}`
-          : `Found ${drafts.length} skill candidate(s). Use --generate to write them.`,
+          ? `已生成 ${written.length} 个学习技能：\n${written.join('\n')}`
+          : `发现 ${drafts.length} 个技能候选。加 --generate 可写入。`,
       }
     }
     case 'export': {
@@ -125,14 +125,14 @@ export const call: LocalCommandCall = async (
         await exportInstincts(output, options)
       }
       const parts2: string[] = [
-        `Exported ${filtered.length} instincts to ${output}`,
+        `已将 ${filtered.length} 条本能规则导出到 ${output}`,
       ]
       if (scope || minConf !== undefined || domain) {
         const filters: string[] = []
         if (scope) filters.push(`scope=${scope}`)
         if (minConf !== undefined) filters.push(`min-conf=${minConf}`)
         if (domain) filters.push(`domain=${domain}`)
-        parts2.push(`(filters: ${filters.join(', ')})`)
+        parts2.push(`（筛选条件：${filters.join(', ')}）`)
       }
       return { type: 'text', value: parts2.join(' ') }
     }
@@ -165,7 +165,7 @@ export const call: LocalCommandCall = async (
       if (dryRun) {
         return {
           type: 'text',
-          value: `Dry run: would import ${filtered.length}/${parsed.length} instincts.`,
+          value: `试运行：将导入 ${filtered.length}/${parsed.length} 条本能规则。`,
         }
       }
       for (const instinct of filtered) {
@@ -173,7 +173,7 @@ export const call: LocalCommandCall = async (
       }
       return {
         type: 'text',
-        value: `Imported ${filtered.length}/${parsed.length} instincts.`,
+        value: `已导入 ${filtered.length}/${parsed.length} 条本能规则。`,
       }
     }
     case 'prune': {
@@ -185,7 +185,7 @@ export const call: LocalCommandCall = async (
       const pruned = await prunePendingInstincts(maxAge, options)
       return {
         type: 'text',
-        value: `Pruned ${pruned.length} pending instincts.`,
+        value: `已清理 ${pruned.length} 条待处理本能规则。`,
       }
     }
     case 'promote': {
@@ -195,13 +195,13 @@ export const call: LocalCommandCall = async (
         const instincts = await loadInstincts(options)
         const candidates = findPromotionCandidates(instincts)
         const lines = [
-          `Promotion candidates for ${project.projectName} (${project.projectId}):`,
-          `Pending gaps: ${gaps.filter(g => g.status === 'pending').length}`,
-          `Global-eligible instincts (>=2 projects, avg confidence >=0.8): ${candidates.length}`,
+          `${project.projectName} (${project.projectId}) 的晋升候选：`,
+          `待处理缺口：${gaps.filter(g => g.status === 'pending').length}`,
+          `可晋升为全局的本能规则（>=2 个项目，平均置信度 >=0.8）：${candidates.length}`,
           '',
-          'Usage:',
-          '  /skill-learning promote gap <gap-key>           # pending gap -> draft',
-          '  /skill-learning promote instinct <instinct-id>  # project instinct -> global',
+          '用法：',
+          '  /skill-learning promote gap <gap-key>           # 待处理缺口 -> 草稿',
+          '  /skill-learning promote instinct <instinct-id>  # 项目本能规则 -> 全局',
         ]
         return { type: 'text', value: lines.join('\n') }
       }
@@ -216,11 +216,11 @@ export const call: LocalCommandCall = async (
         }
         const updated = await promoteGapToDraft(gapKey, project, rootDir)
         if (!updated) {
-          return { type: 'text', value: `No gap found for key "${gapKey}".` }
+          return { type: 'text', value: `未找到键为 "${gapKey}" 的缺口。` }
         }
         return {
           type: 'text',
-          value: `Promoted gap ${gapKey} to status=${updated.status} (draft=${updated.draft?.skillPath ?? 'none'}).`,
+          value: `已将缺口 ${gapKey} 晋升为 status=${updated.status}（draft=${updated.draft?.skillPath ?? 'none'}）。`,
         }
       }
 
@@ -237,20 +237,20 @@ export const call: LocalCommandCall = async (
         if (!match) {
           return {
             type: 'text',
-            value: `No project-scoped instinct found for id "${instinctId}".`,
+            value: `未找到 id 为 "${instinctId}" 的项目级本能规则。`,
           }
         }
         if (match.scope === 'global') {
           return {
             type: 'text',
-            value: `Instinct ${instinctId} is already global.`,
+            value: `本能规则 ${instinctId} 已经是全局的。`,
           }
         }
         const globalCopy = { ...match, scope: 'global' as const }
         await saveInstinct(globalCopy, { scope: 'global', rootDir })
         return {
           type: 'text',
-          value: `Promoted instinct ${instinctId} to global scope.`,
+          value: `已将本能规则 ${instinctId} 晋升为全局范围。`,
         }
       }
 
@@ -263,9 +263,9 @@ export const call: LocalCommandCall = async (
     case 'projects': {
       const projects = listKnownProjects()
       if (projects.length === 0) {
-        return { type: 'text', value: 'No known project scopes yet.' }
+        return { type: 'text', value: '暂无已知的项目范围。' }
       }
-      const lines = ['Known project scopes:']
+      const lines = ['已知的项目范围：']
       for (const record of projects) {
         const projectOptions = { project: record, rootDir }
         const [instincts, observations] = await Promise.all([
@@ -273,7 +273,7 @@ export const call: LocalCommandCall = async (
           readObservations(projectOptions),
         ])
         lines.push(
-          `- ${record.projectName} (${record.projectId}) — instincts: ${instincts.length}, observations: ${observations.length}, lastSeen: ${record.lastSeenAt}`,
+          `- ${record.projectName} (${record.projectId}) — 本能规则: ${instincts.length}, 观察记录: ${observations.length}, 最近出现: ${record.lastSeenAt}`,
         )
       }
       return { type: 'text', value: lines.join('\n') }

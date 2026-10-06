@@ -74,7 +74,7 @@ export function ValidationErrorsList({ errors }: { errors: ValidationError[] }):
 
   // Group errors by file
   const errorsByFile = errors.reduce<Record<string, ValidationError[]>>((acc, error) => {
-    const file = error.file || '(file not specified)';
+    const file = error.file || '（未指定文件）';
     if (!acc[file]) {
       acc[file] = [];
     }

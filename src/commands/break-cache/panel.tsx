@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Box, Dialog, Text, useInput } from '@anthropic/ink';
 import type { LocalJSXCommandOnDone } from '../../types/command.js';
 import { callBreakCache } from './index.js';
+import { padEndWidth } from '../../utils/truncate.js';
 
 type BreakCacheAction = {
   label: string;
@@ -24,28 +25,28 @@ function BreakCachePanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
   const actions = useMemo<BreakCacheAction[]>(
     () => [
       {
-        label: 'Status',
-        description: 'Show pending marker, always mode, and break count',
+        label: '状态',
+        description: '显示待生效标记、always 模式与已破坏次数',
         run: () => void runBreakCacheAction('status', onDone),
       },
       {
-        label: 'Once',
-        description: 'Break prompt cache on the next API call only',
+        label: '仅一次',
+        description: '仅在下次 API 调用时破坏提示词缓存',
         run: () => void runBreakCacheAction('once', onDone),
       },
       {
-        label: 'Always',
-        description: 'Break prompt cache on every API call',
+        label: '始终',
+        description: '每次 API 调用都破坏提示词缓存',
         run: () => void runBreakCacheAction('always', onDone),
       },
       {
-        label: 'Off',
-        description: 'Disable always mode and clear pending once marker',
+        label: '关闭',
+        description: '关闭 always 模式并清除待生效的一次性标记',
         run: () => void runBreakCacheAction('off', onDone),
       },
       {
-        label: 'Clear Once',
-        description: 'Cancel the pending one-time cache break',
+        label: '清除一次性标记',
+        description: '取消待生效的一次性缓存破坏',
         run: () => void runBreakCacheAction('--clear', onDone),
       },
     ],
@@ -74,21 +75,21 @@ function BreakCachePanel({ onDone }: { onDone: LocalJSXCommandOnDone }): React.R
 
   return (
     <Dialog
-      title="Break Cache"
-      subtitle={`${actions.length} actions`}
-      onCancel={() => onDone('Break-cache panel dismissed', { display: 'system' })}
+      title="破坏缓存"
+      subtitle={`${actions.length} 个操作`}
+      onCancel={() => onDone('已关闭破坏缓存面板', { display: 'system' })}
       color="background"
       hideInputGuide
     >
       <Box flexDirection="column">
         {actions.map((action, index) => (
           <Box key={action.label} flexDirection="row">
-            <Text>{`${index === selectedIndex ? '›' : ' '} ${action.label}`.padEnd(ACTION_LABEL_COLUMN_WIDTH)}</Text>
+            <Text>{padEndWidth(`${index === selectedIndex ? '›' : ' '} ${action.label}`, ACTION_LABEL_COLUMN_WIDTH)}</Text>
             <Text dimColor>{action.description}</Text>
           </Box>
         ))}
         <Box marginTop={1}>
-          <Text dimColor>↑/↓ select · Enter run · Esc close</Text>
+          <Text dimColor>↑/↓ 选择 · Enter 执行 · Esc 关闭</Text>
         </Box>
       </Box>
     </Dialog>

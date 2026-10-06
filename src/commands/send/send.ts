@@ -41,14 +41,14 @@ export const call: LocalCommandCall = async (args, context) => {
   if (!client) {
     return {
       type: 'text',
-      value: `Not attached to "${targetName}". Use /status to see connected sub sessions.`,
+      value: `未连接到 "${targetName}"。使用 /status 查看已连接的子会话。`,
     }
   }
 
   if (!client.connected) {
     return {
       type: 'text',
-      value: `Connection to "${targetName}" is closed. Use /detach ${targetName} and re-attach.`,
+      value: `与 "${targetName}" 的连接已关闭。请使用 /detach ${targetName} 后重新连接。`,
     }
   }
 
@@ -78,7 +78,7 @@ export const call: LocalCommandCall = async (args, context) => {
               ...slave,
               status: 'busy' as const,
               lastActivityAt: new Date().toISOString(),
-              lastSummary: `Queued: ${message}`,
+              lastSummary: `已排队：${message}`,
               lastEventType: 'prompt',
               history: [
                 ...slave.history,
@@ -97,14 +97,14 @@ export const call: LocalCommandCall = async (args, context) => {
 
     return {
       type: 'text',
-      value: `Sent to "${targetName}": ${message.slice(0, 100)}${message.length > 100 ? '...' : ''}`,
+      value: `已发送到 "${targetName}"：${message.slice(0, 100)}${message.length > 100 ? '...' : ''}`,
     }
   } catch (err) {
     // Roll back override on send failure to prevent permanent unmute
     removeSendOverride(targetName)
     return {
       type: 'text',
-      value: `Failed to send to "${targetName}": ${err instanceof Error ? err.message : String(err)}`,
+      value: `发送到 "${targetName}" 失败：${err instanceof Error ? err.message : String(err)}`,
     }
   }
 }

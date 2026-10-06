@@ -15,19 +15,19 @@ export function CapabilitiesSection({
 }: Props): React.ReactNode {
   const capabilities = [];
   if (serverToolsCount > 0) {
-    capabilities.push('tools');
+    capabilities.push('工具');
   }
   if (serverResourcesCount > 0) {
-    capabilities.push('resources');
+    capabilities.push('资源');
   }
   if (serverPromptsCount > 0) {
-    capabilities.push('prompts');
+    capabilities.push('提示词');
   }
 
   return (
     <Box>
-      <Text bold>Capabilities: </Text>
-      <Text color="text">{capabilities.length > 0 ? <Byline>{capabilities}</Byline> : 'none'}</Text>
+      <Text bold>能力： </Text>
+      <Text color="text">{capabilities.length > 0 ? <Byline>{capabilities}</Byline> : '无'}</Text>
     </Box>
   );
 }

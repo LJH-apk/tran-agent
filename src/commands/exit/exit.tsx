@@ -8,7 +8,7 @@ import { isBgSession } from '../../utils/concurrentSessions.js';
 import { gracefulShutdown } from '../../utils/gracefulShutdown.js';
 import { getCurrentWorktreeSession } from '../../utils/worktree.js';
 
-const GOODBYE_MESSAGES = ['Goodbye!', 'See ya!', 'Bye!', 'Catch you later!'];
+const GOODBYE_MESSAGES = ['再见！', '回头见！', '拜拜！', '回头再聊！'];
 
 function getRandomGoodbyeMessage(): string {
   return sample(GOODBYE_MESSAGES) ?? 'Goodbye!';

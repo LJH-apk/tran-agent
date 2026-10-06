@@ -66,7 +66,7 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
 
   const title = (
     <Text>
-      {agent.selectedAgent?.agentType ?? 'agent'} › {agent.description || 'Async agent'}
+      {agent.selectedAgent?.agentType ?? '智能体'} › {agent.description || '异步智能体'}
     </Text>
   );
 
@@ -76,17 +76,17 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
       {agent.status !== 'running' && (
         <Text color={getTaskStatusColor(agent.status)}>
           {getTaskStatusIcon(agent.status)}{' '}
-          {agent.status === 'completed' ? 'Completed' : agent.status === 'failed' ? 'Failed' : 'Stopped'}
+          {agent.status === 'completed' ? '已完成' : agent.status === 'failed' ? '失败' : '已停止'}
           {' · '}
         </Text>
       )}
       <Text dimColor>
         {elapsedTime}
-        {tokenCount !== undefined && tokenCount > 0 && <> · {formatNumber(tokenCount)} tokens</>}
+        {tokenCount !== undefined && tokenCount > 0 && <> · {formatNumber(tokenCount)} token</>}
         {toolUseCount !== undefined && toolUseCount > 0 && (
           <>
             {' '}
-            · {toolUseCount} {toolUseCount === 1 ? 'tool' : 'tools'}
+            · {toolUseCount} {toolUseCount === 1 ? '工具' : '工具'}
           </>
         )}
       </Text>
@@ -105,9 +105,9 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
             <Text>Press {exitState.keyName} again to exit</Text>
           ) : (
             <Byline>
-              {onBack && <KeyboardShortcutHint shortcut="←" action="go back" />}
-              <KeyboardShortcutHint shortcut="Esc/Enter/Space" action="close" />
-              {agent.status === 'running' && onKillAgent && <KeyboardShortcutHint shortcut="x" action="stop" />}
+              {onBack && <KeyboardShortcutHint shortcut="←" action="返回" />}
+              <KeyboardShortcutHint shortcut="Esc/Enter/Space" action="关闭" />
+              {agent.status === 'running' && onKillAgent && <KeyboardShortcutHint shortcut="x" action="停止" />}
             </Byline>
           )
         }
@@ -119,7 +119,7 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
             agent.progress.recentActivities.length > 0 && (
               <Box flexDirection="column">
                 <Text bold dimColor>
-                  Progress
+                  进度
                 </Text>
                 {agent.progress.recentActivities.map((activity, i) => (
                   <Text key={i} dimColor={i < agent.progress!.recentActivities!.length - 1} wrap="truncate-end">
@@ -139,7 +139,7 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
             /* Prompt section - only shown when no plan */
             <Box flexDirection="column" marginTop={1}>
               <Text bold dimColor>
-                Prompt
+                提示词
               </Text>
               <Text wrap="wrap">{displayPrompt}</Text>
             </Box>
@@ -149,7 +149,7 @@ export function AsyncAgentDetailDialog({ agent, onDone, onKillAgent, onBack }: P
           {agent.status === 'failed' && agent.error && (
             <Box flexDirection="column" marginTop={1}>
               <Text bold color="error">
-                Error
+                错误
               </Text>
               <Text color="error" wrap="wrap">
                 {agent.error}

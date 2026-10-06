@@ -127,7 +127,7 @@ export function Notifications({
               action="chat:externalEditor"
               context="Chat"
               fallback="ctrl+g"
-              description={`edit in ${toIDEDisplayName(editor)}`}
+              description={`在 ${toIDEDisplayName(editor)} 中编辑`}
             />
           </Text>
         ),
@@ -235,14 +235,14 @@ function NotificationContent({
       {isInOverageMode && !isTeamOrEnterprise && (
         <Box>
           <Text dimColor wrap="truncate">
-            Now using extra usage
+            正在使用额外用量
           </Text>
         </Box>
       )}
       {apiKeyHelperSlow && (
         <Box>
           <Text color="warning" wrap="truncate">
-            apiKeyHelper is taking a while{' '}
+            apiKeyHelper 响应较慢{' '}
           </Text>
           <Text dimColor wrap="truncate">
             ({apiKeyHelperSlow})
@@ -253,15 +253,15 @@ function NotificationContent({
         <Box>
           <Text color="error" wrap="truncate">
             {isEnvTruthy(process.env.CLAUDE_CODE_REMOTE)
-              ? 'Authentication error · Try again'
-              : 'Not logged in · Run /login'}
+              ? '认证失败 · 请重试'
+              : '未登录 · 运行 /login'}
           </Text>
         </Box>
       )}
       {debug && (
         <Box>
           <Text color="warning" wrap="truncate">
-            Debug mode
+            调试模式
           </Text>
         </Box>
       )}

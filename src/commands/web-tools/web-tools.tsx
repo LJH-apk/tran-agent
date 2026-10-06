@@ -34,16 +34,16 @@ type ViewState = { kind: 'main' } | { kind: 'config'; adapter: AdapterMeta };
 // ── Data ───────────────────────────────────────────────────────────────────
 
 const SEARCH_ADAPTERS: AdapterMeta[] = [
-  { key: 'tavily', label: 'Tavily', description: 'Tavily Search API (default)', hasConfig: true },
-  { key: 'api', label: 'Anthropic API', description: 'Anthropic server-side web search', hasConfig: false },
-  { key: 'bing', label: 'Bing', description: 'Scrape Bing HTML results', hasConfig: false },
-  { key: 'brave', label: 'Brave', description: 'Brave Search API (needs API key)', hasConfig: true },
-  { key: 'exa', label: 'Exa', description: 'Exa AI search (MCP endpoint)', hasConfig: true },
+  { key: 'tavily', label: 'Tavily', description: 'Tavily 搜索 API（默认）', hasConfig: true },
+  { key: 'api', label: 'Anthropic API', description: 'Anthropic 服务端网页搜索', hasConfig: false },
+  { key: 'bing', label: 'Bing', description: '抓取 Bing HTML 结果', hasConfig: false },
+  { key: 'brave', label: 'Brave', description: 'Brave 搜索 API（需要 API 密钥）', hasConfig: true },
+  { key: 'exa', label: 'Exa', description: 'Exa AI 搜索（MCP 端点）', hasConfig: true },
 ];
 
 const FETCH_ADAPTERS: AdapterMeta[] = [
-  { key: 'tavily', label: 'Tavily Extract', description: 'Use Tavily /extract (default)', hasConfig: true },
-  { key: 'http', label: 'HTTP Direct', description: 'Fetch URL directly via HTTP', hasConfig: true },
+  { key: 'tavily', label: 'Tavily Extract', description: '使用 Tavily /extract（默认）', hasConfig: true },
+  { key: 'http', label: 'HTTP Direct', description: '直接通过 HTTP 抓取 URL', hasConfig: true },
 ];
 
 // ── Config field definitions ───────────────────────────────────────────────
@@ -145,7 +145,7 @@ function MainView({
       </Box>
       <Box marginTop={1} flexDirection="row" gap={2}>
         <Text dimColor>{'\u2191\u2193'} navigate · Space select · Enter config · Esc close</Text>
-        <Text dimColor>Tab switch tab</Text>
+        <Text dimColor>Tab 切换标签页</Text>
       </Box>
     </Box>
   );
@@ -159,7 +159,7 @@ function getConfigFields(adapter: AdapterMeta): ConfigField[] {
     case 'tavily':
       fields.push({
         key: 'tavilyEndpointUrl',
-        label: 'Endpoint URL',
+        label: '端点 URL',
         placeholder: 'https://tavily.claude-code-best.win',
         maskInput: false,
         getValue: s => s.tavilyEndpointUrl ?? 'https://tavily.claude-code-best.win',
@@ -169,7 +169,7 @@ function getConfigFields(adapter: AdapterMeta): ConfigField[] {
     case 'brave':
       fields.push({
         key: 'braveApiKey',
-        label: 'API Key',
+        label: 'API 密钥',
         placeholder: 'BSA...',
         maskInput: true,
         getValue: s => s.braveApiKey ?? '',
@@ -179,7 +179,7 @@ function getConfigFields(adapter: AdapterMeta): ConfigField[] {
     case 'exa':
       fields.push({
         key: 'exaApiKey',
-        label: 'API Key',
+        label: 'API 密钥',
         placeholder: 'exa-...',
         maskInput: true,
         getValue: s => s.exaApiKey ?? '',
@@ -187,7 +187,7 @@ function getConfigFields(adapter: AdapterMeta): ConfigField[] {
       });
       fields.push({
         key: 'exaEndpointUrl',
-        label: 'Endpoint URL',
+        label: '端点 URL',
         placeholder: 'https://mcp.exa.ai/mcp',
         maskInput: false,
         getValue: s => s.exaEndpointUrl ?? 'https://mcp.exa.ai/mcp',
@@ -197,7 +197,7 @@ function getConfigFields(adapter: AdapterMeta): ConfigField[] {
     case 'http':
       fields.push({
         key: 'webFetchHttpTimeoutMs',
-        label: 'Timeout (ms)',
+        label: '超时时间（毫秒）',
         placeholder: '60000',
         maskInput: false,
         getValue: s => String(s.webFetchHttpTimeoutMs ?? 60000),
@@ -249,7 +249,7 @@ function NoConfigView({
       onBack();
     } else if (key.return) {
       if (cursor === 0) {
-        onSelect(`Selected ${adapter.label}.`);
+        onSelect(`已选择 ${adapter.label}。`);
       } else {
         onBack();
       }
@@ -262,7 +262,7 @@ function NoConfigView({
       <Box flexDirection="column" marginTop={1}>
         <Text>{adapter.description}</Text>
         <Box marginTop={1}>
-          <Text dimColor>No additional configuration needed.</Text>
+          <Text dimColor>无需额外配置。</Text>
         </Box>
       </Box>
       <Box flexDirection="column" marginTop={1}>
@@ -273,7 +273,7 @@ function NoConfigView({
             color={cursor === 0 ? 'inverseText' : undefined}
             bold
           >
-            [ Select & Close ]
+            [ 选择并关闭 ]
           </Text>
         </Box>
         <Box>
@@ -282,7 +282,7 @@ function NoConfigView({
             backgroundColor={cursor === 1 ? 'suggestion' : undefined}
             color={cursor === 1 ? 'inverseText' : undefined}
           >
-            [ Back ]
+            [ 返回 ]
           </Text>
         </Box>
       </Box>
@@ -331,7 +331,7 @@ function ConfigFieldsEditor({
       updated = f.setValue(updated, currentVal);
     }
     updateSettingsForSource('userSettings', updated as Record<string, unknown> & SettingsJson);
-    onSave(`Configuration saved for ${adapter.label}.`);
+    onSave(`已保存 ${adapter.label} 的配置。`);
   }, [fields, settings, adapter.label, onSave]);
 
   const handleFieldEdit = useCallback(() => {
@@ -423,7 +423,7 @@ function ConfigFieldsEditor({
                 backgroundColor={isCursor ? 'suggestion' : undefined}
                 color={editing && idx === cursor ? 'success' : isCursor ? 'inverseText' : undefined}
               >
-                {displayVal || <Text dimColor>(empty)</Text>}
+                {displayVal || <Text dimColor>（空）</Text>}
               </Text>
               {editing && idx === cursor && (
                 <Text dimColor>
@@ -440,7 +440,7 @@ function ConfigFieldsEditor({
             color={cursor === saveRow ? 'inverseText' : undefined}
             bold
           >
-            [ Save ]
+            [ 保存 ]
           </Text>
         </Box>
         <Box>
@@ -449,7 +449,7 @@ function ConfigFieldsEditor({
             backgroundColor={cursor === backRow ? 'suggestion' : undefined}
             color={cursor === backRow ? 'inverseText' : undefined}
           >
-            [ Back ]
+            [ 返回 ]
           </Text>
         </Box>
       </Box>
@@ -493,7 +493,7 @@ function WebToolsPanel({
       updateSettingsForSource('userSettings', { [field]: key } as SettingsJson);
       const adapters = t === 'search' ? SEARCH_ADAPTERS : FETCH_ADAPTERS;
       const label = adapters.find(a => a.key === key)?.label ?? key;
-      onClose(`${t === 'search' ? 'Web search' : 'Web fetch'} backend set to ${label}.`);
+      onClose(`${t === 'search' ? 'Web search' : 'Web fetch'}后端已设置为 ${label}。`);
     },
     [currentTab, onClose],
   );
@@ -542,30 +542,30 @@ function WebToolsPanel({
   const current = currentTab === 'search' ? currentSearch : currentFetch;
 
   return (
-    <Tabs title="Web Tools" contentHeight={contentHeight}>
-      <Tab key="search" title="Search">
+    <Tabs title="网页工具" contentHeight={contentHeight}>
+      <Tab key="search" title="搜索">
         <MainView
           tab={currentTab}
           adapters={SEARCH_ADAPTERS}
           current={currentSearch}
-          fieldLabel="Choose a web search backend:"
+          fieldLabel="选择网页搜索后端："
           onConfigure={handleConfigure}
           onSwitchTab={setCurrentTab}
           onSelectAdapter={handleSelectAdapter}
-          onClose={() => onClose('Web tools panel dismissed')}
+          onClose={() => onClose('网页工具面板已关闭')}
           contentHeight={contentHeight}
         />
       </Tab>
-      <Tab key="fetch" title="Fetch">
+      <Tab key="fetch" title="抓取">
         <MainView
           tab={currentTab}
           adapters={FETCH_ADAPTERS}
           current={currentFetch}
-          fieldLabel="Choose a web fetch backend:"
+          fieldLabel="选择网页抓取后端："
           onConfigure={handleConfigure}
           onSwitchTab={setCurrentTab}
           onSelectAdapter={handleSelectAdapter}
-          onClose={() => onClose('Web tools panel dismissed')}
+          onClose={() => onClose('网页工具面板已关闭')}
           contentHeight={contentHeight}
         />
       </Tab>

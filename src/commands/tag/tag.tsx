@@ -22,14 +22,14 @@ function ConfirmRemoveTag({
   onCancel: () => void;
 }): React.ReactNode {
   return (
-    <Dialog title="Remove tag?" subtitle={`Current tag: #${tagName}`} onCancel={onCancel} color="warning">
+    <Dialog title="移除标签？" subtitle={`当前标签：#${tagName}`} onCancel={onCancel} color="warning">
       <Box flexDirection="column" gap={1}>
-        <Text>This will remove the tag from the current session.</Text>
+        <Text>这将从当前会话中移除该标签。</Text>
         <Select<'yes' | 'no'>
           onChange={value => (value === 'yes' ? onConfirm() : onCancel())}
           options={[
-            { label: 'Yes, remove tag', value: 'yes' },
-            { label: 'No, keep tag', value: 'no' },
+            { label: '是，移除标签', value: 'yes' },
+            { label: '否，保留标签', value: 'no' },
           ]}
         />
       </Box>
@@ -53,12 +53,12 @@ function ToggleTagAndClose({
     const id = getSessionId() as UUID;
 
     if (!id) {
-      onDone('No active session to tag', { display: 'system' });
+      onDone('没有可打标签的活动会话', { display: 'system' });
       return;
     }
 
     if (!normalizedTag) {
-      onDone('Tag name cannot be empty', { display: 'system' });
+      onDone('标签名不能为空', { display: 'system' });
       return;
     }
 
@@ -115,11 +115,11 @@ function ShowHelp({
 }): React.ReactNode {
   React.useEffect(() => {
     onDone(
-      `Usage: /tag <tag-name>
+      `用法：/tag <标签名>
 
-Toggle a searchable tag on the current session.
-Run the same command again to remove the tag.
-Tags are displayed after the branch name in /resume and can be searched with /.
+在当前会话上切换一个可搜索的标签。
+再次运行同一命令即可移除该标签。
+标签会显示在 /resume 中的分支名之后，并可用 / 搜索。
 
 Examples:
   /tag bugfix        # Add tag

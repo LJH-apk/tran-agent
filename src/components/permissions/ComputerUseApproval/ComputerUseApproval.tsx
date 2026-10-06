@@ -51,17 +51,17 @@ function ComputerUseTccPanel({
     const opts: OptionWithDescription<TccOption>[] = [];
     if (!tccState.accessibility) {
       opts.push({
-        label: 'Open System Settings → Accessibility',
+        label: '打开系统设置 → 辅助功能',
         value: 'open_accessibility',
       });
     }
     if (!tccState.screenRecording) {
       opts.push({
-        label: 'Open System Settings → Screen Recording',
+        label: '打开系统设置 → 屏幕录制',
         value: 'open_screen_recording',
       });
     }
-    opts.push({ label: 'Try again', value: 'retry' });
+    opts.push({ label: '重试', value: 'retry' });
     return opts;
   }, [tccState.accessibility, tccState.screenRecording]);
 
@@ -90,14 +90,14 @@ function ComputerUseTccPanel({
   }
 
   return (
-    <Dialog title="Computer Use needs macOS permissions" onCancel={onDone}>
+    <Dialog title="Computer Use 需要 macOS 权限" onCancel={onDone}>
       <Box flexDirection="column" paddingX={1} paddingY={1} gap={1}>
         <Box flexDirection="column">
           <Text>
-            Accessibility: {tccState.accessibility ? `${figures.tick} granted` : `${figures.cross} not granted`}
+            辅助功能： {tccState.accessibility ? `${figures.tick} 已授予` : `${figures.cross} 未授予`}
           </Text>
           <Text>
-            Screen Recording: {tccState.screenRecording ? `${figures.tick} granted` : `${figures.cross} not granted`}
+            屏幕录制： {tccState.screenRecording ? `${figures.tick} 已授予` : `${figures.cross} 未授予`}
           </Text>
         </Box>
         <Text dimColor>
@@ -115,9 +115,9 @@ function ComputerUseTccPanel({
 type AppListOption = 'allow_all' | 'deny';
 
 const SENTINEL_WARNING: Record<NonNullable<ReturnType<typeof getSentinelCategory>>, string> = {
-  shell: 'equivalent to shell access',
-  filesystem: 'can read/write any file',
-  system_settings: 'can change system settings',
+  shell: '等同于 shell 访问权限',
+  filesystem: '可读写任何文件',
+  system_settings: '可更改系统设置',
 };
 
 function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps): React.ReactNode {
@@ -139,7 +139,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
   const options = useMemo<OptionWithDescription<AppListOption>[]>(
     () => [
       {
-        label: `Allow for this session (${checked.size} ${plural(checked.size, 'app')})`,
+        label: `本次会话内允许（${checked.size} 个应用）`,
         value: 'allow_all',
       },
       {
@@ -186,7 +186,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
   }
 
   return (
-    <Dialog title="Computer Use wants to control these apps" onCancel={() => respond(false)}>
+    <Dialog title="Computer Use 想要控制以下应用" onCancel={() => respond(false)}>
       <Box flexDirection="column" paddingX={1} paddingY={1} gap={1}>
         {request.reason ? <Text dimColor>{request.reason}</Text> : null}
 
@@ -197,7 +197,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
               return (
                 <Text key={a.requestedName} dimColor>
                   {'  '}
-                  {figures.circle} {a.requestedName} <Text dimColor>(not installed)</Text>
+                  {figures.circle} {a.requestedName} <Text dimColor>（未安装）</Text>
                 </Text>
               );
             }
@@ -205,7 +205,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
               return (
                 <Text key={resolved.bundleId} dimColor>
                   {'  '}
-                  {figures.tick} {resolved.displayName} <Text dimColor>(already granted)</Text>
+                  {figures.tick} {resolved.displayName} <Text dimColor>（已授予）</Text>
                 </Text>
               );
             }
@@ -230,7 +230,7 @@ function ComputerUseAppListPanel({ request, onDone }: ComputerUseApprovalProps):
 
         {requestedFlagKeys.length > 0 ? (
           <Box flexDirection="column">
-            <Text dimColor>Also requested:</Text>
+            <Text dimColor>同时请求：</Text>
             {requestedFlagKeys.map(flag => (
               <Text key={flag} dimColor>
                 {'  '}· {flag}

@@ -34,7 +34,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
   // Handle keyboard input for error and prompt-download states
   useInput(input => {
     if (state === 'error') {
-      onDone(error ?? 'Unknown error', { display: 'system' });
+      onDone(error ?? '未知错误', { display: 'system' });
       return;
     }
     if (state === 'prompt-download') {
@@ -45,7 +45,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
           { display: 'system' },
         );
       } else if (input === 'n' || input === 'N') {
-        onDone(`The desktop app is required for /desktop. Learn more at ${DESKTOP_DOCS_URL}`, { display: 'system' });
+        onDone(`使用 /desktop 需要桌面应用。了解更多：${DESKTOP_DOCS_URL}`, { display: 'system' });
       }
     }
   });
@@ -57,13 +57,13 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       const installStatus = await getDesktopInstallStatus();
 
       if (installStatus.status === 'not-installed') {
-        setDownloadMessage('Claude Desktop is not installed.');
+        setDownloadMessage('未安装 Claude Desktop。');
         setState('prompt-download');
         return;
       }
 
       if (installStatus.status === 'version-too-old') {
-        setDownloadMessage(`Claude Desktop needs to be updated (found v${installStatus.version}, need v1.1.2396+).`);
+        setDownloadMessage(`Claude Desktop 需要更新（当前 v${installStatus.version}，需要 v1.1.2396+）。`);
         setState('prompt-download');
         return;
       }
@@ -77,7 +77,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       const result = await openCurrentSessionInDesktop();
 
       if (!result.success) {
-        setError(result.error ?? 'Failed to open Claude Desktop');
+        setError(result.error ?? '无法打开 Claude Desktop');
         setState('error');
         return;
       }
@@ -88,7 +88,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
       // Give the user a moment to see the success message
       setTimeout(
         async (onDone: Props['onDone']) => {
-          onDone('Session transferred to Claude Desktop', { display: 'system' });
+          onDone('会话已转移到 Claude Desktop', { display: 'system' });
           await gracefulShutdown(0, 'other');
         },
         500,
@@ -106,7 +106,7 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
     return (
       <Box flexDirection="column" paddingX={2}>
         <Text color="error">Error: {error}</Text>
-        <Text dimColor>Press any key to continue…</Text>
+        <Text dimColor>按任意键继续…</Text>
       </Box>
     );
   }
@@ -115,16 +115,16 @@ export function DesktopHandoff({ onDone }: Props): React.ReactNode {
     return (
       <Box flexDirection="column" paddingX={2}>
         <Text>{downloadMessage}</Text>
-        <Text>Download now? (y/n)</Text>
+        <Text>现在下载？（y/n）</Text>
       </Box>
     );
   }
 
   const messages: Record<Exclude<DesktopHandoffState, 'error' | 'prompt-download'>, string> = {
-    checking: 'Checking for Claude Desktop…',
-    flushing: 'Saving session…',
-    opening: 'Opening Claude Desktop…',
-    success: 'Opening in Claude Desktop…',
+    checking: '正在检查 Claude Desktop…',
+    flushing: '正在保存会话…',
+    opening: '正在打开 Claude Desktop…',
+    success: '正在 Claude Desktop 中打开…',
   };
 
   return <LoadingState message={messages[state]} />;

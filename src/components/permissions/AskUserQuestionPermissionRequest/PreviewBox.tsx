@@ -100,7 +100,7 @@ function PreviewBoxBody({
   const truncationBar = isTruncated
     ? (() => {
         const hiddenCount = contentLines.length - effectiveMaxLines;
-        const label = `${BOX_CHARS.horizontal.repeat(3)} \u2702 ${BOX_CHARS.horizontal.repeat(3)} ${hiddenCount} lines hidden `;
+        const label = `${BOX_CHARS.horizontal.repeat(3)} \u2702 ${BOX_CHARS.horizontal.repeat(3)} ${hiddenCount} 行已隐藏 `;
         const labelWidth = stringWidth(label);
         const fillWidth = Math.max(0, boxWidth - 2 - labelWidth);
         return `${BOX_CHARS.teeLeft}${label}${BOX_CHARS.horizontal.repeat(fillWidth)}${BOX_CHARS.teeRight}`;

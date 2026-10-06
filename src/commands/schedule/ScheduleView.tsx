@@ -27,14 +27,14 @@ function TriggerRow({ trigger }: { trigger: Trigger }): React.ReactNode {
         <Text color={(trigger.enabled ? 'success' : 'warning') as keyof Theme}>{enabledText}</Text>
         {trigger.agent_id ? (
           <>
-            <Text dimColor> · agent: </Text>
+            <Text dimColor>  · 智能体：</Text>
             <Text>{trigger.agent_id}</Text>
           </>
         ) : null}
       </Box>
-      <Text>Schedule: {schedule}</Text>
-      <Text dimColor>Prompt: {trigger.prompt}</Text>
-      <Text dimColor>Next run: {nextRun}</Text>
+      <Text>计划：{schedule}</Text>
+      <Text dimColor>提示词：{trigger.prompt}</Text>
+      <Text dimColor>下次运行：{nextRun}</Text>
     </Box>
   );
 }
@@ -51,7 +51,7 @@ export function ScheduleView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Scheduled Triggers ({props.triggers.length})</Text>
+          <Text bold>定时触发器 ({props.triggers.length})</Text>
         </Box>
         {props.triggers.map(trigger => (
           <TriggerRow key={trigger.trigger_id} trigger={trigger} />
@@ -68,20 +68,20 @@ export function ScheduleView(props: Props): React.ReactNode {
     return (
       <Box flexDirection="column">
         <Box marginBottom={1}>
-          <Text bold>Trigger: {trigger.trigger_id}</Text>
+          <Text bold>触发器：{trigger.trigger_id}</Text>
         </Box>
         <Text>
-          Status:{' '}
+          状态：{' '}
           <Text color={(trigger.enabled ? 'success' : 'warning') as keyof Theme}>
             {trigger.enabled ? 'enabled' : 'disabled'}
           </Text>
         </Text>
-        <Text>Schedule: {schedule}</Text>
-        {trigger.agent_id ? <Text>Agent: {trigger.agent_id}</Text> : null}
-        <Text>Next run: {nextRun}</Text>
-        <Text dimColor>Last run: {lastRun}</Text>
-        <Text dimColor>Prompt: {trigger.prompt}</Text>
-        {trigger.created_at ? <Text dimColor>Created: {new Date(trigger.created_at).toLocaleString()}</Text> : null}
+        <Text>计划：{schedule}</Text>
+        {trigger.agent_id ? <Text>智能体：{trigger.agent_id}</Text> : null}
+        <Text>下次运行：{nextRun}</Text>
+        <Text dimColor>上次运行：{lastRun}</Text>
+        <Text dimColor>提示词：{trigger.prompt}</Text>
+        {trigger.created_at ? <Text dimColor>创建时间：{new Date(trigger.created_at).toLocaleString()}</Text> : null}
       </Box>
     );
   }
@@ -93,14 +93,14 @@ export function ScheduleView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Trigger created
+            触发器已创建
           </Text>
         </Box>
-        <Text>ID: {trigger.trigger_id}</Text>
-        <Text>Schedule: {schedule}</Text>
-        <Text>Prompt: {trigger.prompt}</Text>
-        {trigger.agent_id ? <Text>Agent: {trigger.agent_id}</Text> : null}
-        <Text dimColor>Status: {trigger.enabled ? 'enabled' : 'disabled'}</Text>
+        <Text>ID：{trigger.trigger_id}</Text>
+        <Text>计划：{schedule}</Text>
+        <Text>提示词：{trigger.prompt}</Text>
+        {trigger.agent_id ? <Text>智能体：{trigger.agent_id}</Text> : null}
+        <Text dimColor>状态：{trigger.enabled ? 'enabled' : 'disabled'}</Text>
       </Box>
     );
   }
@@ -111,11 +111,11 @@ export function ScheduleView(props: Props): React.ReactNode {
       <Box flexDirection="column">
         <Box>
           <Text bold color={'success' as keyof Theme}>
-            Trigger updated
+            触发器已更新
           </Text>
         </Box>
-        <Text>ID: {trigger.trigger_id}</Text>
-        <Text dimColor>Status: {trigger.enabled ? 'enabled' : 'disabled'}</Text>
+        <Text>ID：{trigger.trigger_id}</Text>
+        <Text dimColor>状态：{trigger.enabled ? 'enabled' : 'disabled'}</Text>
       </Box>
     );
   }
@@ -134,7 +134,7 @@ export function ScheduleView(props: Props): React.ReactNode {
         <Box>
           <Text color={'success' as keyof Theme}>Trigger {props.id} fired.</Text>
         </Box>
-        <Text dimColor>Run ID: {props.runId}</Text>
+        <Text dimColor>运行 ID：{props.runId}</Text>
       </Box>
     );
   }

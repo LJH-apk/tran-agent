@@ -12,23 +12,23 @@ export function LocationStep(): ReactNode {
 
   const locationOptions = [
     {
-      label: 'Project (.claude/agents/)',
+      label: '项目（.claude/agents/）',
       value: 'projectSettings' as SettingSource,
     },
     {
-      label: 'Personal (~/.claude/agents/)',
+      label: '个人（~/.claude/agents/）',
       value: 'userSettings' as SettingSource,
     },
   ];
 
   return (
     <WizardDialogLayout
-      subtitle="Choose location"
+      subtitle="选择位置"
       footerText={
         <Byline>
-          <KeyboardShortcutHint shortcut="↑↓" action="navigate" />
-          <KeyboardShortcutHint shortcut="Enter" action="select" />
-          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="cancel" />
+          <KeyboardShortcutHint shortcut="↑↓" action="导航" />
+          <KeyboardShortcutHint shortcut="Enter" action="选择" />
+          <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="取消" />
         </Byline>
       }
     >

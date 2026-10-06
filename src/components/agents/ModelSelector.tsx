@@ -20,7 +20,7 @@ export function ModelSelector({ initialModel, onComplete, onCancel }: ModelSelec
         {
           value: initialModel,
           label: initialModel,
-          description: 'Current model (custom ID)',
+          description: '当前模型（自定义 ID）',
         },
         ...base,
       ];

@@ -25,7 +25,7 @@ export function PermissionRuleDescription({ ruleValue }: RuleSubtitleProps): Rea
           );
         }
       } else {
-        return <Text dimColor>Any Bash command</Text>;
+        return <Text dimColor>任何 Bash 命令</Text>;
       }
     }
     default: {

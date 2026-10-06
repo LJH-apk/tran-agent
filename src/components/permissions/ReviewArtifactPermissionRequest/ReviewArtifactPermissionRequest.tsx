@@ -40,7 +40,7 @@ export function ReviewArtifactPermissionRequest({
   }
 
   return (
-    <PermissionDialog color="permission" title="Review artifact?" workerBadge={workerBadge}>
+    <PermissionDialog color="permission" title="审查产物？" workerBadge={workerBadge}>
       <Box flexDirection="column" marginTop={1} paddingX={1}>
         <Text>Claude wants to review{title ? `: ${title}` : ' an artifact'}.</Text>
 
@@ -48,14 +48,14 @@ export function ReviewArtifactPermissionRequest({
           <Text dimColor>
             {annotationCount} annotation{annotationCount !== 1 ? 's' : ''} will be presented.
           </Text>
-          {summary ? <Text dimColor>Summary: {summary}</Text> : null}
+          {summary ? <Text dimColor>摘要： {summary}</Text> : null}
         </Box>
 
         <Box marginTop={1}>
           <Select
             options={[
-              { label: 'Yes, show review', value: 'yes' as const },
-              { label: 'No, skip', value: 'no' as const },
+              { label: '是，显示审查结果', value: 'yes' as const },
+              { label: '否，跳过', value: 'no' as const },
             ]}
             onChange={handleResponse}
             onCancel={() => handleResponse('no')}

@@ -83,14 +83,14 @@ export function getFilePermissionOptions({
       type: 'input',
       label: 'Yes',
       value: 'yes',
-      placeholder: 'and tell Claude what to do next',
+      placeholder: '并告诉 Claude 接下来做什么',
       onChange: onAcceptFeedbackChange,
       allowEmptySubmitToCancel: true,
       option: { type: 'accept-once' },
     });
   } else {
     options.push({
-      label: 'Yes',
+      label: '是',
       value: 'yes',
       option: { type: 'accept-once' },
     });
@@ -108,7 +108,7 @@ export function getFilePermissionOptions({
   // persisted permission rules.
   if ((inClaudeFolder || inGlobalClaudeFolder) && operationType !== 'read') {
     options.push({
-      label: 'Yes, allow edits to .claude/ config for this session',
+      label: '是，本次会话内允许修改 .claude/ 配置',
       value: 'yes-claude-folder',
       option: {
         type: 'accept-session',
@@ -122,7 +122,7 @@ export function getFilePermissionOptions({
     if (inAllowedPath) {
       // Inside working directory
       if (operationType === 'read') {
-        sessionLabel = 'Yes, during this session';
+        sessionLabel = '是，本次会话期间';
       } else {
         sessionLabel = (
           <Text>
@@ -133,7 +133,7 @@ export function getFilePermissionOptions({
     } else {
       // Outside working directory - include directory name
       const dirPath = getDirectoryForPath(filePath);
-      const dirName = basename(dirPath) || 'this directory';
+      const dirName = basename(dirPath) || '此目录';
 
       if (operationType === 'read') {
         sessionLabel = (
@@ -164,7 +164,7 @@ export function getFilePermissionOptions({
       type: 'input',
       label: 'No',
       value: 'no',
-      placeholder: 'and tell Claude what to do differently',
+      placeholder: '并告诉 Claude 换一种做法',
       onChange: onRejectFeedbackChange,
       allowEmptySubmitToCancel: true,
       option: { type: 'reject' },
@@ -172,7 +172,7 @@ export function getFilePermissionOptions({
   } else {
     // Not in input mode - simple option
     options.push({
-      label: 'No',
+      label: '否',
       value: 'no',
       option: { type: 'reject' },
     });

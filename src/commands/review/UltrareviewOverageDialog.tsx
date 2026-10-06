@@ -35,18 +35,18 @@ export function UltrareviewOverageDialog({ onProceed, onCancel }: Props): React.
   }, [onCancel]);
 
   const options = [
-    { label: 'Proceed with Extra Usage billing', value: 'proceed' },
-    { label: 'Cancel', value: 'cancel' },
+    { label: '继续并按额外用量计费', value: 'proceed' },
+    { label: '取消', value: 'cancel' },
   ];
 
   return (
-    <Dialog title="Ultrareview billing" onCancel={handleCancel} color="background">
+    <Dialog title="Ultrareview 计费" onCancel={handleCancel} color="background">
       <Box flexDirection="column" gap={1}>
         <Text>
-          Your free ultrareviews for this organization are used. Further reviews bill as Extra Usage (pay-per-use).
+          本组织的免费 Ultrareview 次数已用完。后续评审将按额外用量（按次付费）计费。
         </Text>
         {isLaunching ? (
-          <Text color="background">Launching…</Text>
+          <Text color="background">正在启动…</Text>
         ) : (
           <Select options={options} onChange={handleSelect} onCancel={handleCancel} />
         )}

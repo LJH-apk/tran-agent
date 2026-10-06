@@ -329,17 +329,17 @@ export function PreviewQuestionView({
             {/* Right panel: preview + notes */}
             <Box flexDirection="column" flexGrow={1}>
               <PreviewBox
-                content={previewContent || 'No preview available'}
+                content={previewContent || '暂无预览'}
                 maxLines={previewMaxLines}
                 minWidth={minContentWidth}
                 maxWidth={previewMaxWidth}
               />
               <Box marginTop={1} flexDirection="row" gap={1}>
-                <Text color="suggestion">Notes:</Text>
+                <Text color="suggestion">备注：</Text>
                 {isInNotesInput ? (
                   <TextInput
                     value={notesValue}
-                    placeholder="Add notes on this design…"
+                    placeholder="为此设计添加备注…"
                     onChange={value => {
                       onUpdateQuestionState(questionText, { textInputValue: value }, false);
                     }}
@@ -353,7 +353,7 @@ export function PreviewQuestionView({
                   />
                 ) : (
                   <Text dimColor italic>
-                    {notesValue || 'press n to add notes'}
+                    {notesValue || '按 n 添加备注'}
                   </Text>
                 )}
               </Box>
@@ -369,7 +369,7 @@ export function PreviewQuestionView({
               ) : (
                 <Text> </Text>
               )}
-              <Text color={isFooterFocused && footerIndex === 0 ? 'suggestion' : undefined}>Chat about this</Text>
+              <Text color={isFooterFocused && footerIndex === 0 ? 'suggestion' : undefined}>就此聊一聊</Text>
             </Box>
             {isInPlanMode && (
               <Box flexDirection="row" gap={1}>
@@ -379,7 +379,7 @@ export function PreviewQuestionView({
                   <Text> </Text>
                 )}
                 <Text color={isFooterFocused && footerIndex === 1 ? 'suggestion' : undefined}>
-                  Skip interview and plan immediately
+                  跳过访谈，立即制定计划
                 </Text>
               </Box>
             )}
@@ -387,8 +387,8 @@ export function PreviewQuestionView({
           <Box marginTop={1}>
             <Text color="inactive" dimColor>
               Enter to select · {figures.arrowUp}/{figures.arrowDown} to navigate · n to add notes
-              {questions.length > 1 && <> · Tab to switch questions</>}
-              {isInNotesInput && editorName && <> · ctrl+g to edit in {editorName}</>} · Esc to cancel
+              {questions.length > 1 && <> · 按 Tab 切换问题</>}
+              {isInNotesInput && editorName && <> · ctrl+g to edit in {editorName}</>} · 按 Esc 取消
             </Text>
           </Box>
         </Box>

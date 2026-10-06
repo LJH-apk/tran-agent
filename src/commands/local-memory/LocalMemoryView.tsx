@@ -41,7 +41,7 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
     return (
       <Box>
         <Text color={'success' as keyof Theme}>✓</Text>
-        <Text> Store created: </Text>
+        <Text>  存储库已创建： </Text>
         <Text bold>{props.store}</Text>
       </Box>
     );
@@ -51,9 +51,9 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
     return (
       <Box>
         <Text color={'success' as keyof Theme}>✓</Text>
-        <Text> Stored entry </Text>
+        <Text>  已存储条目 </Text>
         <Text bold>{props.key}</Text>
-        <Text> in </Text>
+        <Text>  到 </Text>
         <Text bold>{props.store}</Text>
       </Box>
     );
@@ -77,7 +77,7 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
   if (props.mode === 'not-found') {
     return (
       <Box>
-        <Text color={'error' as keyof Theme}>Not found: </Text>
+        <Text color={'error' as keyof Theme}>未找到：</Text>
         <Text bold>{props.store}</Text>
         {props.key ? (
           <>
@@ -93,7 +93,7 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
     if (props.keys.length === 0) {
       return (
         <Box>
-          <Text dimColor>No entries in </Text>
+          <Text dimColor>其中没有条目：</Text>
           <Text bold>{props.store}</Text>
           <Text dimColor>. Use /local-memory store {props.store} &lt;key&gt; &lt;value&gt; to add one.</Text>
         </Box>
@@ -120,7 +120,7 @@ export function LocalMemoryView(props: LocalMemoryViewProps): React.ReactNode {
     return (
       <Box>
         <Text color={'success' as keyof Theme}>✓</Text>
-        <Text> Archived store: </Text>
+        <Text>  已归档存储库： </Text>
         <Text bold>{props.store}</Text>
         <Text dimColor> (renamed to {props.store}.archived)</Text>
       </Box>

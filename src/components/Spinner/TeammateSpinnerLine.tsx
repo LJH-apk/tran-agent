@@ -49,7 +49,7 @@ function getMessagePreview(messages: InProcessTeammateTaskState['messages']): st
       if ('type' in block && block.type === 'tool_use' && 'name' in block) {
         // Try to show meaningful info from tool input
         const input = 'input' in block ? (block.input as Record<string, unknown>) : null;
-        let toolLine = `Using ${block.name}…`;
+        let toolLine = `正在使用 ${block.name}…`;
         if (input) {
           // Look for common descriptive fields
           const desc =
@@ -144,7 +144,7 @@ export function TeammateSpinnerLine({
   const statsWidth = stringWidth(statsText);
   const selectHintText = ` · ${TEAMMATE_SELECT_HINT}`;
   const selectHintWidth = stringWidth(selectHintText);
-  const viewHintText = ' · enter to view';
+  const viewHintText = ' · enter 查看';
   const viewHintWidth = stringWidth(viewHintText);
 
   // Progressive responsive layout:
@@ -188,10 +188,10 @@ export function TeammateSpinnerLine({
   // Status rendering logic
   const renderStatus = (): React.ReactNode => {
     if (teammate.shutdownRequested) {
-      return <Text dimColor>[stopping]</Text>;
+      return <Text dimColor>[正在停止]</Text>;
     }
     if (teammate.awaitingPlanApproval) {
-      return <Text color="warning">[awaiting approval]</Text>;
+      return <Text color="warning">[等待批准]</Text>;
     }
     if (teammate.isIdle) {
       if (allIdle) {
@@ -238,7 +238,7 @@ export function TeammateSpinnerLine({
         )}
         {/* Hints: select hint when highlighted, view hint when selected but not foregrounded */}
         {showSelectHint && <Text dimColor> · {TEAMMATE_SELECT_HINT}</Text>}
-        {showViewHint && <Text dimColor> · enter to view</Text>}
+        {showViewHint && <Text dimColor> · enter 查看</Text>}
       </Box>
       {/* Preview lines */}
       {previewLines.map((line, idx) => (

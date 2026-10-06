@@ -97,15 +97,15 @@ export function TeleportError({
       }
 
       return (
-        <Dialog title="Log in to Claude" onCancel={onCancel}>
+        <Dialog title="登录 Claude" onCancel={onCancel}>
           <Box flexDirection="column">
-            <Text dimColor>Teleport requires a Claude.ai account.</Text>
-            <Text dimColor>Your Claude Pro/Max subscription will be used by Claude Code.</Text>
+            <Text dimColor>Teleport 需要一个 Claude.ai 账号。</Text>
+            <Text dimColor>Claude Code 将使用你的 Claude Pro/Max 订阅。</Text>
           </Box>
           <Select
             options={[
-              { label: 'Login with Claude account', value: 'login' },
-              { label: 'Exit', value: 'exit' },
+              { label: '使用 Claude 账号登录', value: 'login' },
+              { label: '退出', value: 'exit' },
             ]}
             onChange={handleLoginDialogSelect}
           />

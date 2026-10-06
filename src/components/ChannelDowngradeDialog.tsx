@@ -24,19 +24,19 @@ export function ChannelDowngradeDialog({ currentVersion, onChoice }: Props): Rea
   }
 
   return (
-    <Dialog title="Switch to Stable Channel" onCancel={handleCancel} color="permission" hideBorder hideInputGuide>
+    <Dialog title="切换到稳定版通道" onCancel={handleCancel} color="permission" hideBorder hideInputGuide>
       <Text>
         The stable channel may have an older version than what you&apos;re currently running ({currentVersion}).
       </Text>
-      <Text dimColor>How would you like to handle this?</Text>
+      <Text dimColor>你想如何处理？</Text>
       <Select
         options={[
           {
-            label: 'Allow possible downgrade to stable version',
+            label: '允许可能降级到稳定版',
             value: 'downgrade' as ChannelDowngradeChoice,
           },
           {
-            label: `Stay on current version (${currentVersion}) until stable catches up`,
+            label: `保留当前版本（${currentVersion}），直到稳定版追上`,
             value: 'stay' as ChannelDowngradeChoice,
           },
         ]}

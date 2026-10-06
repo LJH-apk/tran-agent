@@ -35,8 +35,8 @@ export type PermissionPromptProps<T extends string> = {
 };
 
 const DEFAULT_PLACEHOLDERS: Record<FeedbackType, string> = {
-  accept: 'tell Claude what to do next',
-  reject: 'tell Claude what to do differently',
+  accept: '告诉 Claude 接下来做什么',
+  reject: '告诉 Claude 换一种做法',
 };
 
 /**
@@ -53,7 +53,7 @@ export function PermissionPrompt<T extends string>({
   options,
   onSelect,
   onCancel,
-  question = 'Do you want to proceed?',
+  question = '是否继续？',
   toolAnalyticsContext,
 }: PermissionPromptProps<T>): React.ReactNode {
   const setAppState = useSetAppState();
@@ -242,7 +242,7 @@ export function PermissionPrompt<T extends string>({
         onInputModeToggle={handleInputModeToggle}
       />
       <Box marginTop={1}>
-        <Text dimColor>Esc to cancel{showTabHint && ' · Tab to amend'}</Text>
+        <Text dimColor>按 Esc 取消{showTabHint && ' · 按 Tab 补充说明'}</Text>
       </Box>
     </Box>
   );

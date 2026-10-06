@@ -114,7 +114,7 @@ const command = {
     // Use 'main' as estimate for content length calculation
     return getPromptContent('main').length
   },
-  progressMessage: 'creating commit and PR',
+  progressMessage: '正在创建提交和 PR',
   source: 'builtin',
   async getPromptForCommand(args, context) {
     // Get default branch and enhanced PR attribution

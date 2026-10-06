@@ -158,6 +158,19 @@ export function truncate(
   return truncateToWidth(result, maxWidth)
 }
 
+/**
+ * Pads a string on the right up to a target display width (terminal columns).
+ * Uses stringWidth() so CJK/emoji text lines up with the column beside it.
+ * String.prototype.padEnd counts UTF-16 code units instead: it reads 状态 as 2
+ * columns when the terminal renders 4, so the padding comes up short by 2 and
+ * every following column shifts left. Returns the text unchanged when it
+ * already reaches `width`.
+ */
+export function padEndWidth(text: string, width: number, fill = ' '): string {
+  const pad = width - stringWidth(text)
+  return pad > 0 ? text + fill.repeat(pad) : text
+}
+
 export function wrapText(text: string, width: number): string[] {
   const lines: string[] = []
   let currentLine = ''

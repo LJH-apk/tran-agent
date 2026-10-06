@@ -96,7 +96,7 @@ export function QuickOpenDialog({ onDone, onInsert }: Props): React.ReactNode {
       })
       .catch(() => {
         if (controller.signal.aborted) return;
-        setPreview({ path: focusedPath, content: '(preview unavailable)' });
+        setPreview({ path: focusedPath, content: '（无法预览）' });
       });
     return () => controller.abort();
   }, [focusedPath, effectivePreviewLines]);
@@ -124,8 +124,8 @@ export function QuickOpenDialog({ onDone, onInsert }: Props): React.ReactNode {
 
   return (
     <FuzzyPicker
-      title="Quick Open"
-      placeholder="Type to search files…"
+      title="快速打开"
+      placeholder="输入以搜索文件…"
       items={results}
       getKey={p => p}
       visibleCount={visibleResults}
@@ -134,14 +134,14 @@ export function QuickOpenDialog({ onDone, onInsert }: Props): React.ReactNode {
       onQueryChange={handleQueryChange}
       onFocus={p => setFocusedPath(p)}
       onSelect={handleOpen}
-      onTab={{ action: 'mention', handler: p => handleInsert(p, true) }}
+      onTab={{ action: '提及', handler: p => handleInsert(p, true) }}
       onShiftTab={{
-        action: 'insert path',
+        action: '插入路径',
         handler: p => handleInsert(p, false),
       }}
       onCancel={onDone}
-      emptyMessage={q => (q ? 'No matching files' : 'Start typing to search…')}
-      selectAction="open in editor"
+      emptyMessage={q => (q ? '没有匹配的文件' : '开始输入以搜索…')}
+      selectAction="在编辑器中打开"
       renderItem={(p, isFocused) => (
         <Text color={isFocused ? 'suggestion' : undefined}>{truncatePathMiddle(p, maxPathWidth)}</Text>
       )}
@@ -150,14 +150,14 @@ export function QuickOpenDialog({ onDone, onInsert }: Props): React.ReactNode {
           <>
             <Text dimColor>
               {truncatePathMiddle(p, previewWidth)}
-              {preview.path !== p ? ' · loading…' : ''}
+              {preview.path !== p ? ' · 加载中…' : ''}
             </Text>
             {preview.content.split('\n').map((line, i) => (
               <Text key={i}>{highlightMatch(truncateToWidth(line, previewWidth), query)}</Text>
             ))}
           </>
         ) : (
-          <LoadingState message="Loading preview…" dimColor />
+          <LoadingState message="正在加载预览…" dimColor />
         )
       }
     />

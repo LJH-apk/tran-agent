@@ -186,13 +186,13 @@ export function TaskListV2({ tasks, isStandalone = false }: Props): React.ReactN
     const hiddenInProgress = count(hiddenTasks, t => t.status === 'in_progress');
     const hiddenCompleted = count(hiddenTasks, t => t.status === 'completed');
     if (hiddenInProgress > 0) {
-      parts.push(`${hiddenInProgress} in progress`);
+      parts.push(`${hiddenInProgress} 个进行中`);
     }
     if (hiddenPending > 0) {
-      parts.push(`${hiddenPending} pending`);
+      parts.push(`${hiddenPending} 个待处理`);
     }
     if (hiddenCompleted > 0) {
-      parts.push(`${hiddenCompleted} completed`);
+      parts.push(`${hiddenCompleted} 个已完成`);
     }
     hiddenSummary = ` … +${parts.join(', ')}`;
   }
@@ -220,17 +220,17 @@ export function TaskListV2({ tasks, isStandalone = false }: Props): React.ReactN
         <Box>
           <Text dimColor>
             <Text bold>{tasks.length}</Text>
-            {' tasks ('}
+            {' 个任务（'}
             <Text bold>{completedCount}</Text>
-            {' done, '}
+            {' 已完成， '}
             {inProgressCount > 0 && (
               <>
                 <Text bold>{inProgressCount}</Text>
-                {' in progress, '}
+                {' 进行中， '}
               </>
             )}
             <Text bold>{pendingCount}</Text>
-            {' open)'}
+            {' 待处理）'}
           </Text>
         </Box>
         {content}
@@ -303,7 +303,7 @@ function TaskItem({ task, ownerColor, openBlockers, activity, ownerActive, colum
         {isBlocked && (
           <Text dimColor>
             {' '}
-            {figures.pointerSmall} blocked by{' '}
+            {figures.pointerSmall} 被以下任务阻塞{' '}
             {[...openBlockers]
               .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
               .map(id => `#${id}`)

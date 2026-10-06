@@ -44,16 +44,16 @@ type RuleSourceTextProps = {
   rule: PermissionRule;
 };
 function RuleSourceText({ rule }: RuleSourceTextProps): React.ReactNode {
-  return <Text dimColor>{`From ${permissionRuleSourceDisplayString(rule.source)}`}</Text>;
+  return <Text dimColor>{`来自 ${permissionRuleSourceDisplayString(rule.source)}`}</Text>;
 }
 
 // Helper function to get the appropriate label for rule behavior
 function getRuleBehaviorLabel(ruleBehavior: PermissionBehavior): string {
   switch (ruleBehavior) {
     case 'allow':
-      return 'allowed';
+      return '允许';
     case 'deny':
-      return 'denied';
+      return '拒绝';
     case 'ask':
       return 'ask';
   }
@@ -86,7 +86,7 @@ function RuleDetails({
       {exitState.pending ? (
         <Text dimColor>Press {exitState.keyName} again to exit</Text>
       ) : (
-        <Text dimColor>Esc to cancel</Text>
+        <Text dimColor>按 Esc 取消</Text>
       )}
     </Box>
   );
@@ -104,7 +104,7 @@ function RuleDetails({
           borderColor="permission"
         >
           <Text bold color="permission">
-            Rule details
+            规则详情
           </Text>
           {ruleDescription}
           <Text italic>
@@ -125,13 +125,13 @@ function RuleDetails({
           Delete {getRuleBehaviorLabel(rule.ruleBehavior)} tool?
         </Text>
         {ruleDescription}
-        <Text>Are you sure you want to delete this permission rule?</Text>
+        <Text>确定要删除此权限规则吗？</Text>
         <Select
           onChange={_ => (_ === 'yes' ? onDelete() : onCancel())}
           onCancel={onCancel}
           options={[
-            { label: 'Yes', value: 'yes' },
-            { label: 'No', value: 'no' },
+            { label: '是', value: 'yes' },
+            { label: '否', value: 'no' },
           ]}
         />
       </Box>
@@ -213,9 +213,9 @@ function PermissionRulesTab({
       <Text>
         {
           {
-            allow: "Claude Code won't ask before using allowed tools.",
-            ask: 'Claude Code will always ask for confirmation before using these tools.',
-            deny: 'Claude Code will always reject requests to use denied tools.',
+            allow: "Claude Code 使用已允许的工具前不会再询问。",
+            ask: 'Claude Code 使用这些工具前始终会请求确认。',
+            deny: 'Claude Code 始终会拒绝使用被拒绝工具的请求。',
           }[tab]
         }
       </Text>
@@ -438,19 +438,19 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
     for (const rule of rules) {
       setChanges(prev => [
         ...prev,
-        `Added ${rule.ruleBehavior} rule ${chalk.bold(permissionRuleValueToString(rule.ruleValue))}`,
+        `已添加${rule.ruleBehavior}规则 ${chalk.bold(permissionRuleValueToString(rule.ruleValue))}`,
       ]);
     }
 
     // Show warnings for any unreachable rules we just added
     if (unreachable && unreachable.length > 0) {
       for (const u of unreachable) {
-        const severity = u.shadowType === 'deny' ? 'blocked' : 'shadowed';
+        const severity = u.shadowType === 'deny' ? '被拦截' : '被遮蔽';
         setChanges(prev => [
           ...prev,
-          chalk.yellow(`${figures.warning} Warning: ${permissionRuleValueToString(u.rule.ruleValue)} is ${severity}`),
+          chalk.yellow(`${figures.warning} 警告：${permissionRuleValueToString(u.rule.ruleValue)} 已${severity}`),
           chalk.dim(`  ${u.reason}`),
-          chalk.dim(`  Fix: ${u.fix}`),
+          chalk.dim(`  修复：${u.fix}`),
         ]);
       }
     }
@@ -485,10 +485,10 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
     const approvedDenials = denialsFor(s.approved);
     if (approvedDenials.length > 0 || changes.length > 0) {
       const approvedMsg =
-        approvedDenials.length > 0 ? [`Approved ${approvedDenials.map(d => chalk.bold(d.display)).join(', ')}`] : [];
+        approvedDenials.length > 0 ? [`已批准 ${approvedDenials.map(d => chalk.bold(d.display)).join(', ')}`] : [];
       onExit([...approvedMsg, ...changes].join('\n'));
     } else {
-      onExit('Permissions dialog dismissed', {
+      onExit('权限对话框已关闭', {
         display: 'system',
       });
     }
@@ -537,7 +537,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
 
     setChanges(prev => [
       ...prev,
-      `Deleted ${selectedRule.ruleBehavior} rule ${chalk.bold(permissionRuleValueToString(selectedRule.ruleValue))}`,
+      `已删除${selectedRule.ruleBehavior}规则 ${chalk.bold(permissionRuleValueToString(selectedRule.ruleValue))}`,
     ]);
     setSelectedRule(undefined);
   };
@@ -615,7 +615,7 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
       <RemoveWorkspaceDirectory
         directoryPath={removingDirectory}
         onRemove={() => {
-          setChanges(prev => [...prev, `Removed directory ${chalk.bold(removingDirectory)} from workspace`]);
+          setChanges(prev => [...prev, `已将目录 ${chalk.bold(removingDirectory)} 从工作区移除`]);
           setRemovingDirectory(null);
         }}
         onCancel={() => setRemovingDirectory(null)}
@@ -649,28 +649,28 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
     <Box flexDirection="column" onKeyDown={handleKeyDown}>
       <Pane color="permission">
         <Tabs
-          title="Permissions:"
+          title="权限："
           color="permission"
           defaultTab={defaultTab}
           hidden={isHidden}
           initialHeaderFocused={!hasDenials}
           navFromContent={!isSearchMode}
         >
-          <Tab id="recent" title="Recently denied">
+          <Tab id="recent" title="最近被拒绝">
             <RecentDenialsTab onHeaderFocusChange={handleHeaderFocusChange} onStateChange={handleDenialStateChange} />
           </Tab>
-          <Tab id="allow" title="Allow">
+          <Tab id="allow" title="允许">
             <PermissionRulesTab tab="allow" {...sharedRulesProps} />
           </Tab>
-          <Tab id="ask" title="Ask">
+          <Tab id="ask" title="询问">
             <PermissionRulesTab tab="ask" {...sharedRulesProps} />
           </Tab>
-          <Tab id="deny" title="Deny">
+          <Tab id="deny" title="拒绝">
             <PermissionRulesTab tab="deny" {...sharedRulesProps} />
           </Tab>
-          <Tab id="workspace" title="Workspace">
+          <Tab id="workspace" title="工作区">
             <Box flexDirection="column">
-              <Text>Claude Code can read files in the workspace, and make edits when auto-accept edits is on.</Text>
+              <Text>Claude Code 可以读取工作区中的文件，并在开启自动接受编辑时进行修改。</Text>
               <WorkspaceTab
                 onExit={onExit}
                 toolPermissionContext={toolPermissionContext}
@@ -686,13 +686,13 @@ export function PermissionRuleList({ onExit, initialTab, onRetryDenials }: Props
             {exitState.pending ? (
               <>Press {exitState.keyName} again to exit</>
             ) : headerFocused ? (
-              <>←/→ tab switch · ↓ return · Esc cancel</>
+              <>←/→ 切换标签页 · ↓ 返回 · Esc 取消</>
             ) : isSearchMode ? (
-              <>Type to filter · Enter/↓ select · ↑ tabs · Esc clear</>
+              <>输入以筛选 · Enter/↓ 选择 · ↑ 标签页 · Esc 清空</>
             ) : hasDenials && defaultTab === 'recent' ? (
-              <>Enter approve · r retry · ↑↓ navigate · ←/→ switch · Esc cancel</>
+              <>Enter 批准 · r 重试 · ↑↓ 导航 · ←/→ 切换 · Esc 取消</>
             ) : (
-              <>↑↓ navigate · Enter select · Type to search · ←/→ switch · Esc cancel</>
+              <>↑↓ 导航 · Enter 选择 · 输入以搜索 · ←/→ 切换 · Esc 取消</>
             )}
           </Text>
         </Box>

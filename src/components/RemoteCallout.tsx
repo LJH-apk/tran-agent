@@ -35,27 +35,26 @@ export function RemoteCallout({ onDone }: Props): React.ReactNode {
 
   const options: OptionWithDescription<RemoteCalloutSelection>[] = [
     {
-      label: 'Enable Remote Control for this session',
-      description: 'Opens a secure connection to claude.ai.',
+      label: '为本次会话启用远程控制',
+      description: '打开与 claude.ai 的安全连接。',
       value: 'enable',
     },
     {
-      label: 'Never mind',
-      description: 'You can always enable it later with /remote-control.',
+      label: '不用了',
+      description: '你随时可以用 /remote-control 再启用。',
       value: 'dismiss',
     },
   ];
 
   return (
-    <PermissionDialog title="Remote Control">
+    <PermissionDialog title="远程控制">
       <Box flexDirection="column" paddingX={2} paddingY={1}>
         <Box marginBottom={1} flexDirection="column">
           <Text>
-            Remote Control lets you access this CLI session from the web (claude.ai/code) or the Claude app, so you can
-            pick up where you left off on any device.
+            远程控制让你能从网页（claude.ai/code）或 Claude App 访问此 CLI 会话，从而在任何设备上继续之前的工作。
           </Text>
           <Text> </Text>
-          <Text>You can disconnect remote access anytime by running /remote-control again.</Text>
+          <Text>你可以随时再次运行 /remote-control 断开远程访问。</Text>
         </Box>
         <Box>
           <Select options={options} onChange={handleSelect} onCancel={handleCancel} />

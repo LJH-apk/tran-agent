@@ -30,40 +30,40 @@ export function GoalReplaceConfirmDialog({ currentGoal, newObjective, onConfirm,
       : `${currentGoal.tokensUsed}`;
 
   return (
-    <PermissionDialog color="warning" title="Replace active goal?">
+    <PermissionDialog color="warning" title="替换当前目标？">
       <Box flexDirection="column" marginTop={1} paddingX={1}>
-        <Text>A goal is already in progress. Replacing it will reset all progress and counters.</Text>
+        <Text>已有目标正在进行中。替换它会重置所有进度和计数器。</Text>
 
         <Box marginTop={1} flexDirection="column">
-          <Text dimColor>Current goal:</Text>
+          <Text dimColor>当前目标：</Text>
           <Text>
-            <Text dimColor>· Objective: </Text>
+            <Text dimColor>· 目标： </Text>
             {currentGoal.objective}
           </Text>
           <Text>
-            <Text dimColor>· Status: </Text>
+            <Text dimColor>· 状态： </Text>
             {formatGoalStatusLabel(currentGoal.status)}
           </Text>
           <Text>
-            <Text dimColor>· Time: </Text>
+            <Text dimColor>· 用时： </Text>
             {formatGoalElapsed(currentGoal)}
           </Text>
           <Text>
-            <Text dimColor>· Tokens: </Text>
+            <Text dimColor>· Token： </Text>
             {tokensDisplay}
           </Text>
         </Box>
 
         <Box marginTop={1} flexDirection="column">
-          <Text dimColor>New objective:</Text>
+          <Text dimColor>新目标：</Text>
           <Text>{newObjective}</Text>
         </Box>
 
         <Box marginTop={1}>
           <Select
             options={[
-              { label: 'Yes, replace the goal', value: 'yes' as const },
-              { label: 'No, keep the current goal', value: 'no' as const },
+              { label: '是，替换目标', value: 'yes' as const },
+              { label: '否，保留当前目标', value: 'no' as const },
             ]}
             onChange={handleResponse}
             onCancel={onCancel}

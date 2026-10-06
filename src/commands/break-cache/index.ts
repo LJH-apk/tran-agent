@@ -110,19 +110,19 @@ function incrementBreakCount(): void {
 }
 
 const USAGE_TEXT = [
-  'Usage: /break-cache [scope]',
+  '用法：/break-cache [scope]',
   '',
-  '  (no args)        Schedule a one-time cache break for the next API call',
-  '  once             Same as no args',
-  '  always           Enable persistent cache-break mode (every request)',
-  '  off              Disable always mode and clear any pending marker',
-  '  --clear          Clear the pending once marker (cancel before next call)',
-  '  status           Show current break-cache status and stats',
+  '  （无参数）        为下一次 API 调用安排一次性缓存失效',
+  '  once             等同于不带参数',
+  '  always           启用持续缓存失效模式（每次请求都失效）',
+  '  off              关闭 always 模式并清除待处理的标记',
+  '  --clear          清除待处理的一次性标记（在下次调用前取消）',
+  '  status           显示当前缓存失效状态与统计',
   '',
-  'How it works:',
-  '  The Anthropic prompt cache keys on the system-prompt prefix hash.',
-  '  A unique nonce invalidates the hash, forcing a fresh compute.',
-  '  This is useful when you want to ensure a clean context window.',
+  '工作原理：',
+  '  Anthropic 提示缓存以系统提示前缀的哈希作为键。',
+  '  每次写入唯一随机数即可改变该哈希，强制重新计算。',
+  '  当你希望确保上下文窗口干净时，这很有用。',
 ].join('\n')
 
 export async function callBreakCache(
@@ -142,10 +142,10 @@ export async function callBreakCache(
       value: [
         '## Break-Cache Status',
         '',
-        `  Once marker:    ${onceActive ? 'ACTIVE (next call will bust cache)' : 'not set'}`,
-        `  Always mode:    ${alwaysActive ? 'ON (every call busts cache)' : 'off'}`,
+        `  一次性标记：  ${onceActive ? 'ACTIVE (next call will bust cache)' : 'not set'}`,
+        `  always 模式： ${alwaysActive ? 'ON (every call busts cache)' : 'off'}`,
         '',
-        '## Stats',
+        '## 统计',
         `  total_breaks:   ${stats.totalBreaks}`,
         `  last_break_at:  ${stats.lastBreakAt ?? 'never'}`,
       ].join('\n'),
@@ -168,7 +168,7 @@ export async function callBreakCache(
       type: 'text',
       value: cleared
         ? 'Break-cache disabled. Removed once marker and/or always flag.'
-        : 'Break-cache was not active.',
+        : '缓存失效当前未启用。',
     }
   }
 
@@ -178,7 +178,7 @@ export async function callBreakCache(
       unlinkSync(markerPath)
       return {
         type: 'text',
-        value: `Cache-break marker cleared.\n  \`${markerPath}\``,
+        value: `缓存失效标记已清除。\n  \`${markerPath}\``,
       }
     }
     return {
@@ -198,10 +198,10 @@ export async function callBreakCache(
         '',
         `Flag written: \`${alwaysPath}\``,
         '',
-        'Every API call will now append a random nonce to the system prompt,',
-        'permanently preventing prompt-cache hits for this session.',
+        '现在每次 API 调用都会向系统提示追加一个随机数，',
+        '本次会话将永久无法命中提示缓存。',
         '',
-        'To disable: `/break-cache off`',
+        '如需关闭：`/break-cache off`',
       ].join('\n'),
     }
   }
@@ -219,18 +219,18 @@ export async function callBreakCache(
         '## Cache break scheduled',
         '',
         `Marker written: \`${markerPath}\``,
-        `Timestamp: ${timestamp}`,
+        `时间戳：${timestamp}`,
         '',
-        'The next API call will append a random nonce to the system prompt,',
-        'causing a cache miss. The marker is removed automatically after use.',
+        '下一次 API 调用会向系统提示追加一个随机数，',
+        '从而导致缓存未命中。使用后该标记会自动移除。',
         '',
-        'To cancel before the next call: `/break-cache --clear`',
-        'For every call:               `/break-cache always`',
+        '如需在下次调用前取消：`/break-cache --clear`',
+        '如需每次调用都生效：    `/break-cache always`',
         '',
-        `Total breaks this session: ${stats.totalBreaks}`,
+        `本次会话累计失效次数：${stats.totalBreaks}`,
         '',
-        '_How it works: Anthropic prompt cache keys on the system-prompt prefix hash._',
-        '_A unique nonce invalidates the hash, forcing a fresh compute._',
+        '_原理：Anthropic 提示缓存以系统提示前缀的哈希作为键。_',
+        '_写入唯一随机数即可改变该哈希，强制重新计算。_',
       ].join('\n'),
     }
   }
@@ -238,7 +238,7 @@ export async function callBreakCache(
   // ── unknown scope ──
   return {
     type: 'text',
-    value: [`Unknown scope: "${scope}"`, '', USAGE_TEXT].join('\n'),
+    value: [`未知的 scope："${scope}"`, '', USAGE_TEXT].join('\n'),
   }
 }
 
@@ -254,7 +254,7 @@ const breakCache: Command = {
   getBridgeInvocationError: args =>
     args.trim()
       ? undefined
-      : 'Use /break-cache once/status/always/off over Remote Control.',
+      : '通过远程控制使用时请用 /break-cache once/status/always/off。',
   load: () => import('./panel.js'),
 }
 

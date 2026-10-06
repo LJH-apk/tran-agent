@@ -73,7 +73,7 @@ const brief = {
             source:
               'slash_command' as AnalyticsMetadata_I_VERIFIED_THIS_IS_NOT_CODE_OR_FILEPATHS,
           })
-          onDone('Brief tool is not enabled for your account', {
+          onDone('您的账号未启用 Brief 工具', {
             display: 'system',
           })
           return null
@@ -119,7 +119,7 @@ const brief = {
             ]
 
         onDone(
-          newState ? 'Brief-only mode enabled' : 'Brief-only mode disabled',
+          newState ? '已启用仅简报模式' : '已禁用仅简报模式',
           { display: 'system', metaMessages },
         )
         return null

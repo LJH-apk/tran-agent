@@ -333,13 +333,13 @@ export function SelectInputOption<T>({
                   {imageAttachments.length > 1 && (
                     <>
                       <ConfigurableShortcutHint
-                        action="attachments:next"
+                        action="attachments:下一个"
                         context="Attachments"
                         fallback="→"
                         description="next"
                       />
                       <ConfigurableShortcutHint
-                        action="attachments:previous"
+                        action="attachments:上一个ious"
                         context="Attachments"
                         fallback="←"
                         description="prev"
@@ -347,7 +347,7 @@ export function SelectInputOption<T>({
                     </>
                   )}
                   <ConfigurableShortcutHint
-                    action="attachments:remove"
+                    action="attachments:移除"
                     context="Attachments"
                     fallback="backspace"
                     description="remove"
@@ -356,11 +356,11 @@ export function SelectInputOption<T>({
                     action="attachments:exit"
                     context="Attachments"
                     fallback="esc"
-                    description="cancel"
+                    description="取消"
                   />
                 </Byline>
               ) : isFocused ? (
-                '(↓ to select)'
+                '（↓ 选择）'
               ) : null}
             </Text>
           </Box>

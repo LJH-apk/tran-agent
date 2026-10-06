@@ -103,7 +103,7 @@ export function getNewAgentFilePath(agent: {
  */
 export function getActualAgentFilePath(agent: AgentDefinition): string {
   if (agent.source === 'built-in') {
-    return 'Built-in'
+    return '内置'
   }
   if (agent.source === 'plugin') {
     throw new Error('Cannot get file path for plugin agents')
@@ -123,7 +123,7 @@ export function getNewRelativeAgentFilePath(agent: {
   agentType: string
 }): string {
   if (agent.source === 'built-in') {
-    return 'Built-in'
+    return '内置'
   }
   const dirPath = getRelativeAgentDirectoryPath(agent.source)
   return join(dirPath, `${agent.agentType}.md`)
@@ -134,13 +134,13 @@ export function getNewRelativeAgentFilePath(agent: {
  */
 export function getActualRelativeAgentFilePath(agent: AgentDefinition): string {
   if (isBuiltInAgent(agent)) {
-    return 'Built-in'
+    return '内置'
   }
   if (isPluginAgent(agent)) {
-    return `Plugin: ${agent.plugin || 'Unknown'}`
+    return `插件：${agent.plugin || '未知'}`
   }
   if (agent.source === 'flagSettings') {
-    return 'CLI argument'
+    return 'CLI 参数'
   }
 
   const dirPath = getRelativeAgentDirectoryPath(agent.source)
@@ -196,7 +196,7 @@ export async function saveAgentToFile(
     await writeFileAndFlush(filePath, content, checkExists ? 'wx' : 'w')
   } catch (e: unknown) {
     if (getErrnoCode(e) === 'EEXIST') {
-      throw new Error(`Agent file already exists: ${filePath}`)
+      throw new Error(`智能体文件已存在：${filePath}`)
     }
     throw e
   }

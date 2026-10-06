@@ -51,15 +51,15 @@ function drainGoalContinuationQueue(): void {
 function formatGoalStatus(): string {
   const goal = getGoal();
   if (!goal) {
-    return 'No active goal. Set one with `/goal <objective>`.';
+    return '当前没有目标。可用 `/goal <目标描述>` 设置一个。';
   }
   const tokens = goal.tokenBudget !== null ? `${goal.tokensUsed} / ${goal.tokenBudget}` : `${goal.tokensUsed}`;
   const lines = [
-    `Goal: ${goal.objective}`,
-    `Status: ${formatGoalStatusLabel(goal.status)}`,
-    `Time: ${formatGoalElapsed(goal)}`,
-    `Tokens: ${tokens}`,
-    `Continuation turns: ${goal.turnsExecuted}`,
+    `目标：${goal.objective}`,
+    `状态：${formatGoalStatusLabel(goal.status)}`,
+    `耗时：${formatGoalElapsed(goal)}`,
+    `Token：${tokens}`,
+    `续接轮次：${goal.turnsExecuted}`,
   ];
 
   if (goal.status === 'max_turns') {
@@ -75,7 +75,7 @@ function applySetGoal(objective: string): string {
   setGoal(objective);
   incrementGoalTurns();
   persistCurrentGoal();
-  return 'Goal set.';
+  return '目标已设置。';
 }
 
 export async function call(
@@ -98,7 +98,7 @@ export async function call(
       persistGoalClear();
       drainGoalContinuationQueue();
     }
-    onDone(cleared ? 'Goal cleared.' : 'No active goal to clear.', {
+    onDone(cleared ? '目标已清除。' : '没有可清除的目标。', {
       display: 'system',
     });
     return null;
@@ -110,7 +110,7 @@ export async function call(
       persistCurrentGoal();
       drainGoalContinuationQueue();
     }
-    onDone(g ? 'Goal paused.' : 'No active goal to pause.', {
+    onDone(g ? '目标已暂停。' : '没有可暂停的目标。', {
       display: 'system',
     });
     return null;
@@ -127,7 +127,7 @@ export async function call(
     }
     const g = resumeGoal();
     if (g) persistCurrentGoal();
-    onDone(g ? 'Goal resumed.' : 'No paused goal to resume.', {
+    onDone(g ? '目标已恢复。' : '没有已暂停的目标可恢复。', {
       display: 'system',
       shouldQuery: Boolean(g),
     });
@@ -139,8 +139,8 @@ export async function call(
     if (g) persistCurrentGoal();
     onDone(
       g
-        ? `Goal continuation counter reset (0/${MAX_GOAL_TURNS}). Continuing...`
-        : 'Current goal is not in max-turns state.',
+        ? `目标续接计数已重置（0/${MAX_GOAL_TURNS}）。继续执行...`
+        : '当前目标并非处于「达到最大轮次」状态。',
       {
         display: 'system',
         shouldQuery: Boolean(g),
@@ -155,7 +155,7 @@ export async function call(
       persistCurrentGoal();
       drainGoalContinuationQueue();
     }
-    onDone(g ? 'Goal marked complete.' : 'No active goal to complete.', {
+    onDone(g ? '目标已标记为完成。' : '没有可标记完成的目标。', {
       display: 'system',
     });
     return null;
@@ -163,7 +163,7 @@ export async function call(
 
   if (trimmed.length > MAX_OBJECTIVE_CHARS) {
     onDone(
-      `Goal objective is too long (${trimmed.length} chars; limit ${MAX_OBJECTIVE_CHARS}). Save the detailed instructions to a file and reference it from a shorter objective.`,
+      `目标描述过长（${trimmed.length} 字符；上限 ${MAX_OBJECTIVE_CHARS}）。请把详细说明保存到文件中，再用一段简短的目标引用它。`,
       { display: 'system' },
     );
     return null;
@@ -198,7 +198,7 @@ export async function call(
         });
       }}
       onCancel={() => {
-        onDone('Kept the current goal. New objective discarded.', {
+        onDone('已保留当前目标，新目标描述已丢弃。', {
           display: 'system',
         });
       }}

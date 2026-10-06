@@ -49,7 +49,7 @@ export function FeedbackSurvey({
   if (state === 'submitted') {
     return (
       <Box marginTop={1}>
-        <Text color="success">{'\u2713'} Thanks for sharing your transcript!</Text>
+        <Text color="success">{'\u2713'} 感谢分享你的会话记录！</Text>
       </Box>
     );
   }
@@ -57,7 +57,7 @@ export function FeedbackSurvey({
   if (state === 'submitting') {
     return (
       <Box marginTop={1}>
-        <Text dimColor>Sharing transcript{'\u2026'}</Text>
+        <Text dimColor>正在分享会话记录{'\u2026'}</Text>
       </Box>
     );
   }
@@ -130,14 +130,14 @@ function FeedbackSurveyThanks({
 
   return (
     <Box marginTop={1} flexDirection="column">
-      <Text color="success">Thanks for the feedback!</Text>
+      <Text color="success">感谢反馈！</Text>
       {showFollowUp ? (
         <Text dimColor>
           (Optional) Press [<Text color="ansi:cyan">1</Text>] to tell us what went well {' \u00b7 '}
           {feedbackCommand}
         </Text>
       ) : lastResponse === 'bad' ? (
-        <Text dimColor>Use /issue to report model behavior issues.</Text>
+        <Text dimColor>使用 /issue 反馈模型行为问题。</Text>
       ) : (
         <Text dimColor>Use {feedbackCommand} to share detailed feedback anytime.</Text>
       )}

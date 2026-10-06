@@ -43,7 +43,7 @@ const call: LocalCommandCall = async (_args, context) => {
 
   return {
     type: 'text',
-    value: `Snipped ${removedUuids.length} message(s). Older history will be excluded from the next model query.`,
+    value: `已裁剪 ${removedUuids.length} 条消息。较早的历史将不再包含在下一次模型请求中。`,
   }
 }
 

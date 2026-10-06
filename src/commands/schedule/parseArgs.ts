@@ -26,7 +26,7 @@ export type ScheduleArgs =
   | { action: 'invalid'; reason: string }
 
 const USAGE =
-  'Usage: /schedule list | get ID | create CRON PROMPT | update ID FIELD VALUE | delete ID | run ID | enable ID | disable ID'
+  '用法：/schedule list | get ID | create CRON PROMPT | update ID FIELD VALUE | delete ID | run ID | enable ID | disable ID'
 
 /**
  * Extract the first 5 whitespace-separated tokens as a cron expression;
@@ -66,12 +66,12 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
   // ── get ───────────────────────────────────────────────────────────────────
   if (subCmd === 'get') {
     if (!rest) {
-      return { action: 'invalid', reason: 'get requires a trigger id' }
+      return { action: 'invalid', reason: 'get 需要一个触发器 id' }
     }
     const id = rest.split(/\s+/)[0]
     /* istanbul ignore next */
     if (!id) {
-      return { action: 'invalid', reason: 'get requires a trigger id' }
+      return { action: 'invalid', reason: 'get 需要一个触发器 id' }
     }
     return { action: 'get', id }
   }
@@ -82,7 +82,7 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
       return {
         action: 'invalid',
         reason:
-          'create requires a cron expression and prompt, e.g. create "0 9 * * 1" Run weekly standup',
+          'create 需要 cron 表达式和提示词，例如 create "0 9 * * 1" Run weekly standup',
       }
     }
     const parsed = splitCronAndPrompt(rest)
@@ -90,19 +90,19 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
       return {
         action: 'invalid',
         reason:
-          'create requires 5 cron fields followed by a prompt, e.g. create "0 9 * * 1" Run weekly standup',
+          'create 需要 5 个 cron 字段后跟提示词，例如 create "0 9 * * 1" Run weekly standup',
       }
     }
     const { cron, prompt } = parsed
     if (!isValidCronExpression(cron)) {
       return {
         action: 'invalid',
-        reason: `Invalid cron expression: "${cron}". Expected 5 fields (minute hour day month weekday).`,
+        reason: `cron 表达式无效：“${cron}”。应为 5 个字段（分 时 日 月 星期）。`,
       }
     }
     /* istanbul ignore next -- prompt is non-empty by construction from splitCronAndPrompt */
     if (!prompt.trim()) {
-      return { action: 'invalid', reason: 'prompt cannot be empty' }
+      return { action: 'invalid', reason: '提示词不能为空' }
     }
     return { action: 'create', cron, prompt: prompt.trim() }
   }
@@ -114,17 +114,17 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
       return {
         action: 'invalid',
         reason:
-          'update requires an id, field, and value, e.g. update trg_123 enabled false',
+          'update 需要 id、字段和值，例如 update trg_123 enabled false',
       }
     }
     const id = parts[0]
     const field = parts[1] ?? ''
     const value = parts.slice(2).join(' ')
     if (!field) {
-      return { action: 'invalid', reason: 'update requires a field name' }
+      return { action: 'invalid', reason: 'update 需要一个字段名' }
     }
     if (!value) {
-      return { action: 'invalid', reason: 'update requires a value' }
+      return { action: 'invalid', reason: 'update 需要一个值' }
     }
     return { action: 'update', id, field, value }
   }
@@ -132,12 +132,12 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
   // ── delete ────────────────────────────────────────────────────────────────
   if (subCmd === 'delete') {
     if (!rest) {
-      return { action: 'invalid', reason: 'delete requires a trigger id' }
+      return { action: 'invalid', reason: 'delete 需要一个触发器 id' }
     }
     const id = rest.split(/\s+/)[0]
     /* istanbul ignore next */
     if (!id) {
-      return { action: 'invalid', reason: 'delete requires a trigger id' }
+      return { action: 'invalid', reason: 'delete 需要一个触发器 id' }
     }
     return { action: 'delete', id }
   }
@@ -145,12 +145,12 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
   // ── run ───────────────────────────────────────────────────────────────────
   if (subCmd === 'run') {
     if (!rest) {
-      return { action: 'invalid', reason: 'run requires a trigger id' }
+      return { action: 'invalid', reason: 'run 需要一个触发器 id' }
     }
     const id = rest.split(/\s+/)[0]
     /* istanbul ignore next */
     if (!id) {
-      return { action: 'invalid', reason: 'run requires a trigger id' }
+      return { action: 'invalid', reason: 'run 需要一个触发器 id' }
     }
     return { action: 'run', id }
   }
@@ -160,7 +160,7 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
     if (!rest) {
       return {
         action: 'invalid',
-        reason: `${subCmd} requires a trigger id`,
+        reason: `${subCmd} 需要一个触发器 id`,
       }
     }
     const id = rest.split(/\s+/)[0]
@@ -168,7 +168,7 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
     if (!id) {
       return {
         action: 'invalid',
-        reason: `${subCmd} requires a trigger id`,
+        reason: `${subCmd} 需要一个触发器 id`,
       }
     }
     return { action: subCmd as 'enable' | 'disable', id }
@@ -176,6 +176,6 @@ export function parseScheduleArgs(args: string): ScheduleArgs {
 
   return {
     action: 'invalid',
-    reason: `Unknown sub-command "${subCmd}". ${USAGE}`,
+    reason: `未知子命令“${subCmd}”。${USAGE}`,
   }
 }

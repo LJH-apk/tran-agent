@@ -41,7 +41,7 @@ const call: LocalCommandCall = async (_args, context) => {
     if (!result.success) {
       return {
         type: 'text',
-        value: `Failed to generate session summary: ${result.error ?? 'unknown error'}`,
+        value: `生成会话摘要失败：${result.error ?? 'unknown error'}`,
       }
     }
 
@@ -56,12 +56,12 @@ const call: LocalCommandCall = async (_args, context) => {
 
     return {
       type: 'text',
-      value: `Session summary updated.\n\n${content}`,
+      value: `会话摘要已更新。\n\n${content}`,
     }
   } catch (error) {
     return {
       type: 'text',
-      value: `Failed to generate session summary: ${error instanceof Error ? error.message : String(error)}`,
+      value: `生成会话摘要失败：${error instanceof Error ? error.message : String(error)}`,
     }
   }
 }

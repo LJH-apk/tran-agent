@@ -50,7 +50,7 @@ export function parseAgentsPlatformArgs(args: string): AgentsPlatformArgs {
       return {
         action: 'invalid',
         reason:
-          'create requires a cron expression and prompt, e.g. create "0 9 * * 1" Run daily standup',
+          '创建定时任务需要提供 cron 表达式和提示词，例如：create "0 9 * * 1" Run daily standup',
       }
     }
     const parsed = splitCronAndPrompt(rest)
@@ -58,7 +58,7 @@ export function parseAgentsPlatformArgs(args: string): AgentsPlatformArgs {
       return {
         action: 'invalid',
         reason:
-          'create requires at least 5 cron fields followed by a prompt, e.g. create "0 9 * * 1" Run daily standup',
+          '创建定时任务至少需要 5 个 cron 字段，其后跟提示词，例如：create "0 9 * * 1" Run daily standup',
       }
     }
     const { cron, prompt } = parsed
@@ -66,37 +66,37 @@ export function parseAgentsPlatformArgs(args: string): AgentsPlatformArgs {
     // this guard is a defensive fallback against future refactors.
     /* istanbul ignore next -- prompt is non-empty by construction from splitCronAndPrompt */
     if (!prompt.trim()) {
-      return { action: 'invalid', reason: 'prompt cannot be empty' }
+      return { action: 'invalid', reason: '提示词不能为空' }
     }
     return { action: 'create', cron, prompt: prompt.trim() }
   }
 
   if (subCmd === 'delete') {
     if (!rest) {
-      return { action: 'invalid', reason: 'delete requires an agent id' }
+      return { action: 'invalid', reason: '删除操作需要提供智能体 ID' }
     }
     const id = rest.split(/\s+/)[0]
     /* istanbul ignore next -- rest is non-empty; split(/\s+/) always yields a non-empty first token */
     if (!id) {
-      return { action: 'invalid', reason: 'delete requires an agent id' }
+      return { action: 'invalid', reason: '删除操作需要提供智能体 ID' }
     }
     return { action: 'delete', id }
   }
 
   if (subCmd === 'run') {
     if (!rest) {
-      return { action: 'invalid', reason: 'run requires an agent id' }
+      return { action: 'invalid', reason: '运行操作需要提供智能体 ID' }
     }
     const id = rest.split(/\s+/)[0]
     /* istanbul ignore next -- rest is non-empty; split(/\s+/) always yields a non-empty first token */
     if (!id) {
-      return { action: 'invalid', reason: 'run requires an agent id' }
+      return { action: 'invalid', reason: '运行操作需要提供智能体 ID' }
     }
     return { action: 'run', id }
   }
 
   return {
     action: 'invalid',
-    reason: `Unknown sub-command "${subCmd}". Use: list | create CRON PROMPT | delete ID | run ID`,
+    reason: `未知子命令 "${subCmd}"。用法：list | create CRON PROMPT | delete ID | run ID`,
   }
 }
