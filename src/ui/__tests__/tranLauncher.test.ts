@@ -9,22 +9,30 @@ import { getChafaEmblem } from '../chafaEmblem.js'
 describe('compiled Tran launcher', () => {
   let directory: string
   beforeAll(async () => {
-    directory = await realpath(await mkdtemp(join(tmpdir(), 'tran-launcher-test-')))
+    directory = await realpath(
+      await mkdtemp(join(tmpdir(), 'tran-launcher-test-')),
+    )
     await buildTranLauncher(directory)
-    await writeFile(join(directory, 'cli.js'), 'console.log(process.cwd())')
+    await writeFile(
+      join(directory, 'cli.js'),
+      `
+      console.log(process.cwd());
+      if (process.argv.length > 2) console.log(JSON.stringify(process.argv.slice(2)));
+    `,
+    )
   })
   afterAll(async () => {
     await rm(directory, { recursive: true, force: true })
   })
 
-  async function launch(preview: boolean) {
+  async function launch(preview: boolean, args: string[] = []) {
     const launcher = pathToFileURL(join(directory, 'tran.js')).href
     const script = `
       Object.defineProperty(process.stdin, 'isTTY', { value: true });
       Object.defineProperty(process.stdout, 'isTTY', { value: true });
       Object.defineProperty(process.stdout, 'columns', { value: 82 });
       Object.defineProperty(process.stdout, 'rows', { value: 47 });
-      process.argv = ['bun', ${JSON.stringify(launcher)}, ...${JSON.stringify(preview ? ['--splash-only'] : [])}];
+      process.argv = ['bun', ${JSON.stringify(launcher)}, ...${JSON.stringify(preview ? ['--splash-only', ...args] : args)}];
       await import(${JSON.stringify(launcher)});
     `
     const child = Bun.spawn([process.execPath, '-e', script], {
@@ -78,5 +86,23 @@ describe('compiled Tran launcher', () => {
       '{"skipStartupAnimation":true}',
     )
     expect(await launch(false)).toBe(`${directory}\n`)
+  })
+
+  test('resumes a specified session with the configured animation and intact CLI arguments', async () => {
+    await rm(join(directory, '.config.json'), { force: true })
+    const args = ['--resume', '9dcdd30e-a9de-4e88-93c9-59da7278dcd3']
+    const cliOutput = `${directory}\n${JSON.stringify(args)}\n`
+    await writeFile(
+      join(directory, '.claude.json'),
+      '{"skipStartupAnimation":true}',
+    )
+    expect(await launch(false, args)).toBe(cliOutput)
+    await writeFile(
+      join(directory, '.claude.json'),
+      '{"skipStartupAnimation":false}',
+    )
+    const output = await launch(false, args)
+    expect(output).toContain('\x1b[?1049h')
+    expect(output).toContain(cliOutput)
   })
 })

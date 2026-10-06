@@ -16,7 +16,17 @@ const terminal: SplashTerminal = {
 
 describe('shouldShowStartupSplash', () => {
   test('allows interactive launch and resume selectors', () => {
-    for (const args of [[], ['--continue'], ['-c'], ['--resume'], ['-r']]) {
+    for (const args of [
+      [],
+      ['--continue'],
+      ['-c'],
+      ['--resume'],
+      ['-r'],
+      ['--resume', '9dcdd30e-a9de-4e88-93c9-59da7278dcd3'],
+      ['-r', '9dcdd30e-a9de-4e88-93c9-59da7278dcd3'],
+      ['--resume=my session'],
+      ['--resume', 'my session'],
+    ]) {
       expect(shouldShowStartupSplash(args, terminal)).toBe(true)
     }
   })
@@ -31,6 +41,10 @@ describe('shouldShowStartupSplash', () => {
       ['mcp', 'list'],
       ['auth', 'login'],
       ['hello'],
+      ['--resume', 'session', '--print'],
+      ['--resume', 'session', '--help'],
+      ['--resume='],
+      ['--continue', 'hello'],
     ]) {
       expect(shouldShowStartupSplash(args, terminal)).toBe(false)
     }

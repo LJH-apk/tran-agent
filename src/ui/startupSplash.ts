@@ -18,6 +18,22 @@ export type SplashTerminal = {
   env: NodeJS.ProcessEnv
 }
 
+function isInteractiveStartup(args: readonly string[]): boolean {
+  for (let index = 0; index < args.length; index++) {
+    const arg = args[index]!
+    if (arg === '-c' || arg === '--continue') continue
+    if (arg === '-r' || arg === '--resume') {
+      // Resume accepts an optional session ID/name; it is part of this flag.
+      const value = args[index + 1]
+      if (value !== undefined && !value.startsWith('-')) index++
+      continue
+    }
+    if (arg.startsWith('--resume=') && arg.length > '--resume='.length) continue
+    return false
+  }
+  return true
+}
+
 export function shouldShowStartupSplash(
   args: readonly string[],
   terminal: SplashTerminal,
@@ -32,7 +48,7 @@ export function shouldShowStartupSplash(
     terminal.env.CI !== 'true' &&
     terminal.env.TRAN_NO_SPLASH !== '1' &&
     terminal.env.TRAN_REDUCED_MOTION !== '1' &&
-    args.every(arg => ['-c', '--continue', '-r', '--resume'].includes(arg))
+    isInteractiveStartup(args)
   )
 }
 

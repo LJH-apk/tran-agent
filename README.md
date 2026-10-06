@@ -6,7 +6,7 @@
 Tran Agent 校徽启动壳（源码版）：`bun run tran`。约一秒的独立校徽动画播放后，保持校徽画面直到 CLI 第一帧准备好再切换；进入后的欢迎界面保留 TA。
 启动动画默认显示 chafa 生成的全彩字符画（`symbols`、`block+border+diagonal+half`），大窗口使用原版 `80x40`，小窗口自动缩小，无需运行时安装 chafa。iTerm2 / Kitty 可用 `TRAN_PNG_SPLASH=1` 切换为透明 PNG。
 使用 `bun run tran --splash-only` 单独预览，`bun run tran --no-splash` 或 `TRAN_NO_SPLASH=1` 跳过动画。
-在 Agent 内输入 `/config`，开启“跳过启动动画”后，下次在任何目录运行 `tran` 都会直接进入 Agent。关闭后恢复动画；`tran --splash-only` 仍可单独预览。
+在 Agent 内输入 `/config`，开启“跳过启动动画”后，下次在任何目录运行 `tran` 都会直接进入 Agent。`tran --resume <会话 ID>`、`tran -r <会话 ID>` 也遵守该设置。关闭后恢复动画；`tran --splash-only` 仍可单独预览。
 `TRAN_REDUCED_MOTION=1` 可关闭动画；`NO_COLOR=1` 使用无彩色动画。非交互模式、命令行子命令及带其他参数的启动直接透传至原 CLI。
 
 [![GitHub Stars](https://img.shields.io/github/stars/claude-code-best/claude-code?style=flat-square&logo=github&color=yellow)](https://github.com/claude-code-best/claude-code/stargazers)
