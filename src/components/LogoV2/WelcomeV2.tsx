@@ -1,12 +1,18 @@
 import React from 'react';
 import { Box, Text, useTheme } from '@anthropic/ink';
+import { PRODUCT_NAME } from '../../constants/product.js';
 import { env } from '../../utils/env.js';
 
 const WELCOME_V2_WIDTH = 58;
 
+// The welcome art below is a single continuous 58-column text flow, so the
+// width of the label shifts every art row underneath it. Pad the label to the
+// width the art was drawn against to hold the picture in place.
+const WELCOME_LABEL_WIDTH = 23;
+
 export function WelcomeV2(): React.ReactNode {
   const [theme] = useTheme();
-  const welcomeMessage = 'Welcome to Claude Code';
+  const welcomeMessage = `Welcome to ${PRODUCT_NAME}`.padEnd(WELCOME_LABEL_WIDTH);
 
   if (env.terminal === 'Apple_Terminal') {
     return <AppleTerminalWelcomeV2 theme={theme} welcomeMessage={welcomeMessage} />;
@@ -17,7 +23,7 @@ export function WelcomeV2(): React.ReactNode {
       <Box width={WELCOME_V2_WIDTH}>
         <Text>
           <Text>
-            <Text color="claude">{welcomeMessage} </Text>
+            <Text color="claude">{welcomeMessage}</Text>
             <Text dimColor>v{MACRO.VERSION} </Text>
           </Text>
           <Text>{'…………………………………………………………………………………………………………………………………………………………'}</Text>
@@ -68,7 +74,7 @@ export function WelcomeV2(): React.ReactNode {
     <Box width={WELCOME_V2_WIDTH}>
       <Text>
         <Text>
-          <Text color="claude">{welcomeMessage} </Text>
+          <Text color="claude">{welcomeMessage}</Text>
           <Text dimColor>v{MACRO.VERSION} </Text>
         </Text>
         <Text>{'…………………………………………………………………………………………………………………………………………………………'}</Text>
@@ -128,7 +134,7 @@ function AppleTerminalWelcomeV2({ theme, welcomeMessage }: AppleTerminalWelcomeV
       <Box width={WELCOME_V2_WIDTH}>
         <Text>
           <Text>
-            <Text color="claude">{welcomeMessage} </Text>
+            <Text color="claude">{welcomeMessage}</Text>
             <Text dimColor>v{MACRO.VERSION} </Text>
           </Text>
           <Text>{'…………………………………………………………………………………………………………………………………………………………'}</Text>
@@ -184,7 +190,7 @@ function AppleTerminalWelcomeV2({ theme, welcomeMessage }: AppleTerminalWelcomeV
     <Box width={WELCOME_V2_WIDTH}>
       <Text>
         <Text>
-          <Text color="claude">{welcomeMessage} </Text>
+          <Text color="claude">{welcomeMessage}</Text>
           <Text dimColor>v{MACRO.VERSION} </Text>
         </Text>
         <Text>{'…………………………………………………………………………………………………………………………………………………………'}</Text>

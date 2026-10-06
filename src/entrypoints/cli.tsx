@@ -4,6 +4,7 @@
 // Without this, JSC's C++ Vector grows without bound in long-running sessions.
 import '../utils/performanceShim.js';
 import { feature } from 'bun:bundle';
+import { PRODUCT_NAME } from '../constants/product.js';
 import { isEnvTruthy } from '../utils/envUtils.js';
 
 // Runtime fallback for MACRO.* when not injected by build/dev defines.
@@ -79,7 +80,7 @@ async function main(): Promise<void> {
   // Fast-path for --version/-v: zero module loading needed
   if (args.length === 1 && (args[0] === '--version' || args[0] === '-v' || args[0] === '-V')) {
     // MACRO.VERSION is inlined at build time
-    console.log(`${MACRO.VERSION} (Claude Code)`);
+    console.log(`${MACRO.VERSION} (${PRODUCT_NAME})`);
     return;
   }
 

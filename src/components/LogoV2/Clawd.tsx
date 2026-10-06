@@ -1,98 +1,63 @@
 import * as React from 'react';
 import { Box, Text } from '@anthropic/ink';
-import { env } from '../../utils/env.js';
 
 export type ClawdPose =
   | 'default'
-  | 'arms-up' // both arms raised (used during jump)
-  | 'look-left' // both pupils shifted left
-  | 'look-right'; // both pupils shifted right
+  | 'arms-up' // kept for the click animation's frame table
+  | 'look-left'
+  | 'look-right';
 
 type Props = {
+  /**
+   * Accepted and ignored — AnimatedClawd still drives its frame table through
+   * this prop, but a wordmark has no poses to switch between. Only the
+   * container offset moves, which reads as the mark bouncing.
+   */
   pose?: ClawdPose;
 };
 
-// Standard-terminal pose fragments. Each row is split into segments so we can
-// vary only the parts that change (eyes, arms) while keeping the body/bg spans
-// stable. All poses end up 9 cols wide.
+// The mark: `TA` as solid block letters, one character per terminal cell.
+// Every row is padded to the same width so the letters line up.
 //
-// arms-up: the row-2 arm shapes (▝▜ / ▛▘) move to row 1 as their
-// bottom-heavy mirrors (▗▟ / ▙▖) — same silhouette, one row higher.
-//
-// look-* use top-quadrant eye chars (▙/▟) so both eyes change from the
-// default (▛/▜, bottom pupils) — otherwise only one eye would appear to move.
-type Segments = {
-  /** row 1 left (no bg): optional raised arm + side */
-  r1L: string;
-  /** row 1 eyes (with bg): left-eye, forehead, right-eye */
-  r1E: string;
-  /** row 1 right (no bg): side + optional raised arm */
-  r1R: string;
-  /** row 2 left (no bg): arm + body curve */
-  r2L: string;
-  /** row 2 right (no bg): body curve + arm */
-  r2R: string;
-};
+// Two rendering details this depends on:
+//   - Filled cells are drawn as `█` *and* given a `clawd_body` background. The
+//     glyph keeps Ink from dropping the run as trailing whitespace (a run of
+//     spaces ending a row is trimmed away entirely, which would eat the top bar
+//     of the `A`), while the matching background is what stops Apple's Terminal
+//     from breaking the letters into horizontal stripes — it puts line spacing
+//     between glyph rows but paints background colours contiguously.
+//   - Four rows, not three, because `A` needs a crossbar row to read as an A.
+const ART = ['██████  ████ ', '  ██   ██  ██', '  ██   ██████', '  ██   ██  ██'];
 
-const POSES: Record<ClawdPose, Segments> = {
-  default: { r1L: ' ▐', r1E: '▛███▜', r1R: '▌', r2L: '▝▜', r2R: '▛▘' },
-  'look-left': { r1L: ' ▐', r1E: '▟███▟', r1R: '▌', r2L: '▝▜', r2R: '▛▘' },
-  'look-right': { r1L: ' ▐', r1E: '▙███▙', r1R: '▌', r2L: '▝▜', r2R: '▛▘' },
-  'arms-up': { r1L: '▗▟', r1E: '▛███▜', r1R: '▙▖', r2L: ' ▜', r2R: '▛ ' },
-};
+/** Rendered width of the mark. Callers reserve this much horizontal space. */
+export const CLAWD_WIDTH = Math.max(...ART.map(row => row.length));
 
-// Apple Terminal uses a bg-fill trick (see below), so only eye poses make
-// sense. Arm poses fall back to default.
-const APPLE_EYES: Record<ClawdPose, string> = {
-  default: ' ▗   ▖ ',
-  'look-left': ' ▘   ▘ ',
-  'look-right': ' ▝   ▝ ',
-  'arms-up': ' ▗   ▖ ',
-};
+/** Rendered height of the mark. AnimatedClawd pins its container to this. */
+export const CLAWD_HEIGHT = ART.length;
 
-export function Clawd({ pose = 'default' }: Props = {}): React.ReactNode {
-  if (env.terminal === 'Apple_Terminal') {
-    return <AppleTerminalClawd pose={pose} />;
+/** One art row: each run of filled or empty cells collapses into one span. */
+function ArtRow({ row }: { row: string }): React.ReactNode {
+  const spans: React.ReactNode[] = [];
+  for (let start = 0; start < row.length; ) {
+    const filled = row[start] === '█';
+    let end = start;
+    while (end < row.length && (row[end] === '█') === filled) end++;
+    spans.push(
+      <Text key={start} color={filled ? 'clawd_body' : undefined} backgroundColor={filled ? 'clawd_body' : undefined}>
+        {row.slice(start, end)}
+      </Text>,
+    );
+    start = end;
   }
-  const p = POSES[pose];
-  return (
-    <Box flexDirection="column">
-      <Text>
-        <Text color="clawd_body">{p.r1L}</Text>
-        <Text color="clawd_body" backgroundColor="clawd_background">
-          {p.r1E}
-        </Text>
-        <Text color="clawd_body">{p.r1R}</Text>
-      </Text>
-      <Text>
-        <Text color="clawd_body">{p.r2L}</Text>
-        <Text color="clawd_body" backgroundColor="clawd_background">
-          █████
-        </Text>
-        <Text color="clawd_body">{p.r2R}</Text>
-      </Text>
-      <Text color="clawd_body">
-        {'  '}▘▘ ▝▝{'  '}
-      </Text>
-    </Box>
-  );
+  return <Text>{spans}</Text>;
 }
 
-function AppleTerminalClawd({ pose }: { pose: ClawdPose }): React.ReactNode {
-  // Apple's Terminal renders vertical space between chars by default.
-  // It does NOT render vertical space between background colors
-  // so we use background color to draw the main shape.
+export function Clawd(_props: Props = {}): React.ReactNode {
   return (
-    <Box flexDirection="column" alignItems="center">
-      <Text>
-        <Text color="clawd_body">▗</Text>
-        <Text color="clawd_background" backgroundColor="clawd_body">
-          {APPLE_EYES[pose]}
-        </Text>
-        <Text color="clawd_body">▖</Text>
-      </Text>
-      <Text backgroundColor="clawd_body">{' '.repeat(7)}</Text>
-      <Text color="clawd_body">▘▘ ▝▝</Text>
+    <Box flexDirection="column">
+      {ART.map((row, i) => (
+        <ArtRow key={i} row={row} />
+      ))}
     </Box>
   );
 }

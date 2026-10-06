@@ -1,5 +1,9 @@
 export const PRODUCT_URL = 'https://github.com/claude-code-best/claude-code'
 
+// Display name shown in the startup welcome box, the terminal tab title and
+// the condensed logo. Rebrand here, not at each render site.
+export const PRODUCT_NAME = 'Tran Agent'
+
 // Claude Code Remote session URLs
 export const CLAUDE_AI_BASE_URL = 'https://claude.ai'
 export const CLAUDE_AI_STAGING_BASE_URL = 'https://claude-ai.staging.ant.dev'

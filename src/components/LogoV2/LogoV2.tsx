@@ -34,6 +34,7 @@ import {
 } from '../../projectOnboardingState.js';
 import { CondensedLogo } from './CondensedLogo.js';
 import { OffscreenFreeze } from '../OffscreenFreeze.js';
+import { PRODUCT_NAME } from 'src/constants/product.js';
 import { checkForReleaseNotesSync } from '../../utils/releaseNotes.js';
 import { getDumpPromptsPath } from 'src/services/api/dumpPrompts.js';
 import { isEnvTruthy } from 'src/utils/envUtils.js';
@@ -201,8 +202,8 @@ export function LogoV2(): React.ReactNode {
   const layoutMode = getLayoutMode(columns);
 
   const userTheme = resolveThemeSetting(getGlobalConfig().theme);
-  const borderTitle = ` ${color('claude', userTheme)('Claude Code')} ${color('inactive', userTheme)(`v${version}`)} `;
-  const compactBorderTitle = color('claude', userTheme)(' Claude Code ');
+  const borderTitle = ` ${color('claude', userTheme)(PRODUCT_NAME)} ${color('inactive', userTheme)(`v${version}`)} `;
+  const compactBorderTitle = color('claude', userTheme)(` ${PRODUCT_NAME} `);
 
   // Early return for compact mode
   if (layoutMode === 'compact') {
