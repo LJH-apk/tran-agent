@@ -44,7 +44,7 @@ describe('teleport index', () => {
   test('getBridgeInvocationError returns error string (not bridge-safe)', () => {
     const err = cmd.getBridgeInvocationError?.('anything')
     expect(typeof err).toBe('string')
-    expect(err).toContain('not bridge-safe')
+    expect(err).toContain('不支持桥接调用')
   })
 
   test('load() exists and is a function', () => {

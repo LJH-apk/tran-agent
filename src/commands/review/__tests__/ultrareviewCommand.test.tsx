@@ -229,7 +229,7 @@ describe('ultrareviewCommand.call: gate branches', () => {
 
     expect(result).toBeNull();
     expect(messages).toHaveLength(1);
-    expect(messages[0]).toContain('Free ultrareviews used');
+    expect(messages[0]).toContain('启用额外用量以继续');
     expect(messages[0]).toContain('claude.ai/settings/billing');
     expect((opts[0] as { display: string }).display).toBe('system');
     // launchRemoteReview must NOT be called when paywalled.
@@ -250,7 +250,7 @@ describe('ultrareviewCommand.call: gate branches', () => {
 
     expect(result).toBeNull();
     expect(messages).toHaveLength(1);
-    expect(messages[0]).toContain('Balance too low');
+    expect(messages[0]).toContain('余额不足以启动');
     expect(messages[0]).toContain('$4.50');
     expect(messages[0]).toContain('claude.ai/settings/billing');
     expect((opts[0] as { display: string }).display).toBe('system');
@@ -290,7 +290,7 @@ describe('ultrareviewCommand.call: gate branches', () => {
 
     expect(result).toBeNull();
     expect(messages).toHaveLength(1);
-    expect(messages[0]).toContain('Ultrareview failed to launch');
+    expect(messages[0]).toContain('无法启动远程会话');
     expect((opts[0] as { display: string }).display).toBe('system');
   });
 

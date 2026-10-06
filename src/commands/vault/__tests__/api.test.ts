@@ -336,7 +336,7 @@ describe('getVault', () => {
         'isAxiosError' in e &&
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
-    await expect(getVault('nonexistent')).rejects.toThrow(/not found/i)
+    await expect(getVault('nonexistent')).rejects.toThrow(/未找到/i)
   })
 
   test('error message only exposes first 8 chars of vault id', async () => {
@@ -429,7 +429,7 @@ describe('listCredentials', () => {
         'isAxiosError' in e &&
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
-    await expect(listCredentials('nonexistent')).rejects.toThrow(/not found/i)
+    await expect(listCredentials('nonexistent')).rejects.toThrow(/未找到/i)
   })
 })
 

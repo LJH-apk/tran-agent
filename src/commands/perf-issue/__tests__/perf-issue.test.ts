@@ -86,8 +86,8 @@ describe('perf-issue command', () => {
       const pathMatch = result.value.match(/\n\s+`?(\S+?\.md)`?/)
       if (pathMatch) {
         const reportContent = readFileSync(pathMatch[1], 'utf8')
-        expect(reportContent).toContain('Snapshot')
-        expect(reportContent).toContain('Memory')
+        expect(reportContent).toContain('性能快照')
+        expect(reportContent).toContain('内存')
         expect(reportContent).toContain('CPU')
       }
     }
@@ -400,7 +400,7 @@ describe('perf-issue command', () => {
         const { readFileSync } = await import('node:fs')
         const content = readFileSync(pathMatch[1], 'utf8')
         expect(content).toContain('estimated_usd')
-        expect(content).toContain('cache_hit_rate')
+        expect(content).toContain('缓存命中率')
       }
     }
   })

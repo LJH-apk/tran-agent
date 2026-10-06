@@ -274,7 +274,7 @@ describe('getTrigger', () => {
         'isAxiosError' in e &&
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
-    await expect(getTrigger('nonexistent')).rejects.toThrow(/not found/i)
+    await expect(getTrigger('nonexistent')).rejects.toThrow(/未找到/i)
   })
 })
 

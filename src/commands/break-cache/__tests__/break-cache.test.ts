@@ -101,7 +101,7 @@ describe('break-cache command', () => {
     expect(result.type).toBe('text')
     if (result.type === 'text') {
       expect(result.value).toContain('Cache break scheduled')
-      expect(result.value).toContain('next API call')
+      expect(result.value).toContain('时间戳')
     }
 
     // Marker file must exist under CLAUDE_CONFIG_DIR
@@ -126,7 +126,7 @@ describe('break-cache command', () => {
     const clearResult = await invokeBreakCache('--clear')
     expect(clearResult.type).toBe('text')
     if (clearResult.type === 'text') {
-      expect(clearResult.value).toContain('cleared')
+      expect(clearResult.value).toContain('缓存失效标记已清除')
     }
     expect(existsSync(markerPath)).toBe(false)
   })
@@ -202,8 +202,8 @@ describe('break-cache command', () => {
     expect(result.type).toBe('text')
     if (result.type === 'text') {
       expect(result.value).toContain('Break-Cache Status')
-      expect(result.value).toContain('Once marker')
-      expect(result.value).toContain('Always mode')
+      expect(result.value).toContain('一次性标记')
+      expect(result.value).toContain('always 模式')
     }
   })
 
@@ -211,8 +211,8 @@ describe('break-cache command', () => {
     const result = await invokeBreakCache('foobar')
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Unknown scope')
-      expect(result.value).toContain('Usage')
+      expect(result.value).toContain('未知的')
+      expect(result.value).toContain('用法')
     }
   })
 
@@ -316,8 +316,8 @@ describe('break-cache command', () => {
     ).getBridgeInvocationError
     expect(typeof fn).toBe('function')
     if (fn) {
-      expect(fn('')).toContain('Remote Control')
-      expect(fn('   ')).toContain('Remote Control')
+      expect(fn('')).toContain('远程控制')
+      expect(fn('   ')).toContain('远程控制')
       expect(fn('once')).toBeUndefined()
       expect(fn('status')).toBeUndefined()
     }

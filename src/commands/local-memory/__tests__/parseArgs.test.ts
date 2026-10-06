@@ -92,7 +92,7 @@ describe('parseLocalMemoryArgs', () => {
     const r = parseLocalMemoryArgs('store')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('store name')
+      expect(r.reason).toContain('需要一个存储名称')
     }
   })
 
@@ -100,7 +100,7 @@ describe('parseLocalMemoryArgs', () => {
     const r = parseLocalMemoryArgs('fetch')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('store name')
+      expect(r.reason).toContain('需要一个存储名称')
     }
   })
 })

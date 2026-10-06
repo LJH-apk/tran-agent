@@ -42,7 +42,7 @@ describe('autofixPr load', () => {
 describe('autofixPr getBridgeInvocationError', () => {
   test('empty string returns error', () => {
     const err = getBridgeInvocationError?.('')
-    expect(err).toBe('PR number required, e.g. /autofix-pr 386')
+    expect(err).toBe('需要提供 PR 编号，例如 /autofix-pr 386')
   })
 
   test('"stop" returns undefined (no error)', () => {
@@ -65,7 +65,7 @@ describe('autofixPr getBridgeInvocationError', () => {
 
   test('invalid args returns error string', () => {
     const err = getBridgeInvocationError?.('not valid!!')
-    expect(err).toMatch(/Invalid args/)
+    expect(err).toMatch(/参数无效/)
   })
 
   test('load is defined as an async function', () => {

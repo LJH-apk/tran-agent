@@ -202,7 +202,7 @@ describe('tui unknown subcommand', () => {
   test('returns usage text for unknown subcommand', async () => {
     const result = await invokeCmd('foobar')
     expect(result.type).toBe('text')
-    expect(result.value).toContain('Usage')
+    expect(result.value).toContain('用法')
   })
 })
 
@@ -219,14 +219,14 @@ describe('tui status env var display', () => {
   test('shows forced-on when CLAUDE_CODE_NO_FLICKER=1', async () => {
     process.env.CLAUDE_CODE_NO_FLICKER = '1'
     const result = await invokeCmd('status')
-    expect(result.value).toContain('forced on via env var')
+    expect(result.value).toContain('通过环境变量强制开启')
     delete process.env.CLAUDE_CODE_NO_FLICKER
   })
 
   test('shows forced-off when CLAUDE_CODE_NO_FLICKER=0', async () => {
     process.env.CLAUDE_CODE_NO_FLICKER = '0'
     const result = await invokeCmd('status')
-    expect(result.value).toContain('forced off via env var')
+    expect(result.value).toContain('通过环境变量强制关闭')
     delete process.env.CLAUDE_CODE_NO_FLICKER
   })
 })

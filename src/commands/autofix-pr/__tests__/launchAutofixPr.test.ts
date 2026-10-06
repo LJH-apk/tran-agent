@@ -214,7 +214,7 @@ describe('callAutofixPr', () => {
     await callAutofixPr(onDone, makeContext(), 'anthropics/claude-code#999')
     expect(teleportMock).not.toHaveBeenCalled()
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Cross-repo autofix is not supported/)
+    expect(firstArg).toMatch(/不支持从当前目录对其他仓库执行自动修复/)
   })
 
   test('singleton lock blocks second start for different PR', async () => {
@@ -222,8 +222,8 @@ describe('callAutofixPr', () => {
     onDone.mockClear()
     await callAutofixPr(onDone, makeContext(), '99')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/already monitoring/)
-    expect(firstArg).toMatch(/Run \/autofix-pr stop first/)
+    expect(firstArg).toMatch(/正在监控/)
+    expect(firstArg).toMatch(/请先运行 \/autofix-pr stop/)
   })
 
   test('same PR number while monitoring returns already monitoring message', async () => {
@@ -231,7 +231,7 @@ describe('callAutofixPr', () => {
     onDone.mockClear()
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Already monitoring/)
+    expect(firstArg).toMatch(/已在后台监控/)
   })
 
   test('stop sub-command clears monitor and calls onDone', async () => {
@@ -240,26 +240,26 @@ describe('callAutofixPr', () => {
     await callAutofixPr(onDone, makeContext(), 'stop')
     expect(getActiveMonitor()).toBeNull()
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Stopped local monitoring/)
+    expect(firstArg).toMatch(/已停止对/)
   })
 
   test('stop with no active monitor reports no active monitor', async () => {
     await callAutofixPr(onDone, makeContext(), 'stop')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/No active autofix monitor/)
+    expect(firstArg).toMatch(/当前没有正在运行的自动修复监控/)
   })
 
   test('freeform prompt returns not supported message', async () => {
     await callAutofixPr(onDone, makeContext(), 'please fix the failing test')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/not yet supported/)
+    expect(firstArg).toMatch(/暂不支持自由文本提示模式/)
   })
 
   test('teleport failure calls onDone with error', async () => {
     teleportMock.mockImplementationOnce(() => Promise.resolve(null))
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
     expect(logEventMock).toHaveBeenCalledWith(
       'tengu_autofix_pr_result',
       expect.objectContaining({
@@ -275,7 +275,7 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
   })
 
   test('eligibility check blocks non-no_remote_environment errors', async () => {
@@ -287,7 +287,7 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
     expect(teleportMock).not.toHaveBeenCalled()
   })
 
@@ -295,7 +295,7 @@ describe('callAutofixPr', () => {
     // parseAutofixArgs('') returns { action: 'invalid', reason: 'empty' }
     await callAutofixPr(onDone, makeContext(), '')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Invalid args/)
+    expect(firstArg).toMatch(/参数无效/)
     expect(teleportMock).not.toHaveBeenCalled()
   })
 
@@ -303,7 +303,7 @@ describe('callAutofixPr', () => {
     // parsePrNumber('0') returns null → invalid action
     await callAutofixPr(onDone, makeContext(), 'acme/myrepo#0')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Invalid args/)
+    expect(firstArg).toMatch(/参数无效/)
   })
 
   test('detectCurrentRepositoryWithHost throws → session_create_failed (lines 70-76)', async () => {
@@ -312,7 +312,7 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
     expect(teleportMock).not.toHaveBeenCalled()
   })
 
@@ -324,8 +324,8 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
-    expect(firstArg).toMatch(/Cannot detect GitHub repo/)
+    expect(firstArg).toMatch(/自动修复/)
+    expect(firstArg).toMatch(/无法从当前目录检测到 GitHub 仓库/)
     expect(teleportMock).not.toHaveBeenCalled()
   })
 
@@ -335,8 +335,8 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
-    expect(firstArg).toMatch(/teleport failed/)
+    expect(firstArg).toMatch(/自动修复/)
+    expect(firstArg).toMatch(/远程传送失败/)
     // Lock must be released
     const { getActiveMonitor } = await import('../monitorState.js')
     expect(getActiveMonitor()).toBeNull()
@@ -348,8 +348,8 @@ describe('callAutofixPr', () => {
     })
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
-    expect(firstArg).toMatch(/task registration failed/)
+    expect(firstArg).toMatch(/自动修复/)
+    expect(firstArg).toMatch(/任务注册失败/)
     // Lock must be released
     const { getActiveMonitor } = await import('../monitorState.js')
     expect(getActiveMonitor()).toBeNull()
@@ -363,7 +363,7 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
     expect(logEventMock).toHaveBeenCalledWith(
       'tengu_autofix_pr_result',
       expect.objectContaining({ error_code: 'exception' }),
@@ -384,7 +384,7 @@ describe('callAutofixPr', () => {
     )
     await callAutofixPr(onDone, makeContext(), '42')
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix PR failed/)
+    expect(firstArg).toMatch(/自动修复/)
     // The captured message should appear in the error
     expect(firstArg).toMatch(/bundle creation failed/)
   })
@@ -455,7 +455,7 @@ describe('callAutofixPr · completion hook wiring (taskId mismatch regression)',
     const firstArg = onDone.mock.calls[0]?.[0] as string
     // Should be the success path, not "already monitoring"
     expect(firstArg).not.toMatch(/already monitoring/i)
-    expect(firstArg).toMatch(/Autofix launched/)
+    expect(firstArg).toMatch(/启动自动修复/)
   })
 })
 
@@ -513,7 +513,7 @@ describe('callAutofixPr · Phase 2 completionChecker integration', () => {
     )
     // Launch must NOT fail just because SHA capture failed
     const firstArg = onDone.mock.calls[0]?.[0] as string
-    expect(firstArg).toMatch(/Autofix launched/)
+    expect(firstArg).toMatch(/启动自动修复/)
   })
 
   test('fetchPrHeadSha returning null → metadata initialHeadSha undefined', async () => {

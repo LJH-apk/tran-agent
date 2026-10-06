@@ -32,8 +32,8 @@ describe('skill-learning command', () => {
 
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Skill Learning status')
-      expect(result.value).toContain('Observations: 0')
+      expect(result.value).toContain('技能学习状态')
+      expect(result.value).toContain('观察记录：0')
     }
   })
 
@@ -42,7 +42,7 @@ describe('skill-learning command', () => {
 
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Promotion candidates')
+      expect(result.value).toContain('晋升候选')
       expect(result.value).toContain('promote gap')
       expect(result.value).toContain('promote instinct')
     }
@@ -62,7 +62,7 @@ describe('skill-learning command', () => {
 
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Promoted gap')
+      expect(result.value).toContain('已将缺口')
       expect(result.value).toContain('status=draft')
     }
   })
@@ -71,7 +71,7 @@ describe('skill-learning command', () => {
     const result = await call('promote gap does-not-exist', {} as any)
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('No gap found')
+      expect(result.value).toContain('未找到键为')
     }
   })
 
@@ -94,8 +94,8 @@ describe('skill-learning command', () => {
 
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Promoted instinct')
-      expect(result.value).toContain('global scope')
+      expect(result.value).toContain('已将本能规则')
+      expect(result.value).toContain('全局范围')
     }
   })
 
@@ -108,8 +108,8 @@ describe('skill-learning command', () => {
     expect(result.type).toBe('text')
     if (result.type === 'text') {
       expect(
-        result.value.includes('Known project scopes') ||
-          result.value.includes('No known project scopes'),
+        result.value.includes('已知的项目范围') ||
+          result.value.includes('暂无已知的项目范围'),
       ).toBe(true)
     }
   })
@@ -145,8 +145,8 @@ describe('skill-learning command', () => {
 
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Ingested')
-      expect(result.value).toContain('saved 1 instincts')
+      expect(result.value).toContain('已导入')
+      expect(result.value).toContain('保存 1 条本能规则')
     }
   })
 })

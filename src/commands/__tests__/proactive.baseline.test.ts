@@ -22,7 +22,7 @@ describe('/proactive baseline', () => {
     }, {} as any)
 
     expect(isProactiveActive()).toBe(true)
-    expect(resultText).toContain('Proactive mode enabled')
+    expect(resultText).toContain('主动模式已开启')
     expect(options?.display).toBe('system')
     expect(options?.metaMessages?.[0]).toContain(
       'Proactive mode is now enabled',
@@ -42,7 +42,7 @@ describe('/proactive baseline', () => {
     }, {} as any)
 
     expect(isProactiveActive()).toBe(false)
-    expect(resultText).toBe('Proactive mode disabled')
+    expect(resultText).toBe('主动模式已关闭')
     expect(options?.display).toBe('system')
   })
 })

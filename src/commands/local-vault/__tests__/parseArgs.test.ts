@@ -93,7 +93,7 @@ describe('parseLocalVaultArgs', () => {
     const r = parseLocalVaultArgs('set --some-flag value')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason.toLowerCase()).toContain('flag')
+      expect(r.reason.toLowerCase()).toContain('或类连字符字符开头')
     }
   })
 
@@ -111,7 +111,7 @@ describe('parseLocalVaultArgs', () => {
       const r = parseLocalVaultArgs('set −key value')
       expect(r.action).toBe('invalid')
       if (r.action === 'invalid') {
-        expect(r.reason.toLowerCase()).toContain('hyphen')
+        expect(r.reason.toLowerCase()).toContain('或类连字符字符开头')
       }
     })
 

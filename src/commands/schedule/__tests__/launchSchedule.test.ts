@@ -135,7 +135,7 @@ describe('callSchedule: invalid args', () => {
     expect(result).toBeNull()
     expect(onDone).toHaveBeenCalledTimes(1)
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/Usage/i)
+    expect(msg).toMatch(/用法/i)
   })
 })
 
@@ -146,7 +146,7 @@ describe('callSchedule: list', () => {
     await callSchedule(onDone, {} as never, 'list')
     expect(axiosGetMock).toHaveBeenCalledTimes(1)
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/no scheduled triggers/i)
+    expect(msg).toMatch(/未找到已计划的触发器/i)
   })
 
   test('list with triggers reports count', async () => {
@@ -165,7 +165,7 @@ describe('callSchedule: list', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, '')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/1 scheduled trigger/)
+    expect(msg).toMatch(/1 个已计划的触发器/)
   })
 
   test('list API error → error view', async () => {
@@ -173,7 +173,7 @@ describe('callSchedule: list', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'list')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to list/i)
+    expect(msg).toMatch(/列出触发器失败/i)
   })
 })
 
@@ -198,7 +198,7 @@ describe('callSchedule: get', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'get trg_missing')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to get/i)
+    expect(msg).toMatch(/获取触发器/i)
   })
 })
 
@@ -215,7 +215,7 @@ describe('callSchedule: create', () => {
     await callSchedule(onDone, {} as never, 'create 0 9 * * * daily report')
     expect(axiosPostMock).toHaveBeenCalledTimes(1)
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/trigger created/i)
+    expect(msg).toMatch(/触发器已创建/i)
   })
 
   test('create with invalid cron → validation error without hitting API', async () => {
@@ -231,7 +231,7 @@ describe('callSchedule: create', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'create 0 9 * * * test prompt')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to create/i)
+    expect(msg).toMatch(/创建触发器失败/i)
   })
 })
 
@@ -255,7 +255,7 @@ describe('callSchedule: update', () => {
     expect(calls[0]?.[0]).toContain('trg_upd')
     expect(calls[0]?.[1]).toEqual({ enabled: false })
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/updated/i)
+    expect(msg).toMatch(/已更新/i)
   })
 
   test('update with unknown field → error without API call', async () => {
@@ -263,7 +263,7 @@ describe('callSchedule: update', () => {
     await callSchedule(onDone, {} as never, 'update trg_upd foofield bar')
     expect(axiosPostMock).not.toHaveBeenCalled()
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/unknown field/i)
+    expect(msg).toMatch(/未知字段/i)
   })
 })
 
@@ -274,7 +274,7 @@ describe('callSchedule: delete', () => {
     await callSchedule(onDone, {} as never, 'delete trg_del')
     expect(axiosDeleteMock).toHaveBeenCalledTimes(1)
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/deleted/i)
+    expect(msg).toMatch(/已删除/i)
   })
 
   test('delete API error → error message', async () => {
@@ -282,7 +282,7 @@ describe('callSchedule: delete', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'delete trg_missing')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to delete/i)
+    expect(msg).toMatch(/删除触发器/i)
   })
 })
 
@@ -306,7 +306,7 @@ describe('callSchedule: run', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'run trg_fire')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to run/i)
+    expect(msg).toMatch(/运行触发器/i)
   })
 })
 
@@ -328,7 +328,7 @@ describe('callSchedule: enable / disable', () => {
     ][]
     expect(calls[0]?.[1]).toEqual({ enabled: true })
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/enabled/i)
+    expect(msg).toMatch(/已启用/i)
   })
 
   test('disable calls updateTrigger with enabled:false', async () => {
@@ -348,7 +348,7 @@ describe('callSchedule: enable / disable', () => {
     ][]
     expect(calls[0]?.[1]).toEqual({ enabled: false })
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/disabled/i)
+    expect(msg).toMatch(/已禁用/i)
   })
 
   test('enable API error → error message', async () => {
@@ -356,7 +356,7 @@ describe('callSchedule: enable / disable', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'enable trg_missing')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to enable/i)
+    expect(msg).toMatch(/启用触发器/i)
   })
 
   test('disable API error → error message', async () => {
@@ -364,6 +364,6 @@ describe('callSchedule: enable / disable', () => {
     const onDone = makeOnDone()
     await callSchedule(onDone, {} as never, 'disable trg_missing')
     const [msg] = (onDone.mock.calls as unknown as [string, unknown][])[0] ?? []
-    expect(msg).toMatch(/failed to disable/i)
+    expect(msg).toMatch(/禁用触发器/i)
   })
 })

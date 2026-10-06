@@ -65,7 +65,7 @@ describe('skillLearning smoke', () => {
     )
     expect(ingestResult.type).toBe('text')
     if (ingestResult.type === 'text') {
-      expect(ingestResult.value).toContain('Ingested 9 observations')
+      expect(ingestResult.value).toContain('已导入 9 条观察记录')
     }
 
     const options = {
@@ -94,7 +94,7 @@ describe('skillLearning smoke', () => {
       // produce 1 or 2 candidates depending on sessionObserver's clustering.
       // Post-H15 we accept either — the smoke proves end-to-end wiring, not
       // exact cluster math.
-      expect(evolveResult.value).toMatch(/Generated [12] learned skill\(s\)/)
+      expect(evolveResult.value).toMatch(/已生成 [12] 个学习技能/)
     }
 
     const skillName = 'testing-choosing-between-mock-testing-library'

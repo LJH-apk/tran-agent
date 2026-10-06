@@ -56,7 +56,7 @@ describe('summary command', () => {
   test('refreshes and displays summary', async () => {
     const result = await callSummary()
     expect(result.type).toBe('text')
-    expect((result as any).value).toContain('Session summary updated.')
+    expect((result as any).value).toContain('会话摘要已更新。')
     expect((result as any).value).toContain('Did some work.')
     expect(mockManuallyExtract).toHaveBeenCalled()
   })
@@ -67,7 +67,7 @@ describe('summary command', () => {
     )
     const result = await callSummary()
     expect((result as any).value).toContain(
-      'Failed to generate session summary',
+      '生成会话摘要失败',
     )
     expect((result as any).value).toContain('timeout')
   })

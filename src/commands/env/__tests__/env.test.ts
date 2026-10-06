@@ -74,25 +74,25 @@ describe('env command output', () => {
   test('call() contains ## Runtime section', async () => {
     const loaded = await envCmd.load!()
     const result = await loaded.call()
-    expect(result.value).toContain('## Runtime')
+    expect(result.value).toContain('## 运行时')
   })
 
   test('call() contains ## Environment Variables section', async () => {
     const loaded = await envCmd.load!()
     const result = await loaded.call()
-    expect(result.value).toContain('## Environment Variables')
+    expect(result.value).toContain('白名单前缀')
   })
 
   test('call() contains platform info', async () => {
     const loaded = await envCmd.load!()
     const result = await loaded.call()
-    expect(result.value).toContain('platform:')
+    expect(result.value).toContain('平台')
   })
 
   test('call() contains session field', async () => {
     const loaded = await envCmd.load!()
     const result = await loaded.call()
-    expect(result.value).toContain('session:')
+    expect(result.value).toContain('会话')
   })
 
   test('CLAUDE_ prefixed var appears in output', async () => {
@@ -161,7 +161,7 @@ describe('env command output', () => {
     }
     const loaded = await envCmd.load!()
     const result = await loaded.call()
-    expect(result.value).toContain('(no recognized env vars set)')
+    expect(result.value).toContain('（没有设置可识别的环境变量）')
   })
 
   // ── M1 regression: KAIROS_ prefix must include underscore ──

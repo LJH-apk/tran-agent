@@ -41,7 +41,7 @@ describe('parseAgentsPlatformArgs', () => {
     const r = parseAgentsPlatformArgs('create 0 9 * * 1')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('5 cron fields')
+      expect(r.reason).toContain('至少需要 5 个 cron 字段')
     }
   })
 
@@ -49,7 +49,7 @@ describe('parseAgentsPlatformArgs', () => {
     const r = parseAgentsPlatformArgs('create')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('cron expression')
+      expect(r.reason).toContain('需要提供 cron 表达式')
     }
   })
 
@@ -65,7 +65,7 @@ describe('parseAgentsPlatformArgs', () => {
     const r = parseAgentsPlatformArgs('delete')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('agent id')
+      expect(r.reason).toContain('删除操作需要提供智能体')
     }
   })
 
@@ -81,7 +81,7 @@ describe('parseAgentsPlatformArgs', () => {
     const r = parseAgentsPlatformArgs('run')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('agent id')
+      expect(r.reason).toContain('运行操作需要提供智能体')
     }
   })
 
@@ -89,7 +89,7 @@ describe('parseAgentsPlatformArgs', () => {
     const r = parseAgentsPlatformArgs('foobar something')
     expect(r.action).toBe('invalid')
     if (r.action === 'invalid') {
-      expect(r.reason).toContain('Unknown sub-command')
+      expect(r.reason).toContain('未知子命令')
     }
   })
 })

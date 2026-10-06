@@ -133,7 +133,7 @@ describe('bridge-kick call - with handle', () => {
   test('close with non-numeric code returns error', async () => {
     const result = await callFn!('close abc')
     expect(result.type).toBe('text')
-    expect(result.value).toContain('need a numeric code')
+    expect(result.value).toContain('需要一个数字代码')
   })
 
   test('poll transient injects transient fault and wakes poll loop', async () => {
@@ -168,7 +168,7 @@ describe('bridge-kick call - with handle', () => {
   test('poll with non-numeric non-transient returns error', async () => {
     const result = await callFn!('poll abc')
     expect(result.type).toBe('text')
-    expect(result.value).toContain('need')
+    expect(result.value).toContain('需要')
   })
 
   test('register fatal injects 403 fatal fault', async () => {

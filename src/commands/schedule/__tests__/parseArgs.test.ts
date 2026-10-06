@@ -65,7 +65,7 @@ describe('parseScheduleArgs', () => {
     const result = parseScheduleArgs('get')
     expect(result.action).toBe('invalid')
     if (result.action === 'invalid') {
-      expect(result.reason).toMatch(/trigger id/i)
+      expect(result.reason).toMatch(/需要一个触发器/i)
     }
   })
 
@@ -178,7 +178,7 @@ describe('parseScheduleArgs', () => {
     const result = parseScheduleArgs('foobar trg_123')
     expect(result.action).toBe('invalid')
     if (result.action === 'invalid') {
-      expect(result.reason).toMatch(/unknown sub-command/i)
+      expect(result.reason).toMatch(/未知子命令/i)
     }
   })
 })

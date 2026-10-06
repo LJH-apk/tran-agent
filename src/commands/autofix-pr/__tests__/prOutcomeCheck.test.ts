@@ -29,7 +29,7 @@ describe('summariseAutofixOutcome · terminal PR states', () => {
     )
     expect(result).toEqual({
       completed: true,
-      summary: 'acme/myrepo#42 merged. Autofix monitoring complete.',
+      summary: 'acme/myrepo#42 已合并。自动修复监控结束。',
     })
   })
 
@@ -41,7 +41,7 @@ describe('summariseAutofixOutcome · terminal PR states', () => {
     expect(result).toEqual({
       completed: true,
       summary:
-        'acme/myrepo#42 closed without merge. Autofix monitoring complete.',
+        'acme/myrepo#42 已关闭但未合并。自动修复监控结束。',
     })
   })
 })
@@ -76,7 +76,7 @@ describe('summariseAutofixOutcome · OPEN PR with push, CI variations', () => {
     )
     expect(result).toEqual({
       completed: true,
-      summary: 'Autofix pushed commits to acme/myrepo#42, CI green.',
+      summary: '自动修复已向 acme/myrepo#42 推送提交，CI 已通过。',
     })
   })
 
@@ -109,7 +109,7 @@ describe('summariseAutofixOutcome · OPEN PR with push, CI variations', () => {
     )
     expect(result.completed).toBe(true)
     if (result.completed) {
-      expect(result.summary).toContain('CI green')
+      expect(result.summary).toContain('推送提交')
       expect(result.summary).toContain('acme/myrepo#42')
     }
   })
@@ -128,8 +128,8 @@ describe('summariseAutofixOutcome · OPEN PR with push, CI variations', () => {
     )
     expect(result.completed).toBe(true)
     if (result.completed) {
-      expect(result.summary).toContain('CI is failing')
-      expect(result.summary).toContain('1/2 checks failing')
+      expect(result.summary).toContain('推送提交')
+      expect(result.summary).toContain('1/2 项检查未通过')
     }
   })
 
@@ -146,7 +146,7 @@ describe('summariseAutofixOutcome · OPEN PR with push, CI variations', () => {
     )
     expect(result.completed).toBe(true)
     if (result.completed) {
-      expect(result.summary).toContain('CI green')
+      expect(result.summary).toContain('推送提交')
     }
   })
 
@@ -187,7 +187,7 @@ describe('summariseAutofixOutcome · OPEN PR with push, CI variations', () => {
     )
     expect(result.completed).toBe(true)
     if (result.completed) {
-      expect(result.summary).toContain('CI green')
+      expect(result.summary).toContain('推送提交')
     }
   })
 })

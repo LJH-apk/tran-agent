@@ -264,7 +264,7 @@ describe('debug-tool-call command', () => {
     expect(result.type).toBe('text')
     if (result.type === 'text') {
       // Should show 2 of 3 total
-      expect(result.value).toContain('Last 2 Tool Calls')
+      expect(result.value).toContain('最近 2 次工具调用')
     }
   })
 
@@ -524,9 +524,9 @@ describe('debug-tool-call command', () => {
     const result = await loaded.call('not-a-number', {} as never)
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      // Default is 5 → "Last 5 Tool Calls (of 7 total)"
-      expect(result.value).toContain('Last 5 Tool Calls')
-      expect(result.value).toContain('of 7 total')
+      // Default is 5 → "最近 5 次工具调用（共 7 次）"
+      expect(result.value).toContain('最近 5 次工具调用')
+      expect(result.value).toContain('共 7 次')
     }
   })
 
@@ -547,7 +547,7 @@ describe('debug-tool-call command', () => {
     const result = await loaded.call('0', {} as never)
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Last 5 Tool Calls')
+      expect(result.value).toContain('最近 5 次工具调用')
     }
   })
 
@@ -568,7 +568,7 @@ describe('debug-tool-call command', () => {
     const result = await loaded.call('1', {} as never)
     expect(result.type).toBe('text')
     if (result.type === 'text') {
-      expect(result.value).toContain('Last 1 Tool Call ')
+      expect(result.value).toContain('最近 1 次工具调用')
       expect(result.value).not.toContain('Last 1 Tool Calls')
     }
   })

@@ -275,7 +275,7 @@ describe('getStore', () => {
         'isAxiosError' in e &&
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
-    await expect(getStore('nonexistent')).rejects.toThrow(/not found/i)
+    await expect(getStore('nonexistent')).rejects.toThrow(/未找到/i)
   })
 })
 
@@ -363,7 +363,7 @@ describe('listMemories', () => {
         'isAxiosError' in e &&
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
-    await expect(listMemories('nonexistent')).rejects.toThrow(/not found/i)
+    await expect(listMemories('nonexistent')).rejects.toThrow(/未找到/i)
   })
 })
 

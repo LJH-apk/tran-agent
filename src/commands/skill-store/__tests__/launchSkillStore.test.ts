@@ -182,7 +182,7 @@ describe('list action', () => {
     axiosGetMock.mockResolvedValueOnce({ data: { data: [] }, status: 200 })
     const { onDone, calls } = makeOnDone()
     await callSkillStore(onDone, {} as never, 'list')
-    expect(calls[0]?.[0]).toContain('No skills')
+    expect(calls[0]?.[0]).toContain('插件市场中没有找到技能')
   })
 
   test('API error reports failure', async () => {
@@ -193,7 +193,7 @@ describe('list action', () => {
     })
     const { onDone, calls } = makeOnDone()
     await callSkillStore(onDone, {} as never, 'list')
-    expect(calls[0]?.[0]).toContain('Failed')
+    expect(calls[0]?.[0]).toContain('失败')
   })
 })
 
@@ -221,7 +221,7 @@ describe('get action', () => {
     })
     const { onDone, calls } = makeOnDone()
     await callSkillStore(onDone, {} as never, 'get missing_id')
-    expect(calls[0]?.[0]).toContain('Failed')
+    expect(calls[0]?.[0]).toContain('失败')
   })
 })
 
@@ -291,7 +291,7 @@ describe('delete action', () => {
     const { onDone, calls } = makeOnDone()
     const result = await callSkillStore(onDone, {} as never, 'delete sk_del')
     expect(result).not.toBeNull()
-    expect(calls[0]?.[0]).toContain('deleted')
+    expect(calls[0]?.[0]).toContain('已删除')
   })
 })
 
@@ -330,7 +330,7 @@ describe('install action', () => {
     expect(writeCall[0]).toContain('SKILL.md')
     expect(writeCall[0]).toContain('my-skill')
     expect(writeCall[1]).toBe('# My Skill Content')
-    expect(calls[0]?.[0]).toContain('installed')
+    expect(calls[0]?.[0]).toContain('技能已安装到')
   })
 
   test('install <id>@<version> fetches specific version and writes SKILL.md', async () => {
@@ -352,7 +352,7 @@ describe('install action', () => {
       string,
     ]
     expect(writeCall[1]).toBe('# v2 Content')
-    expect(calls[0]?.[0]).toContain('installed')
+    expect(calls[0]?.[0]).toContain('技能已安装到')
   })
 
   test('install skill with no versions shows error', async () => {
@@ -369,7 +369,7 @@ describe('install action', () => {
     const { onDone, calls } = makeOnDone()
     const result = await callSkillStore(onDone, {} as never, 'install sk_nover')
     expect(result).not.toBeNull()
-    expect(calls[0]?.[0]).toContain('no published versions')
+    expect(calls[0]?.[0]).toContain('没有可安装的已发布版本')
     expect(writeFileMock).not.toHaveBeenCalled()
   })
 
@@ -417,6 +417,6 @@ describe('invalid args', () => {
     const { onDone, calls } = makeOnDone()
     const result = await callSkillStore(onDone, {} as never, 'unknowncmd')
     expect(result).toBeNull()
-    expect(calls[0]?.[0]).toContain('Usage')
+    expect(calls[0]?.[0]).toContain('用法')
   })
 })

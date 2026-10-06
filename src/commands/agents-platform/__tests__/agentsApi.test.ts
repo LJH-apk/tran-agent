@@ -131,7 +131,7 @@ describe('listAgents', () => {
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
 
-    await expect(listAgents()).rejects.toThrow('re-authenticate')
+    await expect(listAgents()).rejects.toThrow('认证失败')
   })
 
   test('throws on 403 with subscription message', async () => {
@@ -148,7 +148,7 @@ describe('listAgents', () => {
         (e as { isAxiosError: boolean }).isAxiosError === true,
     )
 
-    await expect(listAgents()).rejects.toThrow('Subscription')
+    await expect(listAgents()).rejects.toThrow('定时智能体需要')
   })
 
   test('retries on 5xx and eventually throws', async () => {
@@ -211,7 +211,7 @@ describe('createAgent', () => {
     )
 
     await expect(createAgent('0 9 * * *', 'Test')).rejects.toThrow(
-      'Agent not found',
+      '未找到该智能体',
     )
   })
 })

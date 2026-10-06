@@ -134,7 +134,7 @@ describe('callTeleport', () => {
   test('empty args: fetches sessions list and shows picker', async () => {
     await callTeleport(onDone, makeContext(), '  ')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/Available sessions/)
+    expect(firstArg).toMatch(/可用会话/)
     expect(validateGitStateMock).not.toHaveBeenCalled()
     expect(teleportResumeMock).not.toHaveBeenCalled()
     const events = getLoggedEvents()
@@ -148,7 +148,7 @@ describe('callTeleport', () => {
     )
     await callTeleport(onDone, makeContext(), '')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/failed to fetch sessions/)
+    expect(firstArg).toMatch(/获取会话失败/)
     const events = getLoggedEvents()
     expect(events).toContain('tengu_teleport_events_fetch_fail')
   })
@@ -159,7 +159,7 @@ describe('callTeleport', () => {
     )
     await callTeleport(onDone, makeContext(), '')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/permission denied/)
+    expect(firstArg).toMatch(/获取会话被拒绝/)
     const events = getLoggedEvents()
     expect(events).toContain('tengu_teleport_events_fetch_forbidden')
   })
@@ -190,7 +190,7 @@ describe('callTeleport', () => {
     fetchSessionsMock.mockImplementationOnce(() => Promise.resolve([]))
     await callTeleport(onDone, makeContext(), '')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/No active sessions/)
+    expect(firstArg).toMatch(/上未找到活跃会话/)
     const events = getLoggedEvents()
     expect(events).toContain('tengu_teleport_null')
   })
@@ -212,13 +212,13 @@ describe('callTeleport', () => {
   test('--print flag with no session id → shows picker in print mode', async () => {
     await callTeleport(onDone, makeContext(), '--print')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/Available sessions/)
+    expect(firstArg).toMatch(/可用会话/)
   })
 
   test('short non-UUID session id is rejected without calling teleport', async () => {
     await callTeleport(onDone, makeContext(), 'abc')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/Invalid session id/)
+    expect(firstArg).toMatch(/会话/)
     expect(validateGitStateMock).not.toHaveBeenCalled()
     expect(teleportResumeMock).not.toHaveBeenCalled()
   })
@@ -237,7 +237,7 @@ describe('callTeleport', () => {
       '12345678-abcd-ef01-2345-6789abcdef01',
     )
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/Cannot teleport/)
+    expect(firstArg).toMatch(/无法/)
     expect(firstArg).toMatch(/not clean/)
     expect(teleportResumeMock).not.toHaveBeenCalled()
   })
@@ -283,7 +283,7 @@ describe('callTeleport', () => {
       '12345678-abcd-ef01-2345-6789abcdef01',
     )
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/Teleport failed/)
+    expect(firstArg).toMatch(/失败/)
     const events = getLoggedEvents()
     expect(events).toContain('tengu_teleport_error_session_not_found_')
   })
@@ -359,7 +359,7 @@ describe('callTeleport', () => {
     const ctx = makeContext(false) // no resume callback
     await callTeleport(onDone, ctx, '12345678-abcd-ef01-2345-6789abcdef01')
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/did not provide a resume callback/)
+    expect(firstArg).toMatch(/未提供恢复回调/)
   })
 
   test('valid session id without context.resume + print mode → success message', async () => {
@@ -383,6 +383,6 @@ describe('callTeleport', () => {
       '12345678-abcd-ef01-2345-6789abcdef01',
     )
     const firstArg = onDone.mock.calls[0]?.[0] as string | undefined
-    expect(firstArg).toMatch(/local log was not found/)
+    expect(firstArg).toMatch(/但未找到本地日志/)
   })
 })

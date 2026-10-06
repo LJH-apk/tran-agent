@@ -353,7 +353,7 @@ describe('share command — gh available paths', () => {
     const result = await call('--summary-only --mask-secrets')
     expect(result.type).toBe('text')
     expect(result.value).toContain('Session shared')
-    expect(result.value).toContain('summary only')
+    expect(result.value).toContain('仅摘要')
     expect(result.value).toContain('masked')
   })
 })

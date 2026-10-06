@@ -115,7 +115,7 @@ describe('onboarding command metadata', () => {
   test('bridge invocation always rejected with an explanation', () => {
     const reason = onboardingCommand.getBridgeInvocationError?.('full');
     expect(reason).toBeTruthy();
-    expect(reason).toContain('bridge');
+    expect(reason).toContain('需要本地交互式界面');
   });
 
   test('has descriptive argumentHint listing subcommands', () => {
@@ -187,7 +187,7 @@ describe('callOnboarding behavior', () => {
     const result = await callOnboarding(fn, makeContext(), 'trust');
     expect(result).toBeNull();
     expect(fakeProjectConfig.hasTrustDialogAccepted).toBe(false);
-    expect(calls[0]?.msg).toContain('trust cleared');
+    expect(calls[0]?.msg).toContain('已清除当前项目的工作区信任');
   });
 
   test('model subcommand prints /model deferral hint', async () => {

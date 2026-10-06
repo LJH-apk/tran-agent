@@ -12,38 +12,38 @@ describe.skipIf(!!process.env.CI)('AutofixProgress', () => {
   test('renders target in header', async () => {
     const out = await renderToString(<AutofixProgress phase="detecting" target="acme/myrepo#42" />);
     expect(out).toContain('acme/myrepo#42');
-    expect(out).toContain('Autofix PR');
+    expect(out).toContain('自动修复 PR');
   });
 
   test('detecting phase shows arrow on detecting step', async () => {
     const out = await renderToString(<AutofixProgress phase="detecting" target="owner/repo#1" />);
     // detecting step should be active (→) and later steps pending (·)
-    expect(out).toContain('Detecting repository');
+    expect(out).toContain('正在检测代码仓库');
   });
 
   test('checking_eligibility phase renders eligibility label', async () => {
     const out = await renderToString(<AutofixProgress phase="checking_eligibility" target="owner/repo#2" />);
-    expect(out).toContain('Checking remote agent eligibility');
+    expect(out).toContain('正在检查远程智能体使用资格');
   });
 
   test('acquiring_lock phase renders lock label', async () => {
     const out = await renderToString(<AutofixProgress phase="acquiring_lock" target="owner/repo#3" />);
-    expect(out).toContain('Acquiring monitor lock');
+    expect(out).toContain('正在获取监控锁');
   });
 
   test('launching phase renders launching label', async () => {
     const out = await renderToString(<AutofixProgress phase="launching" target="owner/repo#4" />);
-    expect(out).toContain('Launching remote session');
+    expect(out).toContain('正在启动远程会话');
   });
 
   test('registered phase renders registered label', async () => {
     const out = await renderToString(<AutofixProgress phase="registered" target="owner/repo#5" />);
-    expect(out).toContain('Session registered');
+    expect(out).toContain('会话已注册');
   });
 
   test('done phase renders done label', async () => {
     const out = await renderToString(<AutofixProgress phase="done" target="owner/repo#6" />);
-    expect(out).toContain('Autofix launched');
+    expect(out).toContain('自动修复已启动');
   });
 
   test('error phase renders error message when provided', async () => {
@@ -69,7 +69,7 @@ describe.skipIf(!!process.env.CI)('AutofixProgress', () => {
     const url = 'https://claude.ai/session/abc123';
     const out = await renderToString(<AutofixProgress phase="done" target="owner/repo#10" sessionUrl={url} />);
     expect(out).toContain(url);
-    expect(out).toContain('Track');
+    expect(out).toContain('跟踪');
   });
 
   test('sessionUrl absent — no Track line shown', async () => {

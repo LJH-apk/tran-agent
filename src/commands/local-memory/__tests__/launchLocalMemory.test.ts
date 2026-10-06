@@ -45,7 +45,7 @@ describe('callLocalMemory', () => {
       'list',
     )
     expect(
-      messages.some(m => m.includes('No memory stores') || m.includes('0')),
+      messages.some(m => m.includes('未找到任何记忆库')),
     ).toBe(true)
   })
 

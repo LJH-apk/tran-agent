@@ -74,7 +74,7 @@ describe('callLocalVault', () => {
       {} as Parameters<typeof callLocalVault>[1],
       'list',
     )
-    expect(messages.some(m => m.includes('0') || m.includes('secret'))).toBe(
+    expect(messages.some(m => m.includes('密钥'))).toBe(
       true,
     )
   })
@@ -90,7 +90,7 @@ describe('callLocalVault', () => {
     for (const msg of messages) {
       expect(msg).not.toContain(secretValue)
     }
-    expect(messages.some(m => m.includes('[REDACTED]'))).toBe(true)
+    expect(messages.some(m => m.includes('[已遮蔽]'))).toBe(true)
   })
 
   test('get sub-command shows masked value by default', async () => {
@@ -129,7 +129,7 @@ describe('callLocalVault', () => {
     expect(messages.some(m => m.includes('REVEAL_KEY'))).toBe(true)
     const allMessages = messages.join('\n')
     expect(allMessages).toContain(secretValue)
-    expect(allMessages).toContain('Warning')
+    expect(allMessages).toContain('密钥明文已在终端中显示')
     expect(node).toBeNull()
   })
 

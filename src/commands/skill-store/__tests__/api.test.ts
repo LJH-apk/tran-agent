@@ -314,18 +314,18 @@ describe('error classification', () => {
   test('401 gives auth error message', async () => {
     axiosGetMock.mockRejectedValueOnce(makeAxiosError(401))
     await expect(listSkills()).rejects.toThrow(
-      /[Aa]uthentication failed|Not authenticated/,
+      /认证失败|未认证/,
     )
   })
 
   test('403 gives subscription required message', async () => {
     axiosGetMock.mockRejectedValueOnce(makeAxiosError(403))
-    await expect(listSkills()).rejects.toThrow(/[Ss]ubscription/)
+    await expect(listSkills()).rejects.toThrow(/需要订阅/)
   })
 
   test('404 gives not found message', async () => {
     axiosGetMock.mockRejectedValueOnce(makeAxiosError(404))
-    await expect(getSkill('missing')).rejects.toThrow(/not found/)
+    await expect(getSkill('missing')).rejects.toThrow(/未找到/)
   })
 
   test('429 includes retry-after in message', async () => {

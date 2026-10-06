@@ -159,7 +159,7 @@ describe('getAuthStatus', () => {
     const preview = status.workspaceKey.keyPreview
     expect(preview).not.toBeNull()
     // Must contain length
-    expect(preview).toContain(`(${key.length}`)
+    expect(preview).toContain(`（${key.length}`)
     // Must contain first 4 chars
     expect(preview).toContain('sk-a')
     // Must contain last 2 chars
