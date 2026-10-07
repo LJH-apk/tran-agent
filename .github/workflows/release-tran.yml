@@ -64,8 +64,12 @@ jobs:
           PACKAGE: ${{ steps.package.outputs.filename }}
           VERSION: ${{ steps.package.outputs.version }}
         run: |
-          TAG="build-${GITHUB_RUN_ID}"
-          TITLE="Tran Agent ${VERSION} · 自动构建 #${GITHUB_RUN_NUMBER}"
+          [[ "$VERSION" =~ ^1\.0\.[0-9]+$ ]] || { echo "版本号必须为 1.0.x" >&2; exit 1; }
+          TAG="v${VERSION}"
+          if EXISTING_SHA="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${TAG}" --jq .sha 2>/dev/null)"; then
+            [[ "$EXISTING_SHA" == "$GITHUB_SHA" ]] || { echo "${TAG} 已属于其他提交，请递增 package.json 的补丁版本号" >&2; exit 1; }
+          fi
+          TITLE="Tran Agent ${VERSION}"
           cat > release/notes.md <<EOF
           此安装包由 main 分支自动构建。
 

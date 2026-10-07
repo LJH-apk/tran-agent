@@ -14,7 +14,7 @@ export async function playExitSplash({
   try {
     write(CLEAR_EXIT_SCREEN + '\x1b[?25l')
     for (const dots of ['·', '··', '···', '··']) {
-      write(`\r\x1b[2K\x1b[38;2;126;153;222m  TA  正在退出${dots}\x1b[0m`)
+      write(`\r\x1b[2K\x1b[38;2;40;52;96m  TA  正在退出${dots}\x1b[0m`)
       await wait(100)
     }
   } finally {

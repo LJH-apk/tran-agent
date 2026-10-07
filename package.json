@@ -1,6 +1,6 @@
 {
   "name": "tran-agent",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Reverse-engineered LZJTU Tran Agent CLI — interactive AI coding assistant in the terminal",
   "type": "module",
   "author": "claude-code-best <claude-code-best@proton.me>",

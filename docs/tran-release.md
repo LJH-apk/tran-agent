@@ -2,9 +2,9 @@
 
 将代码推送到 `LJH-apk/tran-agent` 的 `main` 分支后，GitHub Actions 会自动安装依赖、构建启动器、生成 npm 安装包、验证打包后的启动器，并发布 GitHub Release。也可在 Actions → Release Tran Agent 中手动运行，必须选择 `main` 分支。
 
-每次运行生成独立标签 `build-<运行 ID>`，Release 中包含 `tran-agent-<package.json 版本>.tgz` 和 `SHA256SUMS.txt`。同一次运行重试会更新自己的附件，已有正式版本（例如 `v1.0.0`）不受影响。成功发布的构建会标记为 Latest；构建或上传失败时不会发布不完整的新 Release。
+每次发布使用版本标签 `v1.0.x`，Release 中包含 `tran-agent-<package.json 版本>.tgz` 和 `SHA256SUMS.txt`。同一提交重试会更新自己的附件，已有正式版本（例如 `v1.0.0`）不受影响。成功发布的构建会标记为 Latest；构建或上传失败时不会发布不完整的新 Release。
 
-流程使用 GitHub 自动提供的 `GITHUB_TOKEN`，无需配置个人令牌或 npm 令牌，也不会向 npm 注册表发布。包版本由 `package.json` 控制，流程不会自动修改源码中的版本号。
+流程使用 GitHub 自动提供的 `GITHUB_TOKEN`，无需配置个人令牌或 npm 令牌，也不会向 npm 注册表发布。包版本由 `package.json` 控制，规则为 `1.0.x`，每次发布前递增 x（例如 1.0.1 → 1.0.2）。界面版本也由该文件生成。流程不会自动提交版本变更；发现同一版本已属于其他提交时会停止，避免覆盖旧版本。
 
 ## 推送
 
@@ -25,7 +25,7 @@ https://github.com/LJH-apk/tran-agent/releases/latest
 下载附件后执行：
 
 ```sh
-npm install -g ./tran-agent-1.0.0.tgz
+npm install -g ./tran-agent-1.0.1.tgz
 tran
 ```
 
