@@ -310,6 +310,16 @@ export function Config({
       },
     },
     {
+      id: 'exitAnimationEnabled',
+      label: '退出动画',
+      value: globalConfig.exitAnimationEnabled ?? true,
+      type: 'boolean' as const,
+      onChange(exitAnimationEnabled: boolean) {
+        saveGlobalConfig(current => ({ ...current, exitAnimationEnabled }));
+        setGlobalConfig({ ...getGlobalConfig(), exitAnimationEnabled });
+      },
+    },
+    {
       id: 'autoCompactEnabled',
       label: '自动压缩',
       value: globalConfig.autoCompactEnabled,
@@ -1296,6 +1306,9 @@ export function Config({
     }
     if ((globalConfig.skipStartupAnimation ?? false) !== (initialConfig.current.skipStartupAnimation ?? false)) {
       formattedChanges.push(`跳过启动动画：${globalConfig.skipStartupAnimation ? '开启' : '关闭'}（下次启动生效）`);
+    }
+    if ((globalConfig.exitAnimationEnabled ?? true) !== (initialConfig.current.exitAnimationEnabled ?? true)) {
+      formattedChanges.push(`退出动画：${globalConfig.exitAnimationEnabled ? '开启' : '关闭'}`);
     }
     if (globalConfig.respectGitignore !== initialConfig.current.respectGitignore) {
       formattedChanges.push(

@@ -36,10 +36,12 @@ import { runCleanupFunctions } from './cleanupRegistry.js'
 import { logForDebugging } from './debug.js'
 import { logForDiagnosticsNoPII } from './diagLogs.js'
 import { isEnvTruthy } from './envUtils.js'
-import { getCurrentSessionTitle, sessionIdExists } from './sessionStorage.js'
+import { sessionIdExists } from './sessionStorage.js'
 import { sleep } from './sleep.js'
 import { closeSentry } from './sentry.js'
 import { profileReport } from './startupProfiler.js'
+import { getGlobalConfig } from './config.js'
+import { CLEAR_EXIT_SCREEN, playExitSplash } from '../ui/exitSplash.js'
 
 /**
  * Clean up terminal modes synchronously before process exit.
@@ -155,22 +157,7 @@ function printResumeHint(): void {
       if (!sessionIdExists(sessionId)) {
         return
       }
-      const customTitle = getCurrentSessionTitle(sessionId)
-
-      // Use custom title if available, otherwise fall back to session ID
-      let resumeArg: string
-      if (customTitle) {
-        // Wrap in double quotes, escape backslashes first then quotes
-        const escaped = customTitle.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
-        resumeArg = `"${escaped}"`
-      } else {
-        resumeArg = sessionId
-      }
-
-      writeSync(
-        1,
-        chalk.dim(`\nResume this session with:\ntran --resume ${resumeArg}\n`),
-      )
+      writeSync(1, chalk.dim(`恢复会话：tran --resume ${sessionId}\n`))
       resumeHintPrinted = true
     } catch {
       // Ignore write errors
@@ -178,6 +165,23 @@ function printResumeHint(): void {
   }
 }
 /* eslint-enable custom-rules/no-sync-fs */
+
+function shouldCleanExitScreen(exitCode: number): boolean {
+  return exitCode === 0 && process.stdout.isTTY === true && getIsInteractive()
+}
+
+function finishExitDisplay(exitCode: number): void {
+  if (shouldCleanExitScreen(exitCode)) {
+    try {
+      writeSync(1, CLEAR_EXIT_SCREEN + SHOW_CURSOR)
+      // The early hint was cleared along with the UI. Reprint it last.
+      resumeHintPrinted = false
+    } catch {
+      return
+    }
+  }
+  printResumeHint()
+}
 
 /**
  * Force process exit, handling the case where the terminal is gone.
@@ -345,7 +349,7 @@ export function gracefulShutdownSync(
     .catch(error => {
       logForDebugging(`Graceful shutdown failed: ${error}`, { level: 'error' })
       cleanupTerminalModes()
-      printResumeHint()
+      finishExitDisplay(exitCode)
       forceExit(exitCode)
     })
     // Prevent unhandled rejection: forceExit re-throws in test mode,
@@ -412,7 +416,7 @@ export async function gracefulShutdown(
   failsafeTimer = setTimeout(
     code => {
       cleanupTerminalModes()
-      printResumeHint()
+      finishExitDisplay(code)
       forceExit(code)
     },
     Math.max(5000, sessionEndTimeoutMs + 3500),
@@ -507,6 +511,21 @@ export async function gracefulShutdown(
     ])
   } catch {
     // Ignore analytics shutdown errors
+  }
+
+  if (shouldCleanExitScreen(exitCode) && !options?.finalMessage) {
+    try {
+      await playExitSplash({
+        enabled: getGlobalConfig().exitAnimationEnabled ?? true,
+        write: text => {
+          writeSync(1, text)
+        },
+        wait: sleep,
+      })
+    } catch {
+      // Terminal may have closed while the animation was playing.
+    }
+    finishExitDisplay(exitCode)
   }
 
   if (options?.finalMessage) {
