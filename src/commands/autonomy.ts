@@ -4,7 +4,7 @@ const autonomy = {
   type: 'local-jsx',
   name: 'autonomy',
   description:
-    'Inspect automatic autonomy runs recorded for proactive ticks and scheduled tasks',
+    '查看主动运行与定时任务的自动执行记录',
   argumentHint:
     '[status [--deep]|runs [limit]|flows [limit]|flow <id>|flow cancel <id>|flow resume <id>]',
   load: () => import('./autonomyPanel.js'),

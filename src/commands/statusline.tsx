@@ -4,7 +4,7 @@ import { AGENT_TOOL_NAME } from '@claude-code-best/builtin-tools/tools/AgentTool
 
 const statusline = {
   type: 'prompt',
-  description: "Set up Tran Agent's status line UI",
+  description: "设置 Tran Agent 状态栏",
   contentLength: 0, // Dynamic content
   aliases: [],
   name: 'statusline',

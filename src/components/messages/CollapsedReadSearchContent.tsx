@@ -11,6 +11,7 @@ import { getToolUseIdsFromCollapsedGroup } from '../../utils/collapseReadSearch.
 import { getDisplayPath } from '../../utils/file.js';
 import { formatDuration, formatSecondsShort } from '../../utils/format.js';
 import { isFullscreenEnvEnabled } from '../../utils/fullscreen.js';
+import { getMcpCallServer } from '../../utils/mcpCallDisplay.js';
 import type { buildMessageLookups } from '../../utils/messages.js';
 import type { ThemeName } from '../../utils/theme.js';
 import { CtrlOToExpand } from '../CtrlOToExpand.js';
@@ -75,6 +76,11 @@ function VerboseToolUse({
   const parsedInput = tool.inputSchema.safeParse(content.input);
   const input = parsedInput.success ? parsedInput.data : undefined;
   const userFacingName = tool.userFacingName(input);
+  const mcpServer = getMcpCallServer(tool, input);
+  const mcpVerb = isResolved ? (isError ? 'Failed' : 'Called') : 'Calling';
+  const displayToolName = mcpServer
+    ? `${mcpVerb} ${tool.isMcp ? userFacingName : `${mcpServer} · ${userFacingName}`}`
+    : userFacingName;
   const toolUseMessage = input ? tool.renderToolUseMessage(input, { theme, verbose: true }) : null;
 
   return (
@@ -82,7 +88,7 @@ function VerboseToolUse({
       <Box flexDirection="row">
         <ToolUseLoader shouldAnimate={shouldAnimate && isInProgress} isUnresolved={!isResolved} isError={isError} />
         <Text>
-          <Text bold>{userFacingName}</Text>
+          <Text bold>{displayToolName}</Text>
           {toolUseMessage && <Text>({toolUseMessage})</Text>}
         </Text>
         {input && tool.renderToolUseTag?.(input)}
@@ -403,7 +409,7 @@ export function CollapsedReadSearchContent({
   if (mcpCallCount > 0) {
     const serverLabel = message.mcpServerNames?.map(n => n.replace(/^claude\.ai /, '')).join(', ') || 'MCP';
     const isFirst = nonMemParts.length === 0;
-    const verb = isActiveGroup ? (isFirst ? '查询中' : '查询中') : isFirst ? '已查询' : '已查询';
+    const verb = toolUseIds.some(id => !lookups.resolvedToolUseIDs.has(id)) ? 'Calling' : anyError ? 'Failed' : 'Called';
     if (!isFirst) {
       nonMemParts.push(<Text key="comma-mcp">, </Text>);
     }

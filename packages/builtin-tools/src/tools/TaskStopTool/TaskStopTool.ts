@@ -43,7 +43,7 @@ export const TaskStopTool = buildTool({
   // with existing transcripts and SDK users
   aliases: ['KillShell'],
   maxResultSizeChars: 100_000,
-  userFacingName: () => (process.env.USER_TYPE === 'ant' ? '' : 'Stop Task'),
+  userFacingName: () => (process.env.USER_TYPE === 'ant' ? '' : '停止任务'),
   get inputSchema(): InputSchema {
     return inputSchema()
   },

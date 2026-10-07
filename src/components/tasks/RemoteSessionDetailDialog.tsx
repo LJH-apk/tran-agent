@@ -225,7 +225,7 @@ function StagePipeline({
   const inSetup = !completed && !hasProgress;
   return (
     <Text>
-      {inSetup ? <Text color="background">准备</Text> : <Text dimColor>Setup</Text>}
+      {inSetup ? <Text color="background">准备</Text> : <Text dimColor>准备</Text>}
       <Text dimColor> → </Text>
       {STAGES.map((s, i) => {
         const isCurrent = !completed && !inSetup && i === currentIdx;
@@ -529,7 +529,7 @@ export function RemoteSessionDetailDialog({ session, toolUseContext, onDone, onB
         {/* Teleport error message */}
         {teleportError && (
           <Box marginTop={1}>
-            <Text color="error">Teleport failed: {teleportError}</Text>
+            <Text color="error">会话迁移失败： {teleportError}</Text>
           </Box>
         )}
 

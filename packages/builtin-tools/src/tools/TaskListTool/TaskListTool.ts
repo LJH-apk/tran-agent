@@ -47,7 +47,7 @@ export const TaskListTool = buildTool({
     return outputSchema()
   },
   userFacingName() {
-    return 'TaskList'
+    return '任务列表'
   },
   shouldDefer: true,
   isEnabled() {

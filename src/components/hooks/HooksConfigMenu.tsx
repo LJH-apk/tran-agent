@@ -27,7 +27,6 @@ import {
 } from '../../utils/hooks/hooksConfigManager.js';
 import type { IndividualHookConfig } from '../../utils/hooks/hooksSettings.js';
 import { getSettings_DEPRECATED, getSettingsForSource } from '../../utils/settings/settings.js';
-import { plural } from '../../utils/stringUtils.js';
 import { Dialog } from '@anthropic/ink';
 import { SelectEventMode } from './SelectEventMode.js';
 import { SelectHookMode } from './SelectHookMode.js';
@@ -185,9 +184,8 @@ export function HooksConfigMenu({ toolNames, onExit }: Props): React.ReactNode {
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="column">
             <Text>
-              All hooks are currently <Text bold>disabled</Text>
-              {disabledByPolicy && ' 由托管设置文件禁用'}. You have <Text bold>{totalHooksCount}</Text>{' '}
-              configured {plural(totalHooksCount, 'hook')} that {plural(totalHooksCount, 'is', 'are')} not running.
+              所有钩子当前均<Text bold>已禁用</Text>
+              {disabledByPolicy && '（由托管设置文件禁用）'}。已配置的 <Text bold>{totalHooksCount}</Text> 个钩子不会运行。
             </Text>
             <Box marginTop={1}>
               <Text dimColor>当钩子被禁用时：</Text>

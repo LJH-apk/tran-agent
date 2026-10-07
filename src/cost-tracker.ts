@@ -179,10 +179,12 @@ function formatCost(cost: number, maxDecimalPlaces: number = 4): string {
   return `$${cost > 0.5 ? round(cost, 100).toFixed(2) : cost.toFixed(maxDecimalPlaces)}`
 }
 
-function formatModelUsage(): string {
+function formatModelUsage(locale: 'en' | 'zh' = 'en'): string {
   const modelUsageMap = getModelUsage()
   if (Object.keys(modelUsageMap).length === 0) {
-    return 'Usage:                 0 input, 0 output, 0 cache read, 0 cache write'
+    return locale === 'zh'
+      ? '用量：0 输入，0 输出，0 缓存读取，0 缓存写入'
+      : 'Usage:                 0 input, 0 output, 0 cache read, 0 cache write'
   }
 
   // Accumulate usage by short name
@@ -210,15 +212,16 @@ function formatModelUsage(): string {
     accumulated.costUSD += usage.costUSD
   }
 
-  let result = 'Usage by model:'
+  const zh = locale === 'zh'
+  let result = zh ? '各模型用量：' : 'Usage by model:'
   for (const [shortName, usage] of Object.entries(usageByShortName)) {
     const usageString =
-      `  ${formatNumber(usage.inputTokens)} input, ` +
-      `${formatNumber(usage.outputTokens)} output, ` +
-      `${formatNumber(usage.cacheReadInputTokens)} cache read, ` +
-      `${formatNumber(usage.cacheCreationInputTokens)} cache write` +
+      `  ${formatNumber(usage.inputTokens)} ${zh ? '输入' : 'input'}, ` +
+      `${formatNumber(usage.outputTokens)} ${zh ? '输出' : 'output'}, ` +
+      `${formatNumber(usage.cacheReadInputTokens)} ${zh ? '缓存读取' : 'cache read'}, ` +
+      `${formatNumber(usage.cacheCreationInputTokens)} ${zh ? '缓存写入' : 'cache write'}` +
       (usage.webSearchRequests > 0
-        ? `, ${formatNumber(usage.webSearchRequests)} web search`
+        ? `, ${formatNumber(usage.webSearchRequests)} ${zh ? '次网页搜索' : 'web search'}`
         : '') +
       ` (${formatCost(usage.costUSD)})`
     result += `\n` + `${shortName}:`.padStart(21) + usageString
@@ -226,14 +229,26 @@ function formatModelUsage(): string {
   return result
 }
 
-export function formatTotalCost(): string {
+export function formatTotalCost(locale: 'en' | 'zh' = 'en'): string {
   const costDisplay =
     formatCost(getTotalCostUSD()) +
     (hasUnknownModelCost()
-      ? ' (costs may be inaccurate due to usage of unknown models)'
+      ? locale === 'zh'
+        ? '（使用了未知价格的模型，费用可能不准确）'
+        : ' (costs may be inaccurate due to usage of unknown models)'
       : '')
 
-  const modelUsageDisplay = formatModelUsage()
+  const modelUsageDisplay = formatModelUsage(locale)
+
+  if (locale === 'zh') {
+    return chalk.dim(
+      `总费用：${costDisplay}\n` +
+        `API 总耗时：${formatDuration(getTotalAPIDuration())}\n` +
+        `会话总时长：${formatDuration(getTotalDuration())}\n` +
+        `代码变更：新增 ${getTotalLinesAdded()} 行，删除 ${getTotalLinesRemoved()} 行\n` +
+        modelUsageDisplay,
+    )
+  }
 
   return chalk.dim(
     `Total cost:            ${costDisplay}\n` +

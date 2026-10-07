@@ -26,7 +26,7 @@ export function MemoryUpdateNotification({ memoryPath }: { memoryPath: string })
 
   return (
     <Box flexDirection="column" flexGrow={1}>
-      <Text color="text">Memory updated in {displayPath} · /memory to edit</Text>
+      <Text color="text">记忆已更新，位置： {displayPath} · /memory to edit</Text>
     </Box>
   );
 }

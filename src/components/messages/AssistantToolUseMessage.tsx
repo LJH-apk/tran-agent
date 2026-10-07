@@ -10,6 +10,7 @@ import { findToolByName, type Tool, type ToolProgressData, type Tools } from '..
 import type { ProgressMessage } from '../../types/message.js';
 import { useIsClassifierChecking } from '../../utils/classifierApprovalsHook.js';
 import { logError } from '../../utils/log.js';
+import { getMcpCallServer } from '../../utils/mcpCallDisplay.js';
 import type { buildMessageLookups } from '../../utils/messages.js';
 import { MessageResponse } from '../MessageResponse.js';
 import { useSelectedMessageBg } from '../messageActions.js';
@@ -95,6 +96,11 @@ export function AssistantToolUseMessage({
   const isResolved = lookups.resolvedToolUseIDs.has(param.id);
   const isQueued = !inProgressToolUseIDs.has(param.id) && !isResolved;
   const isWaitingForPermission = pendingWorkerRequest?.toolUseId === param.id;
+  const mcpServer = getMcpCallServer(tool, param.input);
+  const mcpVerb = isResolved ? (lookups.erroredToolUseIDs.has(param.id) ? 'Failed' : 'Called') : 'Calling';
+  const displayToolName = mcpServer
+    ? `${mcpVerb} ${tool.isMcp ? userFacingToolName : `${mcpServer} · ${userFacingToolName}`}`
+    : userFacingToolName;
 
   if (isTransparentWrapper) {
     if (isQueued || isResolved) return null;
@@ -133,7 +139,7 @@ export function AssistantToolUseMessage({
       backgroundColor={bg}
     >
       <Box flexDirection="column">
-        <Box flexDirection="row" flexWrap="nowrap" minWidth={stringWidth(userFacingToolName) + (shouldShowDot ? 2 : 0)}>
+        <Box flexDirection="row" flexWrap="nowrap" minWidth={stringWidth(displayToolName) + (shouldShowDot ? 2 : 0)}>
           {shouldShowDot &&
             (isQueued ? (
               <Box minWidth={2}>
@@ -156,7 +162,7 @@ export function AssistantToolUseMessage({
               backgroundColor={userFacingToolNameBackgroundColor}
               color={userFacingToolNameBackgroundColor ? 'inverseText' : undefined}
             >
-              {userFacingToolName}
+              {displayToolName}
             </Text>
           </Box>
           {renderedToolUseMessage !== '' && (

@@ -12,6 +12,7 @@ import type { PermissionUpdate } from '../../utils/permissions/PermissionUpdateS
 import { permissionRuleValueToString } from '../../utils/permissions/permissionRuleParser.js';
 import { detectUnreachableRules } from '../../utils/permissions/shadowedRuleDetection.js';
 import { SandboxManager } from '../../utils/sandbox/sandbox-adapter.js';
+import { permissionReasonDisplay } from '../../utils/permissions/permissionReasonDisplay.js';
 import { getSettingSourceDisplayNameLowercase } from '../../utils/settings/constants.js';
 
 type PermissionDecisionInfoItemProps = {
@@ -25,7 +26,7 @@ function decisionReasonDisplayString(
   },
 ): string {
   if ((feature('BASH_CLASSIFIER') || feature('TRANSCRIPT_CLASSIFIER')) && decisionReason.type === 'classifier') {
-    return `${chalk.bold(decisionReason.classifier)} 分类器：${decisionReason.reason}`;
+    return `${chalk.bold(decisionReason.classifier)} 分类器：${permissionReasonDisplay(decisionReason.reason)}`;
   }
   switch (decisionReason.type) {
     case 'rule':
@@ -35,18 +36,18 @@ function decisionReasonDisplayString(
     case 'sandboxOverride':
       return '需要权限才能跳过沙箱';
     case 'workingDir':
-      return decisionReason.reason;
+      return permissionReasonDisplay(decisionReason.reason);
     case 'safetyCheck':
     case 'other':
-      return decisionReason.reason;
+      return permissionReasonDisplay(decisionReason.reason);
     case 'permissionPromptTool':
       return `权限确认工具 ${chalk.bold(decisionReason.permissionPromptToolName)}`;
     case 'hook':
       return decisionReason.reason
-        ? `Hook ${chalk.bold(decisionReason.hookName)}：${decisionReason.reason}`
+        ? `Hook ${chalk.bold(decisionReason.hookName)}：${permissionReasonDisplay(decisionReason.reason)}`
         : `Hook ${chalk.bold(decisionReason.hookName)}`;
     case 'asyncAgent':
-      return decisionReason.reason;
+      return permissionReasonDisplay(decisionReason.reason);
     default:
       return '';
   }

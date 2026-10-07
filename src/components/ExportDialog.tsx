@@ -59,7 +59,7 @@ export function ExportDialog({ content, defaultFilename, onDone }: ExportDialogP
     } catch (error) {
       onDone({
         success: false,
-        message: `导出会话失败：${error instanceof Error ? error.message : 'Unknown error'}`,
+        message: `导出会话失败：${error instanceof Error ? error.message : '未知错误'}`,
       });
     }
   };

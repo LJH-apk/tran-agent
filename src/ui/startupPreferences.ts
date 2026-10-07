@@ -5,7 +5,7 @@ import { fileSuffixForOauthConfig } from '../constants/oauth.js'
 import { getClaudeConfigHomeDir } from '../utils/envUtils.js'
 
 /** Read the same global config as /config, without loading CLI initialization. */
-export function shouldSkipStartupAnimation(): boolean {
+function readStartupConfig(): Record<string, unknown> | undefined {
   const legacy = join(getClaudeConfigHomeDir(), '.config.json')
   const path = existsSync(legacy)
     ? legacy
@@ -15,13 +15,30 @@ export function shouldSkipStartupAnimation(): boolean {
       )
   try {
     const config: unknown = JSON.parse(readFileSync(path, 'utf8'))
-    return (
-      typeof config === 'object' &&
+    return typeof config === 'object' &&
       config !== null &&
-      'skipStartupAnimation' in config &&
-      config.skipStartupAnimation === true
-    )
+      !Array.isArray(config)
+      ? (config as Record<string, unknown>)
+      : undefined
   } catch {
-    return false
+    return undefined
   }
+}
+
+export function shouldSkipStartupAnimation(): boolean {
+  return readStartupConfig()?.skipStartupAnimation === true
+}
+
+/** Matches the account name used by the Agent welcome screen. */
+export function getStartupDisplayName(): string | undefined {
+  const account = readStartupConfig()?.oauthAccount
+  if (
+    typeof account !== 'object' ||
+    account === null ||
+    !('displayName' in account)
+  )
+    return undefined
+  return typeof account.displayName === 'string'
+    ? account.displayName
+    : undefined
 }

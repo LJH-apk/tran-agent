@@ -2,6 +2,38 @@ import { describe, expect, test } from 'bun:test'
 import { classifyMcpToolForCollapse } from '../classifyForCollapse'
 
 describe('classifyMcpToolForCollapse', () => {
+  test('classifies Zotero screenshot tools as reads across server names', () => {
+    for (const name of [
+      'zotero_get_recent',
+      'zotero_get_collection_items',
+      'zotero_get_tags',
+    ]) {
+      expect(classifyMcpToolForCollapse('my-zotero', name)).toEqual({
+        isSearch: false,
+        isRead: true,
+      })
+    }
+  })
+
+  test('uses readOnlyHint for unknown tools without double-counting searches', () => {
+    expect(
+      classifyMcpToolForCollapse('custom', 'inspect_library', true),
+    ).toEqual({
+      isSearch: false,
+      isRead: true,
+    })
+    expect(
+      classifyMcpToolForCollapse('zotero', 'zotero_search_items', true),
+    ).toEqual({
+      isSearch: true,
+      isRead: false,
+    })
+    expect(classifyMcpToolForCollapse('zotero', 'zotero_create_note')).toEqual({
+      isSearch: false,
+      isRead: false,
+    })
+  })
+
   // Search tools
   test('classifies Slack slack_search_public as search', () => {
     expect(classifyMcpToolForCollapse('slack', 'slack_search_public')).toEqual({

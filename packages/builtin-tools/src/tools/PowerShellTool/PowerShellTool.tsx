@@ -262,7 +262,7 @@ const fullInputSchema = lazySchema(() =>
     description: z
       .string()
       .optional()
-      .describe('Clear, concise description of what this command does in active voice.'),
+      .describe('用简体中文简洁描述命令的作用，保留命令、路径和专有名称。'),
     run_in_background: semanticBoolean(z.boolean().optional()).describe(
       `Set to true to run this command in the background. Use Read to read the output later.`,
     ),
@@ -357,7 +357,7 @@ export const PowerShellTool = buildTool({
   strict: true,
 
   async description({ description }: Partial<PowerShellToolInput>): Promise<string> {
-    return description || 'Run PowerShell command';
+    return description || '执行 PowerShell 命令';
   },
 
   async prompt(): Promise<string> {
@@ -424,7 +424,7 @@ export const PowerShellTool = buildTool({
 
   getActivityDescription(input: Partial<PowerShellToolInput> | undefined): string {
     if (!input?.command) {
-      return 'Running command';
+      return '正在执行命令';
     }
     const desc = input.description ?? truncate(input.command, TOOL_SUMMARY_MAX_LENGTH);
     return `Running ${desc}`;

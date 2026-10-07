@@ -1680,7 +1680,7 @@ function OAuthStatusMessage({
                 </Text>
               ) : null}
               <Text color="success">
-                Login successful. Press <Text bold>Enter</Text> to continue…
+                登录成功。按 <Text bold>Enter</Text> 继续…
               </Text>
             </>
           )}
@@ -1695,7 +1695,7 @@ function OAuthStatusMessage({
           {oauthStatus.toRetry && (
             <Box marginTop={1}>
               <Text color="permission">
-                Press <Text bold>Enter</Text> to retry.
+                按 <Text bold>Enter</Text> 重试。
               </Text>
             </Box>
           )}

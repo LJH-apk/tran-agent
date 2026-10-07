@@ -15,7 +15,7 @@ import {
 } from '../modelCost.js'
 import { getSettings_DEPRECATED } from '../settings/settings.js'
 import { checkOpus1mAccess, checkSonnet1mAccess } from './check1mAccess.js'
-import { getAPIProvider } from './providers.js'
+import { getAPIProvider, isFirstPartyAnthropicBaseUrl } from './providers.js'
 import { isModelAllowed } from './modelAllowlist.js'
 import {
   getCanonicalName,
@@ -29,6 +29,7 @@ import {
   isOpus1mMergeEnabled,
   getOpusPricingSuffix,
   renderDefaultModelSetting,
+  parseUserSpecifiedModel,
   type ModelSetting,
 } from './model.js'
 import { has1mContext } from '../context.js'
@@ -55,9 +56,9 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
     )
     return {
       value: null,
-      label: 'Default (recommended)',
-      description: `Use the default model for Ants (currently ${currentModel})`,
-      descriptionForModel: `Default model (currently ${currentModel})`,
+      label: '默认（推荐）',
+      description: `使用内部默认模型（当前为 ${currentModel}）`,
+      descriptionForModel: `默认模型（当前为 ${currentModel}）`,
     }
   }
 
@@ -65,7 +66,7 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
   if (isClaudeAISubscriber()) {
     return {
       value: null,
-      label: 'Default (recommended)',
+      label: '默认（推荐）',
       description: getClaudeAiUserDefaultModelDescription(fastMode),
     }
   }
@@ -74,23 +75,46 @@ export function getDefaultOptionForUser(fastMode = false): ModelOption {
   const is3P = getAPIProvider() !== 'firstParty'
   return {
     value: null,
-    label: 'Default (recommended)',
-    description: `Use the default model (currently ${renderDefaultModelSetting(getDefaultMainLoopModelSetting())})${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
+    label: '默认（推荐）',
+    description: `使用默认模型（当前为 ${renderDefaultModelSetting(getDefaultMainLoopModelSetting())}）${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
   }
 }
 
+function getConfiguredPickerModel(
+  tier: 'OPUS' | 'SONNET' | 'HAIKU',
+  resolveDefault: () => string,
+): string | undefined {
+  const provider = getAPIProvider()
+  const prefix =
+    provider === 'openai'
+      ? 'OPENAI'
+      : provider === 'gemini'
+        ? 'GEMINI'
+        : undefined
+  const tierModel =
+    (prefix ? process.env[`${prefix}_DEFAULT_${tier}_MODEL`] : undefined) ||
+    process.env[`ANTHROPIC_DEFAULT_${tier}_MODEL`]
+  const primaryModel =
+    provider === 'openai'
+      ? process.env.OPENAI_MODEL
+      : provider === 'gemini'
+        ? process.env.GEMINI_MODEL
+        : provider === 'grok'
+          ? process.env.GROK_MODEL
+          : undefined
+  // Use the dispatch resolver for precedence instead of a separate picker policy.
+  return tierModel || primaryModel ? resolveDefault() : undefined
+}
+
 function getCustomSonnetOption(): ModelOption | undefined {
-  const is3P = getAPIProvider() !== 'firstParty'
   const provider = getAPIProvider()
   // Use provider-specific DEFAULT_SONNET_MODEL
-  const customSonnetModel =
-    provider === 'openai'
-      ? process.env.OPENAI_DEFAULT_SONNET_MODEL
-      : provider === 'gemini'
-        ? process.env.GEMINI_DEFAULT_SONNET_MODEL
-        : process.env.ANTHROPIC_DEFAULT_SONNET_MODEL
-  // When a 3P user has a custom sonnet model string, show it directly
-  if (is3P && customSonnetModel) {
+  const customSonnetModel = getConfiguredPickerModel(
+    'SONNET',
+    getDefaultSonnetModel,
+  )
+  // Explicit model mappings also apply to Anthropic-compatible endpoints.
+  if (customSonnetModel) {
     const is1m = has1mContext(customSonnetModel)
     // Use appropriate NAME/DESCRIPTION env vars based on provider
     const nameEnv =
@@ -109,8 +133,8 @@ function getCustomSonnetOption(): ModelOption | undefined {
       value: 'sonnet',
       label: nameEnv ?? customSonnetModel,
       description:
-        descEnv ?? `Custom Sonnet model${is1m ? ' (1M context)' : ''}`,
-      descriptionForModel: `${descEnv ?? `Custom Sonnet model${is1m ? ' with 1M context' : ''}`} (${customSonnetModel})`,
+        descEnv ?? `自定义 Sonnet 模型${is1m ? '（1M 上下文）' : ''}`,
+      descriptionForModel: `${descEnv ?? `自定义 Sonnet 模型${is1m ? '（1M 上下文）' : ''}`} (${customSonnetModel})`,
     }
   }
 }
@@ -122,24 +146,17 @@ function getSonnet46Option(): ModelOption {
   return {
     value: is3P ? getModelStrings().sonnet46 : 'sonnet',
     label: 'Sonnet',
-    description: `Sonnet 4.6 · Best for everyday tasks${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
+    description: `Sonnet 4.6 · 适合日常任务${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
     descriptionForModel:
       'Sonnet 4.6 - best for everyday tasks. Generally recommended for most coding tasks',
   }
 }
 
 function getCustomOpusOption(): ModelOption | undefined {
-  const is3P = getAPIProvider() !== 'firstParty'
   const provider = getAPIProvider()
   // Use provider-specific DEFAULT_OPUS_MODEL
-  const customOpusModel =
-    provider === 'openai'
-      ? process.env.OPENAI_DEFAULT_OPUS_MODEL
-      : provider === 'gemini'
-        ? process.env.GEMINI_DEFAULT_OPUS_MODEL
-        : process.env.ANTHROPIC_DEFAULT_OPUS_MODEL
-  // When a 3P user has a custom opus model string, show it directly
-  if (is3P && customOpusModel) {
+  const customOpusModel = getConfiguredPickerModel('OPUS', getDefaultOpusModel)
+  if (customOpusModel) {
     const is1m = has1mContext(customOpusModel)
     // Use appropriate NAME/DESCRIPTION env vars based on provider
     const nameEnv =
@@ -157,8 +174,8 @@ function getCustomOpusOption(): ModelOption | undefined {
     return {
       value: 'opus',
       label: nameEnv ?? customOpusModel,
-      description: descEnv ?? `Custom Opus model${is1m ? ' (1M context)' : ''}`,
-      descriptionForModel: `${descEnv ?? `Custom Opus model${is1m ? ' with 1M context' : ''}`} (${customOpusModel})`,
+      description: descEnv ?? `自定义 Opus 模型${is1m ? '（1M 上下文）' : ''}`,
+      descriptionForModel: `${descEnv ?? `自定义 Opus 模型${is1m ? '（1M 上下文）' : ''}`} (${customOpusModel})`,
     }
   }
 }
@@ -168,7 +185,7 @@ function getOpus47Option(fastMode = false): ModelOption {
   return {
     value: is3P ? getModelStrings().opus47 : 'opus',
     label: 'Opus 4.7',
-    description: `Opus 4.7 · Most capable for complex work${getOpusPricingSuffix(fastMode)}`,
+    description: `Opus 4.7 · 擅长复杂任务${getOpusPricingSuffix(fastMode)}`,
     descriptionForModel: 'Opus 4.7 - most capable for complex work',
   }
 }
@@ -182,7 +199,7 @@ export function getOpus46Option(fastMode = false): ModelOption {
   return {
     value: getModelStrings().opus46,
     label: 'Opus 4.6',
-    description: `Opus 4.6 · Previous generation Opus${getOpusPricingSuffix(fastMode)}`,
+    description: `Opus 4.6 · 上一代 Opus${getOpusPricingSuffix(fastMode)}`,
     descriptionForModel: 'Opus 4.6 - previous generation Opus model',
   }
 }
@@ -191,10 +208,10 @@ export function getSonnet46_1MOption(): ModelOption {
   const is3P = getAPIProvider() !== 'firstParty'
   return {
     value: is3P ? getModelStrings().sonnet46 + '[1m]' : 'sonnet[1m]',
-    label: 'Sonnet (1M context)',
-    description: `Sonnet 4.6 for long sessions${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
+    label: 'Sonnet（1M 上下文）',
+    description: `Sonnet 4.6 适合长会话${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
     descriptionForModel:
-      'Sonnet 4.6 with 1M context window - for long sessions with large codebases',
+      'Sonnet 4.6（1M 上下文） window - 适合长会话 with large codebases',
   }
 }
 
@@ -202,35 +219,31 @@ export function getOpus47_1MOption(fastMode = false): ModelOption {
   const is3P = getAPIProvider() !== 'firstParty'
   return {
     value: is3P ? getModelStrings().opus47 + '[1m]' : 'opus[1m]',
-    label: 'Opus 4.7 (1M context)',
-    description: `Opus 4.7 with 1M context${getOpusPricingSuffix(fastMode)}`,
+    label: 'Opus 4.7（1M 上下文）',
+    description: `Opus 4.7（1M 上下文）${getOpusPricingSuffix(fastMode)}`,
     descriptionForModel:
-      'Opus 4.7 with 1M context window - for long sessions with large codebases',
+      'Opus 4.7（1M 上下文） window - 适合长会话 with large codebases',
   }
 }
 
 export function getOpus46_1MOption(fastMode = false): ModelOption {
   return {
     value: getModelStrings().opus46 + '[1m]',
-    label: 'Opus 4.6 (1M context)',
-    description: `Opus 4.6 with 1M context${getOpusPricingSuffix(fastMode)}`,
+    label: 'Opus 4.6（1M 上下文）',
+    description: `Opus 4.6（1M 上下文）${getOpusPricingSuffix(fastMode)}`,
     descriptionForModel:
-      'Opus 4.6 with 1M context window - for long sessions with large codebases',
+      'Opus 4.6（1M 上下文） window - 适合长会话 with large codebases',
   }
 }
 
 function getCustomHaikuOption(): ModelOption | undefined {
-  const is3P = getAPIProvider() !== 'firstParty'
   const provider = getAPIProvider()
   // Use provider-specific DEFAULT_HAIKU_MODEL
-  const customHaikuModel =
-    provider === 'openai'
-      ? process.env.OPENAI_DEFAULT_HAIKU_MODEL
-      : provider === 'gemini'
-        ? process.env.GEMINI_DEFAULT_HAIKU_MODEL
-        : process.env.ANTHROPIC_DEFAULT_HAIKU_MODEL
-  // When a 3P user has a custom haiku model string, show it directly
-  if (is3P && customHaikuModel) {
+  const customHaikuModel = getConfiguredPickerModel(
+    'HAIKU',
+    getDefaultHaikuModel,
+  )
+  if (customHaikuModel) {
     // Use appropriate NAME/DESCRIPTION env vars based on provider
     const nameEnv =
       provider === 'openai'
@@ -247,8 +260,8 @@ function getCustomHaikuOption(): ModelOption | undefined {
     return {
       value: 'haiku',
       label: nameEnv ?? customHaikuModel,
-      description: descEnv ?? 'Custom Haiku model',
-      descriptionForModel: `${descEnv ?? 'Custom Haiku model'} (${customHaikuModel})`,
+      description: descEnv ?? '自定义 Haiku 模型',
+      descriptionForModel: `${descEnv ?? '自定义 Haiku 模型'} (${customHaikuModel})`,
     }
   }
 }
@@ -258,7 +271,7 @@ function getHaiku45Option(): ModelOption {
   return {
     value: 'haiku',
     label: 'Haiku',
-    description: `Haiku 4.5 · Fastest for quick answers${is3P ? '' : ` · ${formatModelPricing(COST_HAIKU_45)}`}`,
+    description: `Haiku 4.5 · 适合快速回答${is3P ? '' : ` · ${formatModelPricing(COST_HAIKU_45)}`}`,
     descriptionForModel:
       'Haiku 4.5 - fastest for quick answers. Lower cost but less capable than Sonnet 4.6.',
   }
@@ -269,9 +282,9 @@ function getHaiku35Option(): ModelOption {
   return {
     value: 'haiku',
     label: 'Haiku',
-    description: `Haiku 3.5 for simple tasks${is3P ? '' : ` · ${formatModelPricing(COST_HAIKU_35)}`}`,
+    description: `Haiku 3.5 适合简单任务${is3P ? '' : ` · ${formatModelPricing(COST_HAIKU_35)}`}`,
     descriptionForModel:
-      'Haiku 3.5 - faster and lower cost, but less capable than Sonnet. Use for simple tasks.',
+      'Haiku 3.5 - faster and lower cost, but less capable than Sonnet. Use 适合简单任务.',
   }
 }
 
@@ -287,26 +300,26 @@ function getMaxOpusOption(fastMode = false): ModelOption {
   return {
     value: 'opus',
     label: 'Opus 4.7',
-    description: `Opus 4.7 · Most capable for complex work${fastMode ? getOpusPricingSuffix(true) : ''}`,
+    description: `Opus 4.7 · 擅长复杂任务${fastMode ? getOpusPricingSuffix(true) : ''}`,
   }
 }
 
 export function getMaxSonnet46_1MOption(): ModelOption {
   const is3P = getAPIProvider() !== 'firstParty'
-  const billingInfo = isClaudeAISubscriber() ? ' · Billed as extra usage' : ''
+  const billingInfo = isClaudeAISubscriber() ? ' · 按额外用量计费' : ''
   return {
     value: 'sonnet[1m]',
-    label: 'Sonnet (1M context)',
-    description: `Sonnet 4.6 with 1M context${billingInfo}${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
+    label: 'Sonnet（1M 上下文）',
+    description: `Sonnet 4.6（1M 上下文）${billingInfo}${is3P ? '' : ` · ${formatModelPricing(COST_TIER_3_15)}`}`,
   }
 }
 
 export function getMaxOpus47_1MOption(fastMode = false): ModelOption {
-  const billingInfo = isClaudeAISubscriber() ? ' · Billed as extra usage' : ''
+  const billingInfo = isClaudeAISubscriber() ? ' · 按额外用量计费' : ''
   return {
     value: 'opus[1m]',
-    label: 'Opus 4.7 (1M context)',
-    description: `Opus 4.7 with 1M context${billingInfo}${getOpusPricingSuffix(fastMode)}`,
+    label: 'Opus 4.7（1M 上下文）',
+    description: `Opus 4.7（1M 上下文）${billingInfo}${getOpusPricingSuffix(fastMode)}`,
   }
 }
 
@@ -314,30 +327,30 @@ function getMergedOpus1MOption(fastMode = false): ModelOption {
   const is3P = getAPIProvider() !== 'firstParty'
   return {
     value: is3P ? getModelStrings().opus47 + '[1m]' : 'opus[1m]',
-    label: 'Opus 4.7 (1M context)',
-    description: `Opus 4.7 with 1M context · Most capable for complex work${!is3P && fastMode ? getOpusPricingSuffix(fastMode) : ''}`,
+    label: 'Opus 4.7（1M 上下文）',
+    description: `Opus 4.7（1M 上下文） · 擅长复杂任务${!is3P && fastMode ? getOpusPricingSuffix(fastMode) : ''}`,
     descriptionForModel:
-      'Opus 4.7 with 1M context - most capable for complex work',
+      'Opus 4.7（1M 上下文） - most capable for complex work',
   }
 }
 
 const MaxSonnet46Option: ModelOption = {
   value: 'sonnet',
   label: 'Sonnet',
-  description: 'Sonnet 4.6 · Best for everyday tasks',
+  description: 'Sonnet 4.6 · 适合日常任务',
 }
 
 const MaxHaiku45Option: ModelOption = {
   value: 'haiku',
   label: 'Haiku',
-  description: 'Haiku 4.5 · Fastest for quick answers',
+  description: 'Haiku 4.5 · 适合快速回答',
 }
 
 function getOpusPlanOption(): ModelOption {
   return {
     value: 'opusplan',
     label: 'Opus 计划模式',
-    description: 'Use Opus 4.7 in plan mode, Sonnet 4.6 otherwise',
+    description: '计划模式使用 Opus 4.7，其余使用 Sonnet 4.6',
   }
 }
 
@@ -345,9 +358,9 @@ function getChatGPTCodexModelOptions(): ModelOption[] {
   return [
     {
       value: null,
-      label: 'Default (recommended)',
-      description: `Use the default ChatGPT Codex model (currently ${CHATGPT_CODEX_DEFAULT_MODEL})`,
-      descriptionForModel: `Default ChatGPT Codex model (currently ${CHATGPT_CODEX_DEFAULT_MODEL})`,
+      label: '默认（推荐）',
+      description: `使用默认 ChatGPT Codex 模型（当前为 ${CHATGPT_CODEX_DEFAULT_MODEL}）`,
+      descriptionForModel: `默认 ChatGPT Codex 模型（当前为 ${CHATGPT_CODEX_DEFAULT_MODEL}）`,
     },
     ...CHATGPT_CODEX_MODEL_OPTIONS.map(model => ({
       value: model.value,
@@ -381,6 +394,52 @@ function getModelOptionsBase(fastMode = false): ModelOption[] {
 
   if (getAPIProvider() === 'openai' && isChatGPTAuthMode()) {
     return getChatGPTCodexModelOptions()
+  }
+
+  // Show explicit family mappings/primary models before any built-in catalog.
+  {
+    const opus = getCustomOpusOption()
+    const sonnet = getCustomSonnetOption()
+    const haiku = getCustomHaikuOption()
+    const isCompatibleEndpoint =
+      getAPIProvider() === 'firstParty' && !isFirstPartyAnthropicBaseUrl()
+    const primaryModel = isCompatibleEndpoint
+      ? process.env.ANTHROPIC_MODEL || getSettings_DEPRECATED()?.model
+      : undefined
+    if (opus || sonnet || haiku || primaryModel) {
+      const configuredOptions: ModelOption[] = isCompatibleEndpoint
+        ? [
+            getDefaultOptionForUser(fastMode),
+            ...[opus, sonnet, haiku].filter(
+              (option): option is ModelOption => option !== undefined,
+            ),
+            ...(primaryModel
+              ? [
+                  {
+                    value: primaryModel,
+                    label: parseUserSpecifiedModel(primaryModel),
+                    description: '自定义模型',
+                  },
+                ]
+              : []),
+          ]
+        : [
+            getDefaultOptionForUser(fastMode),
+            ...(opus
+              ? [opus]
+              : [getOpus47_1MOption(fastMode), getOpus46_1MOption(fastMode)]),
+            sonnet ?? getSonnet46_1MOption(),
+            haiku ?? getHaikuOption(),
+          ]
+      const models = new Set<string>()
+      return configuredOptions.filter(option => {
+        if (option.value === null) return true
+        const model = parseUserSpecifiedModel(option.value)
+        if (models.has(model)) return false
+        models.add(model)
+        return true
+      })
+    }
   }
 
   if (isClaudeAISubscriber()) {
@@ -540,7 +599,7 @@ function getKnownModelOption(model: string): ModelOption | null {
     return {
       value: model,
       label: marketingName,
-      description: `Newer version available · select ${familyInfo.alias} for ${familyInfo.currentVersionName}`,
+      description: `已有新版本 · 选择 ${familyInfo.alias} 使用 ${familyInfo.currentVersionName}`,
     }
   }
 
@@ -566,13 +625,22 @@ export function getModelOptions(fastMode = false): ModelOption[] {
       label: process.env.ANTHROPIC_CUSTOM_MODEL_OPTION_NAME ?? envCustomModel,
       description:
         process.env.ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION ??
-        `Custom model (${envCustomModel})`,
+        `自定义模型 (${envCustomModel})`,
     })
   }
 
   // Append additional model options fetched during bootstrap
   for (const opt of getGlobalConfig().additionalModelOptionsCache ?? []) {
-    if (!options.some(existing => existing.value === opt.value)) {
+    if (
+      !options.some(
+        existing =>
+          existing.value === opt.value ||
+          (existing.value !== null &&
+            opt.value !== null &&
+            parseUserSpecifiedModel(existing.value) ===
+              parseUserSpecifiedModel(opt.value)),
+      )
+    ) {
       options.push(opt)
     }
   }
@@ -587,7 +655,17 @@ export function getModelOptions(fastMode = false): ModelOption[] {
   } else if (initialMainLoopModel !== null) {
     customModel = initialMainLoopModel
   }
-  if (customModel === null || options.some(opt => opt.value === customModel)) {
+  if (
+    customModel === null ||
+    options.some(
+      opt =>
+        opt.value === customModel ||
+        (customModel !== 'opusplan' &&
+          opt.value !== null &&
+          parseUserSpecifiedModel(opt.value) ===
+            parseUserSpecifiedModel(customModel)),
+    )
+  ) {
     return filterModelOptionsByAllowlist(options)
   } else if (customModel === 'opusplan') {
     return filterModelOptionsByAllowlist([...options, getOpusPlanOption()])
@@ -611,7 +689,7 @@ export function getModelOptions(fastMode = false): ModelOption[] {
       options.push({
         value: customModel,
         label: customModel,
-        description: 'Custom model',
+        description: '自定义模型',
       })
     }
     return filterModelOptionsByAllowlist(options)

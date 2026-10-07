@@ -33,6 +33,7 @@ import {
   parseUserSpecifiedModel,
 } from '../utils/model/model.js';
 import { getModelOptions } from '../utils/model/modelOptions.js';
+import { getInitial1MSelections, getModelPickerSelection } from '../utils/model/modelPickerContext.js';
 import { getSettingsForSource, updateSettingsForSource } from '../utils/settings/settings.js';
 import { ConfigurableShortcutHint } from './ConfigurableShortcutHint.js';
 import { Select } from './CustomSelect/index.js';
@@ -77,9 +78,15 @@ export function ModelPicker({
   const [focusedValue, setFocusedValue] = useState<string | undefined>(initialValue);
 
   const isFastMode = useAppState(s => (isFastModeEnabled() ? s.fastMode : false));
+  const modelOptions = useMemo(() => getModelOptions(isFastMode ?? false), [isFastMode]);
 
-  const [marked1MValues, setMarked1MValues] = useState<Set<string>>(
-    () => new Set(has1mContext(initialValue) ? [initialValue.replace(/\[1m\]/i, '')] : []),
+  const [marked1MValues, setMarked1MValues] = useState<Set<string>>(() =>
+    getInitial1MSelections(
+      modelOptions.map(option => option.value),
+      initial,
+      parseUserSpecifiedModel,
+      has1mContext,
+    ),
   );
 
   const handleToggle1M = useCallback(() => {
@@ -104,9 +111,6 @@ export function ModelPicker({
   const [effort, setEffort] = useState<EffortLevel | undefined>(
     effortValue !== undefined ? convertEffortValueToLevel(effortValue) : undefined,
   );
-
-  // Memoize all derived values to prevent re-renders
-  const modelOptions = useMemo(() => getModelOptions(isFastMode ?? false), [isFastMode]);
 
   // Ensure the initial value is in the options list
   // This handles edge cases where the user's current model (e.g., 'haiku' for 3P users)
@@ -227,7 +231,7 @@ export function ModelPicker({
     // 1M options and would never match.
     const baseValue = value.replace(/\[1m\]/i, '');
     const wants1M = marked1MValues.has(baseValue);
-    const finalValue = wants1M ? `${baseValue}[1m]` : baseValue;
+    const finalValue = getModelPickerSelection(value, wants1M, parseUserSpecifiedModel);
     onSelect(finalValue, selectedEffort);
   }
 

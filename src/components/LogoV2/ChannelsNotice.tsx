@@ -48,7 +48,7 @@ export function ChannelsNotice(): React.ReactNode {
   // even matches a configured MCP server are all still unknown.
   return (
     <Box paddingLeft={2} flexDirection="column">
-      <Text color="error">Listening for channel messages from: {list}</Text>
+      <Text color="error">正在监听以下来源的频道消息： {list}</Text>
       <Text dimColor>
         Experimental · inbound messages will be pushed into this session, this carries prompt injection risks. Restart
         Tran Agent without {flag} to disable.

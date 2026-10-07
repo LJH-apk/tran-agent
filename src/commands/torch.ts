@@ -12,7 +12,7 @@ const call = async (onDone: LocalJSXCommandOnDone): Promise<ReactNode> => {
 export default {
   type: 'local-jsx',
   name: 'torch',
-  description: '[INTERNAL] Development debug command (reserved)',
+  description: '[内部] 开发调试命令（保留）',
   isEnabled: () => true,
   isHidden: true,
   load: () => Promise.resolve({ call }),

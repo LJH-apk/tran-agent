@@ -41,7 +41,7 @@ export function PlanApprovalRequestDisplay({ request }: PlanApprovalRequestProps
         >
           <Markdown>{request.planContent}</Markdown>
         </Box>
-        <Text dimColor>Plan file: {request.planFilePath}</Text>
+        <Text dimColor>计划文件： {request.planFilePath}</Text>
       </Box>
     </Box>
   );

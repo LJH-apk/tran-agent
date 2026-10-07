@@ -102,7 +102,7 @@ export const TaskUpdateTool = buildTool({
     return outputSchema()
   },
   userFacingName() {
-    return 'TaskUpdate'
+    return '更新任务'
   },
   shouldDefer: true,
   isEnabled() {

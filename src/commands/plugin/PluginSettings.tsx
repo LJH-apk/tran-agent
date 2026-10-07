@@ -761,28 +761,28 @@ export function PluginSettings({ onComplete, args, showMcpRedirectMessage }: Plu
         <Text> </Text>
         <Text dimColor>安装：</Text>
         <Text>  /plugin install - 浏览并安装插件</Text>
-        <Text> /plugin install &lt;marketplace&gt; - Install from specific marketplace</Text>
-        <Text> /plugin install &lt;plugin&gt; - Install specific plugin</Text>
-        <Text> /plugin install &lt;plugin&gt;@&lt;market&gt; - Install plugin from marketplace</Text>
+        <Text> /plugin install &lt;marketplace&gt; - 从指定市场安装</Text>
+        <Text> /plugin install &lt;plugin&gt; - 安装指定插件</Text>
+        <Text> /plugin install &lt;plugin&gt;@&lt;market&gt; - 从指定市场安装插件</Text>
         <Text> </Text>
         <Text dimColor>管理：</Text>
         <Text>  /plugin manage - 管理已安装的插件</Text>
-        <Text> /plugin enable &lt;plugin&gt; - Enable a plugin</Text>
-        <Text> /plugin disable &lt;plugin&gt; - Disable a plugin</Text>
-        <Text> /plugin uninstall &lt;plugin&gt; - Uninstall a plugin</Text>
+        <Text> /plugin enable &lt;plugin&gt; - 启用插件</Text>
+        <Text> /plugin disable &lt;plugin&gt; - 禁用插件</Text>
+        <Text> /plugin uninstall &lt;plugin&gt; - 卸载插件</Text>
         <Text> </Text>
         <Text dimColor>插件市场：</Text>
         <Text>  /plugin marketplace - 插件市场管理菜单</Text>
         <Text>  /plugin marketplace add - 添加插件市场</Text>
-        <Text> /plugin marketplace add &lt;path/url&gt; - Add marketplace directly</Text>
+        <Text> /plugin marketplace add &lt;path/url&gt; - 直接添加市场</Text>
         <Text>  /plugin marketplace update - 更新插件市场</Text>
-        <Text> /plugin marketplace update &lt;name&gt; - Update specific marketplace</Text>
+        <Text> /plugin marketplace update &lt;name&gt; - 更新指定市场</Text>
         <Text>  /plugin marketplace remove - 移除插件市场</Text>
-        <Text> /plugin marketplace remove &lt;name&gt; - Remove specific marketplace</Text>
+        <Text> /plugin marketplace remove &lt;name&gt; - 移除指定市场</Text>
         <Text>  /plugin marketplace list - 列出所有插件市场</Text>
         <Text> </Text>
         <Text dimColor>校验：</Text>
-        <Text> /plugin validate &lt;path&gt; - Validate a manifest file or directory</Text>
+        <Text> /plugin validate &lt;path&gt; - 验证清单文件或目录</Text>
         <Text> </Text>
         <Text dimColor>其他：</Text>
         <Text>  /plugin - 插件主菜单</Text>

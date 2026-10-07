@@ -1905,9 +1905,9 @@ export function ManagePlugins({
         </Box>
 
         <Box marginBottom={1} flexDirection="column">
-          <Text color="error">Removed from marketplace · reason: {fp.reason}</Text>
+          <Text color="error">已从市场移除 · 原因： {fp.reason}</Text>
           <Text>{fp.text}</Text>
-          <Text dimColor>Flagged on {new Date(fp.flaggedAt).toLocaleDateString()}</Text>
+          <Text dimColor>标记日期： {new Date(fp.flaggedAt).toLocaleDateString()}</Text>
         </Box>
 
         <Box marginTop={1} flexDirection="column">
@@ -2410,7 +2410,7 @@ export function ManagePlugins({
       {/* No search results */}
       {filteredItems.length === 0 && searchQuery && (
         <Box marginBottom={1}>
-          <Text dimColor>No items match &quot;{searchQuery}&quot;</Text>
+          <Text dimColor>没有匹配以下条件的项目：&quot;{searchQuery}&quot;</Text>
         </Box>
       )}
 

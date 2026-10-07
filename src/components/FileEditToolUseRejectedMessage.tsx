@@ -36,7 +36,7 @@ export function FileEditToolUseRejectedMessage({
   const { columns } = useTerminalSize();
   const text = (
     <Box flexDirection="row">
-      <Text color="subtle">User rejected {operation} to </Text>
+      <Text color="subtle">用户已拒绝 {operation} to </Text>
       <Text bold color="subtle">
         {verbose ? file_path : relative(getCwd(), file_path)}
       </Text>

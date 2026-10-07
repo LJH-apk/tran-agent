@@ -16,7 +16,7 @@ export function UserLocalCommandOutputMessage({ content }: Props): React.ReactNo
   if (!stdout && !stderr) {
     return (
       <MessageResponse>
-        <Text dimColor>{NO_CONTENT_MESSAGE}</Text>
+        <Text dimColor>（无内容）</Text>
       </MessageResponse>
     );
   }
@@ -32,6 +32,13 @@ export function UserLocalCommandOutputMessage({ content }: Props): React.ReactNo
 }
 
 function IndentedContent({ children }: { children: string }): React.ReactNode {
+  if (children === NO_CONTENT_MESSAGE) {
+    return (
+      <MessageResponse>
+        <Text dimColor>（无内容）</Text>
+      </MessageResponse>
+    );
+  }
   if (children.startsWith(`${DIAMOND_OPEN} `) || children.startsWith(`${DIAMOND_FILLED} `)) {
     return <CloudLaunchContent>{children}</CloudLaunchContent>;
   }

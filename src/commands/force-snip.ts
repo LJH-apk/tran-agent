@@ -50,7 +50,7 @@ const call: LocalCommandCall = async (_args, context) => {
 const forceSnip = {
   type: 'local',
   name: 'force-snip',
-  description: 'Force snip conversation history at current point',
+  description: '在当前位置裁剪对话历史',
   supportsNonInteractive: true,
   isHidden: false,
   load: () => Promise.resolve({ call }),

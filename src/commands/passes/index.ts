@@ -10,9 +10,9 @@ export default {
   get description() {
     const reward = getCachedReferrerReward()
     if (reward) {
-      return 'Share a free week of Tran Agent with friends and earn extra usage'
+      return '与朋友分享一周免费 Tran Agent，并获得额外用量'
     }
-    return 'Share a free week of Tran Agent with friends'
+    return '与朋友分享一周免费 Tran Agent'
   },
   get isHidden() {
     const { eligible, hasCache } = checkCachedPassesEligibility()

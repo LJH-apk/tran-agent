@@ -113,7 +113,7 @@ export function MCPRemoteServerMenu({
         onComplete?.(`身份验证成功。已连接到 ${server.name}。`);
       } else if (result.client.type === 'needs-auth') {
         onComplete?.(
-          'Authentication successful, but server still requires authentication. You may need to manually restart Tran Agent.',
+          '身份验证成功，但服务器仍要求身份验证。你可能需要手动重启 Tran Agent。',
         );
       } else {
         onComplete?.(
@@ -403,7 +403,7 @@ export function MCPRemoteServerMenu({
         : ' 将打开浏览器窗口进行身份验证';
     return (
       <Box flexDirection="column" gap={1} padding={1}>
-        <Text color="claude">Authenticating with {server.name}…</Text>
+        <Text color="claude">正在验证 {server.name} 的身份…</Text>
         <Box>
           <Spinner />
           <Text>{authCopy}</Text>
@@ -454,7 +454,7 @@ export function MCPRemoteServerMenu({
   if (isClaudeAIAuthenticating) {
     return (
       <Box flexDirection="column" gap={1} padding={1}>
-        <Text color="claude">Authenticating with {server.name}…</Text>
+        <Text color="claude">正在验证 {server.name} 的身份…</Text>
         <Box>
           <Spinner />
           <Text> 将打开浏览器窗口进行身份验证</Text>
@@ -476,7 +476,7 @@ export function MCPRemoteServerMenu({
         )}
         <Box marginLeft={3} flexDirection="column">
           <Text color="permission">
-            Press <Text bold>Enter</Text> after authenticating in your browser.
+            在浏览器中完成身份验证后，按 <Text bold>Enter</Text> 继续。
           </Text>
           <Text dimColor italic>
             <ConfigurableShortcutHint action="confirm:no" context="Confirmation" fallback="Esc" description="返回" />
@@ -510,7 +510,7 @@ export function MCPRemoteServerMenu({
             )}
             <Box marginLeft={3} flexDirection="column">
               <Text color="permission">
-                Press <Text bold>Enter</Text> when done.
+                完成后按 <Text bold>Enter</Text> 继续。
               </Text>
               <Text dimColor italic>
                 <ConfigurableShortcutHint
@@ -525,11 +525,11 @@ export function MCPRemoteServerMenu({
         ) : (
           <>
             <Text>
-              This will open claude.ai in the browser. Find the MCP server in the list and click &quot;Disconnect&quot;.
+              将在浏览器中打开 claude.ai。找到对应的 MCP 服务器，点击 &quot;Disconnect&quot;（断开连接）。
             </Text>
             <Box marginLeft={3} flexDirection="column">
               <Text color="permission">
-                Press <Text bold>Enter</Text> to open the browser.
+                按 <Text bold>Enter</Text> 打开浏览器。
               </Text>
               <Text dimColor italic>
                 <ConfigurableShortcutHint

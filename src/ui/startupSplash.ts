@@ -1,6 +1,7 @@
 import { setTimeout as delay } from 'node:timers/promises'
 import { readFile } from 'node:fs/promises'
 import { PRODUCT_NAME } from '../constants/product.js'
+import { getStartupDisplayName } from './startupPreferences.js'
 import { getChafaEmblem, renderChafaRow } from './chafaEmblem.js'
 import {
   getImageProtocol,
@@ -59,8 +60,10 @@ export function renderStartupFrame(
   progress: number,
   useColor: boolean,
   imageHeight?: number,
+  displayName?: string,
 ): string {
-  const emblem = getChafaEmblem(columns, rows)
+  const personalized = displayName === '刘佳航'
+  const emblem = getChafaEmblem(columns, rows - (personalized ? 1 : 0))
   const art = emblem.rows
   const fraction = Math.max(0, Math.min(1, progress))
   const visibleRows = Math.ceil(art.length * Math.min(1, fraction * 2))
@@ -87,6 +90,7 @@ export function renderStartupFrame(
     ),
     center('兰州交通大学', 12),
     center('交通运输学院', 12),
+    ...(personalized ? [center('交通运输（北交联培）', 20)] : []),
     '',
     center(
       `${blue}${'━'.repeat(filled)}${'─'.repeat(barWidth - filled)}${reset}`,
@@ -159,7 +163,11 @@ export async function showStartupSplash(
     process.stdout.write('\x1b[?1049h\x1b[?25l\x1b[2J')
     const columns = process.stdout.columns || 80
     const rows = process.stdout.rows || 24
-    const imageLayout = getImageLayout(columns, rows)
+    const displayName = getStartupDisplayName()
+    const imageLayout = getImageLayout(
+      columns,
+      rows - (displayName === '刘佳航' ? 1 : 0),
+    )
     if (protocol && png) {
       process.stdout.write(
         `\x1b[${imageLayout.top + 1};${imageLayout.left + 1}H${encodeTerminalImage(protocol, png, imageLayout.width, imageLayout.height)}`,
@@ -174,6 +182,7 @@ export async function showStartupSplash(
           frame / 20,
           process.env.NO_COLOR === undefined,
           protocol ? imageLayout.height : undefined,
+          displayName,
         ),
       )
       await delay(45, undefined, { signal: controller.signal })

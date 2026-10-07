@@ -20,7 +20,7 @@ import type { ToolUseContext } from '../Tool.js'
 const monitor = {
   type: 'local-jsx',
   name: 'monitor',
-  description: 'Start a background shell monitor (Shift+Down to view)',
+  description: '启动后台 Shell 监控（Shift+↓ 查看）',
   isEnabled: () => {
     if (feature('MONITOR_TOOL')) {
       return true

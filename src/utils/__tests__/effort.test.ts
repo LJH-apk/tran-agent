@@ -28,7 +28,27 @@ const {
   getEffortLevelDescription,
   resolvePickerEffortPersistence,
   EFFORT_LEVELS,
+  modelSupportsEffort,
+  getDefaultEffortForModel,
 } = await import('src/utils/effort.js')
+
+describe('current Claude effort support', () => {
+  test('recognizes Opus and Sonnet 5 model IDs, including context suffixes', () => {
+    for (const model of [
+      'claude-opus-5',
+      'claude-opus-5-5[1m]',
+      'claude-sonnet-5',
+      'claude-sonnet-5-5',
+      'claude-opus-4-8',
+    ]) {
+      expect(modelSupportsEffort(model)).toBe(true)
+    }
+  })
+
+  test('uses the documented medium default for Opus 5.5', () => {
+    expect(getDefaultEffortForModel('claude-opus-5-5[1m]')).toBe('medium')
+  })
+})
 
 // ─── EFFORT_LEVELS constant ────────────────────────────────────────────
 

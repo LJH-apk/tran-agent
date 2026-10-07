@@ -1,4 +1,5 @@
 // biome-ignore-all assist/source/organizeImports: ANT-ONLY import markers must not be reordered
+import { getLanguageSection } from './languagePrompt.js'
 import { type as osType, version as osVersion, release as osRelease } from 'os'
 import { env } from '../utils/env.js'
 import { getIsGit } from '../utils/git.js'
@@ -139,14 +140,6 @@ function getAntModelOverrideSection(): string | null {
   return getAntModelOverrideConfig()?.defaultSystemPromptSuffix || null
 }
 
-function getLanguageSection(
-  languagePreference: string | undefined,
-): string | null {
-  if (!languagePreference) return null
-
-  return `# Language
-Always respond in ${languagePreference}. Use ${languagePreference} for all explanations, comments, and communications with the user. Technical terms and code identifiers should remain in their original form.`
-}
 
 function getOutputStyleSection(
   outputStyleConfig: OutputStyleConfig | null,
@@ -429,6 +422,7 @@ export async function getSystemPrompt(
   if (isEnvTruthy(process.env.CLAUDE_CODE_SIMPLE)) {
     return [
       `You are Tran Agent, A traffic simulation CLI agent researched by the team from the School of Traffic and Transportation, Lanzhou Jiaotong University.\n\nCWD: ${getCwd()}\nDate: ${getSessionStartDate()}`,
+      getLanguageSection(getInitialSettings().language),
     ]
   }
 

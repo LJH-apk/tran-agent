@@ -1820,7 +1820,11 @@ export const fetchToolsForClient = memoizeWithLRU(
               return tool.annotations?.openWorldHint ?? false
             },
             isSearchOrReadCommand() {
-              return classifyMcpToolForCollapse(client.name, tool.name)
+              return classifyMcpToolForCollapse(
+                client.name,
+                tool.name,
+                tool.annotations?.readOnlyHint === true,
+              )
             },
             inputJSONSchema: tool.inputSchema as Tool['inputJSONSchema'],
             async checkPermissions() {

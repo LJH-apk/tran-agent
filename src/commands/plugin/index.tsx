@@ -4,7 +4,7 @@ const plugin = {
   type: 'local-jsx',
   name: 'plugin',
   aliases: ['plugins', 'marketplace'],
-  description: 'Manage Tran Agent plugins',
+  description: '管理 Tran Agent 插件',
   immediate: true,
   load: () => import('./plugin.js'),
 } satisfies Command;

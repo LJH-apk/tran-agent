@@ -5,7 +5,7 @@ const localVaultCommand: Command = {
   name: 'local-vault',
   aliases: ['lv', 'local-secret'],
   description:
-    'Manage local encrypted secrets. Stored in OS keychain or encrypted file fallback — no API key required.',
+    '管理本地加密密钥，保存在系统钥匙串或加密文件中，无需 API 密钥。',
   // Avoid `<key>` / `<value>` in the hint — REPL markdown renderer eats angle-
   // bracketed words as HTML tags. Uppercase placeholders survive intact.
   argumentHint: 'list | set KEY VALUE | get KEY [--reveal] | delete KEY',

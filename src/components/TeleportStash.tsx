@@ -88,7 +88,7 @@ export function TeleportStash({ onStashAndContinue, onCancel }: TeleportStashPro
           错误：{error}
         </Text>
         <Box marginTop={1}>
-          <Text dimColor>Press </Text>
+          <Text dimColor>按 </Text>
           <Text bold>Escape</Text>
           <Text dimColor> 取消</Text>
         </Box>

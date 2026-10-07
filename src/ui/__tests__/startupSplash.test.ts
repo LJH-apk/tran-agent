@@ -67,6 +67,36 @@ describe('shouldShowStartupSplash', () => {
 })
 
 describe('renderStartupFrame', () => {
+  test('shows the personalized line only for the matching account and reserves a row', () => {
+    const text = '交通运输（北交联培）'
+    for (const name of [undefined, '其他用户', '刘佳航同学']) {
+      expect(
+        renderStartupFrame(82, 47, 1, false, undefined, name),
+      ).not.toContain(text)
+    }
+    for (const [columns, rows] of [
+      [82, 47],
+      [80, 30],
+      [30, 18],
+    ]) {
+      const frame = renderStartupFrame(
+        columns!,
+        rows!,
+        1,
+        false,
+        undefined,
+        '刘佳航',
+      )
+      expect(frame).toContain(text)
+      expect(frame).toContain(
+        ' '.repeat(Math.floor((columns! - 20) / 2)) + text,
+      )
+      expect(frame.split('\r\n').length).toBeLessThan(rows!)
+      expect(frame.indexOf(text)).toBeGreaterThan(frame.indexOf('交通运输学院'))
+    }
+    expect(renderStartupFrame(82, 47, 1, true, 30, '刘佳航')).toContain(text)
+  })
+
   test('fits both large and compact terminals without scrolling', () => {
     for (const [columns, rows] of [
       [80, 30],

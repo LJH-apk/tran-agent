@@ -6,7 +6,7 @@ const vaultCommand: Command = {
   name: 'vault',
   aliases: ['vaults'],
   description:
-    'Manage remote secret vaults and credentials for cloud agents. Requires Claude Pro/Max/Team subscription.',
+    '管理云端智能体的远程密钥库与凭据，需要 Claude Pro/Max/Team 订阅。',
   // REPL markdown renderer strips `<...>` as HTML tags — use uppercase.
   argumentHint:
     'list | create NAME | get ID | archive ID | add-credential VAULT_ID KEY VALUE | archive-credential VAULT_ID CRED_ID',

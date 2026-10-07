@@ -71,7 +71,7 @@ export function TeleportResumeWrapper({
           <Spinner />
           <Text bold>正在恢复会话…</Text>
         </Box>
-        <Text dimColor>Loading &quot;{selectedSession.title}&quot;…</Text>
+        <Text dimColor>正在加载 &quot;{selectedSession.title}&quot;…</Text>
       </Box>
     );
   }

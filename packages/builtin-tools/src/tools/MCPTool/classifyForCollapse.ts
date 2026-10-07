@@ -7,11 +7,16 @@
  * Tool names are stable across installs (even when the server name varies,
  * e.g., "slack" vs "claude_ai_Slack"), so matching is keyed on the tool
  * name alone after normalizing camelCase/kebab-case to snake_case.
- * Unknown tool names don't collapse (conservative).
+ * Unknown tool names only collapse when the server declares readOnlyHint.
+ * This classification affects UI summaries, not execution permissions.
  */
 
 // prettier-ignore
 const SEARCH_TOOLS = new Set([
+  // Zotero
+  'zotero_search_items',
+  'zotero_search_notes',
+  'zotero_semantic_search',
   // Slack (hosted + @modelcontextprotocol/server-slack)
   'slack_search_public',
   'slack_search_public_and_private',
@@ -140,6 +145,16 @@ const SEARCH_TOOLS = new Set([
 
 // prettier-ignore
 const READ_TOOLS = new Set([
+  // Zotero
+  'zotero_get_recent',
+  'zotero_get_collections',
+  'zotero_get_collection_items',
+  'zotero_get_tags',
+  'zotero_get_item_metadata',
+  'zotero_get_item_fulltext',
+  'zotero_get_item_children',
+  'zotero_get_annotations',
+  'zotero_get_notes',
   // Slack (hosted + @modelcontextprotocol/server-slack)
   'slack_read_channel',
   'slack_read_thread',
@@ -595,10 +610,12 @@ function normalize(name: string): string {
 export function classifyMcpToolForCollapse(
   _serverName: string,
   toolName: string,
+  readOnlyHint = false,
 ): { isSearch: boolean; isRead: boolean } {
   const normalized = normalize(toolName)
+  const isSearch = SEARCH_TOOLS.has(normalized)
   return {
-    isSearch: SEARCH_TOOLS.has(normalized),
-    isRead: READ_TOOLS.has(normalized),
+    isSearch,
+    isRead: READ_TOOLS.has(normalized) || (readOnlyHint && !isSearch),
   }
 }

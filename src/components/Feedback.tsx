@@ -398,13 +398,12 @@ export function Feedback({
           </Box>
           <Box marginTop={1}>
             <Text wrap="wrap" dimColor>
-              We will use your feedback to debug related issues or to improve Tran Agent&apos;s functionality (eg. to
-              reduce the risk of bugs occurring in the future).
+              我们会使用你的反馈排查问题、改进 Tran Agent，并减少类似问题再次发生。
             </Text>
           </Box>
           <Box marginTop={1}>
             <Text>
-              Press <Text bold>Enter</Text> to confirm and submit.
+              按 <Text bold>Enter</Text> 确认并提交。
             </Text>
           </Box>
         </Box>
@@ -419,9 +418,9 @@ export function Feedback({
       {step === 'done' && (
         <Box flexDirection="column">
           {error ? <Text color="error">{error}</Text> : <Text color="success">感谢你的报告！</Text>}
-          {feedbackId && <Text dimColor>Feedback ID: {feedbackId}</Text>}
+          {feedbackId && <Text dimColor>反馈 ID： {feedbackId}</Text>}
           <Box marginTop={1}>
-            <Text>Press </Text>
+            <Text>按 </Text>
             <Text bold>Enter </Text>
             <Text>用浏览器起草一个 GitHub issue，按其他任意键关闭。</Text>
           </Box>
@@ -449,7 +448,7 @@ export function createGitHubIssueUrl(
     `- Platform: ${env.platform}\n` +
     `- Terminal: ${env.terminal}\n` +
     `- Version: ${MACRO.VERSION || 'unknown'}\n` +
-    `- Feedback ID: ${feedbackId}\n` +
+    `- 反馈 ID： ${feedbackId}\n` +
     `\n**Errors**\n\`\`\`json\n`;
   const errorSuffix = `\n\`\`\`\n`;
   const errorsJson = jsonStringify(errors);

@@ -155,13 +155,13 @@ export function LogoV2(): React.ReactNode {
         {isDebugMode() && (
           <Box paddingLeft={2} flexDirection="column">
             <Text color="warning">调试模式已开启</Text>
-            <Text dimColor>Logging to: {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
+            <Text dimColor>日志保存到： {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
           </Box>
         )}
         <EmergencyTip />
         {process.env.CLAUDE_CODE_TMUX_SESSION && (
           <Box paddingLeft={2} flexDirection="column">
-            <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
+            <Text dimColor>tmux 会话： {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
             <Text dimColor>
               {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
                 ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Tran Agent 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
@@ -172,23 +172,23 @@ export function LogoV2(): React.ReactNode {
         {announcement && (
           <Box paddingLeft={2} flexDirection="column">
             {!process.env.IS_DEMO && config.oauthAccount?.organizationName && (
-              <Text dimColor>Message from {config.oauthAccount.organizationName}:</Text>
+              <Text dimColor>消息来源： {config.oauthAccount.organizationName}:</Text>
             )}
             <Text>{announcement}</Text>
           </Box>
         )}
         {process.env.USER_TYPE === 'ant' && !process.env.DEMO_VERSION && (
           <Box paddingLeft={2} flexDirection="column">
-            <Text dimColor>Use /issue to report model behavior issues</Text>
+            <Text dimColor>使用 /issue 报告模型行为问题</Text>
           </Box>
         )}
         {process.env.USER_TYPE === 'ant' && !process.env.DEMO_VERSION && (
           <Box paddingLeft={2} flexDirection="column">
-            <Text color="warning">[ANT-ONLY] Logs:</Text>
-            <Text dimColor>API calls: {getDisplayPath(getDumpPromptsPath())}</Text>
-            <Text dimColor>Debug logs: {getDisplayPath(getDebugLogPath())}</Text>
+            <Text color="warning">[内部] 日志：</Text>
+            <Text dimColor>API 调用： {getDisplayPath(getDumpPromptsPath())}</Text>
+            <Text dimColor>调试日志： {getDisplayPath(getDebugLogPath())}</Text>
             {isDetailedProfilingEnabled() && (
-              <Text dimColor>Startup Perf: {getDisplayPath(getStartupPerfLogPath())}</Text>
+              <Text dimColor>启动性能： {getDisplayPath(getStartupPerfLogPath())}</Text>
             )}
           </Box>
         )}
@@ -355,13 +355,13 @@ export function LogoV2(): React.ReactNode {
       {isDebugMode() && (
         <Box paddingLeft={2} flexDirection="column">
           <Text color="warning">调试模式已开启</Text>
-          <Text dimColor>Logging to: {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
+          <Text dimColor>日志保存到： {isDebugToStdErr() ? 'stderr' : getDebugLogPath()}</Text>
         </Box>
       )}
       <EmergencyTip />
       {process.env.CLAUDE_CODE_TMUX_SESSION && (
         <Box paddingLeft={2} flexDirection="column">
-          <Text dimColor>tmux session: {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
+          <Text dimColor>tmux 会话： {process.env.CLAUDE_CODE_TMUX_SESSION}</Text>
           <Text dimColor>
             {process.env.CLAUDE_CODE_TMUX_PREFIX_CONFLICTS
               ? `分离：${process.env.CLAUDE_CODE_TMUX_PREFIX} ${process.env.CLAUDE_CODE_TMUX_PREFIX} d（连按两次前缀键 — Tran Agent 使用 ${process.env.CLAUDE_CODE_TMUX_PREFIX}）`
@@ -372,7 +372,7 @@ export function LogoV2(): React.ReactNode {
       {announcement && (
         <Box paddingLeft={2} flexDirection="column">
           {!process.env.IS_DEMO && config.oauthAccount?.organizationName && (
-            <Text dimColor>Message from {config.oauthAccount.organizationName}:</Text>
+            <Text dimColor>消息来源： {config.oauthAccount.organizationName}:</Text>
           )}
           <Text>{announcement}</Text>
         </Box>
@@ -384,16 +384,16 @@ export function LogoV2(): React.ReactNode {
       )}
       {process.env.USER_TYPE === 'ant' && !process.env.DEMO_VERSION && (
         <Box paddingLeft={2} flexDirection="column">
-          <Text dimColor>Use /issue to report model behavior issues</Text>
+          <Text dimColor>使用 /issue 报告模型行为问题</Text>
         </Box>
       )}
       {process.env.USER_TYPE === 'ant' && !process.env.DEMO_VERSION && (
         <Box paddingLeft={2} flexDirection="column">
-          <Text color="warning">[ANT-ONLY] Logs:</Text>
-          <Text dimColor>API calls: {getDisplayPath(getDumpPromptsPath())}</Text>
-          <Text dimColor>Debug logs: {getDisplayPath(getDebugLogPath())}</Text>
+          <Text color="warning">[内部] 日志：</Text>
+          <Text dimColor>API 调用： {getDisplayPath(getDumpPromptsPath())}</Text>
+          <Text dimColor>调试日志： {getDisplayPath(getDebugLogPath())}</Text>
           {isDetailedProfilingEnabled() && (
-            <Text dimColor>Startup Perf: {getDisplayPath(getStartupPerfLogPath())}</Text>
+            <Text dimColor>启动性能： {getDisplayPath(getStartupPerfLogPath())}</Text>
           )}
         </Box>
       )}

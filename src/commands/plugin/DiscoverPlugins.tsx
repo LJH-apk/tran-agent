@@ -665,7 +665,7 @@ export function DiscoverPlugins({
       {/* No search results */}
       {filteredPlugins.length === 0 && searchQuery && (
         <Box marginBottom={1}>
-          <Text dimColor>No plugins match &quot;{searchQuery}&quot;</Text>
+          <Text dimColor>没有匹配以下条件的插件：&quot;{searchQuery}&quot;</Text>
         </Box>
       )}
 

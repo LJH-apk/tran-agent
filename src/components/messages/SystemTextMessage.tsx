@@ -416,7 +416,7 @@ function BridgeStatusMessage({
       <Box minWidth={2} />
       <Box flexDirection="column">
         <Text>
-          <ThemedText color="suggestion">/remote-control</ThemedText> is active. Code in CLI or at
+          <ThemedText color="suggestion">/remote-control</ThemedText> 已启用。可在终端或以下地址继续工作：
         </Text>
         <Link url={url}>{url}</Link>
         {upgradeNudge && <Text dimColor>⎿ {upgradeNudge}</Text>}

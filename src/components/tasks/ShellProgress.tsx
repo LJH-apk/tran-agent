@@ -3,6 +3,7 @@ import { Text } from '@anthropic/ink';
 import type { TaskStatus } from 'src/Task.js';
 import type { LocalShellTaskState } from 'src/tasks/LocalShellTask/guards.js';
 import type { DeepImmutable } from 'src/types/utils.js';
+import { getTaskStatusLabel } from 'src/utils/task/statusLabel.js';
 
 type TaskStatusTextProps = {
   status: TaskStatus;
@@ -11,7 +12,7 @@ type TaskStatusTextProps = {
 };
 
 export function TaskStatusText({ status, label, suffix }: TaskStatusTextProps): ReactNode {
-  const displayLabel = label ?? status;
+  const displayLabel = label ?? getTaskStatusLabel(status);
   const color =
     status === 'completed' ? 'success' : status === 'failed' ? 'error' : status === 'killed' ? 'warning' : undefined;
   return (

@@ -164,7 +164,7 @@ const subscribePr = {
   type: 'local',
   name: 'subscribe-pr',
   aliases: ['watch-pr'],
-  description: 'Subscribe to GitHub PR activity (comments, CI, reviews)',
+  description: '订阅 GitHub PR 动态（评论、CI、审查）',
   argumentHint: '<pr-url-or-number>',
   supportsNonInteractive: false,
   isHidden: true,

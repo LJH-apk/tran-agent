@@ -16,7 +16,7 @@ import type {
 const coordinator = {
   type: 'local-jsx',
   name: 'coordinator',
-  description: 'Toggle coordinator (multi-worker) mode',
+  description: '切换协调器（多工作者）模式',
   isEnabled: () => {
     if (feature('COORDINATOR_MODE')) {
       return true

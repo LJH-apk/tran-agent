@@ -105,4 +105,16 @@ describe('compiled Tran launcher', () => {
     expect(output).toContain('\x1b[?1049h')
     expect(output).toContain(cliOutput)
   })
+
+  test('reads the welcome account name for the bundled splash easter egg', async () => {
+    const config = join(directory, '.claude.json')
+    for (const name of ['刘佳航', '其他用户']) {
+      await writeFile(
+        config,
+        JSON.stringify({ oauthAccount: { displayName: name } }),
+      )
+      const output = await launch(true)
+      expect(output.includes('交通运输（北交联培）')).toBe(name === '刘佳航')
+    }
+  })
 })

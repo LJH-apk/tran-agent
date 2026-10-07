@@ -94,7 +94,7 @@ export function TeammateSpinnerLine({
   const nameColor = toInkColor(teammate.identity.color);
   const { columns } = useTerminalSize();
 
-  // Track when teammate became idle (for "Idle for X..." display)
+  // Track when teammate became idle (for "空闲时间： X..." display)
   const idleStartRef = useRef<number | null>(null);
   // Freeze elapsed time when entering all-idle state
   const frozenDurationRef = useRef<string | null>(null);
@@ -111,7 +111,7 @@ export function TeammateSpinnerLine({
     frozenDurationRef.current = null;
   }
 
-  // Get elapsed idle time (how long they've been idle) - for "Idle for X..." display
+  // Get elapsed idle time (how long they've been idle) - for "空闲时间： X..." display
   const idleElapsedTime = useElapsedTime(idleStartRef.current ?? Date.now(), teammate.isIdle && !allIdle);
 
   // Freeze the duration when we first detect all idle
@@ -201,7 +201,7 @@ export function TeammateSpinnerLine({
           </Text>
         );
       }
-      return <Text dimColor>Idle for {idleElapsedTime}</Text>;
+      return <Text dimColor>空闲时间： {idleElapsedTime}</Text>;
     }
     // Active - show spinner glyph + activity description (only when not highlighted;
     // when highlighted, the main spinner above already shows the verb)

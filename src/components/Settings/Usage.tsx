@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { extraUsage as extraUsageCommand } from 'src/commands/extra-usage/index.js';
 import { formatCost } from 'src/cost-tracker.js';
-import { getSubscriptionType } from 'src/utils/auth.js';
+import { getSubscriptionType, isClaudeAISubscriber } from 'src/utils/auth.js';
+import { SessionUsage } from './SessionUsage.js';
 import { useTerminalSize } from '../../hooks/useTerminalSize.js';
 import { Box, Text } from '@anthropic/ink';
 import { useKeybinding } from '../../keybindings/useKeybinding.js';
@@ -87,6 +88,15 @@ function LimitBar({ title, limit, maxWidth, showTimeInReset = true, extraSubtext
 }
 
 export function Usage(): React.ReactNode {
+  return (
+    <Box flexDirection="column" gap={2}>
+      <SessionUsage />
+      {isClaudeAISubscriber() && <SubscriptionUsage />}
+    </Box>
+  );
+}
+
+function SubscriptionUsage(): React.ReactNode {
   const [utilization, setUtilization] = useState<Utilization | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);

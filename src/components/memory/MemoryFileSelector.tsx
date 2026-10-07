@@ -115,7 +115,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
     const isGit = projectIsInGitRepo(getOriginalCwd());
 
     if (file.type === 'User' && !file.isNested) {
-      description = 'Saved in ~/.claude/CLAUDE.md';
+      description = '保存在 ~/.claude/CLAUDE.md';
     } else if (file.type === 'Project' && !file.isNested && file.path === projectMemoryPath) {
       description = `${isGit ? 'Checked in at' : 'Saved in'} ./CLAUDE.md`;
     } else if (file.parent) {
@@ -259,7 +259,7 @@ export function MemoryFileSelector({ onSelect, onCancel }: Props): React.ReactNo
     <Box flexDirection="column" width="100%">
       <Box flexDirection="column" marginBottom={1}>
         <ListItem isFocused={focusedToggle === 0}>
-          <Text>Auto-memory: {autoMemoryOn ? 'on' : 'off'}</Text>
+          <Text>自动记忆： {autoMemoryOn ? 'on' : 'off'}</Text>
         </ListItem>
         {showDreamRow && (
           <ListItem isFocused={focusedToggle === 1} styled={false}>

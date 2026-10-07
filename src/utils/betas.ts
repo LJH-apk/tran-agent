@@ -188,15 +188,12 @@ export function shouldIncludeFirstPartyOnlyBetas(): boolean {
 }
 
 /**
- * Global-scope prompt caching is firstParty only. Foundry is excluded because
- * GrowthBook never bucketed Foundry users into the rollout experiment — the
- * treatment data is firstParty-only.
+ * Tran's tools and attribution blocks are not a globally scoped prefix.
+ * A later global system block therefore violates the API's prefix rule.
+ * Keep ordinary prompt caching until the entire prefix supports global scope.
  */
 export function shouldUseGlobalCacheScope(): boolean {
-  return (
-    getAPIProvider() === 'firstParty' &&
-    !isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS)
-  )
+  return false
 }
 
 export const getAllModelBetas = memoize((model: string): string[] => {

@@ -494,7 +494,7 @@ const call: LocalJSXCommandCall = async (onDone, context, args) => {
 export default {
   type: 'local-jsx',
   name: 'ultraplan',
-  description: `~10–30 min · Tran Agent on the web drafts an advanced plan you can edit and approve. See ${CCR_TERMS_URL}`,
+  description: `约 10–30 分钟 · 网页版 Tran Agent 起草可编辑并确认的详细计划。参见 ${CCR_TERMS_URL}`,
   argumentHint: '<prompt>',
   // isEnabled: () => process.env.USER_TYPE === 'ant',
   isEnabled: () => isUltraplanEnabled(),

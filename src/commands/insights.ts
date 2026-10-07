@@ -2953,7 +2953,7 @@ function safeKeys(obj: Record<string, unknown> | undefined | null): string[] {
 const usageReport: Command = {
   type: 'prompt',
   name: 'insights',
-  description: 'Generate a report analyzing your Tran Agent sessions',
+  description: '生成 Tran Agent 会话分析报告',
   contentLength: 0, // Dynamic content
   progressMessage: '正在分析你的会话',
   source: 'builtin',

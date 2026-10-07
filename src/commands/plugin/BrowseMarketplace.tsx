@@ -614,7 +614,7 @@ export function BrowseMarketplace({
             <Text bold>选择插件市场</Text>
           </Box>
           <Text>未配置任何插件市场。</Text>
-          <Text dimColor>Add a marketplace first using {"'Add marketplace'"}.</Text>
+          <Text dimColor>请先添加插件市场，使用 {"'Add marketplace'"}.</Text>
           <Box marginTop={1} paddingLeft={1}>
             <Text dimColor>
               <ConfigurableShortcutHint

@@ -16,7 +16,7 @@ const proactive = {
   bridgeSafe: true,
   type: 'local-jsx',
   name: 'proactive',
-  description: 'Toggle proactive (autonomous) mode',
+  description: '切换主动（自主）模式',
   isEnabled: () => {
     if (feature('PROACTIVE') || feature('KAIROS')) {
       return true

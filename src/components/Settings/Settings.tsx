@@ -9,12 +9,13 @@ import { Pane, Tab, Tabs } from '@anthropic/ink';
 import { Status, buildDiagnostics } from './Status.js';
 import { Config } from './Config.js';
 import { Usage } from './Usage.js';
+import { Stats } from '../Stats.js';
 import type { LocalJSXCommandContext, CommandResultDisplay } from '../../commands.js';
 
 type Props = {
   onClose: (result?: string, options?: { display?: CommandResultDisplay }) => void;
   context: LocalJSXCommandContext;
-  defaultTab: 'Status' | 'Config' | 'Usage';
+  defaultTab: 'Status' | 'Config' | 'Usage' | 'Stats';
 };
 
 export function Settings({ onClose, context, defaultTab }: Props): React.ReactNode {
@@ -78,6 +79,9 @@ export function Settings({ onClose, context, defaultTab }: Props): React.ReactNo
     </Tab>,
     <Tab key="usage" id="Usage" title="用量">
       <Usage />
+    </Tab>,
+    <Tab key="stats" id="Stats" title="统计">
+      <Stats onClose={onClose} embedded />
     </Tab>,
   ];
 

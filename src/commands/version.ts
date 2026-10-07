@@ -13,7 +13,7 @@ const version = {
   type: 'local',
   name: 'version',
   description:
-    'Print the version this session is running (not what autoupdate downloaded)',
+    '显示当前会话正在运行的版本，而非自动更新下载的版本',
   // Was Ant-only upstream; for fork subscribers we want this universally
   // available — version info is harmless and useful for bug reports.
   isEnabled: () => true,

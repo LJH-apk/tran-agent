@@ -51,6 +51,8 @@ export function modelSupportsEffort(model: string): boolean {
   if (
     m.includes('opus-4-7') ||
     m.includes('opus-4-6') ||
+    m.includes('opus-4-8') ||
+    /(?:opus|sonnet)-5(?:-5)?(?=$|[-[\]:.])/.test(m) ||
     m.includes('sonnet-4-6') ||
     m.includes('deepseek-v4-pro')
   ) {
@@ -358,6 +360,10 @@ export function getDefaultEffortForModel(
     isChatGPTAuthMode() &&
     isChatGPTCodexReasoningModel(model)
   ) {
+    return 'medium'
+  }
+
+  if (/opus-5-5(?=$|[-[\]:.])/.test(model.toLowerCase())) {
     return 'medium'
   }
 

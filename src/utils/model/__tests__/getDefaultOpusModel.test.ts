@@ -129,7 +129,7 @@ describe('getOpus46Option', () => {
 
   test('firstParty: description says "Previous generation", not "Legacy"', () => {
     const opt = getOpus46Option(false)
-    expect(opt.description).toContain('Previous generation')
+    expect(opt.description).toContain('上一代')
     expect(opt.description).not.toContain('Legacy')
   })
 

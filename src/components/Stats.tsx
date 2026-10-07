@@ -39,7 +39,7 @@ import { Spinner } from './Spinner.js';
 
 function formatPeakDay(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
+  return date.toLocaleDateString('zh-CN', {
     month: 'short',
     day: 'numeric',
   });
@@ -47,6 +47,7 @@ function formatPeakDay(dateStr: string): string {
 
 type Props = {
   onClose: (result?: string, options?: { display?: CommandResultDisplay }) => void;
+  embedded?: boolean;
 };
 
 type StatsResult = { type: 'success'; data: ClaudeCodeStats } | { type: 'error'; message: string } | { type: 'empty' };
@@ -82,7 +83,7 @@ function createAllTimeStatsPromise(): Promise<StatsResult> {
     });
 }
 
-export function Stats({ onClose }: Props): React.ReactNode {
+export function Stats({ onClose, embedded = false }: Props): React.ReactNode {
   // Always load all-time stats first (for heatmap)
   const allTimePromise = useMemo(() => createAllTimeStatsPromise(), []);
 
@@ -95,7 +96,7 @@ export function Stats({ onClose }: Props): React.ReactNode {
         </Box>
       }
     >
-      <StatsContent allTimePromise={allTimePromise} onClose={onClose} />
+      <StatsContent allTimePromise={allTimePromise} onClose={onClose} embedded={embedded} />
     </Suspense>
   );
 }
@@ -103,13 +104,15 @@ export function Stats({ onClose }: Props): React.ReactNode {
 type StatsContentProps = {
   allTimePromise: Promise<StatsResult>;
   onClose: Props['onClose'];
+  embedded: boolean;
 };
 
 /**
  * Inner component that uses React 19's use() to read the stats promise.
  * Suspends while loading all-time stats, then handles date range changes without suspending.
  */
-function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.ReactNode {
+function StatsContent({ allTimePromise, onClose, embedded }: StatsContentProps): React.ReactNode {
+  const { headerFocused, focusHeader } = useTabHeaderFocus();
   const allTimeResult = use(allTimePromise);
   const [dateRange, setDateRange] = useState<StatsDateRange>('all');
   const [statsCache, setStatsCache] = useState<Partial<Record<StatsDateRange, ClaudeCodeStats>>>({});
@@ -164,26 +167,35 @@ function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.Rea
     onClose('统计对话框已关闭', { display: 'system' });
   }, [onClose]);
 
-  useKeybinding('confirm:no', handleClose, { context: 'Confirmation' });
+  useKeybinding('confirm:no', handleClose, { context: 'Confirmation', isActive: !embedded });
 
-  useInput((input, key) => {
-    // Handle ctrl+c and ctrl+d for closing
-    if (key.ctrl && (input === 'c' || input === 'd')) {
-      onClose('统计对话框已关闭', { display: 'system' });
-    }
-    // Track tab changes
-    if (key.tab) {
-      setActiveTab(prev => (prev === 'Overview' ? 'Models' : 'Overview'));
-    }
-    // r to cycle date range
-    if (input === 'r' && !key.ctrl && !key.meta) {
-      setDateRange(getNextDateRange(dateRange));
-    }
-    // Ctrl+S to copy screenshot to clipboard
-    if (key.ctrl && input === 's' && displayStats) {
-      void handleScreenshot(displayStats, activeTab, setCopyStatus);
-    }
-  });
+  useInput(
+    (input, key) => {
+      if (embedded && activeTab === 'Overview' && key.upArrow) {
+        focusHeader();
+      }
+      // Handle ctrl+c and ctrl+d for closing
+      if (key.ctrl && (input === 'c' || input === 'd')) {
+        onClose('统计对话框已关闭', { display: 'system' });
+      }
+      // Track tab changes
+      if (
+        (!embedded && key.tab) ||
+        (embedded && !key.ctrl && !key.meta && (input === 'm' || key.leftArrow || key.rightArrow))
+      ) {
+        setActiveTab(prev => (prev === 'Overview' ? 'Models' : 'Overview'));
+      }
+      // r to cycle date range
+      if (input === 'r' && !key.ctrl && !key.meta) {
+        setDateRange(getNextDateRange(dateRange));
+      }
+      // Ctrl+S to copy screenshot to clipboard
+      if (key.ctrl && input === 's' && displayStats) {
+        void handleScreenshot(displayStats, activeTab, setCopyStatus);
+      }
+    },
+    { isActive: !embedded || !headerFocused },
+  );
 
   if (allTimeResult.type === 'error') {
     return (
@@ -206,6 +218,35 @@ function StatsContent({ allTimePromise, onClose }: StatsContentProps): React.Rea
       <Box marginTop={1}>
         <Spinner />
         <Text> 正在加载统计…</Text>
+      </Box>
+    );
+  }
+
+  if (embedded) {
+    return (
+      <Box flexDirection="column" gap={1}>
+        <Box gap={2}>
+          <Text bold={activeTab === 'Overview'} color={activeTab === 'Overview' ? 'claude' : undefined}>
+            概览
+          </Text>
+          <Text bold={activeTab === 'Models'} color={activeTab === 'Models' ? 'claude' : undefined}>
+            模型
+          </Text>
+        </Box>
+        {activeTab === 'Overview' ? (
+          <OverviewTab
+            stats={displayStats}
+            allTimeStats={allTimeStats}
+            dateRange={dateRange}
+            isLoading={isLoadingFiltered}
+          />
+        ) : (
+          <ModelsTab stats={displayStats} dateRange={dateRange} isLoading={isLoadingFiltered} />
+        )}
+        <Text dimColor>
+          ↓ 进入统计 · ←/→ 切换概览/模型 · r 切换日期范围 · ↑ 返回标签页 · Ctrl+S 复制
+          {copyStatus ? ` · ${copyStatus}` : ''}
+        </Text>
       </Box>
     );
   }
@@ -330,7 +371,7 @@ function OverviewTab({
       {/* Activity Heatmap - always shows all-time data */}
       {allTimeStats.dailyActivity.length > 0 && (
         <Box flexDirection="column" marginBottom={1}>
-          <Ansi>{generateHeatmap(allTimeStats.dailyActivity, { terminalWidth })}</Ansi>
+          <Ansi>{generateHeatmap(allTimeStats.dailyActivity, { terminalWidth, locale: 'zh' })}</Ansi>
         </Box>
       )}
 
@@ -479,44 +520,44 @@ function OverviewTab({
 // Famous books and their approximate token counts (words * ~1.3)
 // Sorted by tokens ascending for comparison logic
 const BOOK_COMPARISONS = [
-  { name: 'The Little Prince', tokens: 22000 },
-  { name: 'The Old Man and the Sea', tokens: 35000 },
-  { name: 'A Christmas Carol', tokens: 37000 },
-  { name: 'Animal Farm', tokens: 39000 },
-  { name: 'Fahrenheit 451', tokens: 60000 },
-  { name: 'The Great Gatsby', tokens: 62000 },
-  { name: 'Slaughterhouse-Five', tokens: 64000 },
-  { name: 'Brave New World', tokens: 83000 },
-  { name: 'The Catcher in the Rye', tokens: 95000 },
-  { name: "Harry Potter and the Philosopher's Stone", tokens: 103000 },
-  { name: 'The Hobbit', tokens: 123000 },
+  { name: '小王子', tokens: 22000 },
+  { name: '老人与海', tokens: 35000 },
+  { name: '圣诞颂歌', tokens: 37000 },
+  { name: '动物农场', tokens: 39000 },
+  { name: '华氏451', tokens: 60000 },
+  { name: '了不起的盖茨比', tokens: 62000 },
+  { name: '五号屠场', tokens: 64000 },
+  { name: '美丽新世界', tokens: 83000 },
+  { name: '麦田里的守望者', tokens: 95000 },
+  { name: '哈利·波特与魔法石', tokens: 103000 },
+  { name: '霍比特人', tokens: 123000 },
   { name: '1984', tokens: 123000 },
-  { name: 'To Kill a Mockingbird', tokens: 130000 },
-  { name: 'Pride and Prejudice', tokens: 156000 },
-  { name: 'Dune', tokens: 244000 },
-  { name: 'Moby-Dick', tokens: 268000 },
-  { name: 'Crime and Punishment', tokens: 274000 },
-  { name: 'A Game of Thrones', tokens: 381000 },
-  { name: 'Anna Karenina', tokens: 468000 },
-  { name: 'Don Quixote', tokens: 520000 },
-  { name: 'The Lord of the Rings', tokens: 576000 },
-  { name: 'The Count of Monte Cristo', tokens: 603000 },
-  { name: 'Les Misérables', tokens: 689000 },
-  { name: 'War and Peace', tokens: 730000 },
+  { name: '杀死一只知更鸟', tokens: 130000 },
+  { name: '傲慢与偏见', tokens: 156000 },
+  { name: '沙丘', tokens: 244000 },
+  { name: '白鲸', tokens: 268000 },
+  { name: '罪与罚', tokens: 274000 },
+  { name: '权力的游戏', tokens: 381000 },
+  { name: '安娜·卡列尼娜', tokens: 468000 },
+  { name: '堂吉诃德', tokens: 520000 },
+  { name: '魔戒', tokens: 576000 },
+  { name: '基督山伯爵', tokens: 603000 },
+  { name: '悲惨世界', tokens: 689000 },
+  { name: '战争与和平', tokens: 730000 },
 ];
 
 // Time equivalents for session durations
 const TIME_COMPARISONS = [
-  { name: 'a TED talk', minutes: 18 },
-  { name: 'an episode of The Office', minutes: 22 },
-  { name: 'listening to Abbey Road', minutes: 47 },
-  { name: 'a yoga class', minutes: 60 },
-  { name: 'a World Cup soccer match', minutes: 90 },
-  { name: 'a half marathon (average time)', minutes: 120 },
-  { name: 'the movie Inception', minutes: 148 },
-  { name: 'watching Titanic', minutes: 195 },
-  { name: 'a transatlantic flight', minutes: 420 },
-  { name: 'a full night of sleep', minutes: 480 },
+  { name: '一场 TED 演讲', minutes: 18 },
+  { name: '一集《办公室》', minutes: 22 },
+  { name: '专辑《Abbey Road》', minutes: 47 },
+  { name: '一节瑜伽课', minutes: 60 },
+  { name: '一场世界杯足球赛', minutes: 90 },
+  { name: '一次半程马拉松的平均', minutes: 120 },
+  { name: '电影《盗梦空间》', minutes: 148 },
+  { name: '电影《泰坦尼克号》', minutes: 195 },
+  { name: '一次跨大西洋航班', minutes: 420 },
+  { name: '一整晚睡眠', minutes: 480 },
 ];
 
 function generateFunFactoid(stats: ClaudeCodeStats, totalTokens: number): string {
@@ -528,9 +569,9 @@ function generateFunFactoid(stats: ClaudeCodeStats, totalTokens: number): string
     for (const book of matchingBooks) {
       const times = totalTokens / book.tokens;
       if (times >= 2) {
-        factoids.push(`你使用的 tokens 约为《${Math.floor(times)}》的 ${book.name} 倍`);
+        factoids.push(`你使用的 token 数约为《${book.name}》英文原文估算 token 数的 ${Math.round(times * 10) / 10} 倍`);
       } else {
-        factoids.push(`你使用的 tokens 数量与《${book.name}》相当`);
+        factoids.push(`你使用的 token 数与《${book.name}》英文原文的估算 token 数相当`);
       }
     }
   }
@@ -540,7 +581,7 @@ function generateFunFactoid(stats: ClaudeCodeStats, totalTokens: number): string
     for (const comparison of TIME_COMPARISONS) {
       const ratio = sessionMinutes / comparison.minutes;
       if (ratio >= 2) {
-        factoids.push(`你最长的会话时长约为${Math.floor(ratio)}的 ${comparison.name} 倍`);
+        factoids.push(`你最长的会话时长约为${comparison.name}时长的 ${Math.round(ratio * 10) / 10} 倍`);
       }
     }
   }
@@ -619,7 +660,7 @@ function ModelsTab({
       {/* Token usage chart */}
       {chartOutput && (
         <Box flexDirection="column" marginBottom={1}>
-          <Text bold>每日 tokens</Text>
+          <Text bold>每日 token</Text>
           <Ansi>{chartOutput.chart}</Ansi>
           <Text color="subtle">{chartOutput.xAxisLabels}</Text>
           <Box>
@@ -670,13 +711,14 @@ type ModelEntryProps = {
     inputTokens: number;
     outputTokens: number;
     cacheReadInputTokens: number;
+    cacheCreationInputTokens: number;
   };
   totalTokens: number;
 };
 
 function ModelEntry({ model, usage, totalTokens }: ModelEntryProps): React.ReactNode {
   const modelTokens = usage.inputTokens + usage.outputTokens;
-  const percentage = ((modelTokens / totalTokens) * 100).toFixed(1);
+  const percentage = (totalTokens > 0 ? (modelTokens / totalTokens) * 100 : 0).toFixed(1);
 
   return (
     <Box flexDirection="column">
@@ -684,7 +726,11 @@ function ModelEntry({ model, usage, totalTokens }: ModelEntryProps): React.React
         {figures.bullet} <Text bold>{renderModelName(model)}</Text> <Text color="subtle">({percentage}%)</Text>
       </Text>
       <Text color="subtle">
-        {'  '}In: {formatNumber(usage.inputTokens)} · Out: {formatNumber(usage.outputTokens)}
+        {'  '}输入：{formatNumber(usage.inputTokens)} · 输出： {formatNumber(usage.outputTokens)}
+      </Text>
+      <Text color="subtle">
+        {'  '}缓存：读取 {formatNumber(usage.cacheReadInputTokens)} · 写入{' '}
+        {formatNumber(usage.cacheCreationInputTokens)}
       </Text>
     </Box>
   );
@@ -799,7 +845,7 @@ function generateXAxisLabels(data: DailyModelTokens[], _chartWidth: number, yAxi
   for (let i = 0; i < numLabels; i++) {
     const idx = Math.min(i * step, data.length - 1);
     const date = new Date(data[idx]!.date);
-    const label = date.toLocaleDateString('en-US', {
+    const label = date.toLocaleDateString('zh-CN', {
       month: 'short',
       day: 'numeric',
     });
@@ -895,7 +941,7 @@ function renderOverviewToAnsi(stats: ClaudeCodeStats): string[] {
 
   // Heatmap - use fixed width for screenshot (56 = 52 weeks + 4 for day labels)
   if (stats.dailyActivity.length > 0) {
-    lines.push(generateHeatmap(stats.dailyActivity, { terminalWidth: 56 }));
+    lines.push(generateHeatmap(stats.dailyActivity, { terminalWidth: 56, locale: 'zh' }));
     lines.push('');
   }
 
@@ -1000,7 +1046,7 @@ function renderModelsToAnsi(stats: ClaudeCodeStats): string[] {
   );
 
   if (chartOutput) {
-    lines.push(chalk.bold('每日 tokens'));
+    lines.push(chalk.bold('每日 token'));
     lines.push(chartOutput.chart);
     lines.push(chalk.gray(chartOutput.xAxisLabels));
     // Legend - use pre-colored bullets from chart output

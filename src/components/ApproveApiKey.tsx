@@ -51,7 +51,7 @@ export function ApproveApiKey({ customApiKeyTruncated, onDone }: Props): React.R
           {
             label: (
               <Text>
-                No (<Text bold>recommended</Text>)
+                否（<Text bold>推荐</Text>）
               </Text>
             ),
             value: 'no',

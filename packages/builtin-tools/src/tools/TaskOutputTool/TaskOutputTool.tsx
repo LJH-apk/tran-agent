@@ -22,6 +22,7 @@ import { countCharInString } from 'src/utils/stringUtils.js';
 import { getTaskOutput } from 'src/utils/task/diskOutput.js';
 import { updateTaskState } from 'src/utils/task/framework.js';
 import { formatTaskOutput } from 'src/utils/task/outputFormatting.js';
+import { getTaskStatusLabel } from 'src/utils/task/statusLabel.js';
 import type { ThemeName } from 'src/utils/theme.js';
 import { AgentPromptDisplay, AgentResponseDisplay } from '../AgentTool/UI.js';
 import BashToolResultMessage from '../BashTool/BashToolResultMessage.js';
@@ -166,7 +167,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
   aliases: ['AgentOutputTool', 'BashOutputTool'],
 
   userFacingName() {
-    return 'Task Output';
+    return '任务输出';
   },
 
   get inputSchema(): InputSchema {
@@ -208,7 +209,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
     if (!task_id) {
       return {
         result: false,
-        message: 'Task ID is required',
+        message: '请提供任务 ID',
         errorCode: 1,
       };
     }
@@ -219,7 +220,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
     if (!task) {
       return {
         result: false,
-        message: `No task found with ID: ${task_id}`,
+        message: `未找到任务：${task_id}`,
         errorCode: 2,
       };
     }
@@ -234,7 +235,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
     const task = appState.tasks?.[task_id] as TaskState | undefined;
 
     if (!task) {
-      throw new Error(`No task found with ID: ${task_id}`);
+      throw new Error(`未找到任务：${task_id}`);
     }
 
     if (!block) {
@@ -345,7 +346,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
   renderToolUseMessage(input) {
     const { block = true } = input;
     if (!block) {
-      return 'non-blocking';
+      return '不等待完成';
     }
     return '';
   },
@@ -365,7 +366,7 @@ export const TaskOutputTool: Tool<InputSchema, TaskOutputToolOutput> = buildTool
       <Box flexDirection="column">
         {progressData?.taskDescription && <Text>&nbsp;&nbsp;{progressData.taskDescription}</Text>}
         <Text>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Waiting for task <Text dimColor>(esc to give additional instructions)</Text>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;等待任务完成 <Text dimColor>（按 esc 补充指令）</Text>
         </Text>
       </Box>
     );
@@ -399,7 +400,7 @@ function TaskOutputResultDisplay({
   if (!result.task) {
     return (
       <MessageResponse>
-        <Text dimColor>No task output available</Text>
+        <Text dimColor>暂无任务输出</Text>
       </MessageResponse>
     );
   }
@@ -427,7 +428,7 @@ function TaskOutputResultDisplay({
         return (
           <Box flexDirection="column">
             <Text>
-              {task.description} ({lineCount} lines)
+              {task.description}（{lineCount} 行）
             </Text>
             <Box flexDirection="column" paddingLeft={2} marginTop={1}>
               {task.prompt && <AgentPromptDisplay prompt={task.prompt} theme={theme} dim />}
@@ -439,7 +440,7 @@ function TaskOutputResultDisplay({
               {task.error && (
                 <Box flexDirection="column" marginTop={1}>
                   <Text color="error" bold>
-                    Error:
+                    错误：
                   </Text>
                   <Box paddingLeft={2}>
                     <Text color="error">{task.error}</Text>
@@ -452,7 +453,7 @@ function TaskOutputResultDisplay({
       }
       return (
         <MessageResponse>
-          <Text dimColor>Read output ({expandShortcut} to expand)</Text>
+          <Text dimColor>已读取输出（按 {expandShortcut} 展开）</Text>
         </MessageResponse>
       );
     }
@@ -460,7 +461,7 @@ function TaskOutputResultDisplay({
     if (result.retrieval_status === 'timeout' || task.status === 'running') {
       return (
         <MessageResponse>
-          <Text dimColor>Task is still running…</Text>
+          <Text dimColor>任务仍在运行…</Text>
         </MessageResponse>
       );
     }
@@ -468,14 +469,14 @@ function TaskOutputResultDisplay({
     if (result.retrieval_status === 'not_ready') {
       return (
         <MessageResponse>
-          <Text dimColor>Task is still running…</Text>
+          <Text dimColor>任务仍在运行…</Text>
         </MessageResponse>
       );
     }
 
     return (
       <MessageResponse>
-        <Text dimColor>Task not ready</Text>
+        <Text dimColor>任务尚未就绪</Text>
       </MessageResponse>
     );
   }
@@ -485,7 +486,7 @@ function TaskOutputResultDisplay({
     return (
       <Box flexDirection="column">
         <Text>
-          &nbsp;&nbsp;{task.description} [{task.status}]
+          &nbsp;&nbsp;{task.description} [{getTaskStatusLabel(task.status)}]
         </Text>
         {task.output && verbose && (
           <Box paddingLeft={4} marginTop={1}>
@@ -494,7 +495,7 @@ function TaskOutputResultDisplay({
         )}
         {!verbose && task.output && (
           <Text dimColor>
-            {'     '}({expandShortcut} to expand)
+            {'     '}（按 {expandShortcut} 展开）
           </Text>
         )}
       </Box>
@@ -505,7 +506,7 @@ function TaskOutputResultDisplay({
   return (
     <Box flexDirection="column">
       <Text>
-        &nbsp;&nbsp;{task.description} [{task.status}]
+        &nbsp;&nbsp;{task.description} [{getTaskStatusLabel(task.status)}]
       </Text>
       {task.output && (
         <Box paddingLeft={4}>

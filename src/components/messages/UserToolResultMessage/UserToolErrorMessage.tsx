@@ -55,7 +55,7 @@ export function UserToolErrorMessage({
   if (feature('TRANSCRIPT_CLASSIFIER') && typeof param.content === 'string' && isClassifierDenial(param.content)) {
     return (
       <MessageResponse height={1}>
-        <Text dimColor>Denied by auto mode classifier {BULLET_OPERATOR} /feedback if incorrect</Text>
+        <Text dimColor>自动模式分类器已拒绝 {BULLET_OPERATOR} /feedback if incorrect</Text>
       </MessageResponse>
     );
   }

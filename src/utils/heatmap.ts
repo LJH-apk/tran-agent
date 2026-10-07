@@ -1,10 +1,12 @@
 import chalk from 'chalk'
 import type { DailyActivity } from './stats.js'
 import { toDateString } from './statsCache.js'
+import { padEndWidth } from './truncate.js'
 
 export type HeatmapOptions = {
   terminalWidth?: number // Terminal width in characters
   showMonthLabels?: boolean
+  locale?: 'en' | 'zh'
 }
 
 type Percentiles = {
@@ -40,7 +42,7 @@ export function generateHeatmap(
   dailyActivity: DailyActivity[],
   options: HeatmapOptions = {},
 ): string {
-  const { terminalWidth = 80, showMonthLabels = true } = options
+  const { terminalWidth = 80, showMonthLabels = true, locale = 'en' } = options
 
   // Day labels take 4 characters ("Mon "), calculate weeks that fit
   // Cap at 52 weeks (1 year) to match GitHub style
@@ -131,7 +133,12 @@ export function generateHeatmap(
     const uniqueMonths = monthStarts.map(m => m.month)
     const labelWidth = Math.floor(width / Math.max(uniqueMonths.length, 1))
     const monthLabels = uniqueMonths
-      .map(month => monthNames[month]!.padEnd(labelWidth))
+      .map(month =>
+        padEndWidth(
+          locale === 'zh' ? `${month + 1}月` : monthNames[month]!,
+          labelWidth,
+        ),
+      )
       .join('')
 
     // 4 spaces for day label column prefix
@@ -144,22 +151,30 @@ export function generateHeatmap(
   // Grid
   for (let day = 0; day < 7; day++) {
     // Only show labels for Mon, Wed, Fri
-    const label = [1, 3, 5].includes(day) ? dayLabels[day]!.padEnd(3) : '   '
-    const row = label + ' ' + grid[day]!.join('')
+    const labelWidth = locale === 'zh' ? 4 : 3
+    const label = [1, 3, 5].includes(day)
+      ? padEndWidth(
+          locale === 'zh'
+            ? ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][day]!
+            : dayLabels[day]!,
+          labelWidth,
+        )
+      : ' '.repeat(labelWidth)
+    const row = label + (locale === 'zh' ? '' : ' ') + grid[day]!.join('')
     lines.push(row)
   }
 
   // Legend
   lines.push('')
   lines.push(
-    '    Less ' +
+    (locale === 'zh' ? '    少 ' : '    Less ') +
       [
         claudeOrange('░'),
         claudeOrange('▒'),
         claudeOrange('▓'),
         claudeOrange('█'),
       ].join(' ') +
-      ' More',
+      (locale === 'zh' ? ' 多' : ' More'),
   )
 
   return lines.join('\n')

@@ -52,7 +52,7 @@ export const TaskGetTool = buildTool({
     return outputSchema()
   },
   userFacingName() {
-    return 'TaskGet'
+    return '查看任务'
   },
   shouldDefer: true,
   isEnabled() {

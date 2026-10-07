@@ -306,7 +306,7 @@ const fullInputSchema = lazySchema(() =>
     description: z
       .string()
       .optional()
-      .describe(`Clear, concise description of what this command does in active voice. Never use words like "complex" or "risk" in the description - just describe what it does.
+      .describe(`Use Simplified Chinese for the description shown in the terminal, preserving command names, paths, and proper nouns. The examples below illustrate the content; translate their descriptions into Simplified Chinese. Clear, concise description of what this command does in active voice. Never use words like "complex" or "risk" in the description - just describe what it does.
 
 For simple commands (git, npm, standard CLI tools), keep it brief (5-10 words):
 - ls → "List files in current directory"
@@ -562,7 +562,7 @@ export const BashTool = buildTool({
   maxResultSizeChars: 30_000,
   strict: true,
   async description({ description }) {
-    return description || 'Run shell command';
+    return description || '执行 Shell 命令';
   },
   async prompt() {
     return getSimplePrompt();
