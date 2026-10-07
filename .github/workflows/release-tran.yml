@@ -89,7 +89,7 @@ jobs:
           npm install -g https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/${PACKAGE}
           \`\`\`
 
-          附件 SHA256SUMS.txt 提供安装包校验值。发布流程验证构建和打包后的启动器；完整类型与测试检查仍由 CI 执行。
+          附件 SHA256SUMS.txt 提供安装包校验值。发布流程验证构建和打包后的启动器；完整类型与测试检查需在提交前本地执行。
           EOF
           if ! gh release view "$TAG" > /dev/null 2>&1; then
             gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes-file release/notes.md --draft
