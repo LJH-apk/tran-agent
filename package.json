@@ -6,11 +6,11 @@
   "author": "claude-code-best <claude-code-best@proton.me>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/claude-code-best/claude-code.git"
+    "url": "git+https://github.com/LJH-apk/tran-agent.git"
   },
-  "homepage": "https://github.com/claude-code-best/claude-code#readme",
+  "homepage": "https://github.com/LJH-apk/tran-agent#readme",
   "bugs": {
-    "url": "https://github.com/claude-code-best/claude-code/issues"
+    "url": "https://github.com/LJH-apk/tran-agent/issues"
   },
   "keywords": [
     "tran",
