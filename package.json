@@ -67,6 +67,8 @@
     "postinstall": "node scripts/run-parallel.mjs scripts/postinstall.cjs scripts/setup-chrome-mcp.mjs",
     "docs:dev": "npx mintlify dev",
     "typecheck": "tsc --noEmit",
+    "benchmark": "bun run src/benchmark/run.ts",
+    "benchmark:test": "bun test src/benchmark/__tests__",
     "precheck": "bun run typecheck && bun run check:fix && bun test",
     "rcs": "bun run scripts/rcs.ts"
   },

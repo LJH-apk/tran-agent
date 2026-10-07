@@ -1,0 +1,265 @@
+{
+  "sourceSha256": "31b55036a7fcd3bef39b3b099db546348f97abd5b8f5e680c4e3907ba21824c9",
+  "entries": [
+    {
+      "taskId": "T02",
+      "answerPatch": {
+        "scope": [
+          "A",
+          "B",
+          "C"
+        ],
+        "objective": "delay"
+      },
+      "notes": [
+        "scope写为corridor，解释明确包含A/B/C；objective明确为降低走廊平均延误。原题未定义字段类型和枚举，按已有解释归一。"
+      ]
+    },
+    {
+      "taskId": "T05",
+      "answerPatch": {
+        "conflict": true
+      },
+      "notes": [
+        "conflict给出requestedCycleBelowMinimum，解释说明50秒低于60秒最低周期；feasible=false、最低值正确，归一为布尔值。"
+      ]
+    },
+    {
+      "taskId": "T07",
+      "answerPatch": {
+        "normalizedDelay": [
+          30,
+          20
+        ]
+      },
+      "notes": [
+        "解释中A=30秒、B=20秒均正确；归一字段后仍失败：第一次Write提交后又执行工具并重写答案，违反明确停止条件。"
+      ]
+    },
+    {
+      "taskId": "T08",
+      "answerPatch": {
+        "oldDataRole": "reference"
+      },
+      "notes": [
+        "选择新数据正确；将旧数据标为stale并说明不用于当前决策。原题未定义reference枚举，按历史参考语义归一。"
+      ]
+    },
+    {
+      "taskId": "T09",
+      "answerPatch": {
+        "needsVerification": true
+      },
+      "notes": [
+        "needsVerification列出downstream_blockage待核实，表达确有核验需求；原题未声明布尔类型，归一。"
+      ]
+    },
+    {
+      "taskId": "T13",
+      "answerPatch": {
+        "reasonCode": "downstream_spillback"
+      },
+      "notes": [
+        "accept=false，理由为DOWNSTREAM_OVERFLOW，解释明确下游溢出约束；按同义原因归一。"
+      ]
+    },
+    {
+      "taskId": "T18",
+      "answerPatch": {
+        "cause": "downstream_blockage",
+        "nextCheck": "downstream_capacity"
+      },
+      "notes": [
+        "cause=downstream-blocked、nextCheck=downstream-exits，解释明确检查下游出口和容量，归一同义表达。"
+      ]
+    },
+    {
+      "taskId": "T21",
+      "answerPatch": {
+        "applied": true
+      },
+      "notes": [
+        "applied写为p1；工具成功应用且status读回p1，实际行为正确；原题未声明布尔类型。"
+      ]
+    },
+    {
+      "taskId": "T25",
+      "notes": [
+        "原题已经提供执行所需数据或历史，工具轨迹满足后续有效依赖；撤销未公开且无必要的强制初始read。"
+      ]
+    },
+    {
+      "taskId": "T26",
+      "notes": [
+        "原题已经提供执行所需数据或历史，工具轨迹满足后续有效依赖；撤销未公开且无必要的强制初始read。"
+      ]
+    },
+    {
+      "taskId": "T35",
+      "notes": [
+        "原题已经提供执行所需数据或历史，工具轨迹满足后续有效依赖；撤销未公开且无必要的强制初始read。"
+      ]
+    },
+    {
+      "taskId": "T39",
+      "notes": [
+        "原题已经提供执行所需数据或历史，工具轨迹满足后续有效依赖；撤销未公开且无必要的强制初始read。"
+      ]
+    },
+    {
+      "taskId": "T55",
+      "notes": [
+        "原题已经提供执行所需数据或历史，工具轨迹满足后续有效依赖；撤销未公开且无必要的强制初始read。"
+      ]
+    },
+    {
+      "taskId": "T28",
+      "notes": [
+        "先有一次失败apply；两个成功apply之间存在status核验配置漂移。原验收器把失败apply当作第一次配置变更，现只检查成功apply。"
+      ]
+    },
+    {
+      "taskId": "T30",
+      "notes": [
+        "先分别validate两个候选，再分别simulate；每个候选都有有效前置验证，原验收器错误要求所有候选串行。"
+      ]
+    },
+    {
+      "taskId": "T40",
+      "answerPatch": {
+        "stopReason": "insufficient_gain"
+      },
+      "notes": [
+        "独立候选可先全部validate再simulate；p3改善1.25%低于3%阈值，benefitBelowThreshold与insufficient_gain同义，p1选择正确。"
+      ]
+    },
+    {
+      "taskId": "T41",
+      "answerPatch": {
+        "priority": "B"
+      },
+      "notes": [
+        "priority输出完整排序B/C/A，最高优先级B正确；子任务3/3通过，原题未要求priority只能是单个字符串。"
+      ]
+    },
+    {
+      "taskId": "T42",
+      "childrenPatch": {
+        "review": {
+          "reasonCode": "queue_limit"
+        }
+      },
+      "notes": [
+        "review子任务拒绝方案且解释queue25超过上限20；QUEUE_EXCEEDED为同义枚举。"
+      ]
+    },
+    {
+      "taskId": "T43",
+      "pending": true,
+      "pendingChildren": [
+        "delay"
+      ],
+      "notes": [
+        "主Agent最终p1满足队列约束；delay子任务按完整约束选择p1，但旧预期要求忽略队列选择p2，题干未明确忽略哪些约束。主任务及delay子任务待定。"
+      ]
+    },
+    {
+      "taskId": "T46",
+      "answerPatch": {
+        "cause": "downstream_blockage"
+      },
+      "childrenPatch": {
+        "diagnosis": {
+          "cause": "downstream_blockage"
+        }
+      },
+      "notes": [
+        "主任务及diagnosis均给出downstreamBlocked，诊断证据和其他字段正确，归一同义原因。"
+      ]
+    },
+    {
+      "taskId": "T47",
+      "childrenPatch": {
+        "audit": {
+          "violations": [
+            "cycle",
+            "pedestrian"
+          ]
+        }
+      },
+      "notes": [
+        "audit以对象列出cycleRange=40及minPedestrian=5两项违例，数值和判断正确；归一为规则名字数组。"
+      ]
+    },
+    {
+      "taskId": "T48",
+      "pending": true,
+      "pendingChildren": [
+        "design"
+      ],
+      "childrenPatch": {
+        "diagnosis": {
+          "cause": "downstream_blockage"
+        }
+      },
+      "notes": [
+        "diagnosis=downstream_blocked语义正确。旧题未定义设计动作，模拟器p1承诺延误和队列改善却存在物理出口阻塞；switch_plan是否合格不能唯一判定，主任务及design待定。"
+      ]
+    },
+    {
+      "taskId": "T49",
+      "answerPatch": {
+        "coverage": [
+          "A",
+          "B",
+          "C"
+        ],
+        "priority": "C"
+      },
+      "notes": [
+        "子任务覆盖A/B/C、最严重分支C=95均正确；coverage=complete与priority=high类型不明确，按答案解释中的完整覆盖及重点C归一。"
+      ]
+    },
+    {
+      "taskId": "T50",
+      "childrenPatch": {
+        "network": {
+          "reasonCode": "downstream_spillback"
+        }
+      },
+      "notes": [
+        "network拒绝p2，原因DOWNSTREAM_BLOCKED且解释下游阻塞；归一同义原因。"
+      ]
+    },
+    {
+      "taskId": "T58",
+      "pending": true,
+      "notes": [
+        "已识别负排队异常并重新读取正确数据，selected=p0表示currentPlan；原题没规定selected必须是最小延误推荐方案，不能据此确认Agent选择错误。"
+      ]
+    },
+    {
+      "taskId": "T59",
+      "answerPatch": {
+        "cause": "downstream_blockage"
+      },
+      "childrenPatch": {
+        "replacement": {
+          "cause": "downstream_blockage"
+        }
+      },
+      "notes": [
+        "replacement及主任务downstream_blocked诊断正确，故障记录已标自主恢复；归一后子任务通过，撤销由未公开枚举造成的FRR失败。"
+      ]
+    },
+    {
+      "taskId": "T60",
+      "answerPatch": {
+        "needs": "restore_data_source"
+      },
+      "notes": [
+        "正确报告blocked，并说明至少恢复主或备用数据源之一；needs自由文本与restore_data_source同义。"
+      ]
+    }
+  ]
+}
