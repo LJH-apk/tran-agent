@@ -1,0 +1,95 @@
+name: Release Tran Agent
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-tran
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.repository == 'LJH-apk/tran-agent' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLAUDE_CODE_SKIP_CHROME_MCP_SETUP: "1"
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: "24"
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: "1.3.14"
+
+      - name: Install dependencies and ripgrep
+        run: |
+          bun install --frozen-lockfile
+          node scripts/postinstall.cjs
+          test -x src/utils/vendor/ripgrep/x64-linux/rg
+
+      - name: Build and check launcher
+        run: |
+          bun run build
+          bun dist/tran.js --version
+
+      - name: Pack and verify distribution
+        id: package
+        run: |
+          mkdir -p release
+          npm pack --ignore-scripts --pack-destination release
+          PACKAGE="$(find release -maxdepth 1 -name 'tran-agent-*.tgz' -printf '%f\n')"
+          test -n "$PACKAGE"
+          mkdir -p "$RUNNER_TEMP/tran-package-check"
+          tar -xzf "release/$PACKAGE" -C "$RUNNER_TEMP/tran-package-check"
+          bun "$RUNNER_TEMP/tran-package-check/package/dist/tran.js" --version
+          node -e 'const p = require(process.env.RUNNER_TEMP + "/tran-package-check/package/package.json"); if (p.name !== "tran-agent" || p.bin.tran !== "dist/tran.js") process.exit(1)'
+          (cd release && sha256sum "$PACKAGE" > SHA256SUMS.txt)
+          echo "filename=$PACKAGE" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p 'require("./package.json").version')" >> "$GITHUB_OUTPUT"
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PACKAGE: ${{ steps.package.outputs.filename }}
+          VERSION: ${{ steps.package.outputs.version }}
+        run: |
+          TAG="build-${GITHUB_RUN_ID}"
+          TITLE="Tran Agent ${VERSION} · 自动构建 #${GITHUB_RUN_NUMBER}"
+          cat > release/notes.md <<EOF
+          此安装包由 main 分支自动构建。
+
+          源码提交：${GITHUB_SHA}
+          构建记录：https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          先安装 Bun 1.3 或更新版本，下载 ${PACKAGE} 后执行：
+
+          \`\`\`sh
+          npm install -g ./${PACKAGE}
+          tran
+          \`\`\`
+
+          也可直接安装最新自动构建：
+
+          \`\`\`sh
+          npm install -g https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/${PACKAGE}
+          \`\`\`
+
+          附件 SHA256SUMS.txt 提供安装包校验值。发布流程验证构建和打包后的启动器；完整类型与测试检查仍由 CI 执行。
+          EOF
+          if ! gh release view "$TAG" > /dev/null 2>&1; then
+            gh release create "$TAG" --target "$GITHUB_SHA" --title "$TITLE" --notes-file release/notes.md --draft
+          fi
+          gh release upload "$TAG" "release/$PACKAGE" release/SHA256SUMS.txt --clobber
+          gh release edit "$TAG" --title "$TITLE" --notes-file release/notes.md --draft=false --latest
+          echo "发布完成：https://github.com/${GITHUB_REPOSITORY}/releases/tag/${TAG}" >> "$GITHUB_STEP_SUMMARY"
