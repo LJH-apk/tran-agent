@@ -226,11 +226,19 @@ function StatsContent({ allTimePromise, onClose, embedded }: StatsContentProps):
     return (
       <Box flexDirection="column" gap={1}>
         <Box gap={2}>
-          <Text bold={activeTab === 'Overview'} color={activeTab === 'Overview' ? 'claude' : undefined}>
-            概览
+          <Text
+            bold={activeTab === 'Overview'}
+            backgroundColor={activeTab === 'Overview' ? 'claude' : undefined}
+            color={activeTab === 'Overview' ? 'inverseText' : undefined}
+          >
+            {' 概览 '}
           </Text>
-          <Text bold={activeTab === 'Models'} color={activeTab === 'Models' ? 'claude' : undefined}>
-            模型
+          <Text
+            bold={activeTab === 'Models'}
+            backgroundColor={activeTab === 'Models' ? 'claude' : undefined}
+            color={activeTab === 'Models' ? 'inverseText' : undefined}
+          >
+            {' 模型 '}
           </Text>
         </Box>
         {activeTab === 'Overview' ? (
